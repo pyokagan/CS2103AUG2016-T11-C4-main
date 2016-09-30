@@ -125,20 +125,20 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         return new Iterator<E>() {
             private final Iterator<? extends E> i = backingList.iterator();
 
-            public final boolean hasNext() {
+            public boolean hasNext() {
                 return i.hasNext();
             }
 
-            public final E next() {
+            public E next() {
                 return i.next();
             }
 
-            public final void remove() {
+            public void remove() {
                 throw new UnsupportedOperationException();
             }
 
             @Override
-            public final void forEachRemaining(Consumer<? super E> action) {
+            public void forEachRemaining(Consumer<? super E> action) {
                 // Use backing collection version
                 i.forEachRemaining(action);
             }
@@ -256,44 +256,44 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         return new ListIterator<E>() {
             private final ListIterator<? extends E> i = backingList.listIterator(index);
 
-            public final boolean hasNext() {
+            public boolean hasNext() {
                 return i.hasNext();
             }
 
-            public final E next() {
+            public E next() {
                 return i.next();
             }
 
-            public final boolean hasPrevious() {
+            public boolean hasPrevious() {
                 return i.hasPrevious();
             }
 
-            public final E previous() {
+            public E previous() {
                 return i.previous();
             }
 
-            public final int nextIndex() {
+            public int nextIndex() {
                 return i.nextIndex();
             }
 
-            public final int previousIndex() {
+            public int previousIndex() {
                 return i.previousIndex();
             }
 
-            public final void remove() {
+            public void remove() {
                 throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
             }
 
-            public final void set(E e) {
+            public void set(E e) {
                 throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
             }
 
-            public final void add(E e) {
+            public void add(E e) {
                 throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
             }
 
             @Override
-            public final void forEachRemaining(Consumer<? super E> action) {
+            public void forEachRemaining(Consumer<? super E> action) {
                 i.forEachRemaining(action);
             }
         };
