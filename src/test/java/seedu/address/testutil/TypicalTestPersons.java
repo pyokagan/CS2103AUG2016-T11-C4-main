@@ -10,7 +10,23 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class TypicalTestPersons {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestPerson alice;
+
+    public static TestPerson benson;
+
+    public static TestPerson carl;
+
+    public static TestPerson daniel;
+
+    public static TestPerson elle;
+
+    public static TestPerson fiona;
+
+    public static TestPerson george;
+
+    public static TestPerson hoon;
+
+    public static TestPerson ida;
 
     public TypicalTestPersons() {
         try {
