@@ -27,7 +27,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void selectPerson_emptyList(){
+    public void selectPerson_emptyList() {
         commandBox.runCommand("clear");
         assertListSize(0);
         assertSelectionInvalid(1); //invalid index
@@ -40,14 +40,14 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Person: "+index);
+        assertResultMessage("Selected Person: " + index);
         assertPersonSelected(index);
     }
 
     private void assertPersonSelected(int index) {
         assertEquals(personListPanel.getSelectedPersons().size(), 1);
         ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);
-        assertEquals(personListPanel.getPerson(index-1), selectedPerson);
+        assertEquals(personListPanel.getPerson(index - 1), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 

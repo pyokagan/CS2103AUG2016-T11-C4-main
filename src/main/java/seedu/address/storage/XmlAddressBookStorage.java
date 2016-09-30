@@ -20,11 +20,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     private String filePath;
 
-    public XmlAddressBookStorage(String filePath){
+    public XmlAddressBookStorage(String filePath) {
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getAddressBookFilePath() {
         return filePath;
     }
 
@@ -39,7 +39,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         File addressBookFile = new File(filePath);
 
         if (!addressBookFile.exists()) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+            logger.info("AddressBook file " + addressBookFile + " not found");
             return Optional.empty();
         }
 

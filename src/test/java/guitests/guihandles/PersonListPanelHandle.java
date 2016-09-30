@@ -52,7 +52,7 @@ public class PersonListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        Point2D point = TestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
@@ -63,13 +63,13 @@ public class PersonListPanelHandle extends GuiHandle {
         List<ReadOnlyPerson> personsInList = getListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
-        if (startPosition + persons.length > personsInList.size()){
+        if (startPosition + persons.length > personsInList.size()) {
             return false;
         }
 
         // Return false if any of the persons doesn't match
         for (int i = 0; i < persons.length; i++) {
-            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)){
+            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)) {
                 return false;
             }
         }
@@ -132,7 +132,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public int getPersonIndex(ReadOnlyPerson targetPerson) {
         List<ReadOnlyPerson> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
-            if(personsInList.get(i).getName().equals(targetPerson.getName())){
+            if (personsInList.get(i).getName().equals(targetPerson.getName())) {
                 return i;
             }
         }

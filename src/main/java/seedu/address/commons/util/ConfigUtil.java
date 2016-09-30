@@ -29,7 +29,7 @@ public class ConfigUtil {
         File configFile = new File(configFilePath);
 
         if (!configFile.exists()) {
-            logger.info("Config file "  + configFile + " not found");
+            logger.info("Config file " + configFile + " not found");
             return Optional.empty();
         }
 

@@ -185,7 +185,7 @@ public class TestUtil {
                 .collect(Collectors.joining("\n"));
     }
 
-    public static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException, IllegalAccessException{
+    public static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException, IllegalAccessException {
         field.setAccessible(true);
         // remove final modifier from field
         Field modifiersField = Field.class.getDeclaredField("modifiers");
@@ -291,7 +291,7 @@ public class TestUtil {
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
     public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat - 1]);
     }
 
     /**
@@ -320,7 +320,7 @@ public class TestUtil {
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
-        for(T obj : objs) {
+        for (T obj : objs) {
             list.add(obj);
         }
         return list;

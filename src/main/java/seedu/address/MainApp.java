@@ -64,7 +64,7 @@ public class MainApp extends Application {
         initEventsCenter();
     }
 
-    private String getApplicationParameter(String parameterName){
+    private String getApplicationParameter(String parameterName) {
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
     }
@@ -74,7 +74,7 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
-            if(!addressBookOptional.isPresent()){
+            if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }
             initialData = addressBookOptional.orElse(new AddressBook());
@@ -99,7 +99,7 @@ public class MainApp extends Application {
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        if(configFilePath != null) {
+        if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }

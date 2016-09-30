@@ -13,13 +13,13 @@ import java.util.logging.Logger;
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonUserPrefsStorage implements UserPrefsStorage{
+public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonUserPrefsStorage.class);
 
     private String filePath;
 
-    public JsonUserPrefsStorage(String filePath){
+    public JsonUserPrefsStorage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -44,7 +44,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
         File prefsFile = new File(prefsFilePath);
 
         if (!prefsFile.exists()) {
-            logger.info("Prefs file "  + prefsFile + " not found");
+            logger.info("Prefs file " + prefsFile + " not found");
             return Optional.empty();
         }
 
