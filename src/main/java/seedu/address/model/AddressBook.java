@@ -44,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new AddressBook();
     }
 
-//// list overwrite operations
+    //// list overwrite operations
 
     public ObservableList<Person> getPersons() {
         return persons.getInternalList();
@@ -67,7 +67,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(newData.getPersonList(), newData.getTagList());
     }
 
-//// person-level operations
+    //// person-level operations
 
     /**
      * Adds a person to the address book.
@@ -112,13 +112,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-//// tag-level operations
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
