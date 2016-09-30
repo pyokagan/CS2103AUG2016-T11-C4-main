@@ -71,11 +71,11 @@ public class Version implements Comparable<Version> {
 
     @Override
     public int compareTo(Version other) {
-        return this.major != other.major ? this.major - other.major :
-               this.minor != other.minor ? this.minor - other.minor :
-               this.patch != other.patch ? this.patch - other.patch :
-               this.isEarlyAccess == other.isEarlyAccess() ? 0 :
-               this.isEarlyAccess ? -1 : 1;
+        return this.major != other.major ? this.major - other.major
+               : this.minor != other.minor ? this.minor - other.minor
+               : this.patch != other.patch ? this.patch - other.patch
+               : this.isEarlyAccess == other.isEarlyAccess() ? 0
+               : this.isEarlyAccess ? -1 : 1;
     }
 
     @Override
