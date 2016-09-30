@@ -1,19 +1,20 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
-import seedu.address.logic.Logic;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
+import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.address.commons.util.FxViewUtil;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
