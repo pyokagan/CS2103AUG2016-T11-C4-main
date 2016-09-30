@@ -48,6 +48,28 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
+     * Returns true if the list is showing the person details correctly and in correct order.
+     * @param startPosition The starting position of the sub list.
+     * @param persons A list of person in the correct order.
+     */
+    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) throws IllegalArgumentException {
+        if (persons.length + startPosition != getListView().getItems().size()) {
+            throw new IllegalArgumentException("List size mismatched\n"
+                    + "Expected " + (getListView().getItems().size() - 1) + " persons");
+        }
+        assertTrue(this.containsInOrder(startPosition, persons));
+        for (int i = 0; i < persons.length; i++) {
+            final int scrollTo = i + startPosition;
+            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+            guiRobot.sleep(200);
+            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Clicks on the ListView.
      */
     public void clickOnListView() {
@@ -73,28 +95,6 @@ public class PersonListPanelHandle extends GuiHandle {
             }
         }
 
-        return true;
-    }
-
-    /**
-     * Returns true if the list is showing the person details correctly and in correct order.
-     * @param startPosition The starting position of the sub list.
-     * @param persons A list of person in the correct order.
-     */
-    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) throws IllegalArgumentException {
-        if (persons.length + startPosition != getListView().getItems().size()) {
-            throw new IllegalArgumentException("List size mismatched\n"
-                    + "Expected " + (getListView().getItems().size() - 1) + " persons");
-        }
-        assertTrue(this.containsInOrder(startPosition, persons));
-        for (int i = 0; i < persons.length; i++) {
-            final int scrollTo = i + startPosition;
-            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
-            guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
-                return false;
-            }
-        }
         return true;
     }
 

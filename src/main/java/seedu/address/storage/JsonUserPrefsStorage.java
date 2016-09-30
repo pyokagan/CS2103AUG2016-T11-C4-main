@@ -28,11 +28,6 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         return readUserPrefs(filePath);
     }
 
-    @Override
-    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
-        saveUserPrefs(userPrefs, filePath);
-    }
-
     /**
      * Similar to {@link #readUserPrefs()}
      * @param prefsFilePath location of the data. Cannot be null.
@@ -58,6 +53,11 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         }
 
         return Optional.of(prefs);
+    }
+
+    @Override
+    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
+        saveUserPrefs(userPrefs, filePath);
     }
 
     /**
