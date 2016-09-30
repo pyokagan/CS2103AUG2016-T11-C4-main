@@ -48,5 +48,4 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
-
 }

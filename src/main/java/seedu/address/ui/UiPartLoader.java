@@ -50,7 +50,6 @@ public class UiPartLoader {
         return seedUiPart;
     }
 
-
     private static Node loadLoader(FXMLLoader loader, String fxmlFileName) {
         try {
             return loader.load();

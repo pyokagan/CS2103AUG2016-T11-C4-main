@@ -17,7 +17,6 @@ public class Config {
     private String addressBookFilePath = "data/addressbook.xml";
     private String addressBookName = "MyAddressBook";
 
-
     public Config() {
     }
 
@@ -60,7 +59,6 @@ public class Config {
     public void setAddressBookName(String addressBookName) {
         this.addressBookName = addressBookName;
     }
-
 
     @Override
     public boolean equals(Object other) {

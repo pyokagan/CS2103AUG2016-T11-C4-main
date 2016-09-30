@@ -117,7 +117,6 @@ public class LogicManagerTest {
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
-
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
@@ -144,7 +143,6 @@ public class LogicManagerTest {
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
     }
-
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
@@ -207,7 +205,6 @@ public class LogicManagerTest {
                 expectedAB.getPersonList());
 
     }
-
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -285,7 +282,6 @@ public class LogicManagerTest {
         assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
     }
 
-
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -311,7 +307,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getPersonList());
     }
-
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {

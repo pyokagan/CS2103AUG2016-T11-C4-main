@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -100,6 +99,5 @@ public class XmlAddressBookStorageTest {
         thrown.expect(AssertionError.class);
         saveAddressBook(new AddressBook(), null);
     }
-
 
 }

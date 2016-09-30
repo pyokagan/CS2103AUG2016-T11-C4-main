@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,17 +25,14 @@ public class StorageManagerTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-
     @Before
     public void setup() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 
-
     private String getTempFilePath(String fileName) {
         return testFolder.getRoot().getPath() + fileName;
     }
-
 
     /*
      * Note: This is an integration test that verifies the StorageManager is properly wired to the
@@ -91,6 +87,5 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-
 
 }

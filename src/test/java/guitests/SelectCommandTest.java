@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 
 public class SelectCommandTest extends AddressBookGuiTest {
 
-
     @Test
     public void selectPerson_nonEmptyList() {
 

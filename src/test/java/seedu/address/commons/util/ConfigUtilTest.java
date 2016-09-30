@@ -1,6 +1,5 @@
 package seedu.address.commons.util;
 
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -128,6 +127,5 @@ public class ConfigUtilTest {
                                   ? TEST_DATA_FOLDER + configFileInTestDataFolder
                                   : null;
     }
-
 
 }

@@ -61,7 +61,6 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-
     public MainWindow() {
         super();
     }

@@ -102,6 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Expression {
         boolean satisfies(ReadOnlyPerson person);
+
         String toString();
     }
 
@@ -126,6 +127,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyPerson person);
+
         String toString();
     }
 
