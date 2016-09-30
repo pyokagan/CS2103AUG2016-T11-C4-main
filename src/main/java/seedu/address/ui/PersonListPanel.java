@@ -89,7 +89,7 @@ public class PersonListPanel extends UiPart {
 
     class PersonListViewCell extends ListCell<ReadOnlyPerson> {
 
-        public PersonListViewCell() {
+        PersonListViewCell() {
         }
 
         @Override
