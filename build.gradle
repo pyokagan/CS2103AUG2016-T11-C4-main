@@ -7,6 +7,7 @@
 
 plugins {
     id 'java'
+    id 'application'
     id 'jacoco'
     id 'checkstyle'
     id 'com.github.kt3k.coveralls' version '2.4.0'
@@ -22,6 +23,7 @@ repositories {
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
+mainClassName = 'seedu.address.MainApp'
 ext {
     if (!has('headless'))
         headless = 'false'
@@ -46,11 +48,6 @@ dependencies {
 
 shadowJar {
     archiveName = "addressbook.jar"
-
-    manifest {
-        attributes "Main-Class": "seedu.address.MainApp"
-    }
-
     destinationDir = file("${buildDir}/jar/")
 }
 
@@ -87,5 +84,9 @@ jacocoTestReport {
 }
 
 tasks.coveralls.dependsOn jacocoTestReport
+
+artifacts {
+    archives shadowJar
+}
 
 defaultTasks 'build'
