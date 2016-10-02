@@ -283,6 +283,10 @@
     -fx-text-fill: #F70D1A;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#personList {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#filterField, #personListView {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }

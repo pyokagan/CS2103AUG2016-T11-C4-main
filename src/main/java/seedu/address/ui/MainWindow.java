@@ -12,7 +12,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -26,7 +25,6 @@ public class MainWindow extends UiPart<Scene> {
     public static final int MIN_WIDTH = 450;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private CommandBox commandBox;
@@ -34,9 +32,6 @@ public class MainWindow extends UiPart<Scene> {
     // Handles to elements of this Ui container
     @FXML
     private VBox rootLayout;
-
-    @FXML
-    private AnchorPane browserPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -70,8 +65,6 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     void fillInnerParts(Logic logic) {
-        browserPanel = new BrowserPanel(primaryStage);
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
         personListPanel = new TaskListPanel(primaryStage, logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay(primaryStage);
@@ -131,11 +124,4 @@ public class MainWindow extends UiPart<Scene> {
         return this.personListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
 }
