@@ -11,6 +11,10 @@ src/test/data/sandbox/
 preferences.json
 .DS_Store
 ./screenshot*.png
-classes/
 /data/
+
+# Eclipse project files
 /bin/
+/.project
+/.classpath
+/.settings/
