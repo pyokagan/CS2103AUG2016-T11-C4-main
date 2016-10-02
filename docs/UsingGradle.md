@@ -49,24 +49,18 @@ If we package only our own class files into the JAR file, it will not work prope
 
 ## Running Tests
 
-* **`allTests`**<br>
-  Runs all tests.
+The following project properties control test execution:
 
-* **`guiTests`**<br>
-  Runs all tests in the `guitests` package
-  
-* **`nonGuiTests`**<br>
-  Runs all non-GUI tests in the `seedu.address` package
-  
-* **`headless`**<br>
-  Sets the test mode as _headless_. 
-  The mode is effective for that Gradle run only so it should be combined with other test tasks.
-  
+* `headless` -- Run tests in headless mode (default: `false`)
+
+* `guiTests` -- Run GUI tests (default: `true`)
+
 Here are some examples:
 
-* `./gradlew headless allTests` -- Runs all tests in headless mode
-* `./gradlew clean nonGuiTests` -- Cleans the project and runs non-GUI tests
+* `./gradlew -Pheadless=true test` -- Runs all tests in headless mode.
 
+* `./gradlew -PguiTests=false clean test` -- Clean the project and runs only
+  non-GUI tests.
 
 ## Updating Dependencies
 

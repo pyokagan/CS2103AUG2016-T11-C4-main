@@ -22,13 +22,11 @@ repositories {
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
-
-jacocoTestReport {
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.destination "${buildDir}/jacocoHtml"
-    }
+ext {
+    if (!has('headless'))
+        headless = 'false'
+    if (!has('guiTests'))
+        guiTests = 'true'
 }
 
 dependencies {
@@ -60,80 +58,34 @@ checkstyle {
     toolVersion = '7.1'
 }
 
-task coverage(type: JacocoReport) {
-    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(allprojects.sourceSets.main.output)
-    executionData = files(allprojects.jacocoTestReport.executionData)
-    afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/*.jar'])
-        })
-    }
-    reports {
-        html.enabled = true
-        xml.enabled = true
-    }
-}
+test {
+    forkEvery = 1
+    systemProperty 'testfx.setup.timeout', '60000'
+    testLogging.exceptionFormat = 'full'
 
-coveralls {
-    sourceDirs = allprojects.sourceSets.main.allSource.srcDirs.flatten()
-    jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
-}
-
-tasks.coveralls {
-    dependsOn coverage
-    onlyIf { System.env.'CI' }
-}
-
-class AddressBookTest extends Test {
-    public AddressBookTest() {
-        forkEvery = 1
-        systemProperty 'testfx.setup.timeout', '60000'
-    }
-
-    public void setHeadless() {
-        systemProperty 'java.awt.robot', 'true'
-        systemProperty 'testfx.robot', 'glass'
-        systemProperty 'testfx.headless', 'true'
-        systemProperty 'prism.order', 'sw'
-        systemProperty 'prism.text', 't2k'
-    }
-}
-
-task guiTests(type: AddressBookTest) {
-    include 'guitests/**'
-
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
-}
-
-
-task nonGuiTests(type: AddressBookTest) {
     include 'seedu/address/**'
+    if (guiTests == 'true')
+        include 'guitests/**'
 
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    beforeTest { descriptor ->
+        if (headless == 'true') {
+            systemProperty 'java.awt.robot', 'true'
+            systemProperty 'testfx.robot', 'glass'
+            systemProperty 'testfx.headless', 'true'
+            systemProperty 'prism.order', 'sw'
+            systemProperty 'prism.text', 't2k'
+        }
     }
 }
 
-// Test mode depends on whether headless task has been run
-task allTests(type: AddressBookTest) {
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
+jacocoTestReport {
+    reports {
+        html.enabled true
+        xml.enabled true
+        csv.enabled false
     }
 }
 
-task headless << {
-    println "Setting headless mode properties."
-    guiTests.setHeadless()
-    nonGuiTests.setHeadless()
-    allTests.setHeadless()
-}
+tasks.coveralls.dependsOn jacocoTestReport
 
-// Makes sure that headless properties are set before running tests
-nonGuiTests.mustRunAfter headless
-guiTests.mustRunAfter headless
-allTests.mustRunAfter headless
-
-defaultTasks 'clean', 'headless', 'allTests', 'coverage'
+defaultTasks 'build'
