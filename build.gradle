@@ -74,10 +74,6 @@ checkstyle {
     toolVersion = '7.1'
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
-}
-
 task coverage(type: JacocoReport) {
     sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs)
     classDirectories =  files(allprojects.sourceSets.main.output)
