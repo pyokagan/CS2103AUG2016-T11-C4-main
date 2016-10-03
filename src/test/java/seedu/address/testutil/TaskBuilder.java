@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Address;
 import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Phone;
@@ -27,11 +26,6 @@ public class TaskBuilder {
         for (String tag: tags) {
             person.getTags().add(new Tag(tag));
         }
-        return this;
-    }
-
-    public TaskBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
         return this;
     }
 
