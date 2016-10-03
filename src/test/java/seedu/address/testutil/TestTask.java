@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Phone;
 import seedu.address.model.task.ReadOnlyTask;
@@ -12,7 +11,6 @@ import seedu.address.model.task.ReadOnlyTask;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Email email;
     private Phone phone;
     private UniqueTagList tags;
 
@@ -22,10 +20,6 @@ public class TestTask implements ReadOnlyTask {
 
     public void setName(Name name) {
         this.name = name;
-    }
-
-    public void setEmail(Email email) {
-        this.email = email;
     }
 
     public void setPhone(Phone phone) {
@@ -43,11 +37,6 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
     public UniqueTagList getTags() {
         return tags;
     }
@@ -61,7 +50,6 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

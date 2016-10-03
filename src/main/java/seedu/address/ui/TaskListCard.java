@@ -18,8 +18,6 @@ public class TaskListCard extends UiPart<HBox> {
     @FXML
     private Label phone;
     @FXML
-    private Label email;
-    @FXML
     private Label tags;
 
     public TaskListCard(ReadOnlyTask person, int displayedIndex) {
@@ -27,7 +25,6 @@ public class TaskListCard extends UiPart<HBox> {
         name.setText(person.getName().fullName);
         id.setText(displayedIndex + ". ");
         phone.setText(person.getPhone().value);
-        email.setText(person.getEmail().value);
         tags.setText(person.tagsString());
     }
 }
