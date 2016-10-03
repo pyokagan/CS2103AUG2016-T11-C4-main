@@ -1,53 +1,24 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
-import javafx.event.Event;
-import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
+import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
-import seedu.address.commons.core.LogsCenter;
+import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart {
+public class BrowserPanel extends UiPart<WebView> {
 
-    private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
+    private static String FXML = "/view/BrowserPanel.fxml";
+
+    @FXML
     private WebView browser;
 
-    /**
-     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
-     */
-    private BrowserPanel() {
-
-    }
-
-    @Override
-    public void setNode(Node node) {
-        //not applicable
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return null; //not applicable
-    }
-
-    /**
-     * Factory method for creating a Browser Panel.
-     * This method should be called after the FX runtime is initialized and in FX application thread.
-     * @param placeholder The AnchorPane where the BrowserPanel must be inserted
-     */
-    public static BrowserPanel load(AnchorPane placeholder) {
-        logger.info("Initializing browser");
-        BrowserPanel browserPanel = new BrowserPanel();
-        browserPanel.browser = new WebView();
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
-        FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);
-        placeholder.getChildren().add(browserPanel.browser);
-        return browserPanel;
+    public BrowserPanel(Stage primaryStage) {
+        super(FXML, primaryStage);
+        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
     }
 
     public void loadPersonPage(ReadOnlyPerson person) {

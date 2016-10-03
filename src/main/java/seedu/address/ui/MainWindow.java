@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
@@ -19,29 +18,22 @@ import seedu.address.model.person.ReadOnlyPerson;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart {
+public class MainWindow extends UiPart<Scene> {
 
     private static final String ICON = "/images/address_book_32.png";
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "/view/MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
-
-    private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
-    private Config config;
-    private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
+    @FXML
     private VBox rootLayout;
-    private Scene scene;
-
-    private String addressBookName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -61,44 +53,15 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-    public MainWindow() {
-        super();
-    }
-
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
-        return mainWindow;
-    }
-
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           Logic logic) {
-
-        //Set dependencies
-        this.logic = logic;
-        this.addressBookName = addressBookName;
-        this.config = config;
-        this.userPrefs = prefs;
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+        super(FXML, primaryStage);
 
         //Configure the UI
-        setTitle(appTitle);
+        setTitle(config.getAppTitle());
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
-        scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);
-
+        fillInnerParts(logic);
         setAccelerators();
     }
 
@@ -106,28 +69,15 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-    void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
-    }
-
-    private AnchorPane getCommandBoxPlaceholder() {
-        return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
-    }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
-    }
-
-    public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+    void fillInnerParts(Logic logic) {
+        browserPanel = new BrowserPanel(primaryStage);
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        personListPanel = new PersonListPanel(primaryStage, logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        resultDisplay = new ResultDisplay(primaryStage);
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        commandBox = new CommandBox(primaryStage, resultDisplay, logic);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     public void hide() {
@@ -165,12 +115,8 @@ public class MainWindow extends UiPart {
 
     @FXML
     public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
+        final HelpWindow helpWindow = new HelpWindow(primaryStage);
         helpWindow.show();
-    }
-
-    public void show() {
-        primaryStage.show();
     }
 
     /**

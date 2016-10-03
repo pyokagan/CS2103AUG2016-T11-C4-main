@@ -5,8 +5,6 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -16,55 +14,27 @@ import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 
-public class CommandBox extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private static final String FXML = "CommandBox.fxml";
+public class CommandBox extends UiPart<AnchorPane> {
 
-    private AnchorPane placeHolderPane;
-    private AnchorPane commandPane;
-    private ResultDisplay resultDisplay;
+    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
+
+    private static final String FXML = "/view/CommandBox.fxml";
+
+    private final ResultDisplay resultDisplay;
     String previousCommandTest;
 
-    private Logic logic;
+    private final Logic logic;
 
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
-        CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultDisplay, logic);
-        commandBox.addToPlaceholder();
-        return commandBox;
-    }
-
-    public void configure(ResultDisplay resultDisplay, Logic logic) {
+    public CommandBox(Stage primaryStage, ResultDisplay resultDisplay, Logic logic) {
+        super(FXML, primaryStage);
         this.resultDisplay = resultDisplay;
         this.logic = logic;
-        registerAsAnEventHandler(this);
-    }
-
-    private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(commandTextField);
-        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
-    }
-
-    @Override
-    public void setNode(Node node) {
-        commandPane = (AnchorPane) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
     }
 
     @FXML
@@ -80,7 +50,6 @@ public class CommandBox extends UiPart {
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
-
 
     /**
      * Sets the command box style to indicate a correct command.
