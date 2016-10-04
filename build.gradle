@@ -56,7 +56,7 @@ checkstyle {
 }
 
 test {
-    forkEvery = 1
+    forkEvery = 100
     systemProperty 'testfx.setup.timeout', '60000'
     testLogging.exceptionFormat = 'full'
 
