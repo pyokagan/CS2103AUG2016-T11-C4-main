@@ -12,17 +12,15 @@ import seedu.address.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Phone phone;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, tags);
+    public Task(Name name, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
-        this.phone = phone;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -30,17 +28,12 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getTags());
+        this(source.getName(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
     }
 
     @Override
@@ -65,7 +58,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, tags);
+        return Objects.hash(name, tags);
     }
 
     @Override
