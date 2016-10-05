@@ -3,5 +3,5 @@
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
   "taskBookFilePath" : "addressbook.xml",
-  "addressBookName" : "TypicalAddressBookName"
+  "taskBookName" : "TypicalAddressBookName"
 }
