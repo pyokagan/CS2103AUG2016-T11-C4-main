@@ -16,16 +16,16 @@ import seedu.address.model.task.ReadOnlyTask;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<VBox> {
+public class TaskListPanel extends UiPart<VBox> {
 
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     private static final String FXML = "/view/PersonListPanel.fxml";
 
     @FXML
     private ListView<ReadOnlyTask> personListView;
 
-    public PersonListPanel(Stage primaryStage, ObservableList<ReadOnlyTask> personList) {
+    public TaskListPanel(Stage primaryStage, ObservableList<ReadOnlyTask> personList) {
         super(FXML, primaryStage);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
