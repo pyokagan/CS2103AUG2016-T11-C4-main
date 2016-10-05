@@ -7,7 +7,7 @@ import seedu.address.model.task.ReadOnlyTask;
 
 public class TaskListCard extends UiPart<HBox> {
 
-    private static final String FXML = "/view/PersonListCard.fxml";
+    private static final String FXML = "/view/TaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
