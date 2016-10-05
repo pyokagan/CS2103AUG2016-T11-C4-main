@@ -53,7 +53,7 @@ public class StorageManagerTest {
     @Test
     public void addressBookReadSave() throws Exception {
         TaskBook original = new TypicalTestTasks().getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
+        storageManager.saveTaskBook(original);
         ReadOnlyTaskBook retrieved = storageManager.readTaskBook().get();
         assertEquals(original, new TaskBook(retrieved));
         //More extensive testing of TaskBook saving/reading is done in XmlTaskBookStorageTest
@@ -84,7 +84,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
+        public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

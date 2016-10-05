@@ -54,10 +54,10 @@ public class XmlTaskBookStorage implements TaskBookStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyTaskBook)}
+     * Similar to {@link #saveTaskBook(ReadOnlyTaskBook)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
+    public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
         assert addressBook != null;
         assert filePath != null;
 
@@ -67,7 +67,7 @@ public class XmlTaskBookStorage implements TaskBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException {
+        saveTaskBook(addressBook, filePath);
     }
 }

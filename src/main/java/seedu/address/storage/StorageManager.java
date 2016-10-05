@@ -65,14 +65,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getTaskBookFilePath());
+    public void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException {
+        saveTaskBook(addressBook, addressBookStorage.getTaskBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
+    public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        addressBookStorage.saveTaskBook(addressBook, filePath);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(TaskBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveTaskBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
