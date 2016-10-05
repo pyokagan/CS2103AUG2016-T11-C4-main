@@ -39,7 +39,7 @@ import seedu.address.model.task.Phone;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableTaskBook;
 
 /**
  * A utility class for test cases.
@@ -147,8 +147,8 @@ public class TestUtil {
         return new TaskBook(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskBook generateSampleStorageAddressBook() {
+        return new XmlSerializableTaskBook(generateEmptyAddressBook());
     }
 
     /**
