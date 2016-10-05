@@ -4,14 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Address;
+import seedu.address.model.task.Email;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Phone;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 /**
  * Adds a person to the address book.
@@ -28,7 +28,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Person toAdd;
+    private final Task toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -41,7 +41,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Person(
+        this.toAdd = new Task(
                 new Name(name),
                 new Phone(phone),
                 new Email(email),
@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         try {
             model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
 

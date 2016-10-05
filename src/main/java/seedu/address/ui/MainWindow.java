@@ -12,7 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -27,7 +27,7 @@ public class MainWindow extends UiPart<Scene> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private CommandBox commandBox;
 
@@ -72,7 +72,7 @@ public class MainWindow extends UiPart<Scene> {
     void fillInnerParts(Logic logic) {
         browserPanel = new BrowserPanel(primaryStage);
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        personListPanel = new PersonListPanel(primaryStage, logic.getFilteredPersonList());
+        personListPanel = new TaskListPanel(primaryStage, logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay(primaryStage);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -127,11 +127,11 @@ public class MainWindow extends UiPart<Scene> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
+    public TaskListPanel getPersonListPanel() {
         return this.personListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
+    public void loadPersonPage(ReadOnlyTask person) {
         browserPanel.loadPersonPage(person);
     }
 

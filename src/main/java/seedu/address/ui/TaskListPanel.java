@@ -10,22 +10,22 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<VBox> {
+public class TaskListPanel extends UiPart<VBox> {
 
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
-    private static final String FXML = "/view/PersonListPanel.fxml";
+    private static final String FXML = "/view/TaskListPanel.fxml";
 
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<ReadOnlyTask> personListView;
 
-    public PersonListPanel(Stage primaryStage, ObservableList<ReadOnlyPerson> personList) {
+    public TaskListPanel(Stage primaryStage, ObservableList<ReadOnlyTask> personList) {
         super(FXML, primaryStage);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
@@ -36,7 +36,7 @@ public class PersonListPanel extends UiPart<VBox> {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                raise(new PersonPanelSelectionChangedEvent(newValue));
+                raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
     }
@@ -48,20 +48,20 @@ public class PersonListPanel extends UiPart<VBox> {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    class PersonListViewCell extends ListCell<ReadOnlyTask> {
 
         PersonListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
+        protected void updateItem(ReadOnlyTask person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                final PersonCard personCard = new PersonCard(person, getIndex() + 1);
+                final TaskListCard personCard = new TaskListCard(person, getIndex() + 1);
                 setGraphic(personCard.getRoot());
             }
         }

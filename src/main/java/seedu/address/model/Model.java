@@ -3,28 +3,28 @@ package seedu.address.model;
 import java.util.Set;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyTaskBook newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the TaskBook */
+    ReadOnlyTaskBook getAddressBook();
 
     /** Deletes the given person. */
-    void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
+    void deletePerson(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
 
     /** Adds the given person */
-    void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
+    void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
+    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
 
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();

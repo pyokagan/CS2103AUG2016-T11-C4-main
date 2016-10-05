@@ -3,11 +3,11 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.task.ReadOnlyTask;
 
-public class PersonCard extends UiPart<HBox> {
+public class TaskListCard extends UiPart<HBox> {
 
-    private static final String FXML = "/view/PersonListCard.fxml";
+    private static final String FXML = "/view/TaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -24,7 +24,7 @@ public class PersonCard extends UiPart<HBox> {
     @FXML
     private Label tags;
 
-    public PersonCard(ReadOnlyPerson person, int displayedIndex) {
+    public TaskListCard(ReadOnlyTask person, int displayedIndex) {
         super(FXML, null);
         name.setText(person.getName().fullName);
         id.setText(displayedIndex + ". ");

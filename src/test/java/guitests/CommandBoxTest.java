@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class CommandBoxTest extends AddressBookGuiTest {
+public class CommandBoxTest extends TaskTrackerGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {

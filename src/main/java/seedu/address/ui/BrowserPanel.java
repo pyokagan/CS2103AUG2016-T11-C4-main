@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * The Browser Panel of the App.
@@ -21,7 +21,7 @@ public class BrowserPanel extends UiPart<WebView> {
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
+    public void loadPersonPage(ReadOnlyTask person) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
     }
 
