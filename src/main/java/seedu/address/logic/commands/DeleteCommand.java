@@ -25,7 +25,6 @@ public class DeleteCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
-
     @Override
     public CommandResult execute() {
 

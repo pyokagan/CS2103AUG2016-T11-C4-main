@@ -1,14 +1,14 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
+import seedu.address.commons.util.FxViewUtil;
 
 /**
  * Controller for a help page
@@ -43,7 +43,7 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
+    private void configure() {
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);

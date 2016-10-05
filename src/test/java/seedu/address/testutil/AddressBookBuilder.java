@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -15,7 +15,7 @@ public class AddressBookBuilder {
 
     private AddressBook addressBook;
 
-    public AddressBookBuilder(AddressBook addressBook){
+    public AddressBookBuilder(AddressBook addressBook) {
         this.addressBook = addressBook;
     }
 
@@ -29,7 +29,7 @@ public class AddressBookBuilder {
         return this;
     }
 
-    public AddressBook build(){
+    public AddressBook build() {
         return addressBook;
     }
 }

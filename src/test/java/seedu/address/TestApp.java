@@ -1,5 +1,7 @@
 package seedu.address;
 
+import java.util.function.Supplier;
+
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -8,8 +10,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
-
-import java.util.function.Supplier;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -58,7 +58,6 @@ public class TestApp extends MainApp {
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
         return userPrefs;
     }
-
 
     @Override
     public void start(Stage primaryStage) {

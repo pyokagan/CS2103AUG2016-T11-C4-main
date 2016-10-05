@@ -1,5 +1,10 @@
 package guitests.guihandles;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
@@ -10,12 +15,6 @@ import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Provides a handle for the panel containing the person list.
@@ -47,35 +46,6 @@ public class PersonListPanelHandle extends GuiHandle {
     public boolean isListMatching(ReadOnlyPerson... persons) {
         return this.isListMatching(0, persons);
     }
-    
-    /**
-     * Clicks on the ListView.
-     */
-    public void clickOnListView() {
-        Point2D point= TestUtil.getScreenMidPoint(getListView());
-        guiRobot.clickOn(point.getX(), point.getY());
-    }
-
-    /**
-     * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
-     */
-    public boolean containsInOrder(int startPosition, ReadOnlyPerson... persons) {
-        List<ReadOnlyPerson> personsInList = getListView().getItems();
-
-        // Return false if the list in panel is too short to contain the given list
-        if (startPosition + persons.length > personsInList.size()){
-            return false;
-        }
-
-        // Return false if any of the persons doesn't match
-        for (int i = 0; i < persons.length; i++) {
-            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)){
-                return false;
-            }
-        }
-
-        return true;
-    }
 
     /**
      * Returns true if the list is showing the person details correctly and in correct order.
@@ -84,8 +54,8 @@ public class PersonListPanelHandle extends GuiHandle {
      */
     public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) throws IllegalArgumentException {
         if (persons.length + startPosition != getListView().getItems().size()) {
-            throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " persons");
+            throw new IllegalArgumentException("List size mismatched\n"
+                    + "Expected " + (getListView().getItems().size() - 1) + " persons");
         }
         assertTrue(this.containsInOrder(startPosition, persons));
         for (int i = 0; i < persons.length; i++) {
@@ -99,6 +69,34 @@ public class PersonListPanelHandle extends GuiHandle {
         return true;
     }
 
+    /**
+     * Clicks on the ListView.
+     */
+    public void clickOnListView() {
+        Point2D point = TestUtil.getScreenMidPoint(getListView());
+        guiRobot.clickOn(point.getX(), point.getY());
+    }
+
+    /**
+     * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
+     */
+    public boolean containsInOrder(int startPosition, ReadOnlyPerson... persons) {
+        List<ReadOnlyPerson> personsInList = getListView().getItems();
+
+        // Return false if the list in panel is too short to contain the given list
+        if (startPosition + persons.length > personsInList.size()) {
+            return false;
+        }
+
+        // Return false if any of the persons doesn't match
+        for (int i = 0; i < persons.length; i++) {
+            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public PersonCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
@@ -132,7 +130,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public int getPersonIndex(ReadOnlyPerson targetPerson) {
         List<ReadOnlyPerson> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
-            if(personsInList.get(i).getName().equals(targetPerson.getName())){
+            if (personsInList.get(i).getName().equals(targetPerson.getName())) {
                 return i;
             }
         }

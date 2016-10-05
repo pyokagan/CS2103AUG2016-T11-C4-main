@@ -2,18 +2,35 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  *
  */
 public class TypicalTestPersons {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestPerson alice;
+
+    public static TestPerson benson;
+
+    public static TestPerson carl;
+
+    public static TestPerson daniel;
+
+    public static TestPerson elle;
+
+    public static TestPerson fiona;
+
+    public static TestPerson george;
+
+    public static TestPerson hoon;
+
+    public static TestPerson ida;
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
+            alice = new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
                     .withEmail("alice@gmail.com").withPhone("85355255")
                     .withTags("friends").build();
             benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
@@ -53,7 +70,7 @@ public class TypicalTestPersons {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
+    public AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         loadAddressBookWithSampleData(ab);
         return ab;

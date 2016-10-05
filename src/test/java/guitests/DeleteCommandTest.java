@@ -1,11 +1,12 @@
 package guitests;
 
-import org.junit.Test;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
-
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+
+import org.junit.Test;
+
+import seedu.address.testutil.TestPerson;
+import seedu.address.testutil.TestUtil;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 
@@ -24,7 +25,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
         //delete from the middle of the list
         currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = currentList.length/2;
+        targetIndex = currentList.length / 2;
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
@@ -39,7 +40,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * @param currentList A copy of the current list of persons (before deletion).
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestPerson[] currentList) {
-        TestPerson personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestPerson personToDelete = currentList[targetIndexOneIndexed - 1]; //-1 because array uses zero indexing
         TestPerson[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);

@@ -1,23 +1,23 @@
 package seedu.address.storage;
 
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.address.testutil.EventsCollector;
-
-import java.io.IOException;
-
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import seedu.address.testutil.TypicalTestPersons;
 
 public class StorageManagerTest {
 
@@ -26,17 +26,14 @@ public class StorageManagerTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-
     @Before
     public void setup() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 
-
     private String getTempFilePath(String fileName) {
         return testFolder.getRoot().getPath() + fileName;
     }
-
 
     /*
      * Note: This is an integration test that verifies the StorageManager is properly wired to the
@@ -63,7 +60,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath(){
+    public void getAddressBookFilePath() {
         assertNotNull(storageManager.getAddressBookFilePath());
     }
 
@@ -80,9 +77,9 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
 
-        public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
+        XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
@@ -91,6 +88,5 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-
 
 }

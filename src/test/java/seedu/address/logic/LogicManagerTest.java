@@ -1,33 +1,51 @@
 package seedu.address.logic;
 
-import com.google.common.eventbus.Subscribe;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.StorageManager;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.storage.StorageManager;
 
 public class LogicManagerTest {
 
@@ -117,7 +135,6 @@ public class LogicManagerTest {
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
-
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
@@ -144,7 +161,6 @@ public class LogicManagerTest {
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
     }
-
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
@@ -207,7 +223,6 @@ public class LogicManagerTest {
                 expectedAB.getPersonList());
 
     }
-
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -285,7 +300,6 @@ public class LogicManagerTest {
         assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
     }
 
-
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -311,7 +325,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getPersonList());
     }
-
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -380,7 +393,7 @@ public class LogicManagerTest {
     /**
      * A utility class to generate test data.
      */
-    class TestDataHelper{
+    class TestDataHelper {
 
         Person adam() throws Exception {
             Name name = new Name("Adam Brown");
@@ -422,7 +435,7 @@ public class LogicManagerTest {
             cmd.append(" a/").append(p.getAddress());
 
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t: tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -432,7 +445,7 @@ public class LogicManagerTest {
         /**
          * Generates an AddressBook with auto-generated persons.
          */
-        AddressBook generateAddressBook(int numGenerated) throws Exception{
+        AddressBook generateAddressBook(int numGenerated) throws Exception {
             AddressBook addressBook = new AddressBook();
             addToAddressBook(addressBook, numGenerated);
             return addressBook;
@@ -441,7 +454,7 @@ public class LogicManagerTest {
         /**
          * Generates an AddressBook based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Person> persons) throws Exception{
+        AddressBook generateAddressBook(List<Person> persons) throws Exception {
             AddressBook addressBook = new AddressBook();
             addToAddressBook(addressBook, persons);
             return addressBook;
@@ -451,15 +464,15 @@ public class LogicManagerTest {
          * Adds auto-generated Person objects to the given AddressBook
          * @param addressBook The AddressBook to which the Persons will be added
          */
-        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception{
+        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception {
             addToAddressBook(addressBook, generatePersonList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given AddressBook
          */
-        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception{
-            for(Person p: personsToAdd){
+        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception {
+            for (Person p: personsToAdd) {
                 addressBook.addPerson(p);
             }
         }
@@ -468,15 +481,15 @@ public class LogicManagerTest {
          * Adds auto-generated Person objects to the given model
          * @param model The model to which the Persons will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
+        void addToModel(Model model, int numGenerated) throws Exception {
             addToModel(model, generatePersonList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given model
          */
-        void addToModel(Model model, List<Person> personsToAdd) throws Exception{
-            for(Person p: personsToAdd){
+        void addToModel(Model model, List<Person> personsToAdd) throws Exception {
+            for (Person p: personsToAdd) {
                 model.addPerson(p);
             }
         }
@@ -484,9 +497,9 @@ public class LogicManagerTest {
         /**
          * Generates a list of Persons based on the flags.
          */
-        List<Person> generatePersonList(int numGenerated) throws Exception{
+        List<Person> generatePersonList(int numGenerated) throws Exception {
             List<Person> persons = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
+            for (int i = 1; i <= numGenerated; i++) {
                 persons.add(generatePerson(i));
             }
             return persons;

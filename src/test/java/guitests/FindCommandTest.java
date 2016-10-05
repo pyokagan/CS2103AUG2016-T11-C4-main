@@ -1,10 +1,11 @@
 package guitests;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestPerson;
-
-import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends AddressBookGuiTest {
 
@@ -19,7 +20,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void find_emptyList(){
+    public void find_emptyList() {
         commandBox.runCommand("clear");
         assertFindResult("find Jean"); //no results
     }

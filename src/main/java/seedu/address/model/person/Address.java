@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -8,7 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
-    
+
     public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
 

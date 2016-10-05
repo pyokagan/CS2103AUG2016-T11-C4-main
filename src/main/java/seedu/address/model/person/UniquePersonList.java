@@ -1,11 +1,11 @@
 package seedu.address.model.person;
 
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
-
-import java.util.*;
+import seedu.address.commons.util.CollectionUtil;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

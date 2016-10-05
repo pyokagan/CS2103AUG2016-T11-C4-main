@@ -1,14 +1,21 @@
 package seedu.address.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the address-book level
@@ -44,7 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new AddressBook();
     }
 
-//// list overwrite operations
+    //// list overwrite operations
 
     public ObservableList<Person> getPersons() {
         return persons.getInternalList();
@@ -67,7 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(newData.getPersonList(), newData.getTagList());
     }
 
-//// person-level operations
+    //// person-level operations
 
     /**
      * Adds a person to the address book.
@@ -112,17 +119,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-//// tag-level operations
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() + " tags";
         // TODO: refine later
     }
 
@@ -145,7 +152,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public UniqueTagList getUniqueTagList() {
         return this.tags;
     }
-
 
     @Override
     public boolean equals(Object other) {

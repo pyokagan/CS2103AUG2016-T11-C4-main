@@ -1,19 +1,19 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart{
+public class BrowserPanel extends UiPart {
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
     private WebView browser;
@@ -40,7 +40,7 @@ public class BrowserPanel extends UiPart{
      * This method should be called after the FX runtime is initialized and in FX application thread.
      * @param placeholder The AnchorPane where the BrowserPanel must be inserted
      */
-    public static BrowserPanel load(AnchorPane placeholder){
+    public static BrowserPanel load(AnchorPane placeholder) {
         logger.info("Initializing browser");
         BrowserPanel browserPanel = new BrowserPanel();
         browserPanel.browser = new WebView();
@@ -54,7 +54,7 @@ public class BrowserPanel extends UiPart{
         loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
     }
 
-    public void loadPage(String url){
+    public void loadPage(String url) {
         browser.getEngine().load(url);
     }
 
