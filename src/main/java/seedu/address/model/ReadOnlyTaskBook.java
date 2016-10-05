@@ -10,7 +10,7 @@ import seedu.address.model.task.UniqueTaskList;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyTaskBook {
 
     UniqueTagList getUniqueTagList();
 
