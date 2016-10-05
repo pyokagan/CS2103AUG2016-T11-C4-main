@@ -17,8 +17,8 @@ import seedu.address.model.TaskBook;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TypicalTestTasks;
 
-public class XmlAddressBookStorageTest {
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+public class XmlTaskBookStorageTest {
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskBookStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

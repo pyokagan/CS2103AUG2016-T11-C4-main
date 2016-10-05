@@ -56,7 +56,7 @@ public class StorageManagerTest {
         storageManager.saveAddressBook(original);
         ReadOnlyTaskBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new TaskBook(retrieved));
-        //More extensive testing of TaskBook saving/reading is done in XmlAddressBookStorageTest
+        //More extensive testing of TaskBook saving/reading is done in XmlTaskBookStorageTest
     }
 
     @Test
