@@ -8,7 +8,6 @@ import org.controlsfx.control.StatusBar;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -34,21 +33,15 @@ public class StatusBarFooter extends UiPart {
 
     private AnchorPane placeHolder;
 
-    private static final String FXML = "StatusBarFooter.fxml";
+    private static final String FXML = "/view/StatusBarFooter.fxml";
 
-    public static StatusBarFooter load(Stage stage, AnchorPane placeHolder, String saveLocation) {
-        StatusBarFooter statusBarFooter = UiPartLoader.loadUiPart(stage, placeHolder, new StatusBarFooter());
-        statusBarFooter.configure(saveLocation);
-        return statusBarFooter;
-    }
-
-    public void configure(String saveLocation) {
+    public StatusBarFooter(Stage stage, String saveLocation) {
+        super(FXML, stage);
         addMainPane();
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
         setSaveLocation("./" + saveLocation);
-        registerAsAnEventHandler(this);
     }
 
     private void addMainPane() {
@@ -74,21 +67,6 @@ public class StatusBarFooter extends UiPart {
         this.syncStatus = new StatusBar();
         FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0, 0.0);
         syncStatusBarPane.getChildren().add(syncStatus);
-    }
-
-    @Override
-    public void setNode(Node node) {
-        mainPane = (GridPane) node;
-    }
-
-    @Override
-    public void setPlaceholder(AnchorPane placeholder) {
-        this.placeHolder = placeholder;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
     }
 
     @Subscribe
