@@ -17,8 +17,8 @@ public interface Model {
     /** Returns the TaskBook */
     ReadOnlyTaskBook getAddressBook();
 
-    /** Deletes the given person. */
-    void deletePerson(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    /** Deletes the given task. */
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given person */
     void addPerson(Task person) throws UniqueTaskList.DuplicateTaskException;
