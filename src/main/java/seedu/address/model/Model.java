@@ -21,7 +21,7 @@ public interface Model {
     void deletePerson(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
 
     /** Adds the given person */
-    void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException;
+    void addPerson(Task person) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
