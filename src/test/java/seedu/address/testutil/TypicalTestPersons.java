@@ -10,23 +10,23 @@ import seedu.address.model.task.UniqueTaskList;
  */
 public class TypicalTestPersons {
 
-    public static TestPerson alice;
+    public static TestTask alice;
 
-    public static TestPerson benson;
+    public static TestTask benson;
 
-    public static TestPerson carl;
+    public static TestTask carl;
 
-    public static TestPerson daniel;
+    public static TestTask daniel;
 
-    public static TestPerson elle;
+    public static TestTask elle;
 
-    public static TestPerson fiona;
+    public static TestTask fiona;
 
-    public static TestPerson george;
+    public static TestTask george;
 
-    public static TestPerson hoon;
+    public static TestTask hoon;
 
-    public static TestPerson ida;
+    public static TestTask ida;
 
     public TypicalTestPersons() {
         try {
@@ -66,8 +66,8 @@ public class TypicalTestPersons {
         }
     }
 
-    public TestPerson[] getTypicalPersons() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+    public TestTask[] getTypicalPersons() {
+        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public AddressBook getTypicalAddressBook() {

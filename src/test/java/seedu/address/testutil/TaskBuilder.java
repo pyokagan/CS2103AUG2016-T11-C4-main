@@ -12,10 +12,10 @@ import seedu.address.model.task.Phone;
  */
 public class TaskBuilder {
 
-    private TestPerson person;
+    private TestTask person;
 
     public TaskBuilder() {
-        this.person = new TestPerson();
+        this.person = new TestTask();
     }
 
     public TaskBuilder withName(String name) throws IllegalValueException {
@@ -45,7 +45,7 @@ public class TaskBuilder {
         return this;
     }
 
-    public TestPerson build() {
+    public TestTask build() {
         return this.person;
     }
 
