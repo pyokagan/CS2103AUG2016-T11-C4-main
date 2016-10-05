@@ -57,7 +57,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         return tasks.getInternalList();
     }
 
-    public void setPersons(List<Task> persons) {
+    public void setTasks(List<Task> persons) {
         this.tasks.getInternalList().setAll(persons);
     }
 
@@ -66,7 +66,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newPersons.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
