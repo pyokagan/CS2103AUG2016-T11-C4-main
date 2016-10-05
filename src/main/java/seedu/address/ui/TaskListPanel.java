@@ -20,7 +20,7 @@ public class TaskListPanel extends UiPart<VBox> {
 
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
-    private static final String FXML = "/view/PersonListPanel.fxml";
+    private static final String FXML = "/view/TaskListPanel.fxml";
 
     @FXML
     private ListView<ReadOnlyTask> personListView;
