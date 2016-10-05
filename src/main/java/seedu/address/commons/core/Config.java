@@ -56,8 +56,8 @@ public class Config {
         return taskBookName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.taskBookName = addressBookName;
+    public void setTaskBookName(String taskBookName) {
+        this.taskBookName = taskBookName;
     }
 
     @Override
