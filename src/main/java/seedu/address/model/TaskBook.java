@@ -71,7 +71,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTagList());
     }
 
     //// task-level operations
@@ -134,7 +134,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 
