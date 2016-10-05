@@ -74,18 +74,18 @@ public class TaskBook implements ReadOnlyTaskBook {
         resetData(newData.getPersonList(), newData.getTagList());
     }
 
-    //// person-level operations
+    //// task-level operations
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds a task to the task book.
+     * Also checks the new tasks's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Task p) throws UniqueTaskList.DuplicatePersonException {
-        syncTagsWithMasterList(p);
-        tasks.add(p);
+    public void addTask(Task task) throws UniqueTaskList.DuplicatePersonException {
+        syncTagsWithMasterList(task);
+        tasks.add(task);
     }
 
     /**

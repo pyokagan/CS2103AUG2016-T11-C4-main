@@ -194,7 +194,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
@@ -210,7 +210,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
         model.addPerson(toBeAdded); // person already in internal address book
@@ -473,7 +473,7 @@ public class LogicManagerTest {
          */
         void addToAddressBook(TaskBook addressBook, List<Task> personsToAdd) throws Exception {
             for (Task p: personsToAdd) {
-                addressBook.addPerson(p);
+                addressBook.addTask(p);
             }
         }
 
