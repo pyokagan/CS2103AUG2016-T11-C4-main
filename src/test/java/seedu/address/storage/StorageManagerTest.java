@@ -77,7 +77,7 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlTaskBookStorage {
 
         XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
