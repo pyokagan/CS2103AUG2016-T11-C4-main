@@ -8,7 +8,7 @@ import seedu.address.model.task.UniqueTaskList;
 /**
  *
  */
-public class TypicalTestPersons {
+public class TypicalTestTasks {
 
     public static TestTask alice;
 
@@ -28,7 +28,7 @@ public class TypicalTestPersons {
 
     public static TestTask ida;
 
-    public TypicalTestPersons() {
+    public TypicalTestTasks() {
         try {
             alice = new TaskBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
                     .withEmail("alice@gmail.com").withPhone("85355255")
