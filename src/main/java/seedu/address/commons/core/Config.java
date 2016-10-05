@@ -52,7 +52,7 @@ public class Config {
         this.taskBookFilePath = taskBookFilePath;
     }
 
-    public String getAddressBookName() {
+    public String getTaskBookName() {
         return taskBookName;
     }
 
