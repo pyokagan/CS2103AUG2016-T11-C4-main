@@ -9,7 +9,7 @@ import seedu.address.model.ReadOnlyTaskBook;
 /**
  * Represents a storage for {@link seedu.address.model.TaskBook}.
  */
-public interface AddressBookStorage {
+public interface TaskBookStorage {
 
     /**
      * Returns the file path of the data file.

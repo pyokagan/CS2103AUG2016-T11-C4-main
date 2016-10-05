@@ -14,7 +14,7 @@ import seedu.address.model.ReadOnlyTaskBook;
 /**
  * A class to access TaskBook data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlAddressBookStorage implements TaskBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
