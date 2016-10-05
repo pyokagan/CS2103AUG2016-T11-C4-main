@@ -53,7 +53,7 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     //// list overwrite operations
 
-    public ObservableList<Task> getPersons() {
+    public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
 

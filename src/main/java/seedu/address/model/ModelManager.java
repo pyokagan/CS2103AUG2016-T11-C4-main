@@ -36,7 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         addressBook = new TaskBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredPersons = new FilteredList<>(addressBook.getTasks());
     }
 
     public ModelManager() {
@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         addressBook = new TaskBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredPersons = new FilteredList<>(addressBook.getTasks());
     }
 
     @Override
