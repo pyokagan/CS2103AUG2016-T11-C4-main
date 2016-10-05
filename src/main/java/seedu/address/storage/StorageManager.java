@@ -54,14 +54,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyTaskBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getTaskBookFilePath());
+    public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
+        return readTaskBook(addressBookStorage.getTaskBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyTaskBook> readAddressBook(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return addressBookStorage.readTaskBook(filePath);
     }
 
     @Override

@@ -24,7 +24,7 @@ public interface Storage extends TaskBookStorage, UserPrefsStorage {
     String getTaskBookFilePath();
 
     @Override
-    Optional<ReadOnlyTaskBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException;
 
     @Override
     void saveAddressBook(ReadOnlyTaskBook addressBook) throws IOException;
