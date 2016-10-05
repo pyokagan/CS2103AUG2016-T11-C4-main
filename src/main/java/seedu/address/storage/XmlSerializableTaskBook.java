@@ -56,7 +56,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : persons) {
             try {

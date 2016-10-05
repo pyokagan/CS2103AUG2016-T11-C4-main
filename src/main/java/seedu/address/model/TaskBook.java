@@ -37,7 +37,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      * Persons and Tags are copied into this addressbook
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
@@ -144,7 +144,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
     }
 

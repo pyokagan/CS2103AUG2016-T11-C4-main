@@ -14,7 +14,7 @@ public interface ReadOnlyTaskBook {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueTaskList getUniquePersonList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of persons list
