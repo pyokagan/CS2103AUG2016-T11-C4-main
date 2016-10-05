@@ -111,11 +111,11 @@ public class TaskBook implements ReadOnlyTaskBook {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.PersonNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }
     }
 
