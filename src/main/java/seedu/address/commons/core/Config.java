@@ -48,8 +48,8 @@ public class Config {
         return taskBookFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.taskBookFilePath = addressBookFilePath;
+    public void setTaskBookFilePath(String taskBookFilePath) {
+        this.taskBookFilePath = taskBookFilePath;
     }
 
     public String getAddressBookName() {
