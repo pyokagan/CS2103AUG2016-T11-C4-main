@@ -11,11 +11,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Person;
+import seedu.address.model.task.ReadOnlyPerson;
+import seedu.address.model.task.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
