@@ -61,7 +61,7 @@ public class PersonListPanel extends UiPart<VBox> {
                 setGraphic(null);
                 setText(null);
             } else {
-                final PersonCard personCard = new PersonCard(person, getIndex() + 1);
+                final TaskListCard personCard = new TaskListCard(person, getIndex() + 1);
                 setGraphic(personCard.getRoot());
             }
         }

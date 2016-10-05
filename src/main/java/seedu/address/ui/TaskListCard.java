@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 
-public class PersonCard extends UiPart<HBox> {
+public class TaskListCard extends UiPart<HBox> {
 
     private static final String FXML = "/view/PersonListCard.fxml";
 
@@ -24,7 +24,7 @@ public class PersonCard extends UiPart<HBox> {
     @FXML
     private Label tags;
 
-    public PersonCard(ReadOnlyTask person, int displayedIndex) {
+    public TaskListCard(ReadOnlyTask person, int displayedIndex) {
         super(FXML, null);
         name.setText(person.getName().fullName);
         id.setText(displayedIndex + ". ");
