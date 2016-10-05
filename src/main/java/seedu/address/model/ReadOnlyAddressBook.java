@@ -5,7 +5,7 @@ import java.util.List;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniquePersonList;
+import seedu.address.model.task.UniqueTaskList;
 
 /**
  * Unmodifiable view of an address book
@@ -14,7 +14,7 @@ public interface ReadOnlyAddressBook {
 
     UniqueTagList getUniqueTagList();
 
-    UniquePersonList getUniquePersonList();
+    UniqueTaskList getUniquePersonList();
 
     /**
      * Returns an unmodifiable view of persons list

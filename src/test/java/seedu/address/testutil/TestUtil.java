@@ -38,7 +38,7 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.Phone;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniquePersonList;
+import seedu.address.model.task.UniqueTaskList;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 /**
@@ -144,7 +144,7 @@ public class TestUtil {
     }
 
     public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
