@@ -14,12 +14,12 @@ public interface ReadOnlyTaskBook {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueTaskList getUniquePersonList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of tasks list
      */
-    List<ReadOnlyTask> getPersonList();
+    List<ReadOnlyTask> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

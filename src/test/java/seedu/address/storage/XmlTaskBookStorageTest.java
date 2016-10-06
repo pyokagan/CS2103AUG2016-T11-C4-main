@@ -33,7 +33,7 @@ public class XmlTaskBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyTaskBook> readAddressBook(String filePath) throws Exception {
-        return new XmlTaskBookStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlTaskBookStorage(filePath).readTaskBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -66,21 +66,21 @@ public class XmlTaskBookStorageTest {
         XmlTaskBookStorage xmlAddressBookStorage = new XmlTaskBookStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyTaskBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlAddressBookStorage.saveTaskBook(original, filePath);
+        ReadOnlyTaskBook readBack = xmlAddressBookStorage.readTaskBook(filePath).get();
         assertEquals(original, new TaskBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Task(TypicalTestTasks.hoon));
-        original.removePerson(new Task(TypicalTestTasks.alice));
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        original.addTask(new Task(TypicalTestTasks.hoon));
+        original.removeTask(new Task(TypicalTestTasks.alice));
+        xmlAddressBookStorage.saveTaskBook(original, filePath);
+        readBack = xmlAddressBookStorage.readTaskBook(filePath).get();
         assertEquals(original, new TaskBook(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(new Task(TypicalTestTasks.ida));
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
+        original.addTask(new Task(TypicalTestTasks.ida));
+        xmlAddressBookStorage.saveTaskBook(original); //file path not specified
+        readBack = xmlAddressBookStorage.readTaskBook().get(); //file path not specified
         assertEquals(original, new TaskBook(readBack));
 
     }
@@ -92,7 +92,7 @@ public class XmlTaskBookStorageTest {
     }
 
     private void saveAddressBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
-        new XmlTaskBookStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+        new XmlTaskBookStorage(filePath).saveTaskBook(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

@@ -53,21 +53,21 @@ public class StorageManagerTest {
     @Test
     public void addressBookReadSave() throws Exception {
         TaskBook original = new TypicalTestTasks().getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyTaskBook retrieved = storageManager.readAddressBook().get();
+        storageManager.saveTaskBook(original);
+        ReadOnlyTaskBook retrieved = storageManager.readTaskBook().get();
         assertEquals(original, new TaskBook(retrieved));
         //More extensive testing of TaskBook saving/reading is done in XmlTaskBookStorageTest
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getTaskBookFilePath());
     }
 
     @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new XmlTaskBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleAddressBookChangedEvent(new TaskBookChangedEvent(new TaskBook()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
@@ -77,14 +77,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlTaskBookStorage {
+    class XmlTaskBookStorageExceptionThrowingStub extends XmlTaskBookStorage {
 
-        XmlAddressBookStorageExceptionThrowingStub(String filePath) {
+        XmlTaskBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
+        public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

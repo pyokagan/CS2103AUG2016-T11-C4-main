@@ -72,7 +72,7 @@ public class MainWindow extends UiPart<Scene> {
     void fillInnerParts(Logic logic) {
         browserPanel = new BrowserPanel(primaryStage);
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        personListPanel = new TaskListPanel(primaryStage, logic.getFilteredPersonList());
+        personListPanel = new TaskListPanel(primaryStage, logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay(primaryStage);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

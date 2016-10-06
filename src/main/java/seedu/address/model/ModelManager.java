@@ -12,7 +12,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,7 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskBook addressBook;
-    private final FilteredList<Task> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -36,7 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         addressBook = new TaskBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     public ModelManager() {
@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         addressBook = new TaskBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     @Override
@@ -65,14 +65,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -80,22 +80,22 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredTasks.setPredicate(null);
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords) {
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+        filteredTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

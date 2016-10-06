@@ -40,7 +40,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      * Conversion
      */
     public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -56,7 +56,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : persons) {
             try {
@@ -69,7 +69,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();
