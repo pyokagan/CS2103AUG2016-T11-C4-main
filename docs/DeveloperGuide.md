@@ -297,3 +297,106 @@ Priority | As a ... | I want to ... | So that I can...
 > avaliable time slots for the user in the given time period.
 
 > Use case ends.
+
+### Use case: Add priority tags
+
+**MSS**
+
+1. The user requests to add a priority tag for a specified event.
+
+2. TaskTracker prompts the user to select the priority level of the event -
+   "Very Important"/ "Important"/ "Not important".
+
+3. The user selects the appropriate priority level for the event from these
+   options.
+
+4. TaskManager updates the priority of the event with the specified priority
+   and it is displayed on the user’s schedule with a corresponding colored
+   circle (for each priority level).
+
+5. The user is notified that the update was successful.
+
+   Use case ends.
+
+**Extensions**
+
+1a. The user places a request to add a priority tag, but does not add it.
+
+> 1a1. User presses "Esc". TaskTracker goes back to the normal view of the
+> schedule. Now even if the user clicks on any event, priority tag options will
+> not be displayed as the TaskTracker switched from Priority Tag view to Normal
+> view.
+
+> Use case ends.
+
+### Use case: Add new event under a specific "group activity"
+
+**MSS**
+
+1. When the user is adding a new event, he selects the option "Group Activity"
+   which is present in the same window.
+
+2. The existing group activities are displayed and the user chooses the one
+   which is related to the new event that he is adding.
+
+3. If he wants to create a new group activity, then the user places a request
+   to add new group activity in the “Group Activity” window.
+
+5. The user then enters the details of the group activity (such as name of the
+   group activity and email addresses of the people in the group).
+
+6. TaskTracker automatically adds the event to this new activity.
+
+7. TaskTracker notifies the user that the event has been added to the schedule.
+
+   User case ends.
+
+**Extensions**
+
+1a. The user enters an invalid email address of a group member, while creating
+a new group activity.
+
+> 1a1. TaskTracker displays the error message - "Invalid email".
+
+> Use case ends.
+
+1b. The user enters a group activity name that already exists, while adding a
+    new group activity.
+
+> 1b1. TaskTracker displays an error message "Name already exists".
+
+> Use case ends.
+
+### Use case: Add event description
+
+**MSS**
+
+1. The user requests to add a new event.
+
+2. The user writes a small description about the event in the "Description"
+   field, present in the "Add new event" window.
+
+3. The event is added and the user is notified about the new event added.
+
+   User case ends.
+
+### Use case: Set reminders
+
+**MSS**
+
+1. When adding a new event, the user adds the time at which he wants to set a
+   reminder, before the event occurs. The time is entered in day/hours/minutes
+   format.
+
+2. The new event is added to the schedule and the user is notified about the
+   addition of the new event.
+
+   User case ends.
+
+**Extensions**
+
+1a. The user enters the time in a wrong format.
+
+> 1a1. TaskTracker shows an error message "Invalid time format"
+
+> User case ends.
