@@ -586,3 +586,31 @@ first one is the "Quick-Add" function which enables the user to add either
 floating task or deadline task in a single window. The second one is the "Undo"
 command, which enables the user to undo the last command immediately when them
 perform wrongly.
+
+### Wunderlist
+
+Full product survey [here](productsurveys/Wunderlist.md)
+
+Wunderlist in brief: Written in Javascript and PHP, Wunderlist is a task
+manager application with a simple, intuitive,and beautiful User Interface that
+is installed locally on the hard disk. It has server functions to share todo
+lists and is able to sync information using a Wunderlist account. Thus CRUD of
+local tasks work offline, but with online, additional syncing, sharing and
+collaborating features are accessible.
+
+So, how well does Wunderlist satisfy Jim's requirements?
+
+| Jim's Requirement | Wunderlist support |
+| --- | --- |
+| Summoned quickly from anywhere | No |
+| Keyboard-oriented. Jim can type commands in "one shot". | Partially |
+| Works offline | Yes |
+| Simple Search | Yes |
+| CRUD support for floating tasks | Full |
+| CRUD support for deadlines | Full |
+| CRUD support for events | None |
+| Keep track of which items are done/not done | Yes |
+| Look for a suitable slot to schedule an item. | No |
+| Ability to "block" multiple slots. | No |
+| Flexibility in command line format. | No |
+| Undo operations | Tiny |
