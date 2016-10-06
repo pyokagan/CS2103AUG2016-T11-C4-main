@@ -400,3 +400,56 @@ a new group activity.
 > 1a1. TaskTracker shows an error message "Invalid time format"
 
 > User case ends.
+
+### See the manual
+
+**Use case: see the manual**
+
+**MSS**
+
+1. User requests to see the manual.
+
+2. TaskTracker shows manual.
+
+   Use case ends.
+
+### Search the manual
+
+**Use case: search the manual**
+
+**MSS**
+
+1. User request to search the manual for a specific command.
+
+2. TaskTracker shows the specific manual command.
+
+   Use case ends
+
+**Extensions**
+
+1a. The command to be searched does not exist
+
+> 1a1. TaskTracker informs the user that the command does not exist.
+
+> Use case ends
+
+### Undo an action
+
+**User case: Undo an action, such as restoring a deleted a task**
+
+**MSS**
+
+1. The user wants to undo a completed action
+
+2. The previous action is undone. Task manager is restored to state before the
+   completed action.
+
+   User case ends.
+
+**Extensions**
+
+1a. There is no action to undo
+
+> 1a1. TaskTracker shows an error message "no action to undo"
+
+> User Case ends.
