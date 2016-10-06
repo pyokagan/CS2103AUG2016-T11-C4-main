@@ -614,3 +614,41 @@ So, how well does Wunderlist satisfy Jim's requirements?
 | Ability to "block" multiple slots. | No |
 | Flexibility in command line format. | No |
 | Undo operations | Tiny |
+
+### Google Calendar
+
+Full product survey [here](https://docs.google.com/document/d/1ELun1gQUiVAxC6it-16jikFRwAePTXS5Xri7GdhUnL8/edit?usp=sharing)
+
+Jim's Requirement | Google Calendar
+:---------------- | ----------------
+Summoned quickly from anywhere | Yes
+Keyboard-oriented. Jim can type commands in "one shot" | Yes
+Works offline | Partially
+Simple search | Yes
+CRUD support for floating tasks | No
+CRUD support for deadlines | Yes
+CRUD support for events | Partially
+Keep track of which items are done/not done | No
+Look for a suitable slot to schedule an item | Yes
+Ability to "block" multiple slots | Fully
+Flexibility in command line format | No
+Undo operations | Yes
+
+Google Calendar is essentially a time-management mobile and web application
+developed by Google. It is a good platform for office workers, such as Jimmy to
+organize their schedule. It has most of the features that an office worker like
+Jim would require; for example, Add/Edit/Delete tasks, automatically find free
+slots in the schedule to add new tasks, “quick add”, ability to block multiple
+tasks, etc. It can also support features such as import, export and sync with
+desktop programs such as Outlook  and also, with mobile devices. However, it
+also has a few drawbacks for workers like Jim - New tasks or modification of
+existing tasks cannot be performed when the user is offline, it does not
+display floating tasks, and also does not display the status of a task as
+"done" or "not done".
+
+We have taken some reference features from Google Calendar to implement in our
+own time management software. Some of these include having an feature to find
+empty time slots in the user’s schedule. While adding an event in Google
+Calendar, the users have an option called "Find Time" in which all the free
+slots in their schedule are displayed and they can choose any one for adding
+their task.
