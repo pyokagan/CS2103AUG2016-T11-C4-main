@@ -4,6 +4,12 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
+### [Chua Ka Yi Ong](https://github.com/kychua)
+
+![Chua Ka Yi Ong](images/team/ChuaKaYiOng.jpg)
+
+Role: Project Advisor
+
 ### [Paul Tan](https://github.com/pyokagan)
 
 ![Paul Tan](images/team/PaulTan.jpg)
