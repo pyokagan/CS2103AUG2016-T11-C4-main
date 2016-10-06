@@ -4,6 +4,7 @@
 * [Appendix B: Use Cases](#appendix-b-use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d-glossary)
+* [Appendix E: Product Survey](#appendix-e-product-survey)
 
 ## Appendix A: User Stories
 
@@ -489,3 +490,50 @@ a new group activity.
   <dt>Time slot</dt>
   <dd>A time slot is referring to a period of time</dd>
 </dl>
+
+## Appendix E: Product Survey
+
+### Todo.txt
+
+Full product survey [here](productsurveys/todo.txt.md)
+
+Jim's Requirement | Todo.txt Support
+:---------------- | ----------------
+Summoned quickly from anywhere | No
+Keyboard-oriented. Jim can type commands in "one shot" | Yes
+Works offline | Yes
+Simple search | Yes
+CRUD support for floating tasks | Full
+CRUD support for deadlines | Partial
+CRUD support for events | Partial
+Keep track of which items are done/not done | Yes
+Look for a suitable slot to schedule an item | No
+Ability to "block" multiple slots | No
+Flexibility in command line format | Tiny
+Undo operations | No
+
+Todo.sh, as a command-line application, is fully keyboard oriented and thus
+suitable for power users who prefer entering commands in one shot. As it only
+operates on local text files, it works fully offline.
+
+Furthermore, its data model and user interface is specially geared towards the
+creation, reading, updating and deleting (CRUD) of floating tasks, which it
+does quite well. One exception is the interface to edit the name of a task,
+which is very clunky as it requires the user to repeat existing
+information.
+
+While the simplicity and flexibility of its data model means that CRUD
+operations on deadlines and events are technically feasible, the lack of
+explicit support from the application and data model means that the user
+interface is poor and error checking is lacking. Users who store their
+deadlines and events in todo.txt, without understanding how it works under the
+hood, would thus be in for some nasty surprises.
+
+Furthermore, the lack of explicit support for deadlines and events means that
+the application has no support at all for looking for a slot to schedule an
+item and the ability to “block” multiple time slots, as it has no concept of
+time at all.
+
+Finally, it has no support for undoing operations. While this is alleviated
+somewhat as it asks for confirmation before deleting tasks, all other
+operations are done without user confirmation.
