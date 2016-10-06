@@ -15,15 +15,10 @@ public class TaskListCard extends UiPart<HBox> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label tags;
 
     public TaskListCard(ReadOnlyTask person, int displayedIndex) {
         super(FXML, null);
         name.setText(person.getName().fullName);
         id.setText(displayedIndex + ". ");
-        tags.setText(person.tagsString());
     }
 }

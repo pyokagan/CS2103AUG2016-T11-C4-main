@@ -1,8 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskBook;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -21,11 +19,6 @@ public class TaskBookBuilder {
 
     public TaskBookBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
         addressBook.addTask(person);
-        return this;
-    }
-
-    public TaskBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
         return this;
     }
 

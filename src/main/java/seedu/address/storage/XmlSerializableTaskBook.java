@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,8 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskBook;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -23,12 +20,9 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
     private List<XmlAdaptedTask> persons;
-    @XmlElement
-    private List<Tag> tags;
 
     {
         persons = new ArrayList<>();
-        tags = new ArrayList<>();
     }
 
     /**
@@ -41,18 +35,6 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      */
     public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
         persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
@@ -79,11 +61,6 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
     }
 
 }
