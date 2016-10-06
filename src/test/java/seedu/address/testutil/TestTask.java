@@ -10,10 +10,7 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
 
-    public TestTask() {
-    }
-
-    public void setName(Name name) {
+    public TestTask(Name name) {
         this.name = name;
     }
 

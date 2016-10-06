@@ -8,19 +8,18 @@ import seedu.address.model.task.Name;
  */
 public class TaskBuilder {
 
-    private TestTask person;
+    private Name name;
 
     public TaskBuilder() {
-        this.person = new TestTask();
     }
 
     public TaskBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+        this.name = new Name(name);
         return this;
     }
 
     public TestTask build() {
-        return this.person;
+        return new TestTask(name);
     }
 
 }
