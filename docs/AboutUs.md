@@ -4,6 +4,13 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
+### [Paul Tan](https://github.com/pyokagan)
+
+![Paul Tan](images/team/PaulTan.jpg)
+
+Role: Team lead <br>
+Responsibilities: Integration
+
 # Original Authors
 
 Task Tracker is based on [code](https://github.com/se-edu/addressbook-level4) by the following authors:
