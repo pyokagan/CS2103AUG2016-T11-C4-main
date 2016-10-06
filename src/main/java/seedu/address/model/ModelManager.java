@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
@@ -8,7 +8,6 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskNotFoundException;
 
@@ -71,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task person) {
         addressBook.addTask(person);
-        updateFilteredListToShowAll();
+        setFilter(null);
         indicateAddressBookChanged();
     }
 
@@ -83,71 +82,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
-    }
-
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords) {
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
-    }
-
-    private void updateFilteredPersonList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
-    }
-
-    //========== Inner classes/interfaces used for filtering ==================================================
-
-    interface Expression {
-        boolean satisfies(Task person);
-
-        String toString();
-    }
-
-    private class PredicateExpression implements Expression {
-
-        private final Qualifier qualifier;
-
-        PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
-        }
-
-        @Override
-        public boolean satisfies(Task person) {
-            return qualifier.run(person);
-        }
-
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
-    }
-
-    interface Qualifier {
-        boolean run(Task person);
-
-        String toString();
-    }
-
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(Task person) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
+    public void setFilter(Predicate<Task> predicate) {
+        filteredTasks.setPredicate(predicate);
     }
 
 }

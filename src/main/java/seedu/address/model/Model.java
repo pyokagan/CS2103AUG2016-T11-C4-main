@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
@@ -25,10 +25,11 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Task> getFilteredTaskList();
 
-    /** Updates the filter of the filtered person list to show all persons */
-    void updateFilteredListToShowAll();
-
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    /**
+     * Updates the filter of the filtered task list to filter by the given predicate.
+     *
+     * If predicate is null, all tasks will be shown.
+     */
+    void setFilter(Predicate<Task> predicate);
 
 }
