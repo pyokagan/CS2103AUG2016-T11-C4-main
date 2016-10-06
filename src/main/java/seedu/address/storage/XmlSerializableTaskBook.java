@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskBook;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 
 /**
  * An Immutable TaskBook that is serializable to XML format
@@ -37,7 +37,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
+    public List<Task> getTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();

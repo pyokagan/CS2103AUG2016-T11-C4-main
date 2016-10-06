@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 
 /**
@@ -26,7 +25,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(ReadOnlyTask source) {
+    public XmlAdaptedTask(Task source) {
         name = source.getName().fullName;
     }
 

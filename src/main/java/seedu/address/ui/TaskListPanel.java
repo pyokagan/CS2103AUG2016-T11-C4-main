@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 
 /**
  * Panel containing the list of persons.
@@ -23,9 +23,9 @@ public class TaskListPanel extends UiPart<VBox> {
     private static final String FXML = "/view/TaskListPanel.fxml";
 
     @FXML
-    private ListView<ReadOnlyTask> personListView;
+    private ListView<Task> personListView;
 
-    public TaskListPanel(Stage primaryStage, ObservableList<ReadOnlyTask> personList) {
+    public TaskListPanel(Stage primaryStage, ObservableList<Task> personList) {
         super(FXML, primaryStage);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
@@ -48,13 +48,13 @@ public class TaskListPanel extends UiPart<VBox> {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyTask> {
+    class PersonListViewCell extends ListCell<Task> {
 
         PersonListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask person, boolean empty) {
+        protected void updateItem(Task person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {

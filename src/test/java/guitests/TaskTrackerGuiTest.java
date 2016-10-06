@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.TaskBook;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 
@@ -102,7 +102,7 @@ public abstract class TaskTrackerGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyTask person, TaskListCardHandle card) {
+    public void assertMatching(Task person, TaskListCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 

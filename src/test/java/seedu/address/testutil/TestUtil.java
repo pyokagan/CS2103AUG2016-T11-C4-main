@@ -31,7 +31,6 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.TaskBook;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.storage.XmlSerializableTaskBook;
 
@@ -314,7 +313,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(TaskListCardHandle card, ReadOnlyTask person) {
+    public static boolean compareCardAndPerson(TaskListCardHandle card, Task person) {
         return card.isSamePerson(person);
     }
 

@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskNotFoundException;
 
@@ -34,7 +33,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     /**
      * Tasks are copied into this TaskBook.
      */
-    public TaskBook(List<ReadOnlyTask> tasks) {
+    public TaskBook(List<Task> tasks) {
         this();
         resetData(tasks);
     }
@@ -49,7 +48,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         this.tasks.setAll(persons);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons) {
+    public void resetData(Collection<? extends Task> newPersons) {
         setTasks(newPersons.stream().map(Task::new).collect(Collectors.toList()));
     }
 
@@ -68,7 +67,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.add(task);
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws TaskNotFoundException {
+    public boolean removeTask(Task key) throws TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -85,7 +84,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
+    public List<Task> getTaskList() {
         return Collections.unmodifiableList(tasks);
     }
 

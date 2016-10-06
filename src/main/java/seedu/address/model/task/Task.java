@@ -8,7 +8,7 @@ import seedu.address.commons.util.CollectionUtil;
  * Represents a Task in the address book.
  * Guarantees: Is a POJO. Details are present and not null. Field values are validated and immutable.
  */
-public class Task implements ReadOnlyTask {
+public class Task {
 
     private final Name name;
 
@@ -23,11 +23,10 @@ public class Task implements ReadOnlyTask {
     /**
      * Copy constructor.
      */
-    public Task(ReadOnlyTask source) {
+    public Task(Task source) {
         this(source.getName());
     }
 
-    @Override
     public Name getName() {
         return name;
     }
@@ -35,8 +34,8 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this
-               || (other instanceof ReadOnlyTask
-               && ((ReadOnlyTask)other).getName().equals(getName()));
+               || (other instanceof Task
+               && ((Task)other).getName().equals(getName()));
     }
 
     @Override
@@ -47,7 +46,9 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public String toString() {
-        return getAsText();
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        return builder.toString();
     }
 
 }

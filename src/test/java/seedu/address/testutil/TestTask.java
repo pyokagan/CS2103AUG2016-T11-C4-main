@@ -1,27 +1,15 @@
 package seedu.address.testutil;
 
 import seedu.address.model.task.Name;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
-
-    private Name name;
+public class TestTask extends Task {
 
     public TestTask(Name name) {
-        this.name = name;
-    }
-
-    @Override
-    public Name getName() {
-        return name;
-    }
-
-    @Override
-    public String toString() {
-        return getAsText();
+        super(name);
     }
 
     public String getAddCommand() {
