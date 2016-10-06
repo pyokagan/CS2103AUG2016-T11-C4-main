@@ -11,7 +11,12 @@
 
 #### Acknowledgements
 
+* This project was based on
+  [code](https://github.com/se-edu/addressbook-level4) created by the SE-EDU
+  initiative at https://github.com/se-edu.
+
 * Some parts of this sample application were inspired by the excellent
-  [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
+  [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by
+  *Marco Jakob*.
 
 #### Licence : [MIT](LICENSE)
