@@ -2,6 +2,7 @@
 
 * [Appendix A: User Stories](#appendix-a-user-stories)
 * [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
 
 ## Appendix A: User Stories
 
@@ -453,3 +454,15 @@ a new group activity.
 > 1a1. TaskTracker shows an error message "no action to undo"
 
 > User Case ends.
+
+## Appendix C: Non Functional Requirements
+
+1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher
+   installed.
+
+2. Should come with automated unit tests and open source code.
+
+3. Have shortcut keys to launch/minimise the app.
+
+4. Have the app notify me of the error in my command, and suggest the right
+   command when I make a typo/forget the format of the command
