@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList;
 
 /**
@@ -74,11 +75,11 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.add(task);
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.TaskNotFoundException();
+            throw new TaskNotFoundException();
         }
     }
 
