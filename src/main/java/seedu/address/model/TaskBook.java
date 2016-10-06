@@ -46,7 +46,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
-        return tasks;
+        return FXCollections.unmodifiableObservableList(tasks);
     }
 
     public void setTasks(List<Task> persons) {
