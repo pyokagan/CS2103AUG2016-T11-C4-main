@@ -1,7 +1,6 @@
 package seedu.address.model;
 
-import java.util.List;
-
+import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
 
 /**
@@ -12,6 +11,6 @@ public interface ReadOnlyTaskBook {
     /**
      * Returns an unmodifiable view of tasks list
      */
-    List<Task> getTaskList();
+    ObservableList<Task> getTasks();
 
 }

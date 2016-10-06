@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.task.Task;
@@ -33,20 +35,22 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      * Conversion
      */
     public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
-        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        persons.addAll(src.getTasks().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     @Override
-    public List<Task> getTaskList() {
-        return persons.stream().map(p -> {
+    public ObservableList<Task> getTasks() {
+        final ObservableList<Task> out = FXCollections.observableArrayList();
+        for (final XmlAdaptedTask task : persons) {
             try {
-                return p.toModelType();
+                out.add(task.toModelType());
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
+                // TODO: better error handling
                 return null;
             }
-        }).collect(Collectors.toCollection(ArrayList::new));
+        }
+        return out;
     }
 
 }

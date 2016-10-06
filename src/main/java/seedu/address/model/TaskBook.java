@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +24,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      * Tasks are copied into this TaskBook.
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getTaskList());
+        this(toBeCopied.getTasks());
     }
 
     /**
@@ -37,18 +36,14 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
-        setTasks(newData.getTaskList());
+        setTasks(newData.getTasks());
     }
 
     //// task operations
 
+    @Override
     public ObservableList<Task> getTasks() {
         return FXCollections.unmodifiableObservableList(tasks);
-    }
-
-    @Override
-    public List<Task> getTaskList() {
-        return Collections.unmodifiableList(tasks);
     }
 
     public void setTasks(List<Task> persons) {
