@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
 
 /**
  * An Immutable TaskBook that is serializable to XML format
@@ -35,19 +34,6 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      */
     public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
         persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-    }
-
-    @Override
-    public UniqueTaskList getUniqueTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : persons) {
-            try {
-                lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
-        }
-        return lists;
     }
 
     @Override

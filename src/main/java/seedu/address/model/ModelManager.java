@@ -12,7 +12,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskNotFoundException;
-import seedu.address.model.task.UniqueTaskList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -71,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task person) {
         addressBook.addTask(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();

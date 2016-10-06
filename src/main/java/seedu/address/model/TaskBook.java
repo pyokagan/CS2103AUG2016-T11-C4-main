@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskNotFoundException;
-import seedu.address.model.task.UniqueTaskList;
 
 /**
  * Wraps all data at the address-book level
@@ -18,26 +18,25 @@ import seedu.address.model.task.UniqueTaskList;
  */
 public class TaskBook implements ReadOnlyTaskBook {
 
-    private final UniqueTaskList tasks;
+    private final ObservableList<Task> tasks;
 
-    {
-        tasks = new UniqueTaskList();
+    public TaskBook() {
+        tasks = FXCollections.observableArrayList();
     }
 
-    public TaskBook() {}
-
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks are copied into this TaskBook.
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getUniqueTaskList());
+        this(toBeCopied.getTaskList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks are copied into this TaskBook.
      */
-    public TaskBook(UniqueTaskList persons) {
-        resetData(persons.getInternalList());
+    public TaskBook(List<ReadOnlyTask> tasks) {
+        this();
+        resetData(tasks);
     }
 
     public static ReadOnlyTaskBook getEmptyTaskBook() {
@@ -47,11 +46,11 @@ public class TaskBook implements ReadOnlyTaskBook {
     //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
-        return tasks.getInternalList();
+        return tasks;
     }
 
     public void setTasks(List<Task> persons) {
-        this.tasks.getInternalList().setAll(persons);
+        this.tasks.setAll(persons);
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newPersons) {
@@ -68,10 +67,8 @@ public class TaskBook implements ReadOnlyTaskBook {
      * Adds a task to the task book.
      * Also checks the new tasks's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
-     *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
      */
-    public void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
@@ -87,18 +84,13 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks";
+        return tasks.size() + " tasks";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
-    }
-
-    @Override
-    public UniqueTaskList getUniqueTaskList() {
-        return this.tasks;
+        return Collections.unmodifiableList(tasks);
     }
 
     @Override

@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskListCardHandle;
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
@@ -24,11 +23,6 @@ public class AddCommandTest extends TaskTrackerGuiTest {
         personToAdd = td.ida;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
-
-        //add duplicate person
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(personListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");

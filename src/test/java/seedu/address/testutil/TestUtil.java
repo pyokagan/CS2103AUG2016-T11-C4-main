@@ -33,7 +33,6 @@ import seedu.address.model.TaskBook;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.storage.XmlSerializableTaskBook;
 
 /**
@@ -124,7 +123,7 @@ public class TestUtil {
     }
 
     public static TaskBook generateEmptyAddressBook() {
-        return new TaskBook(new UniqueTaskList());
+        return new TaskBook();
     }
 
     public static XmlSerializableTaskBook generateSampleStorageAddressBook() {

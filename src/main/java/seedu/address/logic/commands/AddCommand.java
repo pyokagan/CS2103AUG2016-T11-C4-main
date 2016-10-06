@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 
 /**
  * Adds a person to the task book.
@@ -18,7 +17,6 @@ public class AddCommand extends Command {
             + " John Doe";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
 
     private final Task toAdd;
 
@@ -34,13 +32,8 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
-
+        model.addTask(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
 }

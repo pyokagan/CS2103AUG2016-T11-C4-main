@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import seedu.address.model.TaskBook;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -17,7 +16,7 @@ public class TaskBookBuilder {
         this.addressBook = addressBook;
     }
 
-    public TaskBookBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
+    public TaskBookBuilder withPerson(Task person) {
         addressBook.addTask(person);
         return this;
     }
