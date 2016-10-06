@@ -170,3 +170,130 @@ Priority | As a ... | I want to ... | So that I can...
 >      database.
 
 > Use case ends.
+
+### Use case: Revise the due time of a deadline task
+
+**MSS**
+
+1. User requests to update the due datetime of a certain deadline with new
+   date/time information.
+
+2. TaskTracker revises the deadline to the new time, and notifies the user that
+   the due date/time was successfully revised.
+
+   Use case ends.
+
+**Extensions**
+
+1a. The requested deadline task does not exist.
+
+> 1a1. TaskTracker informs the user that the requested deadline does not exist.
+
+> Use case ends.
+
+1b. The new time is the same as the previous due datetime.
+
+> 1b1. TaskTracker informs the user that the datetime remains unchanged.
+
+> Use case ends.
+
+1c. The new date/time occurs in the past.
+
+> 1c1. TaskTracker warns the user that the end datetime is in the past.
+
+> Use case resumes from step 2.
+
+### Use case: Revise the time of an event
+
+**MSS**
+
+1. User requests to revise the the time of a certain deadline with new
+   date/time information.
+
+2. TaskTracker revises the event to a new time slot, and notifies the user that
+   the time was successfully revised.
+
+   Use case ends.
+
+**Extensions**
+
+1d. The requested event does not exist.
+
+> 1a1. TaskTracker informs the user that the requested event does not exist.
+
+> Use case ends.
+
+1b. The range of time specified by the start datetime and end datetime
+    intersects with the start-end datetime range of other event(s).
+
+> 1b1. TaskTracker warns the user that the event clashes with which event(s).
+
+> Use case resumes from step 2.
+
+1c. The start datetime occurs after the end datetime.
+
+> 1c1. TaskTracker notifies the user that the start datetime and end datetime
+> are invalid.
+
+> Use case ends.
+
+1d. The range of time specified by the start datetime and end datetime occurs
+    in the past.
+
+> 1e1. TaskTracker warns the user that the event is in the past.
+
+> Use case resumes from step 2.
+
+1e. The new datetime is the same as the existing datetime.
+
+> 1e1. TaskTracker informs the user that the datetime remains unchanged.
+
+> Use case ends.
+
+### Use case: mark a floating task/deadline as finished
+
+**MSS**
+
+1. User requests to mark a certain floating task/deadline as finished.
+
+2. TaskTracker marks the task as finished and informs the user.
+   Use case ends.
+
+**Extensions**
+
+1a. The floating task does not exist.
+
+> 1a1. TaskTracker informs the user that the floating task does not exist.
+
+> Use case ends.
+
+### Use case: Generate a list of empty time slots
+
+**MSS**
+
+1. User request to generate a list of free time slots in a certain period with
+   certain time duration.
+
+2. TaskTracker lists all possible time slots in that period <br>
+   Use case ends.
+
+**Extensions**
+
+1a. The time period requested is invalid (wrong format or time in the past)
+
+> 1a1. TaskTracker shows an error message.
+
+> Use case ends.
+
+1b. The input duration is in wrong format
+
+> 1b1. TaskTracker shows an error message to inform the error.
+
+> Use case ends.
+
+2a. There is no feasible time slot
+
+> 2a1. TaskTracker shows an empty list and throw a message saying there is no
+> avaliable time slots for the user in the given time period.
+
+> Use case ends.
