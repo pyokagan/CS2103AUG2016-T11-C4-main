@@ -3,6 +3,7 @@
 * [Appendix A: User Stories](#appendix-a-user-stories)
 * [Appendix B: Use Cases](#appendix-b-use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
 
 ## Appendix A: User Stories
 
@@ -466,3 +467,25 @@ a new group activity.
 
 4. Have the app notify me of the error in my command, and suggest the right
    command when I make a typo/forget the format of the command
+
+## Appendix D: Glossary
+
+<dl>
+  <dt>Datetime</dt>
+  <dd>Date and Time</dd>
+
+  <dt>Task</dt>
+  <dd>A unit of information in the database. Each task has a name.</dd>
+
+  <dt>Event</dt>
+  <dd>Task that has a start datetime and end datetime</dd>
+
+  <dt>Deadline</dt>
+  <dd>Task that has an end datetime only.</dd>
+
+  <dt>Floating task</dt>
+  <dd>A task that has neither a start datetime not end datetime. It has a implicit priority derived from its position in the floating task list  in the database.</dd>
+
+  <dt>Time slot</dt>
+  <dd>A time slot is referring to a period of time</dd>
+</dl>
