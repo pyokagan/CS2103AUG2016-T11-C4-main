@@ -39,10 +39,6 @@ public class TaskBook implements ReadOnlyTaskBook {
         resetData(tasks);
     }
 
-    public static ReadOnlyTaskBook getEmptyTaskBook() {
-        return new TaskBook();
-    }
-
     //// list overwrite operations
 
     public ObservableList<Task> getTasks() {

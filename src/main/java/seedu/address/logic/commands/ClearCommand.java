@@ -15,7 +15,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(TaskBook.getEmptyTaskBook());
+        model.resetData(new TaskBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
