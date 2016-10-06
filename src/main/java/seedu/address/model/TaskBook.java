@@ -1,10 +1,8 @@
 package seedu.address.model;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,28 +33,27 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public TaskBook(List<Task> tasks) {
         this();
-        resetData(tasks);
+        setTasks(tasks);
     }
 
-    //// list overwrite operations
+    public void resetData(ReadOnlyTaskBook newData) {
+        setTasks(newData.getTaskList());
+    }
+
+    //// task operations
 
     public ObservableList<Task> getTasks() {
         return FXCollections.unmodifiableObservableList(tasks);
     }
 
+    @Override
+    public List<Task> getTaskList() {
+        return Collections.unmodifiableList(tasks);
+    }
+
     public void setTasks(List<Task> persons) {
         this.tasks.setAll(persons);
     }
-
-    public void resetData(Collection<? extends Task> newPersons) {
-        setTasks(newPersons.stream().map(Task::new).collect(Collectors.toList()));
-    }
-
-    public void resetData(ReadOnlyTaskBook newData) {
-        resetData(newData.getTaskList());
-    }
-
-    //// task-level operations
 
     /**
      * Adds a task to the task book.
@@ -81,11 +78,6 @@ public class TaskBook implements ReadOnlyTaskBook {
     public String toString() {
         return tasks.size() + " tasks";
         // TODO: refine later
-    }
-
-    @Override
-    public List<Task> getTaskList() {
-        return Collections.unmodifiableList(tasks);
     }
 
     @Override
