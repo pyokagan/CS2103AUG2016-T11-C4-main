@@ -1,6 +1,7 @@
 # Developer Guide
 
 * [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
 
 ## Appendix A: User Stories
 
@@ -43,3 +44,129 @@ Priority | As a ... | I want to ... | So that I can...
 `*`      | Busy user | Tags such as coloured dots, or icons, for each task which indicates the priority of the task (on a scale of 1-3) | Able to decide which task needs to be completed urgently
 `*`      | Group user | Option to categorize my task as a "Group activity" and automatically send notifications (through mail or other social networking platforms) to all other users who are in my team, whenever I make any changes to our work schedule for the group activity; and send them reminders about upcoming deadlines for the tasks. Every time I add a new task, I should have also an option to either include it to an existing group activity or add it to a new group activity (different commands for each of these operations). | Improve my work efficiency, and make sure everyone in my team are aware of the work schedule of our project.
 `* `     | User who needs to be reminded of the task before the deadline date. | Set reminders at customized times before the deadline. | Have enough time to complete the task before deadline, even if I forgot to do it.
+
+## Appendix B: Use Cases
+
+**Software System**: TaskTracker
+
+**Actor**: User
+
+### Use case: Add an event
+
+**MSS**
+
+1. User requests to add an event with the specified name, start date/time and
+   end date/time.
+
+2. TaskTracker adds the event to the database, and notifies the user that the
+   event was successfully added.
+
+   Use case ends.
+
+**Extensions**
+
+1a. The start datetime occurs after the end datetime.
+
+> 1a1. TaskTracker notifies the user that the start datetime and end datetime
+>      are invalid.
+
+> Use case ends.
+
+1b. The range of time specified by the start datetime and end datetime occurs
+    in the past.
+
+> 1b1. TaskTracker warns the user that the event is in the past.
+
+> Use case resumes from step 2.
+
+1c. The name of the event contains invalid characters.
+
+> 1c1. TaskTracker notifies the user that the event name contains which invalid
+>      character(s).
+
+> Use case ends.
+
+1d. The name of the event contains leading/trailing whitespace.
+
+> 1d1. TaskTracker silently strips the leading/trailing whitespace from the
+>      name.
+
+> Use case resumes from step 2.
+
+### Use case: Add a deadline
+
+**MSS**
+
+1. User requests to add a deadline with the specified name and end date/time.
+
+2. TaskTracker adds the deadline to the database, and notifies the user that
+   the deadline was successfully added.
+
+   Use case ends.
+
+**Extensions**
+
+1a. The end datetime occurs in the past.
+
+> 1a1. TaskTracker warns the user that the end datetime is in the past.
+
+> Use case resumes from step 2.
+
+1b. The name of the deadline contains invalid characters.
+
+> 1b1. TaskTracker notifies the user that the deadline name contains which
+>      invalid character(s).
+
+> Use case ends.
+
+1c. The name of the deadline contains leading/trailing whitespace.
+
+> 1c1. TaskTracker silently strips the whitespace from the name.
+
+> Use case resumes from step 2.
+
+### Use case: Add a floating task
+
+**MSS**
+
+1. Use requests to add a floating task with the specified name.
+
+2. TaskTracker adds the floating task to the database at the lowest priority,
+   and notifies the user that the floating task was successfully added.
+
+   Use case ends.
+
+**Extensions**
+
+1a. The name of the floating task contains invalid character(s).
+
+> 1a1. TaskTracker notifies the user that the floating task name contains which
+>      invalid character(s).
+
+> Use case ends.
+
+1b. The name of the floating task contains leading/trailing whitespace.
+
+> 1b1. TaskTracker silently strips the leading/trailing whitespace from the
+>      name.
+
+> Use case resumes from step 2.
+
+### Use case: View all floating tasks
+
+**MSS**
+
+1. User requests to view all floating tasks.
+
+2. TaskTracker displays all floating tasks in the database as a list, ordered
+   from highest to lowest priority. <br>
+   Use case ends.
+
+**Extensions**
+
+1a. There are no floating tasks in the database.
+
+> 1a1. TaskTracker notifies the user that there are no floating tasks in the
+>      database.
+
+> Use case ends.
