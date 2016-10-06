@@ -6,11 +6,11 @@ import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Represents a Task in the address book.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: Is a POJO. Details are present and not null. Field values are validated and immutable.
  */
 public class Task implements ReadOnlyTask {
 
-    private Name name;
+    private final Name name;
 
     /**
      * Every field must be present and not null.
