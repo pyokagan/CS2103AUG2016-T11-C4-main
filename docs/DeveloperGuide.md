@@ -537,3 +537,52 @@ time at all.
 Finally, it has no support for undoing operations. While this is alleviated
 somewhat as it asks for confirmation before deleting tasks, all other
 operations are done without user confirmation.
+
+### Todoist
+
+Full product survey [here](productsurveys/Todoist.md)
+
+Jim’s Requirement | Todoist support
+:---------------- | ------------------
+Summoned quickly from anywhere | No
+Keyboard-oriented. Jim can type commands in “one shot”. | No
+Keyboard-oriented. Jim can use keyboard shortcut to increase efficiency. | Yes
+Works offline | Yes
+Simple Search | Yes
+CRUD support for floating tasks | Full
+CRUD support for deadlines | Full
+CRUD support for events | None
+Keep track of which items are done/not done | Yes
+Look for a suitable time schedule a task. | Tiny
+Ability to “block” multiple slots. | No
+Flexibility in command line format. | No
+Undo operations | Partial
+
+Todoist is a half keyboard oriented cross-platform applications, with plenty of
+useful keyboard short-cut on both PC and Web clients. It can work both online
+or offline on mobile phone or personal computer.
+
+It fully supports creation, reading, updating and deleting (CRUD) function of
+floating tasks and deadline-like task. The user interface is well designed and
+user can perform their actions quite easily through it. Besides, user can also
+conduct simple searching action among all task he or she has created. However,
+Todoist also does not support the functionality to add event-like task at all.
+
+Also for premium account, Todoist also gives the support of tracking the task
+that has already been done or finished, which gives convenience for user to
+record their working history.
+
+Besides, Todoist can automatically suggest how many tasks have already existed
+on a certain day when creating the tasks. But since Todoist does not support
+event-like task, it also has no support at all for generating suggestion of
+suitable time-slots or placing multiple time slots/blocks when creating the
+tasks.
+
+Moreover, Todoist does support undo-actions, but only for the last one actions
+the user performs.
+
+Furthermore, there are several features that we could learn from Todoist. The
+first one is the "Quick-Add" function which enables the user to add either
+floating task or deadline task in a single window. The second one is the "Undo"
+command, which enables the user to undo the last command immediately when them
+perform wrongly.
