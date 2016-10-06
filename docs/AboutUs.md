@@ -24,6 +24,12 @@ Responsibilities: Integration
 Role: Developer <br>
 Responsibilities: Code Quality
 
+### [Sneha Santha Prabakar](https://github.com/snehasp13)
+![Sneha Santha Prabakar](images/team/Sneha.jpg)
+
+Role: Developer <br>
+Responsibilities: Testing
+
 # Original Authors
 
 Task Tracker is based on [code](https://github.com/se-edu/addressbook-level4) by the following authors:
