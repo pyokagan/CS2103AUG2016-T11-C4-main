@@ -18,7 +18,7 @@ import seedu.address.commons.util.FxViewUtil;
 /**
  * A ui for the status bar that is displayed at the footer of the application.
  */
-public class StatusBarFooter extends UiPart {
+public class StatusBarFooter extends UiPart<GridPane> {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
     private StatusBar syncStatus;
     private StatusBar saveLocationStatus;

@@ -10,7 +10,7 @@ import seedu.address.commons.util.FxViewUtil;
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart {
+public class HelpWindow extends UiPart<AnchorPane> {
 
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "/view/HelpWindow.fxml";
