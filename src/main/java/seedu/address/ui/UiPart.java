@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.commons.util.AppUtil;
 
 /**
  * Base class for UI parts.
@@ -63,15 +62,6 @@ public class UiPart<T> {
         dialogStage.initOwner(parentStage);
         dialogStage.setScene(scene);
         return dialogStage;
-    }
-
-    /**
-     * Sets the given image as the icon for the given stage.
-     * @param stage
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(Stage stage, String iconSource) {
-        stage.getIcons().add(AppUtil.getImage(iconSource));
     }
 
     public Stage getPrimaryStage() {
