@@ -67,7 +67,7 @@ public class StorageManagerTest {
     @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlTaskBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new JsonTaskBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleTaskBookChangedEvent(new TaskBookChangedEvent(new TaskBook()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
@@ -77,9 +77,9 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlTaskBookStorageExceptionThrowingStub extends XmlTaskBookStorage {
+    class JsonTaskBookStorageExceptionThrowingStub extends JsonTaskBookStorage {
 
-        XmlTaskBookStorageExceptionThrowingStub(String filePath) {
+        JsonTaskBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
