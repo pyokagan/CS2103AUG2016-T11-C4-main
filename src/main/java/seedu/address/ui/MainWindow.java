@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -122,6 +123,14 @@ public class MainWindow extends UiPart<Scene> {
 
     public TaskListPanel getPersonListPanel() {
         return this.personListPanel;
+    }
+
+    /**
+     * Sets the given image as the icon for the primary stage of this UI Part.
+     * @param iconSource e.g. {@code "/images/help_icon.png"}
+     */
+    private void setIcon(String iconSource) {
+        primaryStage.getIcons().add(AppUtil.getImage(iconSource));
     }
 
 }
