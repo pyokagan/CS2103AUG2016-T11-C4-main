@@ -42,7 +42,7 @@ public class TaskListCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(Task person) {
-        return getFullName().equals(person.getName().fullName);
+        return getFullName().equals(person.name.toString());
     }
 
     @Override

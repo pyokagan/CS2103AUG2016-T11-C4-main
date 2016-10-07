@@ -373,7 +373,7 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
+            cmd.append(p.name.toString());
 
             return cmd.toString();
         }

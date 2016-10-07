@@ -10,7 +10,7 @@ import seedu.address.commons.util.CollectionUtil;
  */
 public class Task {
 
-    private final Name name;
+    public final Name name;
 
     /**
      * Every field must be present and not null.
@@ -24,18 +24,14 @@ public class Task {
      * Copy constructor.
      */
     public Task(Task source) {
-        this(source.getName());
-    }
-
-    public Name getName() {
-        return name;
+        this(source.name);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                || (other instanceof Task
-               && ((Task)other).getName().equals(getName()));
+               && ((Task)other).name.equals(name));
     }
 
     @Override
@@ -47,7 +43,7 @@ public class Task {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
+        builder.append(name);
         return builder.toString();
     }
 

@@ -26,7 +26,7 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(Task source) {
-        name = source.getName().fullName;
+        name = source.name.fullName;
     }
 
     /**
