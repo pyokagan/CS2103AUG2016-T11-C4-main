@@ -17,7 +17,7 @@ public class TaskListCard extends UiPart<HBox> {
     private Label id;
 
     public TaskListCard(Task person, int displayedIndex) {
-        super(FXML, null);
+        super(FXML);
         name.setText(person.name.toString());
         id.setText(displayedIndex + ". ");
     }

@@ -10,7 +10,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.util.FxViewUtil;
@@ -35,8 +34,8 @@ public class StatusBarFooter extends UiPart<GridPane> {
 
     private static final String FXML = "/view/StatusBarFooter.fxml";
 
-    public StatusBarFooter(Stage stage, String saveLocation) {
-        super(FXML, stage);
+    public StatusBarFooter(String saveLocation) {
+        super(FXML);
         addMainPane();
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");

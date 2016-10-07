@@ -49,8 +49,11 @@ public class MainWindow extends UiPart<Scene> {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
+    private final Stage primaryStage;
+
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-        super(FXML, primaryStage);
+        super(FXML);
+        this.primaryStage = primaryStage;
 
         //Configure the UI
         setTitle(config.getAppTitle());
@@ -66,11 +69,11 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     void fillInnerParts(Logic logic) {
-        personListPanel = new TaskListPanel(primaryStage, logic.getFilteredTaskList());
+        personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        resultDisplay = new ResultDisplay(primaryStage);
+        resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-        commandBox = new CommandBox(primaryStage, resultDisplay, logic);
+        commandBox = new CommandBox(resultDisplay, logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 

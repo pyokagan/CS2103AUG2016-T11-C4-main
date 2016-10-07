@@ -16,16 +16,11 @@ import seedu.address.commons.events.BaseEvent;
  * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
  */
 public class UiPart<T> {
-    /**
-     * The primary stage for the UI Part.
-     */
-    public final Stage primaryStage;
 
     private final FXMLLoader loader;
 
-    public UiPart(URL url, Stage primaryStage) {
+    public UiPart(URL url) {
         assert url != null;
-        this.primaryStage = primaryStage;
         loader = new FXMLLoader(url);
         loader.setController(this);
         try {
@@ -36,8 +31,8 @@ public class UiPart<T> {
         EventsCenter.getInstance().registerHandler(this);
     }
 
-    public UiPart(String name, Stage primaryStage) {
-        this(MainApp.class.getResource(name), primaryStage);
+    public UiPart(String name) {
+        this(MainApp.class.getResource(name));
     }
 
     /**
@@ -62,10 +57,6 @@ public class UiPart<T> {
         dialogStage.initOwner(parentStage);
         dialogStage.setScene(scene);
         return dialogStage;
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
     }
 
     public T getRoot() {

@@ -23,8 +23,11 @@ public class HelpWindow extends UiPart<AnchorPane> {
 
     private Stage dialogStage;
 
+    private final Stage primaryStage;
+
     public HelpWindow(Stage primaryStage) {
-        super(FXML, primaryStage);
+        super(FXML);
+        this.primaryStage = primaryStage;
         Scene scene = new Scene(helpWindowRoot);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);

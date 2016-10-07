@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.model.task.Task;
@@ -25,8 +24,8 @@ public class TaskListPanel extends UiPart<VBox> {
     @FXML
     private ListView<Task> personListView;
 
-    public TaskListPanel(Stage primaryStage, ObservableList<Task> personList) {
-        super(FXML, primaryStage);
+    public TaskListPanel(ObservableList<Task> personList) {
+        super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();

@@ -7,7 +7,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.commons.util.FxViewUtil;
@@ -29,8 +28,8 @@ public class CommandBox extends UiPart<AnchorPane> {
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
-    public CommandBox(Stage primaryStage, ResultDisplay resultDisplay, Logic logic) {
-        super(FXML, primaryStage);
+    public CommandBox(ResultDisplay resultDisplay, Logic logic) {
+        super(FXML);
         this.resultDisplay = resultDisplay;
         this.logic = logic;
         FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);

@@ -5,7 +5,6 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 
 /**
@@ -22,8 +21,8 @@ public class ResultDisplay extends UiPart<AnchorPane> {
     @FXML
     private AnchorPane mainPane;
 
-    public ResultDisplay(Stage primaryStage) {
-        super(FXML, primaryStage);
+    public ResultDisplay() {
+        super(FXML);
         resultDisplayArea = new TextArea();
         resultDisplayArea.setEditable(false);
         resultDisplayArea.setId(RESULT_DISPLAY_ID);
