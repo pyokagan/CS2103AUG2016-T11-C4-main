@@ -31,7 +31,7 @@ Role: Developer <br>
 Responsibilities: Testing
 
 ### [Wong Wen Qi Sherry](https://github.com/potatowagon)
-![Wong Wen Qi Sherry](images/team/Sherry.jpg =100x200)
+![Wong Wen Qi Sherry](images/team/Sherry.jpg {width="50", height="100"} )
 Role: Developer <br>
 Responsibilities: Documentation
 
