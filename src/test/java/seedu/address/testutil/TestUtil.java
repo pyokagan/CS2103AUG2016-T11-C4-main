@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 
 import guitests.guihandles.TaskListCardHandle;
@@ -28,11 +29,10 @@ import junit.framework.AssertionFailedError;
 import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.TaskBook;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
-import seedu.address.storage.XmlSerializableTaskBook;
+import seedu.address.storage.JsonStorageModule;
 
 /**
  * A utility class for test cases.
@@ -108,11 +108,13 @@ public class TestUtil {
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
+        final File saveFileForTesting = new File(filePath);
         try {
-            File saveFileForTesting = new File(filePath);
             FileUtil.createIfMissing(saveFileForTesting);
-            XmlUtil.saveDataToFile(saveFileForTesting, data);
-        } catch (Exception e) {
+            new ObjectMapper()
+                .registerModule(new JsonStorageModule())
+                .writeValue(saveFileForTesting, data);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -125,8 +127,8 @@ public class TestUtil {
         return new TaskBook();
     }
 
-    public static XmlSerializableTaskBook generateSampleStorageAddressBook() {
-        return new XmlSerializableTaskBook(generateEmptyAddressBook());
+    public static TaskBook generateSampleStorageAddressBook() {
+        return new TaskBook(generateEmptyAddressBook());
     }
 
     /**
