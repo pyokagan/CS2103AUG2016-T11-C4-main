@@ -75,7 +75,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempTaskBook.json";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         logic = new LogicManager(model, new StorageManager(tempTaskBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
