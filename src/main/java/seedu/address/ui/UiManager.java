@@ -31,6 +31,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
+    private Stage primaryStage;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -42,6 +43,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
+        this.primaryStage = primaryStage;
         primaryStage.setTitle(config.getAppTitle());
 
         //Set the application icon.
@@ -61,6 +63,7 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
+        primaryStage = null;
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -73,7 +76,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(primaryStage, type, title, headerText, contentText);
     }
 
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
