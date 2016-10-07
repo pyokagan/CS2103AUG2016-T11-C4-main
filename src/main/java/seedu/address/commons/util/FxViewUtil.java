@@ -21,7 +21,7 @@ public class FxViewUtil {
      * @param stage
      * @param iconSource e.g. {@code "/images/help_icon.png"}
      */
-    public static void setIcon(Stage stage, String iconSource) {
+    public static void setStageIcon(Stage stage, String iconSource) {
         stage.getIcons().add(AppUtil.getImage(iconSource));
     }
 
