@@ -103,7 +103,7 @@ public abstract class TaskTrackerGuiTest {
      * Asserts the person shown in the card is same as the given person
      */
     public void assertMatching(Task person, TaskListCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+        assertTrue(TestUtil.compareCardAndTask(card, person));
     }
 
     /**
