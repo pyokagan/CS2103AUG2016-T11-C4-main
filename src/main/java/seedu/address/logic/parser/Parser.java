@@ -20,6 +20,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteFloatingTaskCommand;
+import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditFloatingTaskCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -89,6 +90,9 @@ public class Parser {
 
         case DeleteEventCommand.COMMAND_WORD:
             return prepareDeleteEvent(arguments);
+
+        case EditEventCommand.COMMAND_WORD:
+            return new EditEventParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
