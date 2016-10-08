@@ -25,22 +25,21 @@ public class ModelManager extends ComponentManager implements Model {
      * Initializes a ModelManager with the given TaskBook
      * TaskBook and its variables should not be null
      */
-    public ModelManager(TaskBook src, UserPrefs userPrefs) {
+    public ModelManager(TaskBook src) {
         super();
         assert src != null;
-        assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + src);
 
         addressBook = new TaskBook(src);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
     }
 
     public ModelManager() {
-        this(new TaskBook(), new UserPrefs());
+        this(new TaskBook());
     }
 
-    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskBook initialData) {
         addressBook = new TaskBook(initialData);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
     }

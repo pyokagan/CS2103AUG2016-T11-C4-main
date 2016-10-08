@@ -59,7 +59,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage);
 
         logic = new LogicManager(model, storage);
 
@@ -73,7 +73,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private Model initModelManager(Storage storage) {
         Optional<ReadOnlyTaskBook> addressBookOptional;
         ReadOnlyTaskBook initialData;
         try {
@@ -90,7 +90,7 @@ public class MainApp extends Application {
             initialData = new TaskBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData);
     }
 
     private void initLogging(Config config) {
