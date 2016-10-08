@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Task;
 
@@ -21,5 +22,8 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<FloatingTask> getFilteredFloatingTaskList();
+
+    /** Returns the filtered list of event tasks */
+    ObservableList<EventTask> getFilteredEventTaskList();
 
 }
