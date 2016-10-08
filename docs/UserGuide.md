@@ -145,12 +145,16 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 Adds a floating task to TaskTracker.
 
-    add "FLOATING_TASK_NAME" [PRIORITY]
+    task "FLOATING_TASK_NAME" [PRIORITY]
 
 * Task name should be in a pair of quotation marks.
 
-* The floating task will be stored and shown to user according to the order of
-  the time they created.
+* Task name could be a single word or a phrase, white space are allowed.
+
+* The floating task will be shown according to their `PRIORITY`.
+
+* Two floating tasks with the same `PRIORITY` will be shown according to
+  the order of the time they created.
 
 * The `PRIORITY` attribute is an integer which ranges from `0` to `5`.
 
@@ -158,9 +162,13 @@ Adds a floating task to TaskTracker.
 
 #### Examples
 
-* `add EE2020 "lab report" 5`
+* `task "EE2020 lab report" 5`
 
-* `add "ProgressReflection"`
+To create a task called `EE2020 lab report` with `PRIORITY` of 5.
+
+* `task ProgressReflection`
+
+To create a task called `ProgressReflection` with default `PRIORITY` of 0.
 
 ### Adding a event-like task : `add`
 
@@ -395,7 +403,7 @@ Exits the program.
 
 Command | Format
 ------------ | :--------
-Add Floating Task | `add "FLOATING_TASK_NAME" [PRIORITY]`
+Add Floating Task | `task "FLOATING_TASK_NAME" [PRIORITY]`
 Add Event |`add “EVENT_NAME” <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> [loc/LOCATION]`
 Add Deadline |`add “DEADLINE_NAME” <DATE> <TIME>`
 Delte a task | `del "TASK_NAME"`
