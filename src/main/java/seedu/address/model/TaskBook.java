@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskNotFoundException;
@@ -20,27 +21,29 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     private final ObservableList<FloatingTask> floatingTasks;
 
+    private final ObservableList<EventTask> eventTasks;
+
     public TaskBook() {
         tasks = FXCollections.observableArrayList();
         floatingTasks = FXCollections.observableArrayList();
+        eventTasks = FXCollections.observableArrayList();
     }
 
     /**
      * Tasks are copied into this TaskBook.
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getTasks(),
-                toBeCopied.getFloatingTasks());
+        this(toBeCopied.getTasks(), toBeCopied.getFloatingTasks(), toBeCopied.getEventTasks());
     }
 
     /**
      * Tasks are copied into this TaskBook.
      */
-    public TaskBook(List<Task> tasks,
-            List<FloatingTask> floatingTasks) {
+    public TaskBook(List<Task> tasks, List<FloatingTask> floatingTasks, List<EventTask> eventTasks) {
         this();
         setTasks(tasks);
         setFloatingTasks(floatingTasks);
+        setEventTasks(eventTasks);
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
@@ -101,6 +104,32 @@ public class TaskBook implements ReadOnlyTaskBook {
         floatingTasks.set(index, newFloatingTask);
     }
 
+    //// event task operations
+
+    @Override
+    public ObservableList<EventTask> getEventTasks() {
+        return FXCollections.unmodifiableObservableList(eventTasks);
+    }
+
+    public void setEventTasks(Collection<EventTask> eventTasks) {
+        this.eventTasks.setAll(eventTasks);
+    }
+
+    public void addEventTask(EventTask eventTask) {
+        eventTasks.add(eventTask);
+    }
+
+    /**
+     * Removes the EventTask at position `index` in the list. Returns the removed EventTask.
+     */
+    public EventTask removeEventTask(int index) {
+        return eventTasks.remove(index);
+    }
+
+    public void setEventTask(int index, EventTask newEventTask) {
+        eventTasks.set(index, newEventTask);
+    }
+
     //// util methods
 
     @Override
@@ -114,12 +143,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         return other == this // short circuit if same object
                 || (other instanceof TaskBook // instanceof handles nulls
                 && this.tasks.equals(((TaskBook) other).tasks)
-                && this.floatingTasks.equals(((TaskBook) other).floatingTasks));
+                && this.floatingTasks.equals(((TaskBook) other).floatingTasks)
+                && this.eventTasks.equals(((TaskBook) other).eventTasks));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, floatingTasks);
+        return Objects.hash(tasks, floatingTasks, eventTasks);
     }
 }
