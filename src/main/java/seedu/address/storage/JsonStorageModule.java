@@ -3,6 +3,7 @@ package seedu.address.storage;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 
+import seedu.address.commons.time.LocalDateTimeDuration;
 import seedu.address.model.TaskBook;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Name;
@@ -23,6 +24,7 @@ public class JsonStorageModule extends Module {
 
     @Override
     public void setupModule(SetupContext context) {
+        context.setMixInAnnotations(LocalDateTimeDuration.class, JsonLocalDateTimeDurationMixin.class);
         context.setMixInAnnotations(Name.class, JsonNameMixin.class);
         context.setMixInAnnotations(Priority.class, JsonPriorityMixin.class);
         context.setMixInAnnotations(Task.class, JsonTaskMixin.class);
