@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.task.TypicalEventTasks;
 import seedu.address.model.task.TypicalFloatingTasks;
 
 public class ModelTest {
@@ -19,6 +20,8 @@ public class ModelTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private TypicalFloatingTasks tpflt = new TypicalFloatingTasks();
+
+    private TypicalEventTasks tet = new TypicalEventTasks();
 
     private Model model;
 
@@ -30,6 +33,7 @@ public class ModelTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), model.getFilteredFloatingTaskList());
+        assertEquals(Collections.emptyList(), model.getFilteredEventTaskList());
     }
 
     @Test
@@ -79,6 +83,54 @@ public class ModelTest {
     public void setFloatingTask_invalidIndex_throwsException() throws Exception {
         thrown.expect(IllegalValueException.class);
         model.setFloatingTask(0, tpflt.readABook);
+    }
+
+    @Test
+    public void addEventTask_appendsEventTask() throws Exception {
+        model.addEventTask(tet.lunchWithBillGates);
+        assertEquals(tet.lunchWithBillGates, model.getEventTask(0));
+        model.addEventTask(tet.launchNuclearWeapons);
+        assertEquals(tet.lunchWithBillGates, model.getEventTask(0));
+        assertEquals(tet.launchNuclearWeapons, model.getEventTask(1));
+    }
+
+    @Test
+    public void getEventTask_invalidIndex_throwsException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        model.getEventTask(0);
+    }
+
+    @Test
+    public void removeEventTask_removesIndexInFilteredList() throws Exception {
+        model.addEventTask(tet.lunchWithBillGates);
+        model.addEventTask(tet.launchNuclearWeapons);
+        model.setEventTaskFilter(eventTask -> eventTask.equals(tet.launchNuclearWeapons));
+        model.removeEventTask(0);
+        model.setEventTaskFilter(null);
+        assertEquals(Arrays.asList(tet.lunchWithBillGates), model.getFilteredEventTaskList());
+    }
+
+    @Test
+    public void removeEventTask_invalidIndex_throwsException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        model.removeEventTask(0);
+    }
+
+    @Test
+    public void setEventTask_replacesIndexInFilteredList() throws Exception {
+        model.addEventTask(tet.lunchWithBillGates);
+        model.addEventTask(tet.launchNuclearWeapons);
+        model.setEventTaskFilter(eventTask -> eventTask.equals(tet.launchNuclearWeapons));
+        model.setEventTask(0, tet.lunchWithBillGates);
+        model.setEventTaskFilter(null);
+        assertEquals(Arrays.asList(tet.lunchWithBillGates, tet.lunchWithBillGates),
+                    model.getFilteredEventTaskList());
+    }
+
+    @Test
+    public void setEventTask_invalidIndex_throwsException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        model.setEventTask(0, tet.lunchWithBillGates);
     }
 
 }

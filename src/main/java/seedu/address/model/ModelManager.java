@@ -10,6 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskNotFoundException;
@@ -24,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<FloatingTask> filteredFloatingTasks;
+    private final FilteredList<EventTask> filteredEventTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -38,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.taskBook = new TaskBook(taskBook);
         this.filteredTasks = new FilteredList<>(this.taskBook.getTasks());
         this.filteredFloatingTasks = new FilteredList<>(this.taskBook.getFloatingTasks());
+        this.filteredEventTasks = new FilteredList<>(this.taskBook.getEventTasks());
     }
 
     public ModelManager() {
@@ -133,6 +136,56 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void setFloatingTaskFilter(Predicate<? super FloatingTask> predicate) {
         filteredFloatingTasks.setPredicate(predicate);
+    }
+
+    //// Event tasks
+
+    @Override
+    public synchronized void addEventTask(EventTask eventTask) {
+        taskBook.addEventTask(eventTask);
+        setEventTaskFilter(null);
+        indicateTaskBookChanged();
+    }
+
+    @Override
+    public synchronized EventTask getEventTask(int indexInFilteredList) throws IllegalValueException {
+        try {
+            return filteredEventTasks.get(indexInFilteredList);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalValueException("invalid index");
+        }
+    }
+
+    private int getEventTaskSourceIndex(int indexInFilteredList) throws IllegalValueException {
+        try {
+            return filteredEventTasks.getSourceIndex(indexInFilteredList);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalValueException("invalid index");
+        }
+    }
+
+    @Override
+    public synchronized EventTask removeEventTask(int indexInFilteredList) throws IllegalValueException {
+        final EventTask removedEvent = taskBook.removeEventTask(getEventTaskSourceIndex(indexInFilteredList));
+        indicateTaskBookChanged();
+        return removedEvent;
+    }
+
+    @Override
+    public synchronized void setEventTask(int indexInFilteredList, EventTask newEventTask)
+            throws IllegalValueException {
+        taskBook.setEventTask(getEventTaskSourceIndex(indexInFilteredList), newEventTask);
+        indicateTaskBookChanged();
+    }
+
+    @Override
+    public ObservableList<EventTask> getFilteredEventTaskList() {
+        return filteredEventTasks;
+    }
+
+    @Override
+    public void setEventTaskFilter(Predicate<? super EventTask> predicate) {
+        filteredEventTasks.setPredicate(predicate);
     }
 
 }
