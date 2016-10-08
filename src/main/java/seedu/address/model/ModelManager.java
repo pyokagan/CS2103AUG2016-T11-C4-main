@@ -18,59 +18,54 @@ import seedu.address.model.task.TaskNotFoundException;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskBook addressBook;
+    private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
      * TaskBook and its variables should not be null
      */
-    public ModelManager(TaskBook src) {
+    public ModelManager(ReadOnlyTaskBook taskBook) {
         super();
-        assert src != null;
+        assert taskBook != null;
 
-        logger.fine("Initializing with address book: " + src);
+        logger.fine("Initializing with task book: " + taskBook);
 
-        addressBook = new TaskBook(src);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        this.taskBook = new TaskBook(taskBook);
+        this.filteredTasks = new FilteredList<>(this.taskBook.getTasks());
     }
 
     public ModelManager() {
         this(new TaskBook());
     }
 
-    public ModelManager(ReadOnlyTaskBook initialData) {
-        addressBook = new TaskBook(initialData);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
-    }
-
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
+        taskBook.resetData(newData);
+        indicateTaskBookChanged();
     }
 
     @Override
     public ReadOnlyTaskBook getAddressBook() {
-        return addressBook;
+        return taskBook;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new TaskBookChangedEvent(addressBook));
+    private void indicateTaskBookChanged() {
+        raise(new TaskBookChangedEvent(taskBook));
     }
 
     @Override
     public synchronized void deleteTask(Task target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
-        indicateAddressBookChanged();
+        taskBook.removeTask(target);
+        indicateTaskBookChanged();
     }
 
     @Override
     public synchronized void addTask(Task person) {
-        addressBook.addTask(person);
+        taskBook.addTask(person);
         setFilter(null);
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
