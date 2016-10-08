@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddFloatingTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -69,6 +70,9 @@ public class Parser {
 
         case AddFloatingTaskCommand.COMMAND_WORD:
             return new AddFloatingTaskParser().parse(arguments);
+
+        case AddEventCommand.COMMAND_WORD:
+            return new AddEventParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
