@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import java.util.Set;
 
+import seedu.address.model.filter.NameContainsKeywordsPredicate;
+
 /**
  * Finds and lists all tasks in task book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -23,7 +25,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
+        model.setFilter(new NameContainsKeywordsPredicate(keywords));
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 

@@ -1,16 +1,16 @@
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 
 /**
  * Represents a selection change in the Task List Panel
  */
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
-    private final ReadOnlyTask newSelection;
+    private final Task newSelection;
 
-    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection) {
+    public TaskPanelSelectionChangedEvent(Task newSelection) {
         this.newSelection = newSelection;
     }
 
@@ -19,7 +19,7 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public ReadOnlyTask getNewSelection() {
+    public Task getNewSelection() {
         return newSelection;
     }
 }

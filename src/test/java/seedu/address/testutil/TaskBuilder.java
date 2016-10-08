@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 
 /**
@@ -9,26 +8,18 @@ import seedu.address.model.task.Name;
  */
 public class TaskBuilder {
 
-    private TestTask person;
+    private Name name;
 
     public TaskBuilder() {
-        this.person = new TestTask();
     }
 
     public TaskBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
-        return this;
-    }
-
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
-        }
+        this.name = new Name(name);
         return this;
     }
 
     public TestTask build() {
-        return this.person;
+        return new TestTask(name);
     }
 
 }

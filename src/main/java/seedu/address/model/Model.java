@@ -1,11 +1,10 @@
 package seedu.address.model;
 
-import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.TaskNotFoundException;
 
 /**
  * The API of the Model component.
@@ -18,18 +17,19 @@ public interface Model {
     ReadOnlyTaskBook getAddressBook();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(Task target) throws TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task);
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
+    UnmodifiableObservableList<Task> getFilteredTaskList();
 
-    /** Updates the filter of the filtered person list to show all persons */
-    void updateFilteredListToShowAll();
-
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    /**
+     * Updates the filter of the filtered task list to filter by the given predicate.
+     *
+     * If predicate is null, all tasks will be shown.
+     */
+    void setFilter(Predicate<Task> predicate);
 
 }

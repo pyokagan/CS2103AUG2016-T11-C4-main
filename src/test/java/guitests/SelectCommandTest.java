@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 
 public class SelectCommandTest extends TaskTrackerGuiTest {
 
@@ -46,7 +46,7 @@ public class SelectCommandTest extends TaskTrackerGuiTest {
 
     private void assertPersonSelected(int index) {
         assertEquals(personListPanel.getSelectedPersons().size(), 1);
-        ReadOnlyTask selectedPerson = personListPanel.getSelectedPersons().get(0);
+        Task selectedPerson = personListPanel.getSelectedPersons().get(0);
         assertEquals(personListPanel.getPerson(index - 1), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }

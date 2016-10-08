@@ -3,7 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 
 public class TaskListCard extends UiPart<HBox> {
 
@@ -15,15 +15,10 @@ public class TaskListCard extends UiPart<HBox> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label tags;
 
-    public TaskListCard(ReadOnlyTask person, int displayedIndex) {
+    public TaskListCard(Task person, int displayedIndex) {
         super(FXML, null);
-        name.setText(person.getName().fullName);
+        name.setText(person.name.toString());
         id.setText(displayedIndex + ". ");
-        tags.setText(person.tagsString());
     }
 }

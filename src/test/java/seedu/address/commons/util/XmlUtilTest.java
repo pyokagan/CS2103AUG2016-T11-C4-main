@@ -54,8 +54,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableTaskBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskBook.class);
-        assertEquals(9, dataFromFile.getTaskList().size());
-        assertEquals(0, dataFromFile.getTagList().size());
+        assertEquals(9, dataFromFile.getTasks().size());
     }
 
     @Test
@@ -86,7 +85,7 @@ public class XmlUtilTest {
         //TODO: use equality instead of string comparisons
 
         TaskBookBuilder builder = new TaskBookBuilder(new TaskBook());
-        dataToWrite = new XmlSerializableTaskBook(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableTaskBook(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskBook.class);
