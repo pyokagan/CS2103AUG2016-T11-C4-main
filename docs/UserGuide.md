@@ -475,6 +475,8 @@ Search task that contains specific keywords.
 Undo the last one action that the user performs wrongly.
 
     undo
+    
+* This command can undo all the commands the user performs after he opens the TaskTracker.
 
 ### Clearing all entries : `clear`
 
