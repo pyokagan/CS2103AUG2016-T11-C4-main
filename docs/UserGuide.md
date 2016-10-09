@@ -386,18 +386,19 @@ Edit deadline with unique index of `00128`'s due date to 2016 23th November.
 Mark a floating task/event/deadline as done on TaskTracker, the marked tasks
 will be archived.
 
-    fin "TASK_NAME"
+    fin TASK_UNIQUE_INDEX
 
-* Task name should be in a pair of quotation marks.
-
-* Deadlines that have already passed it `DUE_TIME` will be marked as done
+* Events that have already passed it `DUE_TIME` will be marked as done
   automatically.
+
+* Deadlines that have already passed it `DUE_TIME` will not be marked as done,
+  but will be marked as "overdue" automatically.
 
 #### Examples
 
-* `fin "project meeting"`
+* `fin 00123`
 
-* `fin "watch a movie"`
+Mark task `00123` as finished.
 
 ### Show empty time slots : `slot`
 
