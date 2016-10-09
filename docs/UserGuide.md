@@ -416,7 +416,18 @@ Show all empty time slots in a given time period with a given duration.
 
 * `slot 1/11/2016 3/11/2016 h-4`
 
-* `slot 5/11/2016 1400 2300 m-45`
+The TaskTracker will generate all empty time slots that are equal or greater than 4 hours
+between 2016 1st November 0am to 3rd 11:59pm.
+
+* `slot 5/11/2016 2pm 11pm m-45`
+
+The TaskTracker will generate all empty time slots that are equal or greater than 45 minutes
+between 2016 5st November 2pm to 3rd 11:00pm.
+
+* `slot 5/11/2016 2pm m-45`
+
+The TaskTracker will generate all empty time slots that are equal or greater than 45 minutes
+between 2016 5st November 0am to 2pm.
 
 ### View a date: `view`
 
