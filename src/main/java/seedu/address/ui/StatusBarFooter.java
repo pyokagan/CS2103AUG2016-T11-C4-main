@@ -22,15 +22,11 @@ public class StatusBarFooter extends UiPart<GridPane> {
     private StatusBar syncStatus;
     private StatusBar saveLocationStatus;
 
-    private GridPane mainPane;
-
     @FXML
     private AnchorPane saveLocStatusBarPane;
 
     @FXML
     private AnchorPane syncStatusBarPane;
-
-    private AnchorPane placeHolder;
 
     private static final String FXML = "/view/StatusBarFooter.fxml";
 
@@ -44,8 +40,7 @@ public class StatusBarFooter extends UiPart<GridPane> {
     }
 
     private void addMainPane() {
-        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
-        placeHolder.getChildren().add(mainPane);
+        FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
     }
 
     private void setSaveLocation(String location) {

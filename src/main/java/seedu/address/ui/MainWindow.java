@@ -29,6 +29,7 @@ public class MainWindow extends UiPart<Scene> {
     private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private CommandBox commandBox;
+    private StatusBarFooter statusBarFooter;
 
     // Handles to elements of this Ui container
     @FXML
@@ -60,7 +61,7 @@ public class MainWindow extends UiPart<Scene> {
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
-        fillInnerParts(logic);
+        fillInnerParts(config, logic);
         setAccelerators();
     }
 
@@ -68,13 +69,15 @@ public class MainWindow extends UiPart<Scene> {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-    void fillInnerParts(Logic logic) {
+    void fillInnerParts(Config config, Logic logic) {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         commandBox = new CommandBox(resultDisplay, logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        statusBarFooter = new StatusBarFooter(config.getTaskBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     public void hide() {
