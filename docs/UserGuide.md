@@ -286,19 +286,24 @@ excuted.
 
 Delete a useless floating task/event/deadline on TaskTracker.
 
-    del "TASK_NAME"
+    del TASK_UNIQUE_INDEX
 
-* Task name should be in a pair of quotation marks.
+* `TASK_UNIQUE_INDEX` will be different from each to each single task.
 
-* Here we assume that no duplicate task name is used among all the task.
+* A task's `TASK_UNIQUE_INDEX` will be the same as what is shown when `list` command is excuted.
+The user can refer `list` cammand to look for the index of a certain task.
+
+* `TASK_UNIQUE_INDEX` will never be changed once a index is assigned to a task when created.
 
 #### Examples
 
-* `del "project meeting"`
+* `list event`
 
-* `del "CS2102 week 8 lecture"`
+List all the events stored in the database with their unique index number. 
 
-* `del "reading a book"`
+`del 00123` <br>
+
+Delete the task with the unique index of `00123`.
 
 ### Edit a floating task: `edit`
 
