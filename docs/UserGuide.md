@@ -119,7 +119,7 @@
 
 ## Features
 
-**Data models**
+**Data models**<br>
 The task stored in Task Tracker will be automatically grouped into three different type of task: floating task, deadline task, and event, depending on the type and number of fields entered when creating the task. 
 
 |A/An... | has...|
@@ -146,8 +146,9 @@ The task stored in Task Tracker will be automatically grouped into three differe
 * Items with `...` after them can have multiple instances.
 
 **parameter keywords**
+
 |Keyword | Definition|
-|--------| :---------|
+|----| :--------:|:------|
 |tdy | today|
 |tmr | tommorow|
 |yst | yesteday|
