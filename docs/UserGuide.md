@@ -147,7 +147,8 @@ Adds a floating task to TaskTracker.
 
     task "FLOATING_TASK_NAME" [PRIORITY]
 
-* Task name should be in a pair of quotation marks.
+* Task name should be in a pair of quotation marks. And quotations marks are
+not allowed in task name.
 
 * Task name could be a single word or a phrase, white space are allowed.
 
@@ -176,7 +177,8 @@ Adds an event with specific starting and ending date or time to TaskTracker.
 
     event “EVENT_NAME” <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> [loc-LOCATION]
 
-* Event name should be in a pair of quotation marks.
+* Event name should be in a pair of quotation marks. And quotations marks are
+not allowed in event name.
 
 * The four parameters `STARTING_DATE`, `STARTING_TIME`, `ENDING_DATE`,
   `ENDING_TIME` are not all required for adding event command.
@@ -194,8 +196,8 @@ Adds an event with specific starting and ending date or time to TaskTracker.
   `dd` is the current month.
 
 * `STARTING_DATE` and `STARTING_TIME` must follow fixed formats : `ABCDam` or `ABCDpm`
-  where each letter represents a number. `AB` represent the hour
-  in 12 hour system, while `CD` represent the minute. Letter `A` can only be omitted
+  where each letter represents a digit. `AB` represent the hour
+  in 12 hour system, while `CD` represent the minute. Digit `A` can only be omitted
   if it is `0`, and 'CD' can be only omitted (together) when both of them are `0`.
 
 * The default starting date will be the current date.
@@ -237,7 +239,8 @@ Adds a deadline with specific due date or time to TaskTracker.
 
     due “DEADLINE_NAME” <DATE> <TIME>
 
-* Dealine name should be in a pair of quotation marks.
+* Dealine name should be in a pair of quotation marks. And quotations marks are
+not allowed in deadline name.
 
 * Either `<DATE>` or `<TIME>` or both of them are required here.
 
@@ -455,6 +458,8 @@ Search task that contains specific keywords.
     search KEY_WORDS
 
 * The `KEY_WORDS` are CASE-SENSITIVE
+
+* Quotations marks are not allowed in `KEY_WORLDS`.
 
 * The results will be listed according to their `TASK_UNIQUE_INDEX`
 
