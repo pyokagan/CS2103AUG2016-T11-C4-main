@@ -32,7 +32,7 @@
 	* `add "bake cookies" 31/12 1500`<br>
       bake cookies by 31 December of this year, 3pm.
 
-	* `add "bake cookies" 1500`<br>
+	* `add "bake cookies" 1500 tdy`<br>
       bake cookies by 3pm today.
 
    ![alt text](./images/userguide/task.png "")
@@ -45,7 +45,7 @@
       Event CS2103t summer camp starts on 30 Aug 2016, 1pm, and ends on 3
       January 2017,6pm.
 
-	* `add "potato peeling" 1500 1900`
+	* `add "potato peeling" 1500 tdy 1900 tdy`
 
       Event potato peeling starts today 3pm and ends today 7pm.
 
@@ -119,6 +119,15 @@
 
 ## Features
 
+**Data models**
+The task stored in Task Tracker will be automatically grouped into three different type of task: floating task, deadline task, and event, depending on the type and number of fields entered when creating the task. 
+A/An...| has...
+----|:--------
+Floating Task | only a task name
+Deadline task |  end time and date
+Event | start time and date,  end time and date
+
+
 **Command Format**
 
 * Words in `UPPER_CASE` are the required parameters.
@@ -134,6 +143,25 @@
   use in each command.
 
 * Items with `...` after them can have multiple instances.
+
+**parameter keywords**
+Keyword | Definition
+--------|:----------
+tdy | today
+tmr | tommorow
+yst | yesteday
+jan | January
+feb | February
+mar | March
+apr | April
+may | May
+jun | June
+jul | July
+aug | August
+sep | September
+oct | October
+nov | November
+dec | December
 
 ### Viewing help : `help`
 
@@ -314,6 +342,9 @@ Edit a deadline to revise its name and due date/time.
 
 * `edit "write email to prof." dd-23/11/2016`
 
+### Switching the type of task: `edit`
+Edit the type of task, for example switching event to a deadline task, 
+
 ### Mark a floating task/deadline as done/finished: `fin`
 
 Mark a floating task/event/deadline as done on TaskTracker, the marked tasks
@@ -377,10 +408,34 @@ Search task that contains specific keywords.
 
 ### Undo an action : `undo`
 
-Undo the last one action that the user performs wrongly.
+Undo the previous action that modifies data.
 
     undo
+    
+view the stack of actions that undo will perform: `undo stack`
 
+    undo stack
+
+### Undo an action : `undo`
+
+Undo the previous action that modifies data. Undo can be performed many times until the first action since the app was launched has been undone.
+
+    undo
+    
+view the stack of actions that undo will perform: `undo stack`
+
+    undo stack
+    
+### Redo an action : `redo`
+
+Redo the previous action that was undone by undo. The amount of consecutive redos doable depends on the number of consecutive undos performed right before redo is entered.
+
+    undo
+    
+view the stack of actions that redo will perform: `redo stack`
+
+    redo stack
+    
 ### Clearing all entries : `clear`
 
 Clears all entries from TaskTracker.
@@ -409,6 +464,7 @@ Mark a task as finished | `fin "TASK_NAME"`
 View a date in calander| `view DATE`
 Search for keywords | `srch KEY_WORDS`
 Help | `help`
-Unod | `undo`
+Undo | `undo`
+Redo | `redo`
 Clear | `clear`
 Exit | `exit`
