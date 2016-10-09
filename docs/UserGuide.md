@@ -231,11 +231,11 @@ To create an event `job interview` with starting time at 2017 17th January 9:15 
 ending time at 10:45 am.
 
 
-### Adding a deadline-like task: `add`
+### Adding a deadline-like task: `due`
 
 Adds a deadline with specific due date or time to TaskTracker.
 
-    add “DEADLINE_NAME” <DATE> <TIME>
+    due “DEADLINE_NAME” <DATE> <TIME>
 
 * Dealine name should be in a pair of quotation marks.
 
@@ -244,19 +244,24 @@ Adds a deadline with specific due date or time to TaskTracker.
 * Formats of `DATE` and `TIME` are the same as what we use to create event-like
   tasks.
 
-* The default value of `DATE` will be the same as the real date on user's
-  computer.
+* The default value of `DATE` will be the current date.
 
 * There is no default value for `TIME` as long as the `DATE` passed in is
   valid.
 
 #### Examples
 
-* `add "CS2103 V0.1" 6/10`
+* `due "CS2103 V1.1" 16/12`
 
-* `add "event proposal" 1800`
+To create a deadline named `CS2103 V1.1` with due date of 16th December.
 
-* `add "EE2024 homework 1" 1/11/2016 600`
+* `due "event proposal" 6pm`
+
+To create a deadline named `event proposal` with due time at today's 6 pm.
+
+* `due "EE2024 homework 1" 1/11/2016 6am`
+
+To create a deadline named `EE2024 homework 1` at 2016 1st October 6 am.
 
 ### Deleting a floating task/event/deadline: `del`
 
