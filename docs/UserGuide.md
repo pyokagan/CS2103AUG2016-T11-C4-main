@@ -492,6 +492,8 @@ being excuted between this first `undo` command and the last `redo` command
 Clears all entries from TaskTracker.
 
     clear
+    
+* The `TASK_UNIQUE_NUMBER` will be reset.
 
 ### Exiting the program : `exit`
 
@@ -504,17 +506,19 @@ Exits the program.
 Command | Format
 ------------ | :--------
 Add Floating Task | `task "FLOATING_TASK_NAME" [PRIORITY]`
-Add Event |`add “EVENT_NAME” <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> [loc/LOCATION]`
-Add Deadline |`add “DEADLINE_NAME” <DATE> <TIME>`
-Delte a task | `del "TASK_NAME"`
-Edit Floating Tasks | `edit "TASK_NAME" [n-NEW_NAME | p-PRIORITY]... `
-Edit Event |`edit "TASK_NAME" [sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME | loc-NEW_LOCATION]... `
-Edit Deadline |`edit "TASK_NAME" [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]... `
+Add Event |`event “EVENT_NAME” <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> [loc-LOCATION]`
+Add Deadline |`due “DEADLINE_NAME” <DATE> <TIME>`
+List all tasks | `list task|event|due`
+Delte a task | `del TASK_UNIQUE_INDEX`
+Edit Floating Tasks | `edit TASK_UNIQUE_INDEX [n-NEW_NAME | p-PRIORITY]... `
+Edit Event |`edit TASK_UNIQUE_INDEX [sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME | loc-NEW_LOCATION]... `
+Edit Deadline |`edit TASK_UNIQUE_INDEX [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]... `
 Generate recomanded time slots | `slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>`
-Mark a task as finished | `fin "TASK_NAME"`
+Mark a task as finished | `fin TASK_UNIQUE_INDEX`
 View a date in calander| `view DATE`
-Search for keywords | `srch KEY_WORDS`
+Search for keywords | `search KEY_WORDS`
 Help | `help`
-Unod | `undo`
+Undo | `undo`
+Redo | `redo`
 Clear | `clear`
 Exit | `exit`
