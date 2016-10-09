@@ -305,61 +305,81 @@ List all the events stored in the database with their unique index number.
 
 Delete the task with the unique index of `00123`.
 
-### Edit a floating task: `edit`
+### Edit a floating task/event/dealine: `edit`
+
+* Edit command can only edit the parameters of each commands but cannot transform a task to another
+type. For example, `eidt` cannot transform a floating task to a event task.
+
+#### Edit an floating task:
 
 Edit a floating task to revise its name or priority.
 
-    edit "TASK_NAME" [n-NEW_NAME | p-PRIORITY]...
+    edit TASK_UNIQUE_INDEX [n-NEW_NAME | p-PRIORITY]...
 
-* Task name should be in a pair of quotation marks.
+* Quotation marks are not necessary for `NEW_NAME`.
 
 * `PRIORITY` should only be the interger ranges from `0` to `5`.
 
-* Here we assume that no duplicate task name is used among all the task.
-
 #### Examples
 
-* `edit "washing clothes" p-0`
+* `edit 00124 p-0`
 
-* `edit "buy textbooks" n-buy stationary`
+Edit task with unique index of `00124`'s priority to 0.
 
-* `edit "go shopping" n-"go to Nanyang Mart" p-1`
+* `edit 00124 n-buy stationary`
 
-### Edit an event : `edit`
+Edit task with unique index of `00124`'s name to `buy stationary`.
+
+* `edit 00125 n-"go to Nanyang Mart" p-1`
+
+Edit task with unique index of `00125`'s name to `go to Nanyang Mart` and priority to 1.
+
+#### Edit an event :
 
 Edit an event to revise its name, starting/ending date/time and location.
 
-    edit "TASK_NAME" [sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME | loc-NEW_LOCATION]...
+    edit TASK_UNIQUE_INDEX [sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME | loc-NEW_LOCATION]...
 
-* Task name should be in a pair of quotation marks.
+* Quotation marks are not necessary for `NEW_NAME`.
 
 * `[sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME]`
-  are of the same format when creating event-like task.
+  are of the same format when creating event-like task. Please refer `event` command for reference.
 
 #### Examples
 
-* `edit "Excel Workshop" loc-LT6`
+* `edit 00126 loc-LT6`
 
-* `edit "3D printing training" st-1600 et-1800`
+Edit event with unique index of `00126`'s location to `LT6`.
 
-* `edit "project discussion" n-proposal meeting st-1900`
+* `edit 00126 st-4pm et-6pm`
 
-### Edit a dealine : `edit`
+Edit event with unique index of `00126`'s starting time to 4pm and ending time to 6pm.
+
+* `edit 00127 n-proposal meeting st-7pm`
+
+Edit event with unique index of `00127`'s starting time to 7pm and name to `proposal meeting`.
+
+
+#### Edit a dealine :
 
 Edit a deadline to revise its name and due date/time.
 
-    edit "TASK_NAME" [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]...
+    edit TASK_UNIQUE_INDEX [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]...
 
-* Task name should be in a pair of quotation marks.
+* Quotation marks are not necessary for `NEW_NAME`.
 
 * `[dd-DUE_DATE | dt-DUE_TIME]` are of the same formate when creating
-  event-like task.
+  event-like task. Please refer `event` command for reference.
 
 #### Examples
 
-* `edit "essay assignment 1" dt-1700`
+* `edit 00128 dt-5pm`
 
-* `edit "write email to prof." dd-23/11/2016`
+Edit deadline with unique index of `00128`'s due time to 5 pm.
+
+* `edit 00128 dd-23/11/2016`
+
+Edit deadline with unique index of `00128`'s due date to 2016 23th November.
 
 ### Mark a floating task/deadline as done/finished: `fin`
 
