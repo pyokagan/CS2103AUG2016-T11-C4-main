@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskListCardHandle;
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
@@ -25,11 +24,6 @@ public class AddCommandTest extends TaskTrackerGuiTest {
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
-        //add duplicate person
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(personListPanel.isListMatching(currentList));
-
         //add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(td.alice);
@@ -43,7 +37,7 @@ public class AddCommandTest extends TaskTrackerGuiTest {
         commandBox.runCommand(personToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskListCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
+        TaskListCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.name.fullName);
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person

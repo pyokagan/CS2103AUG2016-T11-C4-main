@@ -8,65 +8,37 @@ import org.controlsfx.control.StatusBar;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import javafx.scene.layout.Pane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
-import seedu.address.commons.util.FxViewUtil;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
  */
-public class StatusBarFooter extends UiPart {
+public class StatusBarFooter extends UiPart<Pane> {
+
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
-    private StatusBar syncStatus;
-    private StatusBar saveLocationStatus;
-
-    private GridPane mainPane;
-
-    @FXML
-    private AnchorPane saveLocStatusBarPane;
-
-    @FXML
-    private AnchorPane syncStatusBarPane;
-
-    private AnchorPane placeHolder;
 
     private static final String FXML = "/view/StatusBarFooter.fxml";
 
-    public StatusBarFooter(Stage stage, String saveLocation) {
-        super(FXML, stage);
-        addMainPane();
-        addSyncStatus();
-        setSyncStatus("Not updated yet in this session");
-        addSaveLocation();
-        setSaveLocation("./" + saveLocation);
-    }
+    @FXML
+    private StatusBar syncStatus;
 
-    private void addMainPane() {
-        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
-        placeHolder.getChildren().add(mainPane);
+    @FXML
+    private StatusBar saveLocationStatus;
+
+    public StatusBarFooter(String saveLocation) {
+        super(FXML);
+        setSyncStatus("Not updated yet in this session");
+        setSaveLocation("./" + saveLocation);
     }
 
     private void setSaveLocation(String location) {
         this.saveLocationStatus.setText(location);
     }
 
-    private void addSaveLocation() {
-        this.saveLocationStatus = new StatusBar();
-        FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus, 0.0, 0.0, 0.0, 0.0);
-        saveLocStatusBarPane.getChildren().add(saveLocationStatus);
-    }
-
     private void setSyncStatus(String status) {
         this.syncStatus.setText(status);
-    }
-
-    private void addSyncStatus() {
-        this.syncStatus = new StatusBar();
-        FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0, 0.0);
-        syncStatusBarPane.getChildren().add(syncStatus);
     }
 
     @Subscribe
