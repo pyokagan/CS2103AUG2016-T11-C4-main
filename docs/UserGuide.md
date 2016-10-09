@@ -449,21 +449,23 @@ evnets' starting time.
 
 View all the tasks that are of the date of 1st December of the current year.
 
-### Search by keywords: `srch`
+### Search by keywords: `search`
 Search task that contains specific keywords.
 
-    srch KEY_WORDS
+    search KEY_WORDS
 
 * The `KEY_WORDS` are CASE-SENSITIVE
 
+* The results will be listed according to their `TASK_UNIQUE_INDEX`
+
 #### Examples
 
-* `srch lecture`
+* `search lecture`
 
   Search for all the tasks that contain keyword `lecture`, TaskTracker will
   generate a list for view.
 
-* `srch training SESSION`
+* `search training SESSION`
 
   Search for all the tasks that contain keyword `training SESSION`, TaskTracker
   will generate a list for view.
