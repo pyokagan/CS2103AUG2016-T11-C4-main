@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -36,19 +35,19 @@ public class MainWindow extends UiPart<Scene> {
     private VBox rootLayout;
 
     @FXML
-    private AnchorPane commandBoxPlaceholder;
+    private UiRegion commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private UiRegion taskListPanelPlaceholder;
 
     @FXML
-    private AnchorPane resultDisplayPlaceholder;
+    private UiRegion resultDisplayPlaceholder;
 
     @FXML
-    private AnchorPane statusbarPlaceholder;
+    private UiRegion statusbarPlaceholder;
 
     private final Stage primaryStage;
 
@@ -71,13 +70,13 @@ public class MainWindow extends UiPart<Scene> {
 
     void fillInnerParts(Config config, Logic logic) {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        taskListPanelPlaceholder.setNode(personListPanel.getRoot());
         resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        resultDisplayPlaceholder.setNode(resultDisplay.getRoot());
         commandBox = new CommandBox(resultDisplay, logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        commandBoxPlaceholder.setNode(commandBox.getRoot());
         statusBarFooter = new StatusBarFooter(config.getTaskBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statusbarPlaceholder.setNode(statusBarFooter.getRoot());
     }
 
     public void hide() {
