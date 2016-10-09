@@ -10,7 +10,7 @@ import seedu.address.commons.util.FxViewUtil;
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart {
+public class HelpWindow extends UiPart<AnchorPane> {
 
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "/view/HelpWindow.fxml";
@@ -23,13 +23,16 @@ public class HelpWindow extends UiPart {
 
     private Stage dialogStage;
 
+    private final Stage primaryStage;
+
     public HelpWindow(Stage primaryStage) {
-        super(FXML, primaryStage);
+        super(FXML);
+        this.primaryStage = primaryStage;
         Scene scene = new Scene(helpWindowRoot);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
-        setIcon(dialogStage, ICON);
+        FxViewUtil.setStageIcon(dialogStage, ICON);
 
         WebView browser = new WebView();
         browser.getEngine().load(USERGUIDE_URL);

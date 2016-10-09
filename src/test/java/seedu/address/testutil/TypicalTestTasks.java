@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskBook;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 
 /**
  *
@@ -30,10 +29,8 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice = new TaskBuilder().withName("Alice Pauline")
-                    .withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier")
-                    .withTags("owesMoney", "friends").build();
+            alice = new TaskBuilder().withName("Alice Pauline").build();
+            benson = new TaskBuilder().withName("Benson Meier").build();
             carl = new TaskBuilder().withName("Carl Kurz").build();
             daniel = new TaskBuilder().withName("Daniel Meier").build();
             elle = new TaskBuilder().withName("Elle Meyer").build();
@@ -50,18 +47,13 @@ public class TypicalTestTasks {
     }
 
     public static void loadAddressBookWithSampleData(TaskBook ab) {
-
-        try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false : "not possible";
-        }
+        ab.addTask(new Task(alice));
+        ab.addTask(new Task(benson));
+        ab.addTask(new Task(carl));
+        ab.addTask(new Task(daniel));
+        ab.addTask(new Task(elle));
+        ab.addTask(new Task(fiona));
+        ab.addTask(new Task(george));
     }
 
     public TestTask[] getTypicalPersons() {
