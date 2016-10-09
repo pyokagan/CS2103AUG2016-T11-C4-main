@@ -6,14 +6,14 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 
-public class CommandBox extends UiPart<AnchorPane> {
+public class CommandBox extends UiPart<Pane> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
