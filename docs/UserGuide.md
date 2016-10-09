@@ -141,7 +141,7 @@
 
 Help is also shown if you enter an incorrect command e.g. `abcd`
 
-### Adding a floating task : `add`
+### Adding a floating task : `task`
 
 Adds a floating task to TaskTracker.
 
@@ -170,11 +170,11 @@ To create a task called `EE2020 lab report` with `PRIORITY` of 5.
 
 To create a task called `ProgressReflection` with default `PRIORITY` of 0.
 
-### Adding a event-like task : `add`
+### Adding a event-like task : `event`
 
 Adds an event with specific starting and ending date or time to TaskTracker.
 
-    add “EVENT_NAME” <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> [loc/LOCATION]
+    event “EVENT_NAME” <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> [loc-LOCATION]
 
 * Event name should be in a pair of quotation marks.
 
@@ -191,33 +191,45 @@ Adds an event with specific starting and ending date or time to TaskTracker.
   date.
 
   The default year of `dd/mm` is the current year and the default month for
-  `dd` is current month.
+  `dd` is the current month.
 
-* `STARTING_DATE` and `STARTING_TIME` must follow fixed formats : `ABCD` which
-  each letter represents a number ranges from 0 to 9. `AB` represent the hour
-  in 24 hour system, while `CD` represent the minute. Letter `A` can be omitted
-  if it is `0`.
+* `STARTING_DATE` and `STARTING_TIME` must follow fixed formats : `ABCDam` or `ABCDpm`
+  where each letter represents a number. `AB` represent the hour
+  in 12 hour system, while `CD` represent the minute. Letter `A` can only be omitted
+  if it is `0`, and 'CD' can be only omitted (together) when both of them are `0`.
 
-* The default starting date will be the same as the real date on user's
-  computer.
+* The default starting date will be the current date.
 
 * The default ending date will be the same as the starting date.
 
-* The default starting time will be `0000`.
+* The default starting time will be `0000am` of starting date.
 
-* The default ending time will be `2359`
+* The default ending time will be `1159pm` of the ending date.
 
 * `[LOCATION]` is a String which could contain any characters.
 
 #### Examples
 
-* `add "CS2103 week8 lecture" 7/10 1400 1600`
+* `event "CS2103 week8 lecture" 7/10 2pm 4pm`
 
-* `add "programming workshop" 1000 1700 loc-LT15`
+To create an event `CS2103 week8 lecture` with starting time at 7th October 2pm
+and end at 4pm.
 
-* `add "sports training camp" 1/12/2016 10/12/2016`
+* `event "programming workshop" 10am 5pm loc-LT15`
 
-* `add "job interview" 17/1/2017 900 1000 loc-Block 71`
+To create an event `programming workshop` with starting time at 10am of current date
+and end at 5pm. The location will be LT15.
+
+* `event "sports training camp" 1/12/2016 10/12/2016`
+
+To create an event `sports training camp` with starting time at 2016 1st December 0am 
+and end at 10th December 11:59pm.
+
+* `event "job interview" 17/1/2017 915am 1045am loc-Block 71`
+
+To create an event `job interview` with starting time at 2017 17th January 9:15 am and
+ending time at 10:45 am.
+
 
 ### Adding a deadline-like task: `add`
 
