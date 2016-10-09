@@ -478,6 +478,15 @@ Undo the last one action that the user performs wrongly.
     
 * This command can undo all the commands the user performs after he opens the TaskTracker.
 
+### Redo an action : `redo`
+
+Redo the commands on which the user perform `undo`
+
+    redo
+    
+* This command can redo can redo all the actions that were undone if there is no new other command
+being excuted between this first `undo` command and the last `redo` command
+
 ### Clearing all entries : `clear`
 
 Clears all entries from TaskTracker.
