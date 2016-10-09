@@ -263,6 +263,25 @@ To create a deadline named `event proposal` with due time at today's 6 pm.
 
 To create a deadline named `EE2024 homework 1` at 2016 1st October 6 am.
 
+### List tasks: `list`
+
+List certain type of task stored in the database
+
+    list task|event|due
+    
+* `list task` will show all floating tasks according to the order of their priority.
+
+* `list event` will show all events according to the order of their starting time.
+
+* 'list due' will show all deadline according to their due time and due date. (when sorting
+the deadline without due time, the sorting will use 11:59 pm of the due date as deafault)
+
+* Every tasks (floating tasks / events / deadlines) will have a unique index to differentiate
+their uniqueness. And their index will also be listed besides them when `list` command is
+excuted.
+
+* The overdue/past/finished tasks will not be listed.
+
 ### Deleting a floating task/event/deadline: `del`
 
 Delete a useless floating task/event/deadline on TaskTracker.
