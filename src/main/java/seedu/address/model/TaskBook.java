@@ -1,21 +1,12 @@
 package seedu.address.model;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.TaskNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -23,147 +14,77 @@ import seedu.address.model.task.UniqueTaskList;
  */
 public class TaskBook implements ReadOnlyTaskBook {
 
-    private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
+    private final ObservableList<Task> tasks;
 
-    {
-        tasks = new UniqueTaskList();
-        tags = new UniqueTagList();
+    public TaskBook() {
+        tasks = FXCollections.observableArrayList();
     }
 
-    public TaskBook() {}
-
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks are copied into this TaskBook.
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getTasks());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks are copied into this TaskBook.
      */
-    public TaskBook(UniqueTaskList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
-    }
-
-    public static ReadOnlyTaskBook getEmptyTaskBook() {
-        return new TaskBook();
-    }
-
-    //// list overwrite operations
-
-    public ObservableList<Task> getTasks() {
-        return tasks.getInternalList();
-    }
-
-    public void setTasks(List<Task> persons) {
-        this.tasks.getInternalList().setAll(persons);
-    }
-
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
-
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
-        setTasks(newPersons.stream().map(Task::new).collect(Collectors.toList()));
-        setTags(newTags);
+    public TaskBook(List<Task> tasks) {
+        this();
+        setTasks(tasks);
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        setTasks(newData.getTasks());
     }
 
-    //// task-level operations
+    //// task operations
+
+    @Override
+    public ObservableList<Task> getTasks() {
+        return FXCollections.unmodifiableObservableList(tasks);
+    }
+
+    public void setTasks(List<Task> persons) {
+        this.tasks.setAll(persons);
+    }
 
     /**
      * Adds a task to the task book.
      * Also checks the new tasks's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
-     *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
      */
-    public void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(task);
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
-    /**
-     * Ensures that every tag in this person:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Task person) {
-        final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        person.setTags(new UniqueTagList(commonTagReferences));
-    }
-
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(Task key) throws TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.TaskNotFoundException();
+            throw new TaskNotFoundException();
         }
-    }
-
-    //// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
+        return tasks.size() + " tasks";
         // TODO: refine later
-    }
-
-    @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
-    }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
-
-    @Override
-    public UniqueTaskList getUniqueTaskList() {
-        return this.tasks;
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskBook // instanceof handles nulls
-                && this.tasks.equals(((TaskBook) other).tasks)
-                && this.tags.equals(((TaskBook) other).tags));
+                && this.tasks.equals(((TaskBook) other).tasks));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(tasks);
     }
 }

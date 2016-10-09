@@ -10,23 +10,17 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.commons.util.AppUtil;
 
 /**
  * Base class for UI parts.
  * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
  */
 public class UiPart<T> {
-    /**
-     * The primary stage for the UI Part.
-     */
-    public final Stage primaryStage;
 
     private final FXMLLoader loader;
 
-    public UiPart(URL url, Stage primaryStage) {
+    public UiPart(URL url) {
         assert url != null;
-        this.primaryStage = primaryStage;
         loader = new FXMLLoader(url);
         loader.setController(this);
         try {
@@ -37,8 +31,8 @@ public class UiPart<T> {
         EventsCenter.getInstance().registerHandler(this);
     }
 
-    public UiPart(String name, Stage primaryStage) {
-        this(MainApp.class.getResource(name), primaryStage);
+    public UiPart(String name) {
+        this(MainApp.class.getResource(name));
     }
 
     /**
@@ -63,27 +57,6 @@ public class UiPart<T> {
         dialogStage.initOwner(parentStage);
         dialogStage.setScene(scene);
         return dialogStage;
-    }
-
-    /**
-     * Sets the given image as the icon for the primary stage of this UI Part.
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(String iconSource) {
-        primaryStage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    /**
-     * Sets the given image as the icon for the given stage.
-     * @param stage
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(Stage stage, String iconSource) {
-        stage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
     }
 
     public T getRoot() {

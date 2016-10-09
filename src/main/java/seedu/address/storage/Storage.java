@@ -34,5 +34,5 @@ public interface Storage extends TaskBookStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(TaskBookChangedEvent abce);
+    void handleTaskBookChangedEvent(TaskBookChangedEvent abce);
 }
