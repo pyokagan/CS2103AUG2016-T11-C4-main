@@ -121,11 +121,12 @@
 
 **Data models**
 The task stored in Task Tracker will be automatically grouped into three different type of task: floating task, deadline task, and event, depending on the type and number of fields entered when creating the task. 
-A/An...| has...
-----|:--------
-Floating Task | only a task name
-Deadline task |  end time and date
-Event | start time and date,  end time and date
+
+|A/An... | has...|
+|----| :--------:|:------|
+|Floating Task | only a task name|
+|Deadline task |  end time and date |
+|Event | start time and date,  end time and date|
 
 
 **Command Format**
@@ -145,23 +146,23 @@ Event | start time and date,  end time and date
 * Items with `...` after them can have multiple instances.
 
 **parameter keywords**
-Keyword | Definition
---------|:----------
-tdy | today
-tmr | tommorow
-yst | yesteday
-jan | January
-feb | February
-mar | March
-apr | April
-may | May
-jun | June
-jul | July
-aug | August
-sep | September
-oct | October
-nov | November
-dec | December
+|Keyword | Definition|
+|--------| :---------|
+|tdy | today|
+|tmr | tommorow|
+|yst | yesteday|
+|jan | January|
+|feb | February|
+|mar | March|
+|apr | April|
+|may | May|
+|jun | June|
+|jul | July|
+|aug | August|
+|sep | September|
+|oct | October|
+|nov | November|
+|dec | December|
 
 ### Viewing help : `help`
 
