@@ -431,9 +431,23 @@ between 2016 5st November 0am to 2pm.
 
 ### View a date: `view`
 
-View all the task of a specific date in the Calander View of TaskTracker.
+View all the deadlines and events of a specific date in TaskTracker.
 
     view DATE
+    
+* `DATE` will be the same format of what we use to create event. Please refer to `event`
+command for details.
+
+* The deadlines and events will be listed according to the order of deadlines' due time and
+evnets' starting time.
+
+* The `TASK_UNIQUE_INDEX` will also be shown after `view` command is excuted.
+
+#### Examples
+
+* `view 1/12`
+
+View all the tasks that are of the date of 1st December of the current year.
 
 ### Search by keywords: `srch`
 Search task that contains specific keywords.
