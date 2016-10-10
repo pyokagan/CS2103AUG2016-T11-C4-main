@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -36,6 +37,7 @@ public class JsonTaskBookStorage implements TaskBookStorage {
     private static ObjectMapper initDefaultObjectMapper() {
         return new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT)
+            .registerModule(new JavaTimeModule())
             .registerModule(new JsonStorageModule());
     }
 
