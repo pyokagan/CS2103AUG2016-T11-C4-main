@@ -9,8 +9,6 @@ import seedu.address.model.task.Priority;
 
 @JsonPropertyOrder({"name", "priority"})
 
-// TODO JsonFloatingTaskMixinTest
-
 public abstract class JsonFloatingTaskMixin {
     
     JsonFloatingTaskMixin(@JsonProperty("name") Name name, 
