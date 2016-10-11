@@ -1,6 +1,6 @@
 # Task Tracker
 
-![command bar](docs/images/userguide/command_bar.png "command bar")
+![command bar](docs/images/userguide/command_bar_add.png "command bar")
 
 #### Site Map
 * [User Guide](docs/UserGuide.md)
