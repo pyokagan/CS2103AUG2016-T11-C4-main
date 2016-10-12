@@ -13,6 +13,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
 
@@ -75,6 +76,7 @@ public class JsonTaskBookStorage implements TaskBookStorage {
     public void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
         assert !CollectionUtil.isAnyNull(taskBook, filePath);
         final File file = new File(filePath);
+        FileUtil.createIfMissing(file);
         objectMapper.writeValue(file, taskBook);
     }
 
