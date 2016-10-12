@@ -42,13 +42,15 @@
 
 5. Set up: enter your name and verify the current date and time.
 
-6. You're good to go! Try adding your first Task. Press Enter to enter a command. For floating task, try `add ""`!
+6. You're good to go! Try adding your first Task. Press Enter to enter a command. For floating task, try `add "Learn Task Tracker"`. Let's do another one, `add "bake potatoes" 2` 
 
    ![alt text](./images/userguide/command_bar_add.png "command bar")
+   
+   Notice how bake potatoes is below Learn Task Tracker. That's because bake potaoes is of number 2 priority, while Learn Task Tracker with an undefined priority takes the default highest priority number of 0. 
 
 7. Let's add deadline tasks with due date and time.
 
-	* `add "bake cookies" 31dec 3pm`
+	* `add "bake cookies" 31/12 3pm`
 
       bake cookies by 31 December of this year, 3pm. Undeclared year in date field will be taken as the current year.
 
@@ -60,7 +62,7 @@
 
 8. Next up, events. An event is a task with a start date, start time, end date and end time. Example commands are:
 
-	* `add "CS2103t summer camp" 30aug 1pm 3jan2017 6pm`
+	* `add "CS2103t summer camp" 30aug 1pm 3/1/2017 6pm`
 
       Event CS2103t summer camp starts on 30 Aug 2016, 1pm, and ends on 3
       January 2017,6pm.
@@ -71,12 +73,11 @@
 
 	* `add "cupcake festival" tdy 8pm tmr 12pm`
 
-      Event cupcake festival starts on 8am and ends on 12pm of 24 Oct of this
-      year.
+      Event cupcake festival starts today 8pm and ends tommorrow 12 pm.
 
-	* `add "Trick or treat" 31oct 8pm to 9pm`
+	* `add "Trick or treat" 31/10 8pm to 9pm`
 
-      Event Trick or treat starts today 8pm and ends on 31 Oct 9pm.
+      Event Trick or treat starts 31 October this year 8pm and ends on the same day, 9pm.
 
 10. All task in the database will be assigned a unique index. The unique index can be seen to the left of the task name.
 
@@ -84,56 +85,55 @@
 
 11. To delete a task, try:
     	
-        del float 1
+        del-float 2
         
-    Delete floating task .
+    Delete floating task bake potatoes.
 
-        del deadline 1
+        del-deadline 1
 
     Delete deadline task bake cookies.
         
-        del event 5
+        del-event 5
 
     Delete Event Movie.
 
 12. To edit a deadline, try:
 
-	* `i` to view index
-	* `edit 1 dd-29dec dt-2pm`
+	* `edit-deadline 1 dd-29dec dt-2pm`
 
       The following properties of task are modified: due date, due time.  (`dd`
       refers to due date, `dt` refers to due time)
 
-	* `edit 1 dt-3pm`
+	* `edit-deadline 1 dt-3pm`
 
       Only due time of bake potato modified.
 
 13. To edit an event, try:
 
-	* `edit 2 loc-NUS`
+	* `edit-event 2 loc-NUS`
 
       Location of cupcake festival set to NUS.
 
-	* `edit 2 st-3pm sd-12oct et-5pm ed-13oct loc-Yishun`
+	* `edit-event 2 st-3pm sd-12oct et-5pm ed-13oct loc-Yishun`
 
       All fields modified. (`st` : `starting time`, `sd` : `starting date`,
       `et` : `ending time`, `ed` : `ending date`)
 
-    * `edit 2 st-3pm`
+    * `edit-event 2 st-3pm`
 
       Start time of cupcake festival modified.
 
 14. To edit a floating task, try:
 
-	* `edit float 6 p-1`
+	* `edit-float 1 p-1`
 
-       Floating Task bake potato is given a priority of 1.
+       Floating Task Learn Task Tracker is given a priority of 1.
 
 15. You've finished a task. Congrations! Let's mark a task as finshed.
 
-    * `fin dealine 3`
+    * `fin-float 1`
 
-    Dateline task learn task-tracker is marked as finished.
+    Floating task learn task-tracker is marked as finished.
 
 16. To exit the program, try:
 
