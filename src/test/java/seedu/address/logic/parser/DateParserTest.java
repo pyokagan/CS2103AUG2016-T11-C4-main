@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
 
@@ -54,9 +55,12 @@ public class DateParserTest {
         assertEquals(expected, actual);
     }
 
-    private void assertParseFail(String str) throws Exception {
-        thrown.expect(IllegalValueException.class);
-        parser.parse(str);
+    private void assertParseFail(String str) {
+        try {
+            parser.parse(str);
+            fail("IllegalValueException was not thrown");
+        } catch (IllegalValueException e) {
+        }
     }
 
 }
