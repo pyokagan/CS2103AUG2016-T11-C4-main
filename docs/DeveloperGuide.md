@@ -1,10 +1,309 @@
 # Developer Guide
 
+* [Setting Up](#setting-up)
+* [Design](#design)
+* [Implementation](#implementation)
+* [Testing](#testing)
 * [Appendix A: User Stories](#appendix-a-user-stories)
 * [Appendix B: Use Cases](#appendix-b-use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E: Product Survey](#appendix-e-product-survey)
+
+## Setting up
+
+### Prerequisites
+
+1. **JDK `1.8.0_60`**  or later<br>
+
+    > Having any Java 8 version is not enough.
+      This app will not work with earlier versions of Java 8.
+
+2. **Eclipse** IDE
+
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in [this
+   page][efxclipse-install])
+
+4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+
+[efxclipse-install]: http://www.eclipse.org/efxclipse/install.html#for-the-ambitious
+
+### Importing the project into Eclipse
+
+1. Fork this repo, and clone the fork to your computer
+
+2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and
+   **buildship** plugins as given in the prerequisites above)
+
+3. Click `File` > `Import`
+
+4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
+
+5. Click `Browse`, then locate the project's directory
+
+6. Click `Finish`
+
+* If you are asked whether to 'keep' or 'overwrite' config files, choose to
+  'keep'.
+
+* Depending on your connection speed and server load, it can even take up to 30
+  minutes for the set up to finish (This is because Gradle downloads library
+  files from servers during the project set up process)
+
+* If Eclipse auto-changed any settings files during the import process, you can
+  discard those changes.
+
+### Troubleshooting project setup
+
+**Problem: Eclipse reports compile errors after new commits are pulled from Git**
+
+* Reason: Eclipse fails to recognise new files that appeared due to the Git
+  pull.
+
+* Solution: Refresh the project in Eclipse:
+
+  Right click on the project (in Eclipse package explorer), choose `Gradle` ->
+  `Refresh Gradle Project`.
+
+**Problem: Eclipse reports some required libraries missing**
+
+* Reason: Required libraries may not have been downloaded during the project
+  import.
+
+* Solution: [Run tests using Gradle](#testing-with-gradle) once to download all
+  required libraries.
+
+## Design
+
+### Architecture
+
+![Architecture Diagram](images/devguide/architecture.png)
+
+The **_Architecture Diagram_** given above explains the high-level design of
+the App.
+
+Given below is a quick overview of each component.
+
+`Main` has only one class called [`MainApp`][mainapp-src]. It is responsible
+for:
+
+* At app launch: Initializes the components in the correct sequence, and
+  connect them up with each other.
+
+* At shut down: Shuts down the components and invokes their cleanup method
+  where necessary.
+
+[mainapp-src]: ../src/main/java/seedu/address/MainApp.java
+
+**`Commons`** represents a collection of classes used by multiple other
+components. Of these classes, two of them play important roles in the
+application architecture:
+
+* `EventsCentre`: This singleton class is used by components to communicate
+  with other components using events.
+
+* `LogsCenter`: This singleton class is used by classes to write log messages
+  to the application log file.
+
+The rest of the App consists of four components:
+
+* [**`Model`**](#model-component): Holds the data of the application in-memory.
+
+* [**`Storage`**](#storage-component): Reads data from, and writes data to,
+  the hard disk.
+
+* [**`Logic`**](#logic-component): Parses and executes commands.
+
+* [**`Ui`**](#ui-component): The user interface of the application.
+
+Each of the four components:
+
+* Defines its _API_ in an `interface` with the same name as the Component.
+
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component defines it's API in the `Logic.java`
+interface and exposes its functionality using the `LogicManager.java` class.
+
+The sections below give more details of each component.
+
+### Model component
+
+![Model component class diagram](images/devguide/comp-model.png)
+
+The `Model` component:
+
+* holds the task book data in memory. In particular, it stores the list of
+  floating, deadline and event tasks.
+
+* exposes three lists for the stored floating, deadline and event tasks
+  respectively.  These lists can be "observed". For example, the Ui component
+  registers event listeners on these lists so that the Ui automatically updates
+  when the data in these lists change.
+
+### Storage component
+
+![Storage component class diagram](images/devguide/comp-storage.png)
+
+The `Storage` component:
+
+* can save `UserPref` objects in json format to the hard disk and read it back.
+
+* can save `TaskBook` objects in json format to the hard disk and read it back.
+
+### Logic component
+
+![Logic component class diagram](images/devguide/comp-logic.png)
+
+The `Logic` component:
+
+* parses and executes user commands.
+
+* filters the lists of floating, deadline and event tasks in the task book.
+
+It accomplishes its parsing and execution of user commands in a few steps:
+
+1. `Logic` uses its own internal `Parser` to parse the user command.
+
+2. This results in a `Command` object which is executed by the `LogicManager`.
+
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+
+4. The result of the command execution is encapsulated as a `CommandResult`
+   object which is passed back to the `Ui`.
+
+Given below is the Sequence Diagram for interactions within the `Logic`
+component for the `execute("delete 1")` API call.
+
+![Sequence diagram for event deletion](images/devguide/seq-deleteevent.png)
+
+### Ui component
+
+![Ui component class diagram](images/devguide/comp-ui.png)
+
+The `Ui` component,
+
+* Executes user commands using the `Logic` component.
+
+* Binds itself to some data in the `Model` so that the UI can auto-update when
+  data in the `Model` change.
+
+* Responds to events raised from various parts of the App and updates the UI
+  accordingly.
+
+The Ui consists of a `MainWindow` that is made up of parts e.g.`CommandBox`,
+`ResultDisplay`, `EventTaskListPane`, `StatusBarFooter` etc. All these,
+including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `Ui` component uses JavaFx UI framework. The layout of these UI parts are
+defined in matching `.fxml` files that are in the `src/main/resources/view`
+folder. For example, the layout of `MainWindow` is specified in
+`src/main/resources/view/MainWindow.fxml`.
+
+## Implementation
+
+### Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is
+used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the
+  configuration file (See [Configuration](#configuration))
+
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)`
+  which will log messages according to the specified logging level.
+
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+**Logging Levels**
+
+* `SEVERE`: Critical problem detected which may possibly cause the termination
+  of the application
+
+* `WARNING`: Can continue, but with caution
+
+* `INFO`: Information showing the noteworthy actions by the App.
+
+* `FINE`: Details that are not usually noteworthy but may be useful in
+  debugging e.g. print the actual list instead of just its size
+
+## Configuration
+
+By default, the application stores its configuration in the `config.json` file.
+This file can be modified to change the configuration of the application.
+
+* `appTitle`: The title of the application. This title will be displayed in the
+  user interface. (Default: `Task Tracker`)
+
+* `taskBookName`: Name of the user's task book. This name will be displayed in
+  the user interface. (Default: `MyTaskBook`)
+
+* `logLevel`: Sets the minimum required level for log messages to be
+  output. See [Logging Levels](#logging-levels) for the list of available
+  levels. (Default: `INFO`)
+
+* `userPrefsFilePath`: The path to the user's preference file. (Default:
+  `preferences.json`)
+
+* `taskBookFilePath`: The path to the user's task book file. (Default:
+  `data/taskbook.json`)
+
+## Testing
+
+Tests can be found in the `./src/test/java` folder.
+
+We have two types of tests:
+
+1. **GUI Tests** - These are _System Tests_ that test the entire App by
+   simulating user actions on the GUI.  These are in the `guitests` package.
+
+2. **Non-GUI Tests** - These are tests not involving the GUI. They include:
+
+   1. _Unit tests_ targeting the lowest level methods/classes.
+
+      e.g. `seedu.address.commons.UrlUtilTest`
+
+   2. _Integration tests_ that are checking the integration of multiple code
+      units (those code units are assumed to be working).
+
+      e.g. `seedu.address.storage.StorageManagerTest`
+
+   3. Hybrids of unit and integration tests. These test are checking multiple
+      code units as well as how the are connected together.
+
+      e.g. `seedu.address.logic.LogicManagerTest`
+
+### Testing with Eclipse
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run
+  as` > `JUnit Test`
+
+* To run a subset of tests, you can right-click on a test package, test class,
+  or a test and choose to run as a JUnit test.
+
+### Testing with Gradle
+
+* To run all tests, execute the following in the project work
+  directory:
+
+      ./gradle test
+
+* To only run non-GUI tests, execute the following in the project work
+  directory:
+
+      ./gradle -PguiTests=false test
+
+### Troubleshooting tests
+
+**Problem: Tests fail because a NullPointException was thrown when
+AssertionError is expected**
+
+* Reason: Assertions are not enabled for JUnit tests.
+  This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
+
+* Solution: Enable assertions in JUnit tests as described
+  [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+  Delete run configurations created when you ran tests earlier.
 
 ## Appendix A: User Stories
 
@@ -472,11 +771,14 @@ a new group activity.
 ## Appendix D: Glossary
 
 <dl>
+  <dt>Task book</dt>
+  <dd>The database where events, deadlines and floating tasks are stored.</dd>
+
   <dt>Datetime</dt>
   <dd>Date and Time</dd>
 
   <dt>Task</dt>
-  <dd>A unit of information in the database. Each task has a name.</dd>
+  <dd>A unit of information in the task book database. Each task has a name.</dd>
 
   <dt>Event</dt>
   <dd>Task that has a start datetime and end datetime</dd>
@@ -485,7 +787,7 @@ a new group activity.
   <dd>Task that has an end datetime only.</dd>
 
   <dt>Floating task</dt>
-  <dd>A task that has neither a start datetime not end datetime. It has a implicit priority derived from its position in the floating task list  in the database.</dd>
+  <dd>A task that has neither a start datetime not end datetime./dd>
 
   <dt>Time slot</dt>
   <dd>A time slot is referring to a period of time</dd>
