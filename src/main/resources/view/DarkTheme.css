@@ -17,10 +17,10 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 18pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
-    -fx-opacity: 1;
+    -fx-padding: 6pt;
 }
 
 .text-field {
@@ -306,4 +306,10 @@
 
 .tooltip-text {
     -fx-text-fill: white;
+}
+
+.card {
+    -fx-padding: 5px 5px 5px 15px;
+    -fx-border-color: #d6d6d6;
+    -fx-border-width: 1 1 1 1;
 }

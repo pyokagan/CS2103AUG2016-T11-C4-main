@@ -1,7 +1,6 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeoutException;
 
@@ -16,13 +15,10 @@ import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainGuiHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import guitests.guihandles.TaskListCardHandle;
-import guitests.guihandles.TaskListPanelHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.TaskBook;
-import seedu.address.model.task.Task;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 
@@ -45,7 +41,6 @@ public abstract class TaskTrackerGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected TaskListPanelHandle personListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -65,7 +60,6 @@ public abstract class TaskTrackerGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            personListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -97,21 +91,6 @@ public abstract class TaskTrackerGuiTest {
     @After
     public void cleanup() throws TimeoutException {
         FxToolkit.cleanupStages();
-    }
-
-    /**
-     * Asserts the person shown in the card is same as the given person
-     */
-    public void assertMatching(Task person, TaskListCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, person));
-    }
-
-    /**
-     * Asserts the size of the person list is equal to the given number.
-     */
-    protected void assertListSize(int size) {
-        int numberOfPeople = personListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
     }
 
     /**

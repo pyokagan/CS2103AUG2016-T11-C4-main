@@ -17,7 +17,6 @@ import org.testfx.api.FxToolkit;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 
-import guitests.guihandles.TaskListCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -313,10 +312,6 @@ public class TestUtil {
             list.add(obj);
         }
         return list;
-    }
-
-    public static boolean compareCardAndTask(TaskListCardHandle card, Task task) {
-        return card.isSamePerson(task);
     }
 
 }

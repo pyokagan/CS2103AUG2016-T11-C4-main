@@ -25,7 +25,6 @@ public class MainWindow extends UiPart<Scene> {
     public static final int MIN_WIDTH = 450;
 
     // Independent Ui parts residing in this Ui container
-    private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private CommandBox commandBox;
     private StatusBarFooter statusBarFooter;
@@ -42,6 +41,16 @@ public class MainWindow extends UiPart<Scene> {
 
     @FXML
     private UiRegion taskListPanelPlaceholder;
+
+    private FloatingTaskListPane floatingTaskListPane;
+
+    @FXML
+    private UiRegion floatingTaskListRegion;
+
+    private EventTaskListPane eventTaskListPane;
+
+    @FXML
+    private UiRegion eventTaskListRegion;
 
     @FXML
     private UiRegion resultDisplayPlaceholder;
@@ -69,8 +78,10 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     void fillInnerParts(Config config, Logic logic) {
-        personListPanel = new TaskListPanel(logic.getFilteredTaskList());
-        taskListPanelPlaceholder.setNode(personListPanel.getRoot());
+        floatingTaskListPane = new FloatingTaskListPane(logic.getFilteredFloatingTaskList());
+        floatingTaskListRegion.setNode(floatingTaskListPane.getRoot());
+        eventTaskListPane = new EventTaskListPane(logic.getFilteredEventTaskList());
+        eventTaskListRegion.setNode(eventTaskListPane.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.setNode(resultDisplay.getRoot());
         commandBox = new CommandBox(resultDisplay, logic);
@@ -124,10 +135,6 @@ public class MainWindow extends UiPart<Scene> {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
-    }
-
-    public TaskListPanel getPersonListPanel() {
-        return this.personListPanel;
     }
 
     /**

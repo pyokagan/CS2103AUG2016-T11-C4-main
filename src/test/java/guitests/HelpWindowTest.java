@@ -11,10 +11,6 @@ public class HelpWindowTest extends TaskTrackerGuiTest {
     @Test
     public void openHelpWindow() {
 
-        personListPanel.clickOnListView();
-
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
-
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
 
         assertHelpWindowOpen(commandBox.runHelpCommand());
