@@ -18,7 +18,6 @@
     * [Edit Event](#adde)
     * [Mark Finish](#fin)
     * [Show Empty Timeslots](#slot)
-    * [Toggle Event views](#view)
     * [Search](#search)
     * [Undo](#undo)
     * [Redo](#redo)
@@ -82,20 +81,7 @@
 
       Event Trick or treat starts today 8pm and ends on 31 Oct 9pm.
 
-   The events for current selected day will show up under schedule.
-
-   ![alt text](./images/userguide/toggle_calender.png "")
-
-9. To see the schedule of a particular day, enter `view DATE`.
-   The schedule for the day will show up in the schedule column.
-
-	`view 10oct2016`
-
-   ![alt text](./images/userguide/event.png "")
-
-   To view all events, enter `view events`
-
-   ![alt text](./images/userguide/event_list.png "")
+   The events under schedule.
 
 10. All task in the database will be assigned a unique index. The unique index can be seen to the left of the task name.
 
@@ -171,7 +157,6 @@
 | edit | `floating task index` `n-` `p-` <br> `deadline task index` `n-` `dd-` `dt-` <br> `event index` `n-` `sd-` `st-` `ed-` `et` `loc-` <br>
 | del | `float` or `deadline` or `event` `index`|
 | fin |`float` or `deadline` or `event` `index`|
-| view | `date` <br> `events` |
 | exit |          |
 
 ## Features
@@ -276,15 +261,15 @@ The 12 hour clock is used. hh:mm am/pm
 
 Valid input examples:
 
-    830am
+    8:30am
 
 8:30am in the morning
 
-	1145pm
+	11:45pm
 
 11:45pm at night
 
-	8pm
+	8:00pm
 
 8:00pm at night
 
