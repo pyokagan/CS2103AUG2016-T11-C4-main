@@ -375,7 +375,7 @@ Adds an event with specific start date, start time and end date, end time to Tas
 
 Delete a useless floating task/event/deadline on TaskTracker.
 
-    del float|deadline|event <TASK_UNIQUE_INDEX>
+    del-float|-deadline|-event <TASK_UNIQUE_INDEX>
 
 * Every event, deadline and floating task will have their own unique index.
 
@@ -383,7 +383,7 @@ Delete a useless floating task/event/deadline on TaskTracker.
 
 #### Examples
 
-* `del event 1`
+* `del-event 1`
 
   Delete the event with the unique index of `1`.
 
@@ -405,7 +405,7 @@ Edit a floating task to revise its name or priority.
 | n- | name |
 | p- | priority |
 
-    edit float <TASK_UNIQUE_INDEX> [n-NEW_NAME | p-PRIORITY]...
+    edit-float <TASK_UNIQUE_INDEX> [n-NEW_NAME | p-PRIORITY]...
 
 * Quotation marks are not necessary for `NEW_NAME`.
 
@@ -413,15 +413,15 @@ Edit a floating task to revise its name or priority.
 
 #### Examples
 
-* `edit 2 p-0`
+* `edit-float 2 p-0`
 
   Edit flaoting task with unique index of `2`'s priority to 0.
 
-* `edit 2 n-buy stationary`
+* `edit-float 2 n-buy stationary`
 
   Edit floating task with unique index of `2`'s name to `"buy stationary"`.
 
-* `edit 5 n-"go to Nanyang Mart" p-1`
+* `edit-float 5 n-"go to Nanyang Mart" p-1`
 
   Edit floating task with unique index of `5`'s name to `"go to Nanyang Mart"` and priority to 1.
 
@@ -435,7 +435,7 @@ Edit a deadline to revise its name and due date/time.
 | dd- | due date |
 | dt- | due time |
 
-    edit deadline <TASK_UNIQUE_INDEX> [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]...
+    edit-deadline <TASK_UNIQUE_INDEX> [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]...
 
 * Quotation marks are not necessary for `NEW_NAME`.
 
@@ -444,11 +444,11 @@ Edit a deadline to revise its name and due date/time.
 
 #### Examples
 
-* `edit 1 dt-5pm`
+* `edit-deadline 1 dt-5pm`
 
   Edit deadline with unique index of `1`'s due time to 5 pm.
 
-* `edit 2 dd-23/11/2016`
+* `edit-deadline 2 dd-23/11/2016`
 
   Edit deadline with unique index of `2`'s due date to 2016 23th November.
 
@@ -465,7 +465,7 @@ Edit an event to revise its name, starting/ending date/time and location.
 | et- | end time |
 | loc-| location |
 
-    edit event <TASK_UNIQUE_INDEX> [n-NEW_NAME | sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME | loc-NEW_LOCATION]...
+    edit-event <TASK_UNIQUE_INDEX> [n-NEW_NAME | sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME | loc-NEW_LOCATION]...
 
 * Quotation marks are not necessary for `NEW_NAME`.
 
@@ -474,15 +474,15 @@ Edit an event to revise its name, starting/ending date/time and location.
 
 #### Examples
 
-* `edit 6 loc-LT6`
+* `edit-event 6 loc-LT6`
 
   Edit event with unique index of `6`'s location to `LT6`.
 
-* `edit 2 st-4pm et-6pm`
+* `edit-event 2 st-4pm et-6pm`
 
   Edit event with unique index of `00126`'s starting time to 4pm and ending time to 6pm.
 
-* `edit 7 n-"proposal meeting" st-7pm`
+* `edit-event 7 n-"proposal meeting" st-7pm`
 
   Edit event with unique index of `7`'s starting time to 7pm and name to `proposal meeting`.
 
@@ -491,7 +491,7 @@ Edit an event to revise its name, starting/ending date/time and location.
 Mark a floating task/event/deadline as done on TaskTracker, the marked tasks
 will be archived.
 
-    fin float|deadline|event <TASK_UNIQUE_INDEX>
+    fin-float|-deadline|-event <TASK_UNIQUE_INDEX>
 
 * Events that have already passed it `DUE_TIME` will be marked as done
   automatically.
@@ -501,7 +501,7 @@ will be archived.
 
 #### Examples
 
-* `fin float 1`
+* `fin-float 1`
 
   Marked floating task `1` as finished.
 
@@ -529,29 +529,28 @@ Show all empty time slots in a given time period with a given duration.
   The TaskTracker will generate all empty time slots that are equal or greater than 45 minutes
   between 2016 5st November 2pm to 3rd 11:00pm.
 
-* `slot 5nov2016 2pm m-45`
+* `slot 5/11/2016 2pm m-45`
 
   The TaskTracker will generate all empty time slots that are equal or greater than 45 minutes
   between 2016 5st November 0am to 2pm.
 
-###<a name="view"> Toggle event views: `view` </a>
+###<a name="view"> Toggle views: `view` </a>
 
-###View all the events of a specific date in TaskTracker.
+###View all events that start on and all deadline tasks due on a specific date.
 
     view <DATE>
 
-* `DATE` will follow thw format shown in [Date Format](#DateFormat)
+* `DATE` will follow the format shown in [Date Format](#DateFormat)
 
-* The deadlines and events will be listed according to the order of deadlines' due time and
-  events' starting time.
+* The deadlines and events will be listed according to the order of the deadline's due time and the event's starting time, with the earlier time displayed at the top of the list.
 
 * The `TASK_UNIQUE_INDEX` will also be shown after `view` command is executed.
 
-### View all events
+### View all time events and deadline task 
 
-	view events
+	view all
 
-* All the events in the database will be displayed in a list
+* All the task in the database will be displayed.
 
 #### Examples
 
