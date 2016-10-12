@@ -14,7 +14,7 @@ public class TestTask extends Task {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.name.fullName + " ");
+        sb.append("add " + this.name.taskName + " ");
         return sb.toString();
     }
 }
