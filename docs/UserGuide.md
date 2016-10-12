@@ -42,9 +42,11 @@
 
 5. Set up: enter your name and verify the current date and time.
 
-6. You're good to go! Try adding your first Task. Press Enter to enter a command. For floating task, try `add "Learn Task Tracker"`. Let's do another one, `add "bake potatoes" 2` 
+6. You're good to go! Try adding your first Task. Press Enter to enter a command. For floating task, try `add "Learn Task Tracker"`.  
 
-   ![alt text](./images/userguide/command_bar_add.png "command bar")
+   ![alt text](./images/userguide/1.png "command bar")
+   Let's do another one, `add "bake potatoes" 2`
+    ![alt text](./images/userguide/2.png "")
    
    Notice how bake potatoes is below Learn Task Tracker. That's because bake potaoes is of number 2 priority, while Learn Task Tracker with an undefined priority takes the default highest priority number of 0. 
 
@@ -54,15 +56,15 @@
 
       bake cookies by 31 December of this year, 3pm. Undeclared year in date field will be taken as the current year.
 
-	* `add "bake potatoes" tdy 3pm`
+	* `add "bake cookies" tdy 3pm`
 
-      learn bake potatoes by today, 3pm.
+      Bake cookies by today, 3pm.
 
-   ![alt text](./images/userguide/task.png "")
+   ![alt text](./images/userguide/3.png "")
 
 8. Next up, events. An event is a task with a start date, start time, end date and end time. Example commands are:
 
-	* `add "CS2103t summer camp" 30aug 1pm 3/1/2017 6pm`
+	* `add "CS2103t summer camp" 30/8 1pm 3/1/2017 6pm`
 
       Event CS2103t summer camp starts on 30 Aug 2016, 1pm, and ends on 3
       January 2017,6pm.
@@ -71,17 +73,15 @@
 
       Event potato peeling starts today 3pm and ends today 7pm.
 
-	* `add "cupcake festival" tdy 8pm tmr 12pm`
+	* `add "cupcake festival" tdy 8pm tmr 12pm` loc-NUS
 
-      Event cupcake festival starts today 8pm and ends tommorrow 12 pm.
+      Event cupcake festival starts today 8pm and ends tomorrow 12 pm at NUS.
 
 	* `add "Trick or treat" 31/10 8pm to 9pm`
 
-      Event Trick or treat starts 31 October this year 8pm and ends on the same day, 9pm.
+      Event Trick or treat starts 31 October this year 8pm and ends on the same day, 9pm. ![alttext](./images/userguide/4.png "")
 
 10. All task in the database will be assigned a unique index. The unique index can be seen to the left of the task name.
-
-    ![alttext](./images/userguide/index.png "")to update with actual app shots
 
 11. To delete a task, try:
     	
@@ -93,9 +93,9 @@
 
     Delete deadline task bake cookies.
         
-        del-event 5
+        del-event 4
 
-    Delete Event Movie.
+    Delete Event Trick or treat. ![alttext](./images/userguide/5.png "")
 
 12. To edit a deadline, try:
 
@@ -106,34 +106,35 @@
 
 	* `edit-deadline 1 dt-3pm`
 
-      Only due time of bake potato modified.
+      Only due time of bake cookies modified. ![alttext](./images/userguide/6.png "")
 
 13. To edit an event, try:
 
 	* `edit-event 2 loc-NUS`
 
-      Location of cupcake festival set to NUS.
+      Location of potato peeling set to NUS.
 
-	* `edit-event 2 st-3pm sd-12oct et-5pm ed-13oct loc-Yishun`
+	* `edit-event 3 st-3pm sd-12oct et-5pm ed-13oct loc-Yishun`
 
       All fields modified. (`st` : `starting time`, `sd` : `starting date`,
       `et` : `ending time`, `ed` : `ending date`)
+      ![alttext](./images/userguide/7.png "")
 
     * `edit-event 2 st-3pm`
 
-      Start time of cupcake festival modified.
+      Start time of potato peeling modified. ![alttext](./images/userguide/8.png "")
 
 14. To edit a floating task, try:
 
 	* `edit-float 1 p-1`
 
-       Floating Task Learn Task Tracker is given a priority of 1.
+       Floating Task Learn Task Tracker is given a priority of 1. ![alttext](./images/userguide/9.png "")
 
 15. You've finished a task. Congrations! Let's mark a task as finshed.
 
     * `fin-float 1`
 
-    Floating task learn task-tracker is marked as finished.
+    Floating task Learn Task Tracker is marked as finished.
 
 16. To exit the program, try:
 
@@ -149,9 +150,9 @@
 | Command | Essential Parameters|
 |---------|:----------|
 |add| `"taskname"` <br> `"deadline task name"` `date` `time` <br> `"event name"` `start date` `start time` `end date` `end time`|
-| edit | `floating task index` `n-` `p-` <br> `deadline task index` `n-` `dd-` `dt-` <br> `event index` `n-` `sd-` `st-` `ed-` `et` `loc-` <br>
-| del | `float` or `deadline` or `event` `index`|
-| fin |`float` or `deadline` or `event` `index`|
+| edit | `-float` `index` `n-` `p-` <br> `-deadline` `task index` `n-` `dd-` `dt-` <br> `-event` `index` `n-` `sd-` `st-` `ed-` `et` `loc-` <br>
+| del | `-float` or `-deadline` or `-event` `index`|
+| fin |`-float` or `-deadline` or `-event` `index`|
 | exit |          |
 
 ## Features
