@@ -10,7 +10,7 @@ public class DeadlineTask extends Task {
     private static final String FMT_STRING = "DeadlineTask[name=%s, dueDate=%s, dueTime=%s]";
 
     private final LocalDateTime due;
-    
+
     public DeadlineTask(Name name, LocalDateTime due) {
         super(name);
         assert due != null;

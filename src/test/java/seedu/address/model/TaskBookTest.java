@@ -27,7 +27,7 @@ public class TaskBookTest {
     private static TypicalFloatingTasks typicalFloatingTasks = new TypicalFloatingTasks();
 
     private static TypicalEventTasks typicalEventTasks = new TypicalEventTasks();
-    
+
     private static TypicalDeadlineTasks typicalDeadlineTasks = new TypicalDeadlineTasks();
 
     @Before
@@ -94,7 +94,7 @@ public class TaskBookTest {
         taskBook.removeEventTask(0);
         assertEquals(expected, taskBook.getEventTasks());
     }
-    
+
     @Test
     public void setDeadlineTasks() {
         taskBook.setDeadlineTasks(typicalDeadlineTasks.getDeadlineTasks());

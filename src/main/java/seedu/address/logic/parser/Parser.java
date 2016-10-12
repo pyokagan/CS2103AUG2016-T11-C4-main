@@ -13,16 +13,16 @@ import java.util.regex.Pattern;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDeadlineCommand;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddFloatingTaskCommand;
-import seedu.address.logic.commands.AddDeadlineCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteDeadlineCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteFloatingTaskCommand;
 import seedu.address.logic.commands.EditDeadlineCommand;
-import seedu.address.logic.commands.DeleteDeadlineCommand;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditFloatingTaskCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -76,7 +76,7 @@ public class Parser {
 
         case AddEventCommand.COMMAND_WORD:
             return new AddEventParser().parse(arguments);
-            
+
         case AddDeadlineCommand.COMMAND_WORD:
             return new AddDeadlineParser().parse(arguments);
 
@@ -97,10 +97,10 @@ public class Parser {
 
         case EditEventCommand.COMMAND_WORD:
             return new EditEventParser().parse(arguments);
-            
+
         case DeleteDeadlineCommand.COMMAND_WORD:
             return prepareDeleteDeadline(arguments);
-            
+
         case EditDeadlineCommand.COMMAND_WORD:
             return new EditDeadlineParser().parse(arguments);
 
@@ -178,7 +178,7 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the delete event command.
-     * 
+     *
      * @param args full command args string
      * @return the prepared command
      */
@@ -190,10 +190,10 @@ public class Parser {
         }
         return new DeleteEventCommand(index.get());
     }
-    
+
     /**
      * Parses arguments in the context of the delete deadline command.
-     * 
+     *
      * @param args full command args string
      * @return the prepared command
      */

@@ -51,9 +51,9 @@ public class AddDeadlineParserTest {
         } catch (IllegalValueException e) {
             throw new AssertionError("should not happen", e);
         }
-        
+
         final Command command = parser.parse(args);
-        
+
         assertTrue(command instanceof AddDeadlineCommand);
         assertEquals(expected, ((AddDeadlineCommand)command).getDeadlineTask());
     }

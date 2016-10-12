@@ -239,5 +239,5 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate) {
         filteredDeadlineTasks.setPredicate(predicate);
-    }    
+    }
 }

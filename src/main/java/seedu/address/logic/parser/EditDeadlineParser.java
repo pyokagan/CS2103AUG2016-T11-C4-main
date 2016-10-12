@@ -57,7 +57,7 @@ public class EditDeadlineParser {
             if (matcher.group("newTime") != null) {
                 newTime = parser.parseTime(matcher.group("newTime"));
             }
-            
+
         } catch (IllegalValueException e) {
             return new IncorrectCommand(e.getMessage());
         }

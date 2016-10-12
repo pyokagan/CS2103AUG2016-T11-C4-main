@@ -23,7 +23,7 @@ public class ModelTest {
     private TypicalFloatingTasks tpflt = new TypicalFloatingTasks();
 
     private TypicalEventTasks tpent = new TypicalEventTasks();
-    
+
     private TypicalDeadlineTasks tpdue = new TypicalDeadlineTasks();
 
     private Model model;
@@ -136,9 +136,9 @@ public class ModelTest {
         thrown.expect(IllegalValueException.class);
         model.setEventTask(0, tpent.lunchWithBillGates);
     }
-    
+
     ///
-    
+
     @Test
     public void addDeadlineTask_appendsDeadlineTask() throws Exception {
         model.addDeadlineTask(tpdue.speechTranscript);

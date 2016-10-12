@@ -84,12 +84,12 @@ public interface Model {
      * If predicate is null, the filtered event task list will be populated with all event tasks.
      */
     void setEventTaskFilter(Predicate<? super EventTask> predicate);
-    
+
     //// Deadline Tasks
 
     /** Adds the given deadline task */
     void addDeadlineTask(DeadlineTask deadlineTask);
-    
+
     /** Retrieves the given deadline task from the specified index in the filtered deadline task list */
     DeadlineTask getDeadlineTask(int indexInFilteredList) throws IllegalValueException;
 
@@ -101,8 +101,8 @@ public interface Model {
 
     /** Returns the filtered deadline task list as an unmodifiable ObservableList */
     ObservableList<DeadlineTask> getFilteredDeadlineTaskList();
-    
-       /**
+
+    /**
     * Updates the filter of the filtered deadline task list to filter by the given predicate.
     *
     * If predicate is null, the filtered deadline task list will be populated with all deadline tasks.

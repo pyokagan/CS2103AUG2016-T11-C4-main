@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.Module;
 
 import seedu.address.commons.time.LocalDateTimeDuration;
 import seedu.address.model.TaskBook;
+import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;

@@ -6,9 +6,9 @@ import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskNotFoundException;
 
@@ -23,7 +23,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     private final ObservableList<FloatingTask> floatingTasks;
 
     private final ObservableList<EventTask> eventTasks;
-    
+
     private final ObservableList<DeadlineTask> deadlineTasks;
 
     public TaskBook() {
@@ -37,8 +37,8 @@ public class TaskBook implements ReadOnlyTaskBook {
      * Tasks are copied into this TaskBook.
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getTasks(), 
-             toBeCopied.getFloatingTasks(), 
+        this(toBeCopied.getTasks(),
+             toBeCopied.getFloatingTasks(),
              toBeCopied.getEventTasks(),
              toBeCopied.getDeadlineTasks());
     }
@@ -46,7 +46,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     /**
      * Tasks are copied into this TaskBook.
      */
-    public TaskBook(List<Task> tasks, List<FloatingTask> floatingTasks, 
+    public TaskBook(List<Task> tasks, List<FloatingTask> floatingTasks,
                     List<EventTask> eventTasks, List<DeadlineTask> deadlineTasks) {
         this();
         setTasks(tasks);
@@ -138,32 +138,32 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void setEventTask(int index, EventTask newEventTask) {
         eventTasks.set(index, newEventTask);
     }
-    
-    ////deadline task operations
 
-   @Override
-   public ObservableList<DeadlineTask> getDeadlineTasks() {
-       return FXCollections.unmodifiableObservableList(deadlineTasks);
-   }
+    //// deadline task operations
 
-   public void setDeadlineTasks(Collection<DeadlineTask> deadlineTasks) {
-       this.deadlineTasks.setAll(deadlineTasks);
-   }
+    @Override
+    public ObservableList<DeadlineTask> getDeadlineTasks() {
+        return FXCollections.unmodifiableObservableList(deadlineTasks);
+    }
 
-   public void addDeadlineTask(DeadlineTask deadlineTask) {
-       deadlineTasks.add(deadlineTask);
-   }
+    public void setDeadlineTasks(Collection<DeadlineTask> deadlineTasks) {
+        this.deadlineTasks.setAll(deadlineTasks);
+    }
 
-   /**
+    public void addDeadlineTask(DeadlineTask deadlineTask) {
+        deadlineTasks.add(deadlineTask);
+    }
+
+    /**
     * Removes the DeadlineTask at position `index` in the list. Returns the removed DeadlineTask.
     */
-   public DeadlineTask removeDeadlineTask(int index) {
-       return deadlineTasks.remove(index);
-   }
+    public DeadlineTask removeDeadlineTask(int index) {
+        return deadlineTasks.remove(index);
+    }
 
-   public void setDeadlineTask(int index, DeadlineTask newDeadlineTask) {
-       deadlineTasks.set(index, newDeadlineTask);
-   }
+    public void setDeadlineTask(int index, DeadlineTask newDeadlineTask) {
+        deadlineTasks.set(index, newDeadlineTask);
+    }
 
     //// util methods
 

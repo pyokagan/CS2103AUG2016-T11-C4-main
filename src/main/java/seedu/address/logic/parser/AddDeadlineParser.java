@@ -39,18 +39,18 @@ public class AddDeadlineParser {
         }
 
         // There must be at least one of { Date, Time }.
-        if ((args.Date == null && args.Time == null)) {
+        if ((args.date == null && args.time == null)) {
             return incorrectCommand;
         }
 
         final DateTimeParser parser = referenceDateTime != null ? new DateTimeParser(referenceDateTime)
                                                                 : new DateTimeParser();
         try {
-            final LocalDate Date = args.Date != null ? parser.parseDate(args.Date)
+            final LocalDate Date = args.date != null ? parser.parseDate(args.date)
                                                      : parser.getReferenceDateTime().toLocalDate();
-            final LocalTime Time = args.Time != null ? parser.parseTime(args.Time)
+            final LocalTime Time = args.time != null ? parser.parseTime(args.time)
                                                      : LocalTime.of(23, 59);
-            
+
             return new AddDeadlineCommand(args.name, LocalDateTime.of(Date, Time));
         } catch (IllegalValueException e) {
             return new IncorrectCommand(e.getMessage());
@@ -59,8 +59,8 @@ public class AddDeadlineParser {
 
     private static class ParseResult {
         String name;
-        String Date;
-        String Time;
+        String date;
+        String time;
     }
 
     private static ParseResult parseArguments(String str) throws IllegalValueException {
@@ -78,7 +78,7 @@ public class AddDeadlineParser {
             return result;
         }
         if (isDate(args.get(0))) {
-            result.Date = args.remove(0);
+            result.date = args.remove(0);
         }
 
         // Time (optional)
@@ -86,7 +86,7 @@ public class AddDeadlineParser {
             return result;
         }
         if (isTime(args.get(0))) {
-            result.Time = args.remove(0);
+            result.time = args.remove(0);
         }
 
         if (!args.isEmpty()) {
