@@ -217,13 +217,13 @@ All the time and date fields of the task have to be entered in order to create t
 
 Valid input examples:
 
-ddmonthyy
+dd/mm/yy
 
-	31dec2016
+	31/12/2016
 
-ddmonth
+dd/mm
 
-	31dec
+	31/12
 
 * If the year is not defined, the year is assumed to be the current year. The
   year this document was last updated was 2016, therefore all examples
@@ -328,11 +328,11 @@ Adds a deadline with specific due date and time to TaskTracker.
 
 #### Examples
 
-* `add "CS2103 V1.1" 16dec 2pm`
+* `add "CS2103 V1.1" 16/12 2pm`
 
   To create a deadline task named `CS2103 V1.1` with dateline of 16th December 2016, 2pm.
 
-* `add "spend pizza vouchers" 20nov2018 2pm`
+* `add "spend pizza vouchers" 20/11/2018 2pm`
 
   To create a deadline task named `spend pizza vouchers` with dateline of 20 November 2018, 6pm.
 
@@ -372,7 +372,7 @@ Adds an event with specific start date, start time and end date, end time to Tas
 
   To create an event `programming workshop` that starts today, 10am, and last till 5pm, at LT15.
 
-* `add "sports training camp" 1dec2016 7pm 10jan2017 1pm`
+* `add "sports training camp" 1/12/2016 7pm 10/1/2017 1pm`
 
   To create an event `sports training camp` with starting date 1 December 2016, starting time 7pm, ending date 10 January 2017 and ending time 1pm.
 
@@ -422,11 +422,11 @@ Edit a floating task to revise its name or priority.
 
   Edit flaoting task with unique index of `2`'s priority to 0.
 
-* `edit `2` n-buy stationary`
+* `edit 2 n-buy stationary`
 
   Edit floating task with unique index of `2`'s name to `"buy stationary"`.
 
-* `edit `5` n-"go to Nanyang Mart" p-1`
+* `edit 5 n-"go to Nanyang Mart" p-1`
 
   Edit floating task with unique index of `5`'s name to `"go to Nanyang Mart"` and priority to 1.
 
@@ -449,13 +449,13 @@ Edit a deadline to revise its name and due date/time.
 
 #### Examples
 
-* `edit 00128 dt-5pm`
+* `edit 1 dt-5pm`
 
-  Edit deadline with unique index of `00128`'s due time to 5 pm.
+  Edit deadline with unique index of `1`'s due time to 5 pm.
 
-* `edit 00128 dd-23/11/2016`
+* `edit 2 dd-23/11/2016`
 
-  Edit deadline with unique index of `00128`'s due date to 2016 23th November.
+  Edit deadline with unique index of `2`'s due date to 2016 23th November.
 
 #### <a name="edite">Edit an event : `edit`</a>
 
@@ -524,12 +524,12 @@ Show all empty time slots in a given time period with a given duration.
 
 #### Examples
 
-* `slot 1nov2016 3nov2016 h-4`
+* `slot 1/11/2016 3/11/2016 h-4`
 
   The TaskTracker will generate all empty time slots that are equal or greater than 4 hours
   between 2016 1st November 0am to 3rd 11:59pm.
 
-* `slot 5nov2016 2pm 11pm m-45`
+* `slot 5/11/2016 2pm 11pm m-45`
 
   The TaskTracker will generate all empty time slots that are equal or greater than 45 minutes
   between 2016 5st November 2pm to 3rd 11:00pm.
