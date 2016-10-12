@@ -19,6 +19,7 @@ import seedu.address.logic.commands.AddFloatingTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteDeadlineCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteFloatingTaskCommand;
 import seedu.address.logic.commands.EditEventCommand;
@@ -39,8 +40,6 @@ public class Parser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
@@ -97,6 +96,9 @@ public class Parser {
 
         case EditEventCommand.COMMAND_WORD:
             return new EditEventParser().parse(arguments);
+
+        case DeleteDeadlineCommand.COMMAND_WORD:
+            return prepareDeleteDeadline(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -172,6 +174,9 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the delete event command.
+     *
+     * @param args full command args string
+     * @return the prepared command
      */
     private Command prepareDeleteEvent(String args) {
         Optional<Integer> index = parseIndex(args);
@@ -180,6 +185,21 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
         }
         return new DeleteEventCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the delete deadline command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDeleteDeadline(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteDeadlineCommand.MESSAGE_USAGE));
+        }
+        return new DeleteDeadlineCommand(index.get());
     }
 
     /**
