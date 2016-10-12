@@ -15,6 +15,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddFloatingTaskCommand;
+import seedu.address.logic.commands.AddDeadlineCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -75,6 +76,9 @@ public class Parser {
 
         case AddEventCommand.COMMAND_WORD:
             return new AddEventParser().parse(arguments);
+            
+        case AddDeadlineCommand.COMMAND_WORD:
+            return new AddDeadlineParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
