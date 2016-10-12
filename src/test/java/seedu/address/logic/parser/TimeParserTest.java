@@ -1,22 +1,18 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.time.LocalTime;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class TimeParserTest {
 
     private static final LocalTime TEST_TIME = LocalTime.of(3, 14);
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     private TimeParser parser;
 
@@ -48,9 +44,12 @@ public class TimeParserTest {
         assertEquals(expected, actual);
     }
 
-    private void assertParseFail(String str) throws Exception {
-        thrown.expect(IllegalValueException.class);
-        parser.parse(str);
+    private void assertParseFail(String str) {
+        try {
+            parser.parse(str);
+            fail("IllegalValueException was not thrown");
+        } catch (IllegalValueException e) {
+        }
     }
 
 }
