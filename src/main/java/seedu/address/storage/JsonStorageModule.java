@@ -7,6 +7,7 @@ import seedu.address.commons.time.LocalDateTimeDuration;
 import seedu.address.model.TaskBook;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
@@ -31,6 +32,7 @@ public class JsonStorageModule extends Module {
         context.setMixInAnnotations(Task.class, JsonTaskMixin.class);
         context.setMixInAnnotations(FloatingTask.class, JsonFloatingTaskMixin.class);
         context.setMixInAnnotations(EventTask.class, JsonEventTaskMixin.class);
+        context.setMixInAnnotations(DeadlineTask.class, JsonDeadlineTaskMixin.class);
         context.setMixInAnnotations(TaskBook.class, JsonTaskBookMixin.class);
     }
 
