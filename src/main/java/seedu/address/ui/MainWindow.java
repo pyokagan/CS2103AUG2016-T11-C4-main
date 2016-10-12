@@ -42,6 +42,11 @@ public class MainWindow extends UiPart<Scene> {
     @FXML
     private UiRegion taskListPanelPlaceholder;
 
+    private FloatingTaskListPane floatingTaskListPane;
+
+    @FXML
+    private UiRegion floatingTaskListRegion;
+
     @FXML
     private UiRegion resultDisplayPlaceholder;
 
@@ -68,6 +73,8 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     void fillInnerParts(Config config, Logic logic) {
+        floatingTaskListPane = new FloatingTaskListPane(logic.getFilteredFloatingTaskList());
+        floatingTaskListRegion.setNode(floatingTaskListPane.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.setNode(resultDisplay.getRoot());
         commandBox = new CommandBox(resultDisplay, logic);
