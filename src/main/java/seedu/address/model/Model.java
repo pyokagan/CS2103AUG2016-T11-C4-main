@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskNotFoundException;
@@ -58,5 +59,29 @@ public interface Model {
      * If predicate is null, the filtered Floating task list will be populated with all Floating tasks.
      */
     void setFloatingTaskFilter(Predicate<? super FloatingTask> predicate);
+
+    //// Event Tasks
+
+    /** Adds the given event task */
+    void addEventTask(EventTask eventTask);
+
+    /** Retrieves the given event task from the specified index in the filtered event task list */
+    EventTask getEventTask(int indexInFilteredList) throws IllegalValueException;
+
+    /** Removes the given event task and returns it. */
+    EventTask removeEventTask(int indexInFilteredList) throws IllegalValueException;
+
+    /** Replaces the given event task with a new event task */
+    void setEventTask(int indexInFilteredList, EventTask newEventTask) throws IllegalValueException;
+
+    /** Returns the filtered event task list as an unmodifiable ObservableList */
+    ObservableList<EventTask> getFilteredEventTaskList();
+
+    /**
+     * Updates the filter of the filtered event task list to filter by the given predicate.
+     *
+     * If predicate is null, the filtered event task list will be populated with all event tasks.
+     */
+    void setEventTaskFilter(Predicate<? super EventTask> predicate);
 
 }

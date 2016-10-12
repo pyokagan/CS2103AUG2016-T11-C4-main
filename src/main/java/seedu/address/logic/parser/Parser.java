@@ -13,11 +13,14 @@ import java.util.regex.Pattern;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddFloatingTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteFloatingTaskCommand;
+import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditFloatingTaskCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -70,6 +73,9 @@ public class Parser {
         case AddFloatingTaskCommand.COMMAND_WORD:
             return new AddFloatingTaskParser().parse(arguments);
 
+        case AddEventCommand.COMMAND_WORD:
+            return new AddEventParser().parse(arguments);
+
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
@@ -81,6 +87,12 @@ public class Parser {
 
         case EditFloatingTaskCommand.COMMAND_WORD:
             return new EditFloatingTaskParser().parse(arguments);
+
+        case DeleteEventCommand.COMMAND_WORD:
+            return prepareDeleteEvent(arguments);
+
+        case EditEventCommand.COMMAND_WORD:
+            return new EditEventParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -152,6 +164,18 @@ public class Parser {
                                   DeleteFloatingTaskCommand.MESSAGE_USAGE));
         }
         return new DeleteFloatingTaskCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the delete event command.
+     */
+    private Command prepareDeleteEvent(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
+        }
+        return new DeleteEventCommand(index.get());
     }
 
     /**
