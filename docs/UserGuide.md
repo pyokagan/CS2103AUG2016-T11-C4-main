@@ -12,8 +12,6 @@
     * [Add Floating Task](#addft)
     * [Add Deadline Task](#adddt)
     * [Add Event](#adde)
-    * [list](#list)
-    * [View Task index](#i)
     * [Delete](#del)
     * [Edit Floating Task](#editft)
     * [Edit Deadline Task](#editdt)
@@ -99,15 +97,21 @@
 
    ![alt text](./images/userguide/event_list.png "")
 
-10. Let's view the index of task. Enter `i`.
+10. All task in the database will be assigned a unique index. The unique index can be seen to the left of the task name.
 
-    ![alttext](./images/userguide/index.png "")
-
-    Enter anything into command line to hide index view.
+    ![alttext](./images/userguide/index.png "")to update with actual app shots
 
 11. To delete a task, try:
+    	
+        del float 1
+        
+    Delete floating task bake potatoes.
 
-        del 5
+        del deadline 1
+
+    Delete deadline task bake cookies.
+        
+        del event 5
 
     Delete Event Movie.
 
@@ -125,7 +129,6 @@
 
 13. To edit an event, try:
 
-	* `i` to view index
 	* `edit 2 loc-NUS`
 
       Location of cupcake festival set to NUS.
@@ -141,15 +144,13 @@
 
 14. To edit a floating task, try:
 
-	* `i` to view index
-	* `edit 6 p-1`
+	* `edit float 6 p-1`
 
        Floating Task bake potato is given a priority of 1.
 
 15. You've finished a task. Congrations! Let's mark a task as finshed.
 
-    * `i` to view index
-    * `fin 3`
+    * `fin dealine 3`
 
     Dateline task learn task-tracker is marked as finished.
 
@@ -167,10 +168,9 @@
 | Command | Essential Parameters|
 |---------|:----------|
 |add| `"taskname"` <br> `"deadline task name"` `date` `time` <br> `"event name"` `start date` `start time` `end date` `end time`|
-|i|  |
 | edit | `floating task index` `n-` `p-` <br> `deadline task index` `n-` `dd-` `dt-` <br> `event index` `n-` `sd-` `st-` `ed-` `et` `loc-` <br>
-| del | `index`|
-| fin |`index`|
+| del | `float` or `deadline` or `event` `index`|
+| fin |`float` or `deadline` or `event` `index`|
 | view | `date` <br> `events` |
 | exit |          |
 
@@ -391,59 +391,21 @@ Adds an event with specific start date, start time and end date, end time to Tas
 
   To create an event `sports training camp` with starting date 1 December 2016, starting time 7pm, ending date 10 January 2017 and ending time 1pm.
 
-###<a name="list">List tasks: `list`</a>
-
-List certain type of task stored in the database
-
-    list task|event|due
-
-* `list task` will show all floating tasks according to the order of their priority.
-
-* `list event` will show all events according to the order of their starting time.
-
-* `list due` will show all deadline according to their due time and due date. (when sorting
-  the deadline without due time, the sorting will use 11:59 pm of the due date as default)
-
-* Every tasks (floating tasks / events / deadlines) will have a unique index to differentiate
-  their uniqueness. And their index will also be listed besides them when `list` command is
-  executed.
-
-* The overdue/past/finished tasks will not be listed.
-
-### <a name="i"> View task index: `i`</a>
-
-UI will show the index of all floating task, deadline task and events.
-
-	i
-
-* The index is mainly used to refer to a specific task when editing it's properties.
-
-* index is also used to refer to a specific task to be deleted.
-
-* To switch out of index view, enter anything into the command bar.
-
 ### <a name="del"> Deleting a floating task/event/deadline: `del`</a>
 
 Delete a useless floating task/event/deadline on TaskTracker.
 
-    del TASK_UNIQUE_INDEX
+    del float|deadline|event <TASK_UNIQUE_INDEX>
 
-* `TASK_UNIQUE_INDEX` will be different from each to each single task.
+* Every event, deadline and floating task will have their own unique index.
 
-* A task's `TASK_UNIQUE_INDEX` will be the same as what is shown when `list` command is executed.
-  The user can refer `list` command to look for the index of a certain task.
-
-* `TASK_UNIQUE_INDEX` will never be changed once a index is assigned to a task when created.
+* A task's `TASK_UNIQUE_INDEX` will be the same as what is the number beside the task name.
 
 #### Examples
 
-* `i`
+* `del event 1`
 
-  List all the task stored in the database with their unique index number.
-
-* `del 00123`
-
-  Delete the task with the unique index of `00123`.
+  Delete the event with the unique index of `1`.
 
 ### Edit a floating task/deadline/event: `edit`
 
@@ -463,7 +425,7 @@ Edit a floating task to revise its name or priority.
 | n- | name |
 | p- | priority |
 
-    edit <TASK_UNIQUE_INDEX> [n-NEW_NAME | p-PRIORITY]...
+    edit float <TASK_UNIQUE_INDEX> [n-NEW_NAME | p-PRIORITY]...
 
 * Quotation marks are not necessary for `NEW_NAME`.
 
@@ -471,17 +433,17 @@ Edit a floating task to revise its name or priority.
 
 #### Examples
 
-* `edit 00124 p-0`
+* `edit 2 p-0`
 
-  Edit task with unique index of `00124`'s priority to 0.
+  Edit flaoting task with unique index of `2`'s priority to 0.
 
-* `edit 00124 n-buy stationary`
+* `edit `2` n-buy stationary`
 
-  Edit task with unique index of `00124`'s name to `"buy stationary"`.
+  Edit floating task with unique index of `2`'s name to `"buy stationary"`.
 
-* `edit 00125 n-"go to Nanyang Mart" p-1`
+* `edit `5` n-"go to Nanyang Mart" p-1`
 
-  Edit task with unique index of `00125`'s name to `"go to Nanyang Mart"` and priority to 1.
+  Edit floating task with unique index of `5`'s name to `"go to Nanyang Mart"` and priority to 1.
 
 #### <a name="editdl">Edit a deadline : `edit`</a>
 
@@ -493,7 +455,7 @@ Edit a deadline to revise its name and due date/time.
 | dd- | due date |
 | dt- | due time |
 
-    edit <TASK_UNIQUE_INDEX> [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]...
+    edit deadline <TASK_UNIQUE_INDEX> [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]...
 
 * Quotation marks are not necessary for `NEW_NAME`.
 
@@ -523,7 +485,7 @@ Edit an event to revise its name, starting/ending date/time and location.
 | et- | end time |
 | loc-| location |
 
-    edit <TASK_UNIQUE_INDEX> [n-NEW_NAME | sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME | loc-NEW_LOCATION]...
+    edit event <TASK_UNIQUE_INDEX> [n-NEW_NAME | sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME | loc-NEW_LOCATION]...
 
 * Quotation marks are not necessary for `NEW_NAME`.
 
@@ -532,24 +494,24 @@ Edit an event to revise its name, starting/ending date/time and location.
 
 #### Examples
 
-* `edit 00126 loc-LT6`
+* `edit 6 loc-LT6`
 
-  Edit event with unique index of `00126`'s location to `LT6`.
+  Edit event with unique index of `6`'s location to `LT6`.
 
-* `edit 00126 st-4pm et-6pm`
+* `edit 2 st-4pm et-6pm`
 
   Edit event with unique index of `00126`'s starting time to 4pm and ending time to 6pm.
 
-* `edit 00127 n-"proposal meeting" st-7pm`
+* `edit 7 n-"proposal meeting" st-7pm`
 
-  Edit event with unique index of `00127`'s starting time to 7pm and name to `proposal meeting`.
+  Edit event with unique index of `7`'s starting time to 7pm and name to `proposal meeting`.
 
 ###<a name="fin"> Mark a floating task/deadline as done/finished: `fin`</a>
 
 Mark a floating task/event/deadline as done on TaskTracker, the marked tasks
 will be archived.
 
-    fin <TASK_UNIQUE_INDEX>
+    fin float|deadline|event <TASK_UNIQUE_INDEX>
 
 * Events that have already passed it `DUE_TIME` will be marked as done
   automatically.
@@ -559,9 +521,9 @@ will be archived.
 
 #### Examples
 
-* `fin 00123`
+* `fin float 1`
 
-  Marked task `00123` as finished.
+  Marked floating task `1` as finished.
 
 ###<a name="slot"> Show empty time slots : `slot`</a>
 
