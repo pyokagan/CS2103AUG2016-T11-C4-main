@@ -18,6 +18,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteFloatingTaskCommand;
+import seedu.address.logic.commands.EditFloatingTaskCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -77,6 +78,9 @@ public class Parser {
 
         case DeleteFloatingTaskCommand.COMMAND_WORD:
             return prepareDeleteFloatingTask(arguments);
+
+        case EditFloatingTaskCommand.COMMAND_WORD:
+            return new EditFloatingTaskParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
