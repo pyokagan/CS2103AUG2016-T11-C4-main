@@ -42,26 +42,23 @@
 
 5. Set up: enter your name and verify the current date and time.
 
-6. You're good to go! Try adding your first Task. Press ';' to launch/hide the
-   command bar. Press Enter to enter a command. For floating task, `add
-   "taskname"`!
+6. You're good to go! Try adding your first Task. Press Enter to enter a command. For floating task, try `add ""`!
 
    ![alt text](./images/userguide/command_bar_add.png "command bar")
 
-7. Add task with due date and time, example commands are:
+7. Let's add deadline tasks with due date and time.
 
 	* `add "bake cookies" 31dec 3pm`
 
       bake cookies by 31 December of this year, 3pm. Undeclared year in date field will be taken as the current year.
 
-	* `add "learn task-tracker" tdy 3pm`
+	* `add "bake potatoes" tdy 3pm`
 
-      learn task tracker by today, 3pm.
+      learn bake potatoes by today, 3pm.
 
    ![alt text](./images/userguide/task.png "")
 
-8. Add event. An event is a task with a start time and end time, example
-   commands are:
+8. Next up, events. An event is a task with a start date, start time, end date and end time. Example commands are:
 
 	* `add "CS2103t summer camp" 30aug 1pm 3jan2017 6pm`
 
@@ -81,8 +78,6 @@
 
       Event Trick or treat starts today 8pm and ends on 31 Oct 9pm.
 
-   The events under schedule.
-
 10. All task in the database will be assigned a unique index. The unique index can be seen to the left of the task name.
 
     ![alttext](./images/userguide/index.png "")to update with actual app shots
@@ -91,7 +86,7 @@
     	
         del float 1
         
-    Delete floating task bake potatoes.
+    Delete floating task .
 
         del deadline 1
 
