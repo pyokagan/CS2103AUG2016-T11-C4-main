@@ -6,7 +6,7 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 
 /**
- * Adds an event task to the task book.
+ * Adds an floating task to the task book.
  */
 public class AddFloatingTaskCommand extends Command {
 
@@ -17,7 +17,7 @@ public class AddFloatingTaskCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " \"Buy A Helicopter\" 4";
 
-    public static final String MESSAGE_SUCCESS = "New event added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New floating task added: %1$s";
 
     private final FloatingTask floatingTask;
 
