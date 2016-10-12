@@ -21,6 +21,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteFloatingTaskCommand;
+import seedu.address.logic.commands.EditDeadlineCommand;
 import seedu.address.logic.commands.DeleteDeadlineCommand;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditFloatingTaskCommand;
@@ -99,6 +100,9 @@ public class Parser {
             
         case DeleteDeadlineCommand.COMMAND_WORD:
             return prepareDeleteDeadline(arguments);
+            
+        case EditDeadlineCommand.COMMAND_WORD:
+            return new EditDeadlineParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
