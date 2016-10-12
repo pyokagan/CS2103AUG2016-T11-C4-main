@@ -623,15 +623,14 @@ Command | Format
 Add Floating Task | `add "FLOATING_TASK_NAME" [PRIORITY]`
 Add Event |`add “EVENT_NAME” <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> [loc-LOCATION]`
 Add Deadline |`add “DEADLINE_NAME” <DATE> <TIME>`
-List all tasks | `list task|event|due`
-Delete a task | `del TASK_UNIQUE_INDEX`
-Edit Floating Tasks | `edit TASK_UNIQUE_INDEX [n-NEW_NAME | p-PRIORITY]... `
-Edit Event |`edit TASK_UNIQUE_INDEX [sd-NEW_START_DATE | st-NEW_START_TIME | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME | loc-NEW_LOCATION]... `
-Edit Deadline |`edit TASK_UNIQUE_INDEX [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]... `
+Delete a task | `del-[float or deadline or event] <TASK_UNIQUE_INDEX>`
+Edit Floating Tasks | `edit-float <TASK_UNIQUE_INDEX> [n-NEW_NAME or p-PRIORITY]... `|
+Edit Event |`edit-event <TASK_UNIQUE_INDEX> [sd-NEW_START_DATE or st-NEW_START_TIME or ed-NEW_END_DATE or et-NEW_END_TIME or n-NEW_NAME or loc-NEW_LOCATION]... ` |
+Edit Deadline |`edit-deadline <TASK_UNIQUE_INDEX> [dd-DUE_DATE or dt-DUE_TIME or n-NEW_NAME]... ` | 
 Generate recommended time slots | `slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>`
-Mark a task as finished | `fin TASK_UNIQUE_INDEX`
-View a date in calendar | `view DATE`
-Search for keywords | `search KEY_WORDS`
+Mark a task as finished | `fin-[float or deadline or event] <TASK_UNIQUE_INDEX>`
+View a date in calendar | `view <DATE>`
+Search for keywords | `search <KEY_WORDS>`
 Help | `help`
 Undo | `undo`
 Redo | `redo`
