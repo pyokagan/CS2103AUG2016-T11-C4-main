@@ -50,6 +50,11 @@ public class MainWindow extends UiPart<Scene> {
     private EventTaskListPane eventTaskListPane;
 
     @FXML
+    private UiRegion deadlineTaskListRegion;
+
+    private DeadlineTaskListPane deadlineTaskListPane;
+
+    @FXML
     private UiRegion eventTaskListRegion;
 
     @FXML
@@ -82,6 +87,8 @@ public class MainWindow extends UiPart<Scene> {
         floatingTaskListRegion.setNode(floatingTaskListPane.getRoot());
         eventTaskListPane = new EventTaskListPane(logic.getFilteredEventTaskList());
         eventTaskListRegion.setNode(eventTaskListPane.getRoot());
+        deadlineTaskListPane = new DeadlineTaskListPane(logic.getFilteredDeadlineTaskList());
+        deadlineTaskListRegion.setNode(deadlineTaskListPane.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.setNode(resultDisplay.getRoot());
         commandBox = new CommandBox(resultDisplay, logic);
