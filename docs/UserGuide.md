@@ -7,9 +7,12 @@ geometry: margin=2.4cm
 mainfont: Myriad Pro
 monofont: Inconsolata
 fontsize: 11pt
+toc: true
 ---
 
 # User Guide
+
+<!-- BEGIN GITHUB -->
 
 * [About] (#about)
 * [Quick Start](#quick-start)
@@ -36,6 +39,8 @@ fontsize: 11pt
     * [Clear](#clear)
     * [Exit](#exit)
 * [Command Summary](#command-summary)
+
+<!-- END GITHUB -->
 
 ## About
 
