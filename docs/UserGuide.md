@@ -103,7 +103,7 @@ TaskTracker makes time-management smart and simple for you!
 
       Event potato peeling starts today 3pm and ends today 7pm.
 
-	* `add "cupcake festival" tdy 8pm tmr 12pm` loc-NUS
+	* `add "cupcake festival" tdy 8pm tmr 12pm loc-NUS`
 
       Event cupcake festival starts today 8pm and ends tomorrow 12 pm at NUS.
 
@@ -193,7 +193,7 @@ TaskTracker makes time-management smart and simple for you!
 | Command | Essential Parameters|
 |---------|:----------|
 |add| `"taskname"` <br> `"deadline task name"` `date` `time` <br> `"event name"` `start date` `start time` `end date` `end time`|
-| edit | `-float` `index` `n-` `p-` <br> `-deadline` `task index` `n-` `dd-` `dt-` <br> `-event` `index` `n-` `sd-` `st-` `ed-` `et` `loc-` <br>
+| edit | `-float` `index` `n-` `p-` <br> `-deadline` `index` `n-` `dd-` `dt-` <br> `-event` `index` `n-` `sd-` `st-` `ed-` `et` `loc-` <br>
 | del | `-float` or `-deadline` or `-event` `index`|
 | fin |`-float` or `-deadline` or `-event` `index`|
 | exit | |
@@ -241,18 +241,6 @@ All the time and date fields of the task have to be entered in order to create t
 |`tmr` | tommorow|
 |`yst` | yesteday|
 | `to` | to |
-|`jan` | January|
-|`feb` | February|
-|`mar` | March|
-|`apr` | April|
-|`may` | May|
-|`jun` | June|
-|`jul` | July|
-|`aug` | August|
-|`sep`| September|
-|`oct` | October|
-|`nov` | November|
-|`dec` | December|
 
 ### <a name="DateFormat">Date format</a>
 
