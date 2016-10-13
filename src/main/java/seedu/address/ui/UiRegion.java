@@ -7,6 +7,11 @@ import javafx.scene.layout.Region;
 
 public class UiRegion extends Region {
 
+    public UiRegion() {
+        super();
+        setMinHeight(Region.USE_PREF_SIZE);
+    }
+
     public Node getNode() {
         return getChildren().size() > 0 ? getChildren().get(0) : null;
     }
