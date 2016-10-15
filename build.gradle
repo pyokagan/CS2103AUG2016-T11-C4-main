@@ -125,7 +125,8 @@ task(pandoc, type: PandocTask) {
                                project.file('docs/DeveloperGuide.md')]
     cmdArgs = ['-f', 'markdown_github-hard_line_breaks+definition_lists+yaml_metadata_block+raw_tex',
                '-t', 'latex',
-               '--latex-engine', 'xelatex']
+               '--latex-engine', 'xelatex',
+               '--listings']
     outputFile = new File(project.docsDir, 'manual.pdf')
     filters = [project.file('pandoc/githubonly.py'),
                project.file('pandoc/latexonly.py'),

@@ -106,8 +106,25 @@ $for(bibliography)$
 \addbibresource{$bibliography$}
 $endfor$
 $endif$
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
 $if(listings)$
 \usepackage{listings}
+\lstset{
+    language=,
+    basicstyle=\ttfamily,
+    breaklines=true
+}
+\tcolorboxenvironment{lstlisting}{
+    standard,
+    left=2mm,
+    top=0mm,
+    right=2mm,
+    bottom=0mm,
+    boxsep=0mm,
+    arc=0.5mm,
+    boxrule=0.4mm
+}
 $endif$
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
