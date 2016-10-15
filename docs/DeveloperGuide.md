@@ -279,8 +279,8 @@ We have two types of tests:
 
 ### Testing with Eclipse
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run
-  as` > `JUnit Test`
+* To run all tests, right-click on the `src/test/java` folder and choose
+  `Run as` > `JUnit Test`
 
 * To run a subset of tests, you can right-click on a test package, test class,
   or a test and choose to run as a JUnit test.
