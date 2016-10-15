@@ -109,6 +109,13 @@ $endfor$
 $endif$
 \usepackage{tcolorbox}
 \tcbuselibrary{skins}
+\newtcolorbox{notebox}{
+    colback=blue!10!white,
+    sharp corners,
+    boxrule=0.4mm,
+    colframe=blue!50!black,
+    leftrule=3mm
+}
 $if(listings)$
 \usepackage{listings}
 \lstset{

@@ -132,7 +132,8 @@ task(pandoc, type: PandocTask) {
                project.file('pandoc/latexonly.py'),
                project.file('pandoc/anchorheadings.py'),
                project.file('pandoc/appendixrename.py'),
-               project.file('pandoc/latexfigure.py')]
+               project.file('pandoc/latexfigure.py'),
+               project.file('pandoc/latexblockquote.py')]
 }
 
 artifacts {

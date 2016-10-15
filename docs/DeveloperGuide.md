@@ -20,7 +20,7 @@
 
 1. **JDK `1.8.0_60`**  or later<br>
 
-    > Having any Java 8 version is not enough.
+    > Note: Having any Java 8 version is not enough.
       This app will not work with earlier versions of Java 8.
 
 2. **Eclipse** IDE

@@ -68,7 +68,7 @@ TaskTracker makes time-management smart and simple for you!
 
 1. Ensure you have Java version `1.8.0_60` or later installed in your computer.
 
-    > Having any Java 8 version is not enough.
+    > Note: Having any Java 8 version is not enough.
     > This app will not work with earlier versions of Java 8.
 
 2. Download the latest `TaskTracker.jar` from the 'releases' tab.
