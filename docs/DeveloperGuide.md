@@ -81,7 +81,10 @@
 
 ### Architecture
 
-![Architecture Diagram](images/devguide/architecture.png)
+<figure>
+<img src="images/devguide/architecture.png">
+<figcaption><div align="center">Figure 2.1: Architecture diagram of TaskTracker</div></figcaption>
+</figure>
 
 The **_Architecture Diagram_** given above explains the high-level design of
 the App.
@@ -133,7 +136,10 @@ The sections below give more details of each component.
 
 ### Model component
 
-![Model component class diagram](images/devguide/comp-model.png)
+<figure>
+<img src="images/devguide/comp-model.png">
+<figcaption><div align="center">Figure 2.2: Model component class diagram</div></figcaption>
+</figure>
 
 The `Model` component:
 
@@ -147,7 +153,10 @@ The `Model` component:
 
 ### Storage component
 
-![Storage component class diagram](images/devguide/comp-storage.png)
+<figure>
+<img src="images/devguide/comp-storage.png">
+<figcaption><div align="center">Figure 2.3: Storage component class diagram</div></figcaption>
+</figure>
 
 The `Storage` component:
 
@@ -157,7 +166,10 @@ The `Storage` component:
 
 ### Logic component
 
-![Logic component class diagram](images/devguide/comp-logic.png)
+<figure>
+<img src="images/devguide/comp-logic.png">
+<figcaption><div align="center">Figure 2.4: Logic component class diagram</div></figcaption>
+</figure>
 
 The `Logic` component:
 
@@ -179,11 +191,17 @@ It accomplishes its parsing and execution of user commands in a few steps:
 Given below is the Sequence Diagram for interactions within the `Logic`
 component for the `execute("delete 1")` API call.
 
-![Sequence diagram for event deletion](images/devguide/seq-deleteevent.png)
+<figure>
+<img src="images/devguide/seq-deleteevent.png">
+<figcaption><div align="center">Figure 2.5: Sequence diagram for event deletion</div></figcaption>
+</figure>
 
 ### Ui component
 
-![Ui component class diagram](images/devguide/comp-ui.png)
+<figure>
+<img src="images/devguide/comp-ui.png">
+<figcaption><div align="center">Figure 2.6: Ui component class diagram</div></figcaption>
+</figure>
 
 The `Ui` component,
 

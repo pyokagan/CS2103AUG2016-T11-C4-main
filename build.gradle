@@ -131,7 +131,8 @@ task(pandoc, type: PandocTask) {
     filters = [project.file('pandoc/githubonly.py'),
                project.file('pandoc/latexonly.py'),
                project.file('pandoc/anchorheadings.py'),
-               project.file('pandoc/appendixrename.py')]
+               project.file('pandoc/appendixrename.py'),
+               project.file('pandoc/latexfigure.py')]
 }
 
 artifacts {
