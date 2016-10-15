@@ -329,7 +329,7 @@ Valid input examples:
 
 If the minute field is `00`, it may be ommitted from the command.
 
-### <a name="help">Viewing help : `help`</a>
+### <a name="help">Viewing help: `help`</a>
 
 ```
 help
@@ -339,7 +339,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 ![alt text](./images/userguide/help.png "")
 
-### <a name="addft">Adding a floating task : `add`</a>
+### <a name="addft">Adding a floating task: `add`</a>
 
 Adds a floating task to TaskTracker.
 
@@ -372,7 +372,7 @@ not allowed in task name.
 
   To create a task called `Progress Reflection` with default `PRIORITY` of 0.
 
-### <a name="adddt"> Adding a deadline task: `add`</a>
+### <a name="adddt">Adding a deadline task: `add`</a>
 
 Adds a deadline with specific due date and time to TaskTracker.
 
@@ -408,7 +408,7 @@ add <"DEADLINE_NAME"> <DATE> <TIME> [PRIORITY]
 
     To create a deadline named `EE2024 homework 1` tommorow, 6 am.
 
-### <a name="adde"> Adding an event: `add`</a>
+### <a name="adde">Adding an event: `add`</a>
 
 Adds an event with specific start date, start time and end date, end time to
 TaskTracker.
@@ -446,7 +446,7 @@ add <"EVENT_NAME"> <START_DATE> <START_TIME> <END_DATE> <END_TIME> [loc-LOCATION
     To create an event `sports training camp` with starting date 1 December
     2016, starting time 7pm, ending date 10 January 2017 and ending time 1pm.
 
-### <a name="del"> Deleting a floating task/event/deadline: `del`</a>
+### <a name="del">Deleting a floating task/event/deadline: `del`</a>
 
 Delete a useless floating task/event/deadline on TaskTracker.
 
@@ -476,7 +476,7 @@ del-float|-deadline|-event <INDEX>
 
 * The `[optional parameters]` need not follow the order shown.
 
-#### <a name="editft"> Edit a floating task: `edit` </a>
+#### <a name="editft">Edit a floating task: `edit`</a>
 
 Edit a floating task to revise its name or priority.
 
@@ -597,7 +597,7 @@ fin-float|-deadline|-event <INDEX>
 
     Marked floating task `1` as finished.
 
-### <a name="slot"> Show empty time slots : `slot`</a>
+### <a name="slot">Show empty time slots: `slot`</a>
 
 Show all empty time slots in a given time period with a given duration.
 
@@ -628,7 +628,7 @@ slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MIN
     The TaskTracker will generate all empty time slots that are equal or
     greater than 45 minutes between 2016 5st November 12am to 2pm.
 
-### <a name="view"> Toggle views: `view` </a>
+### <a name="view">Toggle views: `view`</a>
 
 #### View all events that start on and all deadline tasks due on a specific date.
 
@@ -654,7 +654,7 @@ view all
 
   View all the tasks that are of the date of 1st December of the current year.
 
-### <a name="search"> Search by keywords: `search`</a>
+### <a name="search">Search by keywords: `search`</a>
 
 Search task that contains specific keywords.
 
@@ -680,7 +680,7 @@ search <KEY_WORDS>
     Search for all the tasks that contain keyword `training SESSION`,
     TaskTracker will generate a list for view.
 
-### <a name="undo"> Undo an action : `undo`</a>
+### <a name="undo">Undo an action: `undo`</a>
 
 Undo the previous action that modifies data. Undo can be performed many times until the first action since the app was launched has been undone.
 
@@ -694,7 +694,7 @@ View the stack of actions that undo will perform: `undo stack`
 undo stack
 ```
 
-### <a name="redo"> Redo an action : `redo`</a>
+### <a name="redo">Redo an action: `redo`</a>
 
 Redo the previous action that was undone by undo. The amount of consecutive redos doable is equal to the number of consecutive undos performed right before redo is entered.
 
@@ -708,7 +708,7 @@ View the stack of actions that redo will perform: `redo stack`
 redo stack
 ```
 
-### <a name="clear"> Clearing all entries : `clear`</a>
+### <a name="clear">Clearing all entries: `clear`</a>
 
 Clears all entries from TaskTracker.
 
@@ -716,7 +716,7 @@ Clears all entries from TaskTracker.
 clear
 ```
 
-### <a name="exit"> Exiting the program : `exit`</a>
+### <a name="exit">Exiting the program: `exit`</a>
 
 Exits the program.
 
