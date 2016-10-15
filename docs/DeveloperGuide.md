@@ -290,12 +290,16 @@ We have two types of tests:
 * To run all tests, execute the following in the project work
   directory:
 
-      ./gradle test
+    ```
+    ./gradle test
+    ```
 
 * To only run non-GUI tests, execute the following in the project work
   directory:
 
-      ./gradle -PguiTests=false test
+    ```
+    ./gradle -PguiTests=false test
+    ```
 
 ### Troubleshooting tests
 

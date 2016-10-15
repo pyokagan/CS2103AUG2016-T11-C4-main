@@ -136,15 +136,21 @@ TaskTracker makes time-management smart and simple for you!
 
 10. To delete a task, try:
 
-        del-float 2
+    ```
+    del-float 2
+    ```
 
     Delete floating task `bake potatoes`.
 
-        del-deadline 1
+    ```
+    del-deadline 1
+    ```
 
     Delete deadline task `bake cookies`.
 
-        del-event 4
+    ```
+    del-event 4
+    ```
 
     Delete Event `Trick or treat`.
 
@@ -325,7 +331,9 @@ If the minute field is `00`, it may be ommitted from the command.
 
 ### <a name="help">Viewing help : `help`</a>
 
-    help
+```
+help
+```
 
 Help is also shown if you enter an incorrect command e.g. `abcd`
 
@@ -335,7 +343,9 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 Adds a floating task to TaskTracker.
 
-    add <"FLOATING_TASK_NAME"> [PRIORITY]
+```
+add <"FLOATING_TASK_NAME"> [PRIORITY]
+```
 
 * Task name should be in a pair of quotation marks. And quotations marks are
 not allowed in task name.
@@ -366,7 +376,9 @@ not allowed in task name.
 
 Adds a deadline with specific due date and time to TaskTracker.
 
-    add <"DEADLINE_NAME"> <DATE> <TIME> [PRIORITY]
+```
+add <"DEADLINE_NAME"> <DATE> <TIME> [PRIORITY]
+```
 
 * Deadline name should be in a pair of quotation marks. And quotations marks
   are not allowed in deadline name.
@@ -401,7 +413,9 @@ Adds a deadline with specific due date and time to TaskTracker.
 Adds an event with specific start date, start time and end date, end time to
 TaskTracker.
 
-    add <"EVENT_NAME"> <START_DATE> <START_TIME> <END_DATE> <END_TIME> [loc-LOCATION]
+```
+add <"EVENT_NAME"> <START_DATE> <START_TIME> <END_DATE> <END_TIME> [loc-LOCATION]
+```
 
 * Event name should be within a pair of quotation marks. Quotations marks are
   not allowed in event name.
@@ -436,7 +450,9 @@ TaskTracker.
 
 Delete a useless floating task/event/deadline on TaskTracker.
 
-    del-float|-deadline|-event <INDEX>
+```
+del-float|-deadline|-event <INDEX>
+```
 
 * Every event, deadline and floating task will have their own unique index.
 
@@ -469,8 +485,9 @@ Edit a floating task to revise its name or priority.
 | n- | name |
 | p- | priority |
 
-
-    edit-float <INDEX> [n-NEW_NAME | p-PRIORITY]...
+```
+edit-float <INDEX> [n-NEW_NAME | p-PRIORITY]...
+```
 
 * Quotation marks are not necessary for `NEW_NAME`.
 
@@ -501,7 +518,9 @@ Edit a deadline to revise its name and due date/time.
 | dd- | due date |
 | dt- | due time |
 
-    edit-deadline <INDEX> [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]...
+```
+edit-deadline <INDEX> [dd-DUE_DATE | dt-DUE_TIME | n-NEW_NAME]...
+```
 
 * Quotation marks are not necessary for `NEW_NAME`.
 
@@ -531,9 +550,11 @@ Edit an event to revise its name, starting/ending date/time and location.
 | et- | end time |
 | loc-| location |
 
-    edit-event <INDEX> [ n-NEW_NAME | sd-NEW_START_TIME | st-NEW_START_DATE
-                        | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME
-                        | loc-NEW_LOCATION]...
+```
+edit-event <INDEX> [ n-NEW_NAME | sd-NEW_START_TIME | st-NEW_START_DATE
+                    | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME
+                    | loc-NEW_LOCATION]...
+```
 
 * Quotation marks are not necessary for `NEW_NAME`.
 
@@ -560,7 +581,9 @@ Edit an event to revise its name, starting/ending date/time and location.
 Mark a floating task/event/deadline as done on TaskTracker, the marked tasks
 will be archived.
 
-    fin-float|-deadline|-event <INDEX>
+```
+fin-float|-deadline|-event <INDEX>
+```
 
 * Events that have already passed it `DUE_TIME` will be marked as done
   automatically.
@@ -578,7 +601,9 @@ will be archived.
 
 Show all empty time slots in a given time period with a given duration.
 
-    slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>
+```
+slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>
+```
 
 * At least one of `<STARTING_DATE> <STARTING_TIME>` is required.
 
@@ -607,7 +632,9 @@ Show all empty time slots in a given time period with a given duration.
 
 #### View all events that start on and all deadline tasks due on a specific date.
 
-    view <DATE>
+```
+view <DATE>
+```
 
 * `DATE` will follow the format shown in [Date Format](#DateFormat)
 
@@ -615,7 +642,9 @@ Show all empty time slots in a given time period with a given duration.
 
 #### View all time events and deadline task
 
-	view all
+```
+view all
+```
 
 * All the task in the database will be displayed.
 
@@ -629,7 +658,9 @@ Show all empty time slots in a given time period with a given duration.
 
 Search task that contains specific keywords.
 
-    search <KEY_WORDS>
+```
+search <KEY_WORDS>
+```
 
 * The `KEY_WORDS` are CASE-SENSITIVE
 
@@ -653,33 +684,45 @@ Search task that contains specific keywords.
 
 Undo the previous action that modifies data. Undo can be performed many times until the first action since the app was launched has been undone.
 
-    undo
+```
+undo
+```
 
 View the stack of actions that undo will perform: `undo stack`
 
-    undo stack
+```
+undo stack
+```
 
 ### <a name="redo"> Redo an action : `redo`</a>
 
 Redo the previous action that was undone by undo. The amount of consecutive redos doable is equal to the number of consecutive undos performed right before redo is entered.
 
-    redo
+```
+redo
+```
 
 View the stack of actions that redo will perform: `redo stack`
 
-    redo stack
+```
+redo stack
+```
 
 ### <a name="clear"> Clearing all entries : `clear`</a>
 
 Clears all entries from TaskTracker.
 
-    clear
+```
+clear
+```
 
 ### <a name="exit"> Exiting the program : `exit`</a>
 
 Exits the program.
 
-    exit
+```
+exit
+```
 
 ## Command Summary
 
