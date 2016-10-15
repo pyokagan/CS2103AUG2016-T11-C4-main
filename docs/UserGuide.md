@@ -231,7 +231,7 @@ the type and number of fields entered when creating the task.
 
 All the time and date fields of the task have to be entered in order to create the task.
 
-<a name="cf">**Command Format**</a>
+### <a name="cf">Command Format</a>
 
 * Words in `UPPER_CASE` are parameters to be defined by the user.
 
