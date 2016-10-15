@@ -205,16 +205,6 @@ TaskTracker makes time-management smart and simple for you!
 16. Refer to the [Features](#features) section below for details of each
     command.
 
-<a name="qss">**Quick Start Summary**</a>
-
-| Command | Essential Parameters|
-|---------|:-----------------------------------------------------------------------------|
-|add| `"taskname"` <br> `"deadline task name"` `date` `time` <br> `"event name"` `start date` `start time` `end date` `end time`|
-| edit | `-float` `index` `n-` `p-` <br> `-deadline` `index` `n-` `dd-` `dt-` <br> `-event` `index` `n-` `sd-` `st-` `ed-` `et` `loc-` <br>
-| del | `-float` or `-deadline` or `-event` `index`|
-| fin |`-float` or `-deadline` or `-event` `index`|
-| exit | |
-
 ## Features
 
 ### <a name="dm">Data models</a>
