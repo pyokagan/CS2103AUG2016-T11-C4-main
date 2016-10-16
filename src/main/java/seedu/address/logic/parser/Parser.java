@@ -62,8 +62,7 @@ public class Parser {
         switch (commandWord) {
 
         case AddTaskCommand.COMMAND_WORD:
-            // TODO return correct command
-            return null;
+            return new AddTaskParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
