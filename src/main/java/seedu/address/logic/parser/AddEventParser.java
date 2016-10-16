@@ -98,11 +98,10 @@ public class AddEventParser {
         if (args.isEmpty()) {
             throw new IllegalValueException("expected ending time or ending date");
         }
-        if (!isKeywordTo(args.get(0))) {
-            throw new IllegalValueException("expected keyword \"to\"");
-        }
         if (isKeywordTo(args.get(0))) {
             args.remove(0);
+        } else {
+            throw new IllegalValueException("expected keyword \"to\"");
         }
 
         // endDate (optional)
