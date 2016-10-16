@@ -79,7 +79,7 @@ public class Parser {
 		final String arguments = matcher.group("arguments");
 		switch (commandWord) {
 
-		case AddCommand.COMMAND_WORD:
+		case "add":
 			return prepareAdd(arguments);
 
 		case AddFloatingTaskCommand.COMMAND_WORD:
