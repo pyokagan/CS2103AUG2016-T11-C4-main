@@ -148,54 +148,8 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-            String type = idTaskType(args);
-        	switch(type){
-        	case("float"):
-        		return new AddFloatingTaskParser().parse(args);
-        	
-        	case("deadline"):
-        		return new AddDeadlineParser().parse(args);
-        	
-        	case("event"):
-        		return new AddEventParser().parse(args);	
-        	}
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));	
-        }
-
-    /**
-     * Identifies the type of task.
-     * 
-     * @param args
-     * @return type of task as String
-     */
-	private String idTaskType(String args) {
-		int s = wordCount(args);
-		switch (s) {
-		case (1):
-			return "float";
-
-		case (2):
-			return "float";
-
-		case (3):
-			return "deadline";
-
-		case (5):
-			return "event";
-
-		case (6):
-			return "event";
-		}
-		return null;
-	}
-
-	public int wordCount(String s) {
-		if (s == null) {
-			return 0;
-		} else {
-			return s.trim().split("\\s+").length;
-		}
-	}
+    }
 
 	/**
 	 * Parses arguments in the context of the delete person command.
