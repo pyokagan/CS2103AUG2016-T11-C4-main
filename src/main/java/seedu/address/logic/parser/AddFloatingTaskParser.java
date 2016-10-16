@@ -19,6 +19,8 @@ public class AddFloatingTaskParser {
     private final Command incorrectCommand = new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                                                   AddFloatingTaskCommand.MESSAGE_USAGE));
 
+    private static final Pattern PRIORITY_PATTERN = Pattern.compile("p-(?<priority>\\d)");
+
     public AddFloatingTaskParser() {
     }
 
@@ -67,8 +69,13 @@ public class AddFloatingTaskParser {
         if (args.isEmpty()) {
             return result;
         }
-        if (Priority.isValidPriority(args.get(0))) {
-            result.priority = args.remove(0);
+        if (isPriorityFormat(args.get(0))) {
+            Matcher matcher = PRIORITY_PATTERN.matcher(args.remove(0));
+            matcher.find();
+            result.priority = matcher.group("priority");
+            if (!Priority.isValidPriority(result.priority)) {
+                throw new IllegalValueException("priority can only range from 0 to 5");
+            }
         }
 
         if (!args.isEmpty()) {
@@ -88,6 +95,11 @@ public class AddFloatingTaskParser {
             start = matcher.end();
         }
         return args;
+    }
+
+    private static boolean isPriorityFormat(String str) {
+        Matcher matcher = PRIORITY_PATTERN.matcher(str.trim());
+        return matcher.matches();
     }
 
 }

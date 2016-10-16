@@ -25,7 +25,7 @@ public class AddFloatingTaskParserTest {
     @Test
     public void parse() {
         // All arguments provided
-        assertParse("\"a\" 3", "a", "3");
+        assertParse("\"a\" p-3", "a", "3");
 
         // If priority is not given, then it default "0"
         assertParse("\"a\"", "a", "0");
