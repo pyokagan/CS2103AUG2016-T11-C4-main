@@ -240,5 +240,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate) {
         filteredDeadlineTasks.setPredicate(predicate);
     }
+    
+    //undo
+	@Override
+	public void undoComplete() {
+		indicateTaskBookChanged();
+		
+	}
 
 }

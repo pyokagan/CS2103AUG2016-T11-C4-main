@@ -108,5 +108,8 @@ public interface Model {
      * If predicate is null, the filtered deadline task list will be populated with all deadline tasks.
      */
     void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
+    
+    //Undo
+    void undoComplete();
 
 }
