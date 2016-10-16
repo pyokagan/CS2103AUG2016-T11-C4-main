@@ -33,7 +33,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public static final Stack<Command> modifyingDataCommandHistory=new Stack<Command>();
     
     //for redo
-    public static Stack <Model> undoneStates = new Stack<Model>();
+    public static Stack <TaskBook> undoneStates = new Stack<TaskBook>();
     public static Stack<Command> undoneCommands=new Stack<Command>();
     
     public LogicManager(Model model, Storage storage) {
@@ -49,7 +49,7 @@ public class LogicManager extends ComponentManager implements Logic {
         if(command.modifiesData()){
         	recordStateBeforeChange(model, command);
         	undoneCommands=new Stack<Command>();
-        	undoneStates = new Stack<Model>(); 
+        	undoneStates = new Stack<TaskBook>(); 
         }
         
         command.setData(model);
