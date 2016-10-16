@@ -10,6 +10,7 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
     protected Model model;
+    public boolean modifiesData;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
