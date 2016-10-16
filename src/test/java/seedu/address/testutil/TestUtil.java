@@ -25,7 +25,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
-import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.TaskBook;
@@ -116,10 +115,6 @@ public class TestUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static void main(String... s) {
-        createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
     public static TaskBook generateEmptyAddressBook() {

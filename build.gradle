@@ -61,10 +61,6 @@ test {
     systemProperty 'testfx.setup.timeout', '60000'
     testLogging.exceptionFormat = 'full'
 
-    include 'seedu/address/**'
-    if (guiTests == 'true')
-        include 'guitests/**'
-
     beforeTest { descriptor ->
         if (headless == 'true') {
             systemProperty 'java.awt.robot', 'true'
