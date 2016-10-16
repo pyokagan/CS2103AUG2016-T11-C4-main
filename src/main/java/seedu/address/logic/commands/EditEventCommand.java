@@ -104,4 +104,8 @@ public class EditEventCommand extends Command {
 		return true;
 	}
 
+	@Override
+	public String getCommandWord() {
+		return COMMAND_WORD;
+	}
 }

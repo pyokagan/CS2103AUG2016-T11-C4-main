@@ -45,5 +45,10 @@ public class SelectCommand extends Command {
 	public boolean modifiesData() {
 		return false;
 	}
+	
+	@Override
+	public String getCommandWord() {
+		return COMMAND_WORD;
+	}
 
 }

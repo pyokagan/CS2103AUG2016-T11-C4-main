@@ -36,4 +36,9 @@ public class AddEventCommand extends AddTaskCommand {
 		return true;
 	}
 
+	@Override
+	public String getCommandWord() {
+		return COMMAND_WORD;
+	}
 }
+

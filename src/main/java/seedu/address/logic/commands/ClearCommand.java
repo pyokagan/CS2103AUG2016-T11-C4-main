@@ -23,4 +23,9 @@ public class ClearCommand extends Command {
 	public boolean modifiesData() {
 		return true;
 	}
+
+	@Override
+	public String getCommandWord() {
+		return COMMAND_WORD;
+	}
 }

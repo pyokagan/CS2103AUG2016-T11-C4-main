@@ -37,4 +37,8 @@ public class DeleteEventCommand extends Command {
 		return true;
 	}
 
+	@Override
+	public String getCommandWord() {
+		return COMMAND_WORD;
+	}
 }

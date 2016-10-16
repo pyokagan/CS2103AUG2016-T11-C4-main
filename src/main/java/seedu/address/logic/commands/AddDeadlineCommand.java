@@ -36,4 +36,8 @@ public class AddDeadlineCommand extends AddTaskCommand {
 		return true;
 	}
 
+	@Override
+	public String getCommandWord() {
+		return COMMAND_WORD;
+	}
 }

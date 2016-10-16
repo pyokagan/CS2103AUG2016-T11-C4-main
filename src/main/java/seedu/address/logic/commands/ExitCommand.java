@@ -25,4 +25,8 @@ public class ExitCommand extends Command {
 		return false;
 	}
 
+	@Override
+	public String getCommandWord() {
+		return COMMAND_WORD;
+	}
 }

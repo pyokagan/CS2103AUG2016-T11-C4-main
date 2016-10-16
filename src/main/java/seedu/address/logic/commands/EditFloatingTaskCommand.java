@@ -71,5 +71,10 @@ public class EditFloatingTaskCommand extends Command {
 	public boolean modifiesData() {
 		return true;
 	}
+	
+	@Override
+	public String getCommandWord() {
+		return COMMAND_WORD;
+	}
 
 }

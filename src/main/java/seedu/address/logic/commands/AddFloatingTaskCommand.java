@@ -35,5 +35,10 @@ public class AddFloatingTaskCommand extends AddTaskCommand {
 	public boolean modifiesData() {
 		return true;
 	}
+	
+	@Override
+	public String getCommandWord() {
+		return COMMAND_WORD;
+	}
 
 }
