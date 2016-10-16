@@ -61,6 +61,11 @@ test {
     systemProperty 'testfx.setup.timeout', '60000'
     testLogging.exceptionFormat = 'full'
 
+    useJUnit {
+        if (guiTests != 'true')
+            excludeCategories 'seedu.address.testutil.GuiTests'
+    }
+
     beforeTest { descriptor ->
         if (headless == 'true') {
             systemProperty 'java.awt.robot', 'true'
