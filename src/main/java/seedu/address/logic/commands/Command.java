@@ -45,8 +45,14 @@ public abstract class Command {
     }
     
     /**
-     * Does this command modify data in TaskBook? True or False
+     * Does this command modify data in TaskBook? true or false
      * @return
      */
     public abstract boolean modifiesData();
+    
+    /***
+     * To return the command word child classes of Command will have 
+     * @return
+     */
+	public abstract String getCommandWord();
 }
