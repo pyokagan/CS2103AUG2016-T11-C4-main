@@ -8,16 +8,10 @@ import seedu.address.model.task.EventTask;
 /**
  * Adds an event task to the task book.
  */
-public class AddEventCommand extends Command {
+public class AddEventCommand extends AddTaskCommand {
 
-    public static final String COMMAND_WORD = "event";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the task book. "
-            + "Parameters: \"NAME\" <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME>\n"
-            + "Example: " + COMMAND_WORD
-            + " \"Lunch with Bill Gates\" 12pm 2pm";
-
-    public static final String MESSAGE_SUCCESS = "New event added: %1$s";
+    public static final String MESSAGE_USAGE = "Parameters for adding event: \"NAME\" <STARTING_DATE> <STARTING_TIME> to <ENDING_DATE> <ENDING_TIME>\n"
+            + "Example: " + COMMAND_WORD + " \"Event Name\" 12/12/2016 12pm to 2pm";
 
     private final EventTask eventTask;
 
@@ -25,7 +19,8 @@ public class AddEventCommand extends Command {
         eventTask = new EventTask(name, start, end);
     }
 
-    public EventTask getEventTask() {
+    @Override
+    public EventTask getTask() {
         return eventTask;
     }
 

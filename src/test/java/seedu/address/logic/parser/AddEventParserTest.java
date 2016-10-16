@@ -64,7 +64,7 @@ public class AddEventParserTest {
         }
         final Command command = parser.parse(args);
         assertTrue(command instanceof AddEventCommand);
-        assertEquals(expected, ((AddEventCommand)command).getEventTask());
+        assertEquals(expected, ((AddEventCommand)command).getTask());
     }
 
     private void assertIncorrect(String args) {

@@ -45,7 +45,7 @@ public class AddFloatingTaskParserTest {
         }
         final Command command = parser.parse(args);
         assertTrue(command instanceof AddFloatingTaskCommand);
-        assertEquals(expected, ((AddFloatingTaskCommand)command).getFloatingTask());
+        assertEquals(expected, ((AddFloatingTaskCommand)command).getTask());
     }
 
     private void assertIncorrect(String args) {
