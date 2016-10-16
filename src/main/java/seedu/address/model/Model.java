@@ -109,7 +109,4 @@ public interface Model {
      */
     void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
     
-    //Undo
-    void undoComplete();
-
-}
+ }

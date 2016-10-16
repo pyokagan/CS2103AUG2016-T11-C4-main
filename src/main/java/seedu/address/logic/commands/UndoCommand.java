@@ -22,8 +22,7 @@ public class UndoCommand extends Command{
 			Command undoneAction=LogicManager.modifyingDataCommandHistory.pop();
 			LogicManager.undoneCommands.push(undoneAction);
 			
-			return new CommandResult("Successfully undid previous "+undoneAction.getCommandWord());
-			
+			return new CommandResult("Successfully undid previous "+undoneAction.getCommandWord());			
 			} catch (EmptyStackException e){
 				return new CommandResult("No actions to undo.");
 			}
