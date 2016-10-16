@@ -15,7 +15,6 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskBookFilePath = "data/taskbook.json";
-    private String taskBookName = "MyTaskBook";
 
     public Config() {
     }
@@ -52,14 +51,6 @@ public class Config {
         this.taskBookFilePath = taskBookFilePath;
     }
 
-    public String getTaskBookName() {
-        return taskBookName;
-    }
-
-    public void setTaskBookName(String taskBookName) {
-        this.taskBookName = taskBookName;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -74,13 +65,12 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(taskBookFilePath, o.taskBookFilePath)
-                && Objects.equals(taskBookName, o.taskBookName);
+                && Objects.equals(taskBookFilePath, o.taskBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskBookFilePath, taskBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskBookFilePath);
     }
 
     @Override
@@ -90,7 +80,6 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskBookFilePath);
-        sb.append("\nTaskBook name : " + taskBookName);
         return sb.toString();
     }
 
