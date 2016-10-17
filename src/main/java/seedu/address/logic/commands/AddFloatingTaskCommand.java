@@ -8,16 +8,10 @@ import seedu.address.model.task.Priority;
 /**
  * Adds an event task to the task book.
  */
-public class AddFloatingTaskCommand extends Command {
+public class AddFloatingTaskCommand extends AddTaskCommand {
 
-    public static final String COMMAND_WORD = "task";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an floating task to the task book. "
-            + "Parameters: \"NAME\" [PRIORITY]\n"
-            + "Example: " + COMMAND_WORD
-            + " \"Buy A Helicopter\" 4";
-
-    public static final String MESSAGE_SUCCESS = "New event added: %1$s";
+    public static final String MESSAGE_USAGE = "Parameters for adding floating task: \"NAME\" [p-Priority] \n"
+            + "Example: " + COMMAND_WORD + " \"Floating Task Name\" p-3";
 
     private final FloatingTask floatingTask;
 
@@ -25,7 +19,8 @@ public class AddFloatingTaskCommand extends Command {
         this.floatingTask = new FloatingTask(new Name(name), new Priority(priority));
     }
 
-    public FloatingTask getFloatingTask() {
+    @Override
+    public FloatingTask getTask() {
         return floatingTask;
     }
 

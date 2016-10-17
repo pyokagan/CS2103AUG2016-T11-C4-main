@@ -12,9 +12,9 @@ public class TestTask extends Task {
         super(name);
     }
 
-    public String getAddCommand() {
+    public String getAddTestCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.name.taskName + " ");
+        sb.append("add " + "\"" + this.name.taskName + "\" ");
         return sb.toString();
     }
 }

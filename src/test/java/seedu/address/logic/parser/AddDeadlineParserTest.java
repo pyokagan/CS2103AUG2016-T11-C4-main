@@ -55,7 +55,7 @@ public class AddDeadlineParserTest {
         final Command command = parser.parse(args);
 
         assertTrue(command instanceof AddDeadlineCommand);
-        assertEquals(expected, ((AddDeadlineCommand)command).getDeadlineTask());
+        assertEquals(expected, ((AddDeadlineCommand)command).getTask());
     }
 
     private void assertIncorrect(String args) {

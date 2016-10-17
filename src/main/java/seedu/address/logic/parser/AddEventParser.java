@@ -94,6 +94,16 @@ public class AddEventParser {
             result.startTime = args.remove(0);
         }
 
+        // Check Keyword "to"
+        if (args.isEmpty()) {
+            throw new IllegalValueException("expected ending time or ending date");
+        }
+        if (isKeywordTo(args.get(0))) {
+            args.remove(0);
+        } else {
+            throw new IllegalValueException("expected keyword \"to\"");
+        }
+
         // endDate (optional)
         if (args.isEmpty()) {
             return result;
@@ -146,6 +156,10 @@ public class AddEventParser {
         } catch (IllegalValueException e) {
             return false;
         }
+    }
+
+    private static boolean isKeywordTo(String str) {
+        return str.equals("to");
     }
 
 }
