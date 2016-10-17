@@ -97,10 +97,6 @@ public class MainWindow extends UiPart<Scene> {
         statusbarPlaceholder.setNode(statusBarFooter.getRoot());
     }
 
-    public void hide() {
-        primaryStage.hide();
-    }
-
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
     }
