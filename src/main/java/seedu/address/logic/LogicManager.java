@@ -28,14 +28,6 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final Parser parser;
     
-    //for undo
-    public static Stack<TaskBook> stateStack=new Stack<TaskBook>();//a stack of past TaskBook states
-    public static final Stack<Command> modifyingDataCommandHistory=new Stack<Command>();
-    
-    //for redo
-    public static Stack <TaskBook> undoneStates = new Stack<TaskBook>();
-    public static Stack<Command> undoneCommands=new Stack<Command>();
-    
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new Parser();

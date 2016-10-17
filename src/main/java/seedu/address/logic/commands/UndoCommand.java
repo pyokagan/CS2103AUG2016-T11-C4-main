@@ -16,12 +16,8 @@ public class UndoCommand extends Command{
 	@Override
 	public CommandResult execute() {
 		try{
-			LogicManager.undoneStates.push(new TaskBook(model.getTaskBook()));
-			TaskBook prevState=LogicManager.stateStack.pop();
-			model.resetData(prevState);
-			Command undoneAction=LogicManager.modifyingDataCommandHistory.pop();
-			LogicManager.undoneCommands.push(undoneAction);
 			
+			Command undoneAction = model.undo();
 			return new CommandResult("Successfully undid previous "+undoneAction.getCommandWord());			
 			} catch (EmptyStackException e){
 				return new CommandResult("No actions to undo.");
