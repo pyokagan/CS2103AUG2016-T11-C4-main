@@ -39,18 +39,12 @@ public class LogicManager extends ComponentManager implements Logic {
         Command command = parser.parseCommand(commandText);
         
         if(command.modifiesData()){
-        	recordStateBeforeChange(model, command);
+        	model.recordStateBeforeChange(command);
         	model.resetRedoables();
         }
         
         command.setData(model);
         return command.execute();
-    }
-    
-    private void recordStateBeforeChange(Model model, Command command){
-    	TaskBook state = new TaskBook(model.getTaskBook());
-    	stateStack.push(state);
-    	modifyingDataCommandHistory.push(command);
     }
 
     @Override

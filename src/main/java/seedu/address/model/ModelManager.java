@@ -91,6 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
     
+    @Override
     public Command undo() throws EmptyStackException {
 			undoneStates.push(new TaskBook(getTaskBook()));
 			TaskBook prevState = stateStack.pop();
@@ -100,9 +101,17 @@ public class ModelManager extends ComponentManager implements Model {
 			return undoneAction;
     }
     
+    @Override
     public void resetRedoables() {
     	undoneCommands=new Stack<Command>();
     	undoneStates = new Stack<TaskBook>(); 
+    }
+    
+    @Override
+    public void recordStateBeforeChange(Command command) {
+    	TaskBook state = new TaskBook(getTaskBook());
+    	stateStack.push(state);
+    	modifyingDataCommandHistory.push(command);
     }
 
     //=========== Filtered Task List Accessors ===============================================================

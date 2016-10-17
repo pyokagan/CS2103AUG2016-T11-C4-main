@@ -35,6 +35,10 @@ public interface Model {
     /** reset stack of redoable actions when a non undo modifying data command is called**/
     void resetRedoables();
     
+    void recordStateBeforeChange(Command command);
+    
+    /////////////end of undo and redo//////////
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Task> getFilteredTaskList();
 
