@@ -613,9 +613,7 @@ Priority | As a ... | I want to ... | So that I can...
 3. The user selects the appropriate priority level for the event from these
    options.
 
-4. TaskManager updates the priority of the event with the specified priority
-   and it is displayed on the user’s schedule with a corresponding colored
-   circle (for each priority level).
+4. TaskManager updates the priority of the event with the specified priority.
 
 5. The user is notified that the update was successful.
 
