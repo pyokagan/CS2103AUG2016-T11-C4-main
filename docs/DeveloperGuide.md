@@ -763,7 +763,11 @@ a new group activity.
 2. Should come with automated unit tests and open source code.
 
 3. Have the app notify me of the error in my command, and suggest the right
-   command when I make a typo/forget the format of the command
+   command when I make a typo/forget the format of the command.
+
+4. Storage should not use relational databases, but an editable text file.
+
+5. For a full list of constrains, see the handbook at http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints  
 
 ## Appendix D: Glossary
 
