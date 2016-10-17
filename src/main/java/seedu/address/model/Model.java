@@ -37,6 +37,8 @@ public interface Model {
     
     void recordStateBeforeChange(Command command);
     
+    /** redo previous undo **/
+    Command redo();
     /////////////end of undo and redo//////////
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */

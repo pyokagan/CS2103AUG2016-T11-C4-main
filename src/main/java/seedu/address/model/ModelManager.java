@@ -12,7 +12,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
@@ -91,6 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
     
+    //=============for undo and redo===================================
     @Override
     public Command undo() throws EmptyStackException {
 			undoneStates.push(new TaskBook(getTaskBook()));
@@ -113,6 +113,16 @@ public class ModelManager extends ComponentManager implements Model {
     	stateStack.push(state);
     	modifyingDataCommandHistory.push(command);
     }
+    
+    @Override 
+    public Command redo() throws EmptyStackException {
+    	
+    	TaskBook state=undoneStates.pop();
+    	Command action =undoneCommands.pop();
+    	resetData(state);
+    	return action;
+    }
+    
 
     //=========== Filtered Task List Accessors ===============================================================
 
