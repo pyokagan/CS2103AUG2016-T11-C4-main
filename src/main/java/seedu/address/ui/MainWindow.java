@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
@@ -8,7 +9,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -141,7 +141,7 @@ public class MainWindow extends UiPart<Scene> {
      */
     @FXML
     private void handleExit() {
-        raise(new ExitAppRequestEvent());
+        Platform.exit();
     }
 
     /**
