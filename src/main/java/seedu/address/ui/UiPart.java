@@ -6,7 +6,6 @@ import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import seedu.address.MainApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.BaseEvent;
 
 /**
  * Base class for UI parts.
@@ -30,14 +29,6 @@ public class UiPart<T> {
 
     public UiPart(String name) {
         this(MainApp.class.getResource(name));
-    }
-
-    /**
-     * Raises the event via {@link EventsCenter#post(BaseEvent)}
-     * @param event
-     */
-    protected void raise(BaseEvent event) {
-        EventsCenter.getInstance().post(event);
     }
 
     public T getRoot() {
