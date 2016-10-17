@@ -343,8 +343,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* *`    | Busy user | Generate a list of all empty time slots in a given period | Choose a free time slot to create new events or tasks.
 `* *`    | User | Undo an action | Restore tasks deleted by accident.
 `*`      | User who is unable to remember details of each task | Add a short description under the name of each task in my schedule | Know how to do the task and where, even if I forget these details by any chance.
-`*`      | Busy user | Tags such as coloured dots, or icons, for each task which indicates the priority of the task (on a scale of 1-3) | Able to decide which task needs to be completed urgently
-`*`      | Group user | Option to categorize my task as a "Group activity" and automatically send notifications (through mail or other social networking platforms) to all other users who are in my team, whenever I make any changes to our work schedule for the group activity; and send them reminders about upcoming deadlines for the tasks. Every time I add a new task, I should have also an option to either include it to an existing group activity or add it to a new group activity (different commands for each of these operations). | Improve my work efficiency, and make sure everyone in my team are aware of the work schedule of our project.
+`*`      | Busy user | Set priority levels for my tasks | Able to decide which task needs to be completed urgently
+`*`      | Group user | Option to categorize my task as a "Group activity" and automatically send notifications (through mail or other social networking platforms) to all other users who are in my team, whenever I make any changes to our work schedule for the group activity; and send them reminders about upcoming deadlines for the tasks. Every time I add a new task, I should have also an option to either include it to an existing group activity or add it to a new group activity. | Improve my work efficiency, and make sure everyone in my team are aware of the work schedule of our project.
 `* `     | User who needs to be reminded of the task before the deadline date. | Set reminders at customized times before the deadline. | Have enough time to complete the task before deadline, even if I forgot to do it.
 
 ## Appendix B: Use Cases
@@ -612,9 +612,7 @@ Priority | As a ... | I want to ... | So that I can...
 3. The user selects the appropriate priority level for the event from these
    options.
 
-4. TaskManager updates the priority of the event with the specified priority
-   and it is displayed on the user’s schedule with a corresponding colored
-   circle (for each priority level).
+4. TaskManager updates the priority of the event with the specified priority, and it is displayed on the user's schedule.
 
 5. The user is notified that the update was successful.
 
@@ -635,21 +633,16 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. When the user is adding a new event, he selects the option "Group Activity"
-   which is present in the same window.
+1. User requests to add a new event to a group activity.
 
-2. The existing group activities are displayed and the user chooses the one
-   which is related to the new event that he is adding.
+2. If the user wants to create a new group activity, he places a request to add new group activity. 
 
-3. If he wants to create a new group activity, then the user places a request
-   to add new group activity in the “Group Activity” window.
-
-5. The user then enters the details of the group activity (such as name of the
+3. The user then enters the details of the group activity (such as name of the
    group activity and email addresses of the people in the group).
 
-6. TaskTracker automatically adds the event to this new activity.
+4. TaskTracker automatically adds the event to this new activity.
 
-7. TaskTracker notifies the user that the event has been added to the schedule.
+5. TaskTracker notifies the user that the event has been added to the schedule.
 
    User case ends.
 

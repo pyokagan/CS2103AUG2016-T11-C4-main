@@ -30,9 +30,7 @@
 
 Unable to keep track of all your deadlines and other commitments?  Finding it
 difficult to remember tasks which do not have a specific date and time, but
-nevertheless needs to be done? Find yourself wasting time searching for
-time-management software online, and selecting multiple options each time you
-want to modify a task?
+nevertheless needs to be done?
 
 Fret not, TaskTracker is here to your rescue!
 
@@ -42,7 +40,9 @@ upcoming deadlines and also tasks that do not have a specific time/ date, on
 the same window.
 
 You can perform various operations such as add/ delete/ edit/ prioritize, on
-your events by simply typing a one-line command. You don’t need to waste any
+your events by simply typing a one-line command,
+as TaskTracker has a flexible command line interface suited to your needs and comfort.
+You don’t need to waste any
 more time navigating through multiple options or filling multiple fields every
 time you want to modify your schedule.
 
