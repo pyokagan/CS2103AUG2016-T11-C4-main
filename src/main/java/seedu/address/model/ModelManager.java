@@ -99,6 +99,11 @@ public class ModelManager extends ComponentManager implements Model {
 			undoneCommands.push(undoneAction);
 			return undoneAction;
     }
+    
+    public void resetRedoables() {
+    	undoneCommands=new Stack<Command>();
+    	undoneStates = new Stack<TaskBook>(); 
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 

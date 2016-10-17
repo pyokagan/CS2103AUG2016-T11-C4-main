@@ -40,8 +40,7 @@ public class LogicManager extends ComponentManager implements Logic {
         
         if(command.modifiesData()){
         	recordStateBeforeChange(model, command);
-        	undoneCommands=new Stack<Command>();
-        	undoneStates = new Stack<TaskBook>(); 
+        	model.resetRedoables();
         }
         
         command.setData(model);

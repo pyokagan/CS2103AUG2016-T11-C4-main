@@ -27,9 +27,13 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task);
-
+    
+    //undo and redo
     /** Undo prev action that modifies data**/
     Command undo();
+    
+    /** reset stack of redoable actions when a non undo modifying data command is called**/
+    void resetRedoables();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Task> getFilteredTaskList();
