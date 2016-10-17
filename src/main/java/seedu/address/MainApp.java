@@ -37,6 +37,7 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 0, 0, true);
 
+    private final String configPath;
     private Ui ui;
     private Logic logic;
     private Storage storage;
@@ -44,14 +45,20 @@ public class MainApp extends Application {
     private Config config;
     private UserPrefs userPrefs;
 
-    public MainApp() {}
+    public MainApp() {
+        this(null);
+    }
+
+    public MainApp(String configPath) {
+        this.configPath = configPath;
+    }
 
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing TaskBook ]===========================");
         super.init();
 
-        config = initConfig(getApplicationParameter("config"));
+        config = initConfig(configPath != null ? configPath : getApplicationParameter("config"));
         storage = new StorageManager(config.getTaskBookFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
