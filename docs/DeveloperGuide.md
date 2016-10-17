@@ -1,5 +1,7 @@
 # Developer Guide
 
+<!-- BEGIN GITHUB -->
+
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -10,13 +12,15 @@
 * [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E: Product Survey](#appendix-e-product-survey)
 
+<!-- END GITHUB -->
+
 ## Setting up
 
 ### Prerequisites
 
 1. **JDK `1.8.0_60`**  or later<br>
 
-    > Having any Java 8 version is not enough.
+    > Note: Having any Java 8 version is not enough.
       This app will not work with earlier versions of Java 8.
 
 2. **Eclipse** IDE
@@ -77,7 +81,10 @@
 
 ### Architecture
 
-![Architecture Diagram](images/devguide/architecture.png)
+<figure>
+<img src="images/devguide/architecture.png">
+<figcaption><div align="center">Figure 2.1: Architecture diagram of TaskTracker</div></figcaption>
+</figure>
 
 The **_Architecture Diagram_** given above explains the high-level design of
 the App.
@@ -129,7 +136,10 @@ The sections below give more details of each component.
 
 ### Model component
 
-![Model component class diagram](images/devguide/comp-model.png)
+<figure>
+<img src="images/devguide/comp-model.png">
+<figcaption><div align="center">Figure 2.2: Model component class diagram</div></figcaption>
+</figure>
 
 The `Model` component:
 
@@ -143,7 +153,10 @@ The `Model` component:
 
 ### Storage component
 
-![Storage component class diagram](images/devguide/comp-storage.png)
+<figure>
+<img src="images/devguide/comp-storage.png">
+<figcaption><div align="center">Figure 2.3: Storage component class diagram</div></figcaption>
+</figure>
 
 The `Storage` component:
 
@@ -153,7 +166,10 @@ The `Storage` component:
 
 ### Logic component
 
-![Logic component class diagram](images/devguide/comp-logic.png)
+<figure>
+<img src="images/devguide/comp-logic.png">
+<figcaption><div align="center">Figure 2.4: Logic component class diagram</div></figcaption>
+</figure>
 
 The `Logic` component:
 
@@ -175,11 +191,17 @@ It accomplishes its parsing and execution of user commands in a few steps:
 Given below is the Sequence Diagram for interactions within the `Logic`
 component for the `execute("delete 1")` API call.
 
-![Sequence diagram for event deletion](images/devguide/seq-deleteevent.png)
+<figure>
+<img src="images/devguide/seq-deleteevent.png">
+<figcaption><div align="center">Figure 2.5: Sequence diagram for event deletion</div></figcaption>
+</figure>
 
 ### Ui component
 
-![Ui component class diagram](images/devguide/comp-ui.png)
+<figure>
+<img src="images/devguide/comp-ui.png">
+<figcaption><div align="center">Figure 2.6: Ui component class diagram</div></figcaption>
+</figure>
 
 The `Ui` component,
 
@@ -275,8 +297,8 @@ We have two types of tests:
 
 ### Testing with Eclipse
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run
-  as` > `JUnit Test`
+* To run all tests, right-click on the `src/test/java` folder and choose
+  `Run as` > `JUnit Test`
 
 * To run a subset of tests, you can right-click on a test package, test class,
   or a test and choose to run as a JUnit test.
@@ -286,12 +308,16 @@ We have two types of tests:
 * To run all tests, execute the following in the project work
   directory:
 
-      ./gradle test
+    ```
+    ./gradle test
+    ```
 
 * To only run non-GUI tests, execute the following in the project work
   directory:
 
-      ./gradle -PguiTests=false test
+    ```
+    ./gradle -PguiTests=false test
+    ```
 
 ### Troubleshooting tests
 
@@ -305,7 +331,11 @@ AssertionError is expected**
   [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
   Delete run configurations created when you ran tests earlier.
 
-## Appendix A: User Stories
+<!-- BEGIN LATEX
+\appendix
+END LATEX -->
+
+# Appendix A: User Stories
 
 Priorities:
 
@@ -323,8 +353,8 @@ User categories:
   (keystrokes, mouseclicks, confirmations) as possible.
 * Group user -- User that has other people working on the same task
 
-Priority | As a ... | I want to ... | So that I can...
--------- | :------- | :------------ | :---------------
+Priority | As a ... | I want to ...             | So that I can...
+-------- | :------- | :------------------------ | :---------------------------
 `* * *`  | New user | See the manual | refer to manual when I forget how to use the App
 `* * *`  | User | Add an event to the task manager | keep track of it and be notified when it is approaching.
 `* * *`  | User | Add a deadline to the task manager | keep track of it and be notified when it is approaching.
@@ -348,13 +378,13 @@ Priority | As a ... | I want to ... | So that I can...
 `*`      | Group user | Option to categorize my task as a "Group activity" and automatically send notifications (through mail or other social networking platforms) to all other users who are in my team, whenever I make any changes to our work schedule for the group activity; and send them reminders about upcoming deadlines for the tasks. Every time I add a new task, I should have also an option to either include it to an existing group activity or add it to a new group activity. | Improve my work efficiency, and make sure everyone in my team are aware of the work schedule of our project.
 `* `     | User who needs to be reminded of the task before the deadline date. | Set reminders at customized times before the deadline. | Have enough time to complete the task before deadline, even if I forgot to do it.
 
-## Appendix B: Use Cases
+# Appendix B: Use Cases
 
 **Software System**: TaskTracker
 
 **Actor**: User
 
-### Use case: Add an event
+## Use case: Add an event
 
 **MSS**
 
@@ -396,7 +426,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case resumes from step 2.
 
-### Use case: Add a deadline
+## Use case: Add a deadline
 
 **MSS**
 
@@ -428,7 +458,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case resumes from step 2.
 
-### Use case: Add a floating task
+## Use case: Add a floating task
 
 **MSS**
 
@@ -455,7 +485,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case resumes from step 2.
 
-### Use case: View all floating tasks
+## Use case: View all floating tasks
 
 **MSS**
 
@@ -474,7 +504,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case ends.
 
-### Use case: Revise the due time of a deadline task
+## Use case: Revise the due time of a deadline task
 
 **MSS**
 
@@ -506,7 +536,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case resumes from step 2.
 
-### Use case: Revise the time of an event
+## Use case: Revise the time of an event
 
 **MSS**
 
@@ -553,7 +583,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case ends.
 
-### Use case: mark a floating task/deadline as finished
+## Use case: mark a floating task/deadline as finished
 
 **MSS**
 
@@ -570,7 +600,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case ends.
 
-### Use case: Generate a list of empty time slots
+## Use case: Generate a list of empty time slots
 
 **MSS**
 
@@ -601,7 +631,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case ends.
 
-### Use case: Add priority tags
+## Use case: Add priority tags
 
 **MSS**
 
@@ -630,7 +660,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case ends.
 
-### Use case: Add new event under a specific "group activity"
+## Use case: Add new event under a specific "group activity"
 
 **MSS**
 
@@ -663,7 +693,7 @@ a new group activity.
 
 > Use case ends.
 
-### Use case: Add event description
+## Use case: Add event description
 
 **MSS**
 
@@ -676,7 +706,7 @@ a new group activity.
 
    User case ends.
 
-### Use case: Set reminders
+## Use case: Set reminders
 
 **MSS**
 
@@ -697,7 +727,7 @@ a new group activity.
 
 > User case ends.
 
-### See the manual
+## See the manual
 
 **Use case: see the manual**
 
@@ -709,7 +739,7 @@ a new group activity.
 
    Use case ends.
 
-### Search the manual
+## Search the manual
 
 **Use case: search the manual**
 
@@ -729,7 +759,7 @@ a new group activity.
 
 > Use case ends
 
-### Undo an action
+## Undo an action
 
 **User case: Undo an action, such as restoring a deleted a task**
 
@@ -750,7 +780,7 @@ a new group activity.
 
 > User Case ends.
 
-## Appendix C: Non Functional Requirements
+# Appendix C: Non Functional Requirements
 
 1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher
    installed.
@@ -764,7 +794,7 @@ a new group activity.
 
 5. For a full list of constrains, see the handbook at http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints  
 
-## Appendix D: Glossary
+# Appendix D: Glossary
 
 <dl>
   <dt>Task book</dt>
@@ -783,20 +813,53 @@ a new group activity.
   <dd>Task that has an end datetime only.</dd>
 
   <dt>Floating task</dt>
-  <dd>A task that has neither a start datetime not end datetime./dd>
+  <dd>A task that has neither a start datetime not end datetime.</dd>
 
   <dt>Time slot</dt>
   <dd>A time slot is referring to a period of time</dd>
 </dl>
 
-## Appendix E: Product Survey
+<!-- BEGIN LATEX
 
-### Todo.txt
+\begin{description}
+
+\item[Task book] \hfill \\
+    The database where events, deadlines and floating tasks are stored.
+
+\item[Datetime] \hfill \\
+    Date and time
+
+\item[Task] \hfill \\
+    A unit of information in the task book database. Each task has a name.
+
+\item[Event] \hfill \\
+    Task that has a start datetime and end datetime.
+
+\item[Deadline] \hfill \\
+    Task that has an end datetime only.
+
+\item[Floating task] \hfill \\
+    A task that has neither a start datetime nor end datetime.
+
+\item[Time slot] \hfill \\
+    A time slot is referring to a period of time.
+
+\end{description}
+
+END LATEX -->
+
+# Appendix E: Product Survey
+
+## Todo.txt
+
+<!-- BEGIN GITHUB -->
 
 Full product survey [here](productsurveys/todo.txt.md)
 
-Jim's Requirement | Todo.txt Support
-:---------------- | ----------------
+<!-- END GITHUB -->
+
+Jim's Requirement                                        | Todo.txt Support
+:------------------------------------------------------- | ---------------
 Summoned quickly from anywhere | No
 Keyboard-oriented. Jim can type commands in "one shot" | Yes
 Works offline | Yes
@@ -836,12 +899,16 @@ Finally, it has no support for undoing operations. While this is alleviated
 somewhat as it asks for confirmation before deleting tasks, all other
 operations are done without user confirmation.
 
-### Todoist
+## Todoist
+
+<!-- BEGIN GITHUB -->
 
 Full product survey [here](productsurveys/Todoist.md)
 
-Jim’s Requirement | Todoist support
-:---------------- | ------------------
+<!-- END GITHUB -->
+
+Jim’s Requirement                                        | Todoist support
+:------------------------------------------------------- | ---------------
 Summoned quickly from anywhere | No
 Keyboard-oriented. Jim can type commands in “one shot”. | No
 Keyboard-oriented. Jim can use keyboard shortcut to increase efficiency. | Yes
@@ -885,9 +952,13 @@ floating task or deadline task in a single window. The second one is the "Undo"
 command, which enables the user to undo the last command immediately when them
 perform wrongly.
 
-### Wunderlist
+## Wunderlist
+
+<!-- BEGIN GITHUB -->
 
 Full product survey [here](productsurveys/Wunderlist.md)
+
+<!-- END GITHUB -->
 
 Wunderlist in brief: Written in Javascript and PHP, Wunderlist is a task
 manager application with a simple, intuitive,and beautiful User Interface that
@@ -898,8 +969,8 @@ collaborating features are accessible.
 
 So, how well does Wunderlist satisfy Jim's requirements?
 
-| Jim's Requirement | Wunderlist support |
-| --- | --- |
+| Jim's Requirement                                        | Wunderlist support |
+| :------------------------------------------------------- | ------------------ |
 | Summoned quickly from anywhere | No |
 | Keyboard-oriented. Jim can type commands in "one shot". | Partially |
 | Works offline | Yes |
@@ -913,12 +984,16 @@ So, how well does Wunderlist satisfy Jim's requirements?
 | Flexibility in command line format. | No |
 | Undo operations | Tiny |
 
-### Google Calendar
+## Google Calendar
+
+<!-- BEGIN GITHUB -->
 
 Full product survey [here](https://docs.google.com/document/d/1ELun1gQUiVAxC6it-16jikFRwAePTXS5Xri7GdhUnL8/edit?usp=sharing)
 
-Jim's Requirement | Google Calendar
-:---------------- | ----------------
+<!-- END GITHUB -->
+
+Jim's Requirement                                                | Google Calendar
+:--------------------------------------------------------------- | ---------------
 Summoned quickly from anywhere | Yes
 Keyboard-oriented. Jim can type commands in "one shot" | Yes
 Works offline | Partially
