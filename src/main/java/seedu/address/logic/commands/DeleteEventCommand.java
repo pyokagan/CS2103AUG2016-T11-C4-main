@@ -32,4 +32,9 @@ public class DeleteEventCommand extends Command {
         }
     }
 
+	@Override
+	public boolean modifiesData() {
+		return true;
+	}
+
 }

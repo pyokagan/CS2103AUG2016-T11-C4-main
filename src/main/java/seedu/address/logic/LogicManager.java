@@ -46,7 +46,7 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         
-        if(command.modifiesData){
+        if(command.modifiesData()){
         	recordStateBeforeChange(model, command);
         	undoneCommands=new Stack<Command>();
         	undoneStates = new Stack<Model>(); 

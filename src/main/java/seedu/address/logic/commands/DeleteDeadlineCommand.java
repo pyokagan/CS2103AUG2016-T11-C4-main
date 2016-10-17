@@ -32,4 +32,9 @@ public class DeleteDeadlineCommand extends Command {
         }
     }
 
+	@Override
+	public boolean modifiesData() {
+		return true;
+	}
+
 }

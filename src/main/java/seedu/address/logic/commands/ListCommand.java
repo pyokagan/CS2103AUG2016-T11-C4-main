@@ -17,4 +17,9 @@ public class ListCommand extends Command {
         model.setFilter(null);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+	@Override
+	public boolean modifiesData() {
+		return false;
+	}
 }

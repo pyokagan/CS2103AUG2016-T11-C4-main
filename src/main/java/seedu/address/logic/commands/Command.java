@@ -44,5 +44,9 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    /**
+     * Does this command modify data in TaskBook? True or False
+     * @return
+     */
     public abstract boolean modifiesData();
 }

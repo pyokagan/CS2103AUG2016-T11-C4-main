@@ -31,4 +31,9 @@ public class AddEventCommand extends AddTaskCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventTask));
     }
 
+	@Override
+	public boolean modifiesData() {
+		return true;
+	}
+
 }

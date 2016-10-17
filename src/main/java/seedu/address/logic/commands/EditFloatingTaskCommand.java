@@ -67,4 +67,9 @@ public class EditFloatingTaskCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, newFloatingTask));
     }
 
+	@Override
+	public boolean modifiesData() {
+		return true;
+	}
+
 }
