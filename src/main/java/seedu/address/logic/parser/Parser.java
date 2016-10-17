@@ -79,9 +79,6 @@ public class Parser {
 		final String arguments = matcher.group("arguments");
 		switch (commandWord) {
 
-		case "add":
-			return prepareAdd(arguments);
-
 		case AddFloatingTaskCommand.COMMAND_WORD:
 			return new AddFloatingTaskParser().parse(arguments);
 
@@ -134,22 +131,6 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-
-	/**
-     * Parses arguments in the context of the add Task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareAdd(String args) {
-    	args=args.trim();
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());//Todos: replace with TASK_DATA_ARGS_FORMAT
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));	
-    }
 
 	/**
 	 * Parses arguments in the context of the delete person command.
