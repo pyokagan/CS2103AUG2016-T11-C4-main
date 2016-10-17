@@ -119,8 +119,7 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	TaskBook state = undoneStates.pop();
     	Command action = undoneCommands.pop();
-    	stateStack.push(new TaskBook(state));
-    	modifyingDataCommandHistory.push(action);
+    	recordStateBeforeChange(action);
     	resetData(state);
     	return action;
     }
