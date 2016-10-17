@@ -2,9 +2,6 @@ package seedu.address.logic.commands;
 
 import java.util.EmptyStackException;
 
-import seedu.address.logic.LogicManager;
-import seedu.address.model.TaskBook;
-
 public class UndoCommand extends Command{
 	
 	public static final String COMMAND_WORD = "undo";
