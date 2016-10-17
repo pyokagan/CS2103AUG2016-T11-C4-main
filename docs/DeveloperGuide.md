@@ -764,9 +764,7 @@ a new group activity.
 
 2. Should come with automated unit tests and open source code.
 
-3. Have shortcut keys to launch/minimise the app.
-
-4. Have the app notify me of the error in my command, and suggest the right
+3. Have the app notify me of the error in my command, and suggest the right
    command when I make a typo/forget the format of the command
 
 ## Appendix D: Glossary
