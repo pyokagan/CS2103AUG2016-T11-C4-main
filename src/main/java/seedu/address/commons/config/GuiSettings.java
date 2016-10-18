@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.address.commons.config;
 
 import java.awt.Point;
 import java.io.Serializable;
