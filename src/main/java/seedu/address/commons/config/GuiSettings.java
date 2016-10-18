@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.google.common.base.MoreObjects;
+
 /**
  * A Serializable class that contains the GUI settings.
  */
@@ -73,11 +75,11 @@ public class GuiSettings implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Width : " + windowWidth + "\n");
-        sb.append("Height : " + windowHeight + "\n");
-        sb.append("X : " + windowX + "\n");
-        sb.append("Y : " + windowY + "\n");
-        return sb.toString();
+        return MoreObjects.toStringHelper(this)
+            .add("windowWidth", windowWidth)
+            .add("windowHeight", windowHeight)
+            .add("windowX", windowX)
+            .add("windowY", windowY)
+            .toString();
     }
 }
