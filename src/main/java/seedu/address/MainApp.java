@@ -37,6 +37,9 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 0, 0, true);
 
+    /** Name of the application */
+    public static final String NAME = "Task Tracker";
+
     private final String configPath;
     private Ui ui;
     private Logic logic;
