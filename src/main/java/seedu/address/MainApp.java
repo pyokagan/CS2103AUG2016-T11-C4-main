@@ -40,7 +40,7 @@ public class MainApp extends Application {
     /** Name of the application */
     public static final String NAME = "Task Tracker";
 
-    private final String configPath;
+    private String configPath;
     private Ui ui;
     private Logic logic;
     private Storage storage;
@@ -61,7 +61,7 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing TaskBook ]===========================");
         super.init();
 
-        config = initConfig(configPath != null ? configPath : getApplicationParameter("config"));
+        config = initConfig();
         storage = new StorageManager(config.taskBookFilePathProperty(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
@@ -106,31 +106,30 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
-    private Config initConfig(String configFilePath) {
+    private Config initConfig() {
         Config initializedConfig;
-        String configFilePathUsed;
 
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
-        if (configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
+        if (configPath == null) {
+            configPath = getApplicationParameter("config");
+        }
+        if (configPath == null) {
+            configPath = Config.DEFAULT_CONFIG_FILE;
         }
 
-        logger.info("Using config file : " + configFilePathUsed);
+        logger.info("Using config file : " + configPath);
 
         try {
-            Optional<Config> configOptional = JsonConfigUtil.readConfig(configFilePathUsed);
+            Optional<Config> configOptional = JsonConfigUtil.readConfig(configPath);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
+            logger.warning("Config file at " + configPath + " is not in the correct format. "
                            + "Using default config properties");
             initializedConfig = new Config();
         }
 
         //Update config file in case it was missing to begin with or there are new/unused fields
         try {
-            JsonConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+            JsonConfigUtil.saveConfig(initializedConfig, configPath);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
@@ -184,6 +183,11 @@ public class MainApp extends Application {
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        }
+        try {
+            JsonConfigUtil.saveConfig(config, configPath);
+        } catch (IOException e) {
+            logger.severe("Failed to save config" + StringUtil.getDetails(e));
         }
     }
 
