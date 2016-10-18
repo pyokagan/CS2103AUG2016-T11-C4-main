@@ -9,7 +9,7 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
+import seedu.address.commons.config.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;

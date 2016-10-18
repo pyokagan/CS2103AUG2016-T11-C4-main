@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.core.Config;
+import seedu.address.commons.config.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 
 public class ConfigUtilTest {
