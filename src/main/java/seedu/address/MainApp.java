@@ -70,7 +70,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(config, model, storage);
 
         ui = new UiManager(logic, config, userPrefs);
 

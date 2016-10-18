@@ -19,6 +19,7 @@ import org.junit.rules.TemporaryFolder;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.address.commons.config.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -48,6 +49,7 @@ public class LogicManagerTest {
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
+    private Config config;
     private Model model;
     private Logic logic;
 
@@ -76,7 +78,7 @@ public class LogicManagerTest {
         model = new ModelManager();
         String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempTaskBook.json";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempTaskBookFile, tempPreferencesFile));
+        logic = new LogicManager(config, model, new StorageManager(tempTaskBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskBook = new TaskBook(model.getAddressBook()); // last saved assumed to be up to date before.
