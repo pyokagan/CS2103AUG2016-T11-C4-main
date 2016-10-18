@@ -2,10 +2,12 @@ package seedu.address.ui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.config.Config;
@@ -106,11 +108,20 @@ public class MainWindow extends UiPart<Scene> {
      * Sets the default size based on user preferences.
      */
     protected void setWindowDefaultSize(UserPrefs prefs) {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
-        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
-            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
-            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
+        final GuiSettings guiSettings = prefs.getGuiSettings();
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        if (guiSettings.getWindowX().isPresent()) {
+            primaryStage.setX(guiSettings.getWindowX().get());
+        } else {
+            primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+        }
+        if (guiSettings.getWindowY().isPresent()) {
+            primaryStage.setY(guiSettings.getWindowY().get());
+        } else {
+            primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
         }
     }
 

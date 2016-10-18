@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -38,6 +39,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         return new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT)
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .registerModule(new Jdk8Module())
             .registerModule(new JsonStorageModule());
     }
 
