@@ -7,6 +7,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.AppUtil;
@@ -70,7 +71,7 @@ public class MainWindow extends UiPart<Scene> {
         this.primaryStage = primaryStage;
 
         //Configure the UI
-        setTitle(config.getAppTitle());
+        setTitle(MainApp.NAME);
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);

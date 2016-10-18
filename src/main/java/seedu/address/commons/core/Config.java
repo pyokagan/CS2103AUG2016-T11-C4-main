@@ -11,20 +11,11 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Task Tracker";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskBookFilePath = "data/taskbook.json";
 
     public Config() {
-    }
-
-    public String getAppTitle() {
-        return appTitle;
-    }
-
-    public void setAppTitle(String appTitle) {
-        this.appTitle = appTitle;
     }
 
     public Level getLogLevel() {
@@ -62,22 +53,20 @@ public class Config {
 
         Config o = (Config)other;
 
-        return Objects.equals(appTitle, o.appTitle)
-                && Objects.equals(logLevel, o.logLevel)
+        return Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(taskBookFilePath, o.taskBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskBookFilePath);
+        return Objects.hash(logLevel, userPrefsFilePath, taskBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("App title : " + appTitle);
-        sb.append("\nCurrent log level : " + logLevel);
+        sb.append("Current log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskBookFilePath);
         return sb.toString();
