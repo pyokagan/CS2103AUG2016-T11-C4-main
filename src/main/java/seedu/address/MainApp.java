@@ -10,12 +10,12 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.config.Config;
+import seedu.address.commons.config.JsonConfigUtil;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
@@ -120,7 +120,7 @@ public class MainApp extends Application {
         logger.info("Using config file : " + configFilePathUsed);
 
         try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+            Optional<Config> configOptional = JsonConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
@@ -130,7 +130,7 @@ public class MainApp extends Application {
 
         //Update config file in case it was missing to begin with or there are new/unused fields
         try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+            JsonConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
