@@ -3,6 +3,9 @@ package seedu.address.commons.config;
 import java.util.Objects;
 import java.util.logging.Level;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Config values used by the app
  */
@@ -13,10 +16,8 @@ public class Config {
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskBookFilePath = "data/taskbook.json";
 
-    public Config() {
-    }
+    private SimpleStringProperty taskBookFilePath = new SimpleStringProperty("data/taskbook.json");
 
     public Level getLogLevel() {
         return logLevel;
@@ -34,12 +35,16 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getTaskBookFilePath() {
+    public StringProperty taskBookFilePathProperty() {
         return taskBookFilePath;
     }
 
+    public String getTaskBookFilePath() {
+        return taskBookFilePath.get();
+    }
+
     public void setTaskBookFilePath(String taskBookFilePath) {
-        this.taskBookFilePath = taskBookFilePath;
+        this.taskBookFilePath.set(taskBookFilePath);
     }
 
     @Override
@@ -55,12 +60,12 @@ public class Config {
 
         return Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(taskBookFilePath, o.taskBookFilePath);
+                && Objects.equals(taskBookFilePath.get(), o.taskBookFilePath.get());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(logLevel, userPrefsFilePath, taskBookFilePath);
+        return Objects.hash(logLevel, userPrefsFilePath, taskBookFilePath.get());
     }
 
     @Override
@@ -68,7 +73,7 @@ public class Config {
         StringBuilder sb = new StringBuilder();
         sb.append("Current log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + taskBookFilePath);
+        sb.append("\nLocal data file location : " + taskBookFilePath.get());
         return sb.toString();
     }
 
