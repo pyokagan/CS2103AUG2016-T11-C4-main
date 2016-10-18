@@ -7,6 +7,8 @@ import org.controlsfx.control.StatusBar;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableStringValue;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import seedu.address.commons.core.LogsCenter;
@@ -27,14 +29,14 @@ public class StatusBarFooter extends UiPart<Pane> {
     @FXML
     private StatusBar saveLocationStatus;
 
-    public StatusBarFooter(String saveLocation) {
+    public StatusBarFooter(ObservableStringValue saveLocation) {
         super(FXML);
         setSyncStatus("Not updated yet in this session");
-        setSaveLocation("./" + saveLocation);
+        this.saveLocationStatus.textProperty().bind(saveLocation);
     }
 
-    private void setSaveLocation(String location) {
-        this.saveLocationStatus.setText(location);
+    public StatusBarFooter(String saveLocation) {
+        this(new SimpleStringProperty(saveLocation));
     }
 
     private void setSyncStatus(String status) {
