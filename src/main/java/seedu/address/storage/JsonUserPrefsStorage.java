@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
@@ -19,8 +23,22 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private String filePath;
 
-    public JsonUserPrefsStorage(String filePath) {
+    private final ObjectMapper objectMapper;
+
+    public JsonUserPrefsStorage(String filePath, ObjectMapper objectMapper) {
         this.filePath = filePath;
+        this.objectMapper = objectMapper;
+    }
+
+    public JsonUserPrefsStorage(String filePath) {
+        this(filePath, initDefaultObjectMapper());
+    }
+
+    private static ObjectMapper initDefaultObjectMapper() {
+        return new ObjectMapper()
+            .enable(SerializationFeature.INDENT_OUTPUT)
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .registerModule(new JsonStorageModule());
     }
 
     @Override
@@ -46,7 +64,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         UserPrefs prefs;
 
         try {
-            prefs = FileUtil.deserializeObjectFromJsonFile(prefsFile, UserPrefs.class);
+            prefs = objectMapper.readValue(prefsFile, UserPrefs.class);
         } catch (IOException e) {
             logger.warning("Error reading from prefs file " + prefsFile + ": " + e);
             throw new DataConversionException(e);
@@ -67,7 +85,8 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
     public void saveUserPrefs(UserPrefs userPrefs, String prefsFilePath) throws IOException {
         assert userPrefs != null;
         assert prefsFilePath != null;
-
-        FileUtil.serializeObjectToJsonFile(new File(prefsFilePath), userPrefs);
+        final File file = new File(prefsFilePath);
+        FileUtil.createIfMissing(file);
+        objectMapper.writeValue(file, userPrefs);
     }
 }
