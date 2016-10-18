@@ -27,9 +27,7 @@ public class AddTaskParser {
             + AddFloatingTaskCommand.MESSAGE_USAGE));
 
     public AddTaskParser() {
-        addDeadlineParser = new AddDeadlineParser();
-        addEventParser = new AddEventParser();
-        addFloatingTaskParser = new AddFloatingTaskParser();
+        this(null);
     }
 
     public AddTaskParser(LocalDateTime referenceDateTime) {
