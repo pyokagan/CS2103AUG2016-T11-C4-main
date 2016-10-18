@@ -103,6 +103,9 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case SetDataDirectoryParser.COMMAND_WORD:
+            return new SetDataDirectoryParser().parse(arguments);
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }

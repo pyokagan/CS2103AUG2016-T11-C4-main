@@ -12,6 +12,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
 import seedu.address.model.TaskBookChangeListener;
+import seedu.address.model.config.Config;
+import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -38,9 +40,11 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         final TaskBookChangeListener taskBookListener = new TaskBookChangeListener(model.getAddressBook());
+        final Config oldConfig = new Config(model.getConfig());
         Command command = parser.parseCommand(commandText);
         command.setData(model);
         final CommandResult result = command.execute();
+        updateConfigStorage(oldConfig);
         updateTaskBookStorage(taskBookListener);
         return result;
     }
@@ -50,6 +54,23 @@ public class LogicManager extends ComponentManager implements Logic {
             if (listener.getHasChanged()) {
                 logger.info("Task book data changed, saving to file");
                 storage.saveTaskBook(model.getAddressBook());
+            }
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    private void updateConfigStorage(Config oldConfig) {
+        final ReadOnlyConfig newConfig = model.getConfig();
+        try {
+            if (!oldConfig.equals(newConfig)) {
+                logger.info("Config changed, saving to file");
+                storage.saveConfig(newConfig);
+            }
+
+            if (!oldConfig.getTaskBookFilePath().equals(newConfig.getTaskBookFilePath())) {
+                logger.info("Task book file path changed, moving task book");
+                storage.moveTaskBook(newConfig.getTaskBookFilePath());
             }
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
