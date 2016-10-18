@@ -3,6 +3,8 @@ package seedu.address.commons.config;
 import java.util.Objects;
 import java.util.logging.Level;
 
+import com.google.common.base.MoreObjects;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -70,11 +72,11 @@ public class Config {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Current log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + taskBookFilePath.get());
-        return sb.toString();
+        return MoreObjects.toStringHelper(this)
+                .add("logLevel", logLevel)
+                .add("userPrefsFilePath", userPrefsFilePath)
+                .add("taskBookFilePath", taskBookFilePath.get())
+                .toString();
     }
 
 }
