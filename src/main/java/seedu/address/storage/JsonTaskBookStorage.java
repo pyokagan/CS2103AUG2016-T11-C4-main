@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableStringValue;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.CollectionUtil;
@@ -21,17 +23,26 @@ public class JsonTaskBookStorage implements TaskBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonTaskBookStorage.class);
 
-    private final String filePath;
+    private final SimpleStringProperty filePath;
 
     private final ObjectMapper objectMapper;
 
     public JsonTaskBookStorage(String filePath, ObjectMapper objectMapper) {
         assert !CollectionUtil.isAnyNull(filePath, objectMapper);
-        this.filePath = filePath;
+        this.filePath = new SimpleStringProperty(filePath);
         this.objectMapper = objectMapper;
     }
 
+    public JsonTaskBookStorage(ObservableStringValue filePath, ObjectMapper objectMapper) {
+        this(filePath.getValue(), objectMapper);
+        this.filePath.bind(filePath);
+    }
+
     public JsonTaskBookStorage(String filePath) {
+        this(filePath, initDefaultObjectMapper());
+    }
+
+    public JsonTaskBookStorage(ObservableStringValue filePath) {
         this(filePath, initDefaultObjectMapper());
     }
 
@@ -44,12 +55,12 @@ public class JsonTaskBookStorage implements TaskBookStorage {
 
     @Override
     public String getTaskBookFilePath() {
-        return filePath;
+        return filePath.get();
     }
 
     @Override
     public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
-        return readTaskBook(filePath);
+        return readTaskBook(filePath.get());
     }
 
     @Override
@@ -69,7 +80,7 @@ public class JsonTaskBookStorage implements TaskBookStorage {
 
     @Override
     public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
-        saveTaskBook(taskBook, filePath);
+        saveTaskBook(taskBook, filePath.get());
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.beans.value.ObservableStringValue;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
@@ -30,6 +31,10 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     public StorageManager(String taskBookFilePath, String userPrefsFilePath) {
+        this(new JsonTaskBookStorage(taskBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    }
+
+    public StorageManager(ObservableStringValue taskBookFilePath, String userPrefsFilePath) {
         this(new JsonTaskBookStorage(taskBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 

@@ -62,7 +62,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(configPath != null ? configPath : getApplicationParameter("config"));
-        storage = new StorageManager(config.getTaskBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.taskBookFilePathProperty(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
