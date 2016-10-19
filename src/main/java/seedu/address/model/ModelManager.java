@@ -31,15 +31,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<FloatingTask> filteredFloatingTasks;
     private final FilteredList<EventTask> filteredEventTasks;
     private final FilteredList<DeadlineTask> filteredDeadlineTasks;
-   
+
     //for undo
-    public Stack<TaskBook> stateStack=new Stack<TaskBook>();//a stack of past TaskBook states
-    public final Stack<Command> modifyingDataCommandHistory=new Stack<Command>();
+    public Stack<TaskBook> stateStack = new Stack<TaskBook>();//a stack of past TaskBook states
+    public final Stack<Command> modifyingDataCommandHistory = new Stack<Command>();
 
     //for redo
-    public Stack <TaskBook> undoneStates = new Stack<TaskBook>();
-    public Stack<Command> undoneCommands=new Stack<Command>();
-    
+    public Stack<TaskBook> undoneStates = new Stack<TaskBook>();
+    public Stack<Command> undoneCommands = new Stack<Command>();
+
     /**
      * Initializes a ModelManager with the given TaskBook
      * TaskBook and its variables should not be null
@@ -89,18 +89,18 @@ public class ModelManager extends ComponentManager implements Model {
         setFilter(null);
         indicateTaskBookChanged();
     }
-    
+
     //=============for undo and redo===================================
     @Override
     public Command undo() throws EmptyStackException {
-			undoneStates.push(new TaskBook(getTaskBook()));
-			TaskBook prevState = stateStack.pop();
-			resetData(prevState);
-			Command undoneAction=modifyingDataCommandHistory.pop();
-			undoneCommands.push(undoneAction);
-			return undoneAction;
+        undoneStates.push(new TaskBook(getTaskBook()));
+        TaskBook prevState = stateStack.pop();
+        resetData(prevState);
+        Command undoneAction = modifyingDataCommandHistory.pop();
+        undoneCommands.push(undoneAction);
+        return undoneAction;
     }
-    
+
     @Override
     public void removeTopRecordedState() {
     	stateStack.pop();
@@ -109,18 +109,18 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void resetRedoables() {
-    	undoneCommands=new Stack<Command>();
-    	undoneStates = new Stack<TaskBook>(); 
+        undoneCommands = new Stack<Command>();
+        undoneStates = new Stack<TaskBook>();
     }
-    
+
     @Override
     public void recordState(Command command) {
     	TaskBook state = new TaskBook(getTaskBook());
     	stateStack.push(state);
     	modifyingDataCommandHistory.push(command);
     }
-    
-    @Override 
+
+    @Override
     public Command redo() throws EmptyStackException {
     	
     	TaskBook state = undoneStates.pop();

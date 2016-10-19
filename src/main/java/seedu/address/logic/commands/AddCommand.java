@@ -36,13 +36,13 @@ public class AddCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
-	@Override
-	public boolean modifiesData() {
-		return true;
-	}
-	
-	@Override
-	public String getCommandWord() {
-		return COMMAND_WORD;
-	}
+    @Override
+    public boolean modifiesData() {
+        return true;
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }
