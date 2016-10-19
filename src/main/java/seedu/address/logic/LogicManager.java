@@ -7,6 +7,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
@@ -48,6 +49,8 @@ public class LogicManager extends ComponentManager implements Logic {
 
         if (!model.hasUncommittedChanges()) {
             model.discardRecentCommit();
+        } else if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
+            model.resetRedoables();
         }
         return result;
     }

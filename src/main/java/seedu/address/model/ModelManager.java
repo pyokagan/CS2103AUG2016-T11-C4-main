@@ -36,8 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
     public Stack<Commit> commitStack = new Stack<Commit>();//a stack of past TaskBook states
 
     //for redo
-    public Stack<TaskBook> undoneStates = new Stack<TaskBook>();
-    public Stack<Command> undoneCommands = new Stack<Command>();
+    public Stack<Commit> redoables = new Stack<Commit>();
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -92,11 +91,10 @@ public class ModelManager extends ComponentManager implements Model {
     //=============for undo and redo===================================
     @Override
     public Command undo() throws EmptyStackException {
-        //undoneStates.push(new TaskBook(getTaskBook()));
         Commit lastCommit = commitStack.pop();
         resetData(lastCommit.getTaskBook());
         Command undoneAction = lastCommit.getCommand();
-        //undoneCommands.push(undoneAction);
+        redoables.push(lastCommit);
         return undoneAction;
     }
 
@@ -107,8 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetRedoables() {
-        undoneCommands = new Stack<Command>();
-        undoneStates = new Stack<TaskBook>();
+        redoables = new Stack<Commit>();
     }
 
     @Override
@@ -116,13 +113,16 @@ public class ModelManager extends ComponentManager implements Model {
         commitStack.push(new Commit(command, new TaskBook(getTaskBook())));
     }
 
+    public Commit snapshot(Command command) {
+        return new Commit(command, new TaskBook(getTaskBook()));
+    }
+
     @Override
     public Command redo() throws EmptyStackException {
-        TaskBook state = undoneStates.pop();
-        Command action = undoneCommands.pop();
-        recordState(action);
-        resetData(state);
-        return action;
+        Commit commit = redoables.pop();
+        resetData(commit.getTaskBook());
+        commitStack.push(commit);
+        return commit.getCommand();
     }
 
     /**
