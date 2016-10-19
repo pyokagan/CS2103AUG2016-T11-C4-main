@@ -3,8 +3,6 @@ package seedu.address.model.task;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import java.util.function.Predicate;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class DeadlineTask extends Task {
@@ -13,11 +11,7 @@ public class DeadlineTask extends Task {
 
     private final LocalDateTime due;
 
-    private boolean finished;
-
-    public static Predicate<? super DeadlineTask> isNotFinishedDeadline() {
-        return p -> !p.isFinished();
-    }
+    private final boolean finished;
 
     public DeadlineTask(Name name, LocalDateTime due, boolean finished) {
         super(name);
@@ -32,10 +26,6 @@ public class DeadlineTask extends Task {
 
     public DeadlineTask(String name, LocalDateTime due) throws IllegalValueException {
         this(new Name(name), due, false);
-    }
-
-    public DeadlineTask(DeadlineTask oldTask, boolean finishStatus) {
-        this(oldTask.name, oldTask.getDue(), finishStatus);
     }
 
     public LocalDateTime getDue() {

@@ -32,7 +32,9 @@ public class MarkDeadlineFinishedCommand extends Command {
         }
 
         DeadlineTask finishedDeadlineTask;
-        finishedDeadlineTask = new DeadlineTask(oldDeadlineTask, true);
+        finishedDeadlineTask = new DeadlineTask(oldDeadlineTask.name,
+                                                oldDeadlineTask.getDue(),
+                                                true);
 
         try {
             model.setDeadlineTask(targetIndex - 1, finishedDeadlineTask);
