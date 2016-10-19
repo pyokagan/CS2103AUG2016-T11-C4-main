@@ -161,6 +161,15 @@ public class TaskBook implements ReadOnlyTaskBook {
         return deadlineTasks.remove(index);
     }
 
+    /**
+     * Marks the DeadlineTask at position `index` as finished in the list. Returns the finished DeadlineTask.
+     */
+    public DeadlineTask markDeadlineFinished(int index) {
+        DeadlineTask finishedTask = deadlineTasks.get(index);
+        finishedTask.markAsFinished();
+        return finishedTask;
+    }
+
     public void setDeadlineTask(int index, DeadlineTask newDeadlineTask) {
         deadlineTasks.set(index, newDeadlineTask);
     }
