@@ -10,6 +10,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.config.Config;
+import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -23,6 +25,7 @@ import seedu.address.model.task.TaskNotFoundException;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private final Config config;
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<FloatingTask> filteredFloatingTasks;
@@ -30,15 +33,16 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<DeadlineTask> filteredDeadlineTasks;
 
     /**
-     * Initializes a ModelManager with the given TaskBook
+     * Initializes a ModelManager with the given config and TaskBook
      * TaskBook and its variables should not be null
      */
-    public ModelManager(ReadOnlyTaskBook taskBook) {
+    public ModelManager(ReadOnlyConfig config, ReadOnlyTaskBook taskBook) {
         super();
         assert taskBook != null;
 
-        logger.fine("Initializing with task book: " + taskBook);
+        logger.fine("Initializing with config: " + config + " and task book: " + taskBook);
 
+        this.config = new Config(config);
         this.taskBook = new TaskBook(taskBook);
         this.filteredTasks = new FilteredList<>(this.taskBook.getTasks());
         this.filteredFloatingTasks = new FilteredList<>(this.taskBook.getFloatingTasks());
@@ -47,8 +51,27 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager() {
-        this(new TaskBook());
+        this(new Config(), new TaskBook());
     }
+
+    /// Config
+
+    @Override
+    public ReadOnlyConfig getConfig() {
+        return config;
+    }
+
+    @Override
+    public String getTaskBookFilePath() {
+        return config.getTaskBookFilePath();
+    }
+
+    @Override
+    public void setTaskBookFilePath(String filePath) {
+        config.setTaskBookFilePath(filePath);
+    }
+
+    /// Task Book
 
     @Override
     public void resetData(ReadOnlyTaskBook newData) {

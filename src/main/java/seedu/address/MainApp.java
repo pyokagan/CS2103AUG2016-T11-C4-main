@@ -22,6 +22,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
 import seedu.address.model.config.Config;
+import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.config.ConfigStorage;
@@ -45,7 +46,6 @@ public class MainApp extends Application {
     private Logic logic;
     private Storage storage;
     private Model model;
-    private Config config;
 
     public MainApp() {
         this(null);
@@ -61,13 +61,13 @@ public class MainApp extends Application {
         super.init();
 
         final ConfigStorage configStorage = initConfigStorage(configPath);
-        config = initConfig(configStorage);
+        final Config config = initConfig(configStorage);
 
         storage = new StorageManager(configStorage, config.getTaskBookFilePath());
 
         initLogging(config);
 
-        model = initModelManager(storage);
+        model = initModelManager(storage, config);
 
         logic = new LogicManager(model, storage);
 
@@ -81,7 +81,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage) {
+    private Model initModelManager(Storage storage, ReadOnlyConfig config) {
         Optional<ReadOnlyTaskBook> addressBookOptional;
         ReadOnlyTaskBook initialData;
         try {
@@ -98,7 +98,7 @@ public class MainApp extends Application {
             initialData = new TaskBook();
         }
 
-        return new ModelManager(initialData);
+        return new ModelManager(config, initialData);
     }
 
     private void initLogging(Config config) {
