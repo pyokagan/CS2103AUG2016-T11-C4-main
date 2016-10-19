@@ -12,6 +12,9 @@ import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskBook;
+import seedu.address.model.config.ReadOnlyConfig;
+import seedu.address.storage.config.ConfigStorage;
+import seedu.address.storage.config.JsonConfigStorage;
 
 /**
  * Manages storage of TaskBook data in local storage.
@@ -19,15 +22,50 @@ import seedu.address.model.ReadOnlyTaskBook;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private TaskBookStorage taskBookStorage;
 
-    public StorageManager(TaskBookStorage taskBookStorage) {
+    private final ConfigStorage configStorage;
+
+    private final TaskBookStorage taskBookStorage;
+
+    public StorageManager(ConfigStorage configStorage, TaskBookStorage taskBookStorage) {
         super();
+        this.configStorage = configStorage;
         this.taskBookStorage = taskBookStorage;
     }
 
-    public StorageManager(String taskBookFilePath) {
-        this(new JsonTaskBookStorage(taskBookFilePath));
+    public StorageManager(ConfigStorage configStorage, String taskBookFilePath) {
+        this(configStorage, new JsonTaskBookStorage(taskBookFilePath));
+    }
+
+    public StorageManager(String configFilePath, String taskBookFilePath) {
+        this(new JsonConfigStorage(configFilePath), taskBookFilePath);
+    }
+
+    // ================ ConfigStorage methods =========================
+
+    @Override
+    public String getConfigFilePath() {
+        return configStorage.getConfigFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyConfig> readConfig() throws DataConversionException, IOException {
+        return configStorage.readConfig();
+    }
+
+    @Override
+    public Optional<ReadOnlyConfig> readConfig(String filePath) throws DataConversionException, IOException {
+        return configStorage.readConfig(filePath);
+    }
+
+    @Override
+    public void saveConfig(ReadOnlyConfig config) throws IOException {
+        configStorage.saveConfig(config);
+    }
+
+    @Override
+    public void saveConfig(ReadOnlyConfig config, String filePath) throws IOException {
+        configStorage.saveConfig(config, filePath);
     }
 
     // ================ TaskBook methods ==============================

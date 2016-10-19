@@ -7,11 +7,12 @@ import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskBook;
+import seedu.address.storage.config.ConfigStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends TaskBookStorage {
+public interface Storage extends TaskBookStorage, ConfigStorage {
 
     @Override
     String getTaskBookFilePath();

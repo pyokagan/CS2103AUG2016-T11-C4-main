@@ -14,7 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
@@ -25,6 +24,8 @@ import seedu.address.model.TaskBook;
 import seedu.address.model.config.Config;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.config.ConfigStorage;
+import seedu.address.storage.config.JsonConfigStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -59,8 +60,10 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing TaskBook ]===========================");
         super.init();
 
-        config = initConfig(configPath != null ? configPath : getApplicationParameter("config"));
-        storage = new StorageManager(config.getTaskBookFilePath());
+        final ConfigStorage configStorage = initConfigStorage(configPath);
+        config = initConfig(configStorage);
+
+        storage = new StorageManager(configStorage, config.getTaskBookFilePath());
 
         initLogging(config);
 
@@ -102,35 +105,37 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
-    private Config initConfig(String configFilePath) {
-        Config initializedConfig;
-        String configFilePathUsed;
-
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
-        if (configFilePath != null) {
+    private ConfigStorage initConfigStorage(String configFilePath) {
+        if (configFilePath == null) {
+            configFilePath = getApplicationParameter("config");
+        }
+        if (configFilePath == null) {
+            configFilePath = Config.DEFAULT_CONFIG_FILE;
+        } else {
             logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
         }
 
-        logger.info("Using config file : " + configFilePathUsed);
+        logger.info("Using config file: " + configFilePath);
+        return new JsonConfigStorage(configFilePath);
+    }
+
+    private Config initConfig(ConfigStorage configStorage) throws IOException {
+        Config config = new Config();
 
         try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            initializedConfig = configOptional.orElse(new Config());
+            config.resetData(configStorage.readConfig().orElse(new Config()));
         } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
+            logger.warning("Config file at " + configStorage.getConfigFilePath() + " is not in the correct format. "
                            + "Using default config properties");
-            initializedConfig = new Config();
         }
 
         //Update config file in case it was missing to begin with or there are new/unused fields
         try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+            configStorage.saveConfig(config);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
-        return initializedConfig;
+        return config;
     }
 
     private void initEventsCenter() {

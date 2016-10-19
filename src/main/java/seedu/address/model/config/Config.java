@@ -17,6 +17,11 @@ public class Config implements ReadOnlyConfig {
     public Config() {
     }
 
+    public void resetData(ReadOnlyConfig config) {
+        setLogLevel(config.getLogLevel());
+        setTaskBookFilePath(config.getTaskBookFilePath());
+    }
+
     @Override
     public Level getLogLevel() {
         return logLevel;
