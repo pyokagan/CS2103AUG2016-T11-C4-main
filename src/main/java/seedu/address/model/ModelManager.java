@@ -195,8 +195,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addDeadlineTask(DeadlineTask deadlineTask) {
-        taskBook.addDeadlineTask(deadlineTask);
         assert deadlineTask.isFinished() == false;
+        taskBook.addDeadlineTask(deadlineTask);
+        setDeadlineTaskFilter(null);
         indicateTaskBookChanged();
     }
 
@@ -232,11 +233,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    /**
-     * Return the filtered deadline task list, all finished deadline task will be filtered out
-     */
     public ObservableList<DeadlineTask> getFilteredDeadlineTaskList() {
-        // filter out all finished deadline task
         return filteredDeadlineTasks;
     }
 
