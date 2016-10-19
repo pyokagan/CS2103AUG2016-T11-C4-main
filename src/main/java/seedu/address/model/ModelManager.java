@@ -195,6 +195,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addDeadlineTask(DeadlineTask deadlineTask) {
+        assert deadlineTask.isFinished() == false;
         taskBook.addDeadlineTask(deadlineTask);
         setDeadlineTaskFilter(null);
         indicateTaskBookChanged();
