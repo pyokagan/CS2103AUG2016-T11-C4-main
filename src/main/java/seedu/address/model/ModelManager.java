@@ -237,7 +237,6 @@ public class ModelManager extends ComponentManager implements Model {
      */
     public ObservableList<DeadlineTask> getFilteredDeadlineTaskList() {
         // filter out all finished deadline task
-        setDeadlineTaskFilter(DeadlineTask.isNotFinishedDeadline());
         return filteredDeadlineTasks;
     }
 
