@@ -49,7 +49,6 @@ public class LogicManager extends ComponentManager implements Logic {
         if (!model.hasUncommittedChanges()) {
             model.discardRecentCommit();
         }
-
         return result;
     }
 

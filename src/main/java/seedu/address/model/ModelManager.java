@@ -129,7 +129,10 @@ public class ModelManager extends ComponentManager implements Model {
      * check if taskBook has changed.
      * @return
      */
-    public boolean hasUncommittedChanges() {
+    public boolean hasUncommittedChanges() throws EmptyStackException {
+        if (commitStack.isEmpty()) {
+            return true;
+        }
         return !(this.taskBook.equals(commitStack.peek().getTaskBook()));
     }
 
