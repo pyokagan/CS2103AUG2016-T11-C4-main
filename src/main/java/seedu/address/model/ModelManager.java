@@ -196,7 +196,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addDeadlineTask(DeadlineTask deadlineTask) {
         taskBook.addDeadlineTask(deadlineTask);
-        setDeadlineTaskFilter(null);
+        assert deadlineTask.isFinished() == false;
         indicateTaskBookChanged();
     }
 
@@ -232,13 +232,35 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized DeadlineTask markDeadlineFinished(int indexInFilteredList)
+            throws IllegalValueException {
+        final DeadlineTask finishedDeadline = taskBook.markDeadlineFinished(getDeadlineTaskSourceIndex(indexInFilteredList));
+        refilterDeadlineTaskFilteredList();
+        indicateTaskBookChanged();
+        return finishedDeadline;
+    }
+
+    @Override
+    /**
+     * Return the filtered deadline task list, all finished deadline task will be filtered out
+     */
     public ObservableList<DeadlineTask> getFilteredDeadlineTaskList() {
+        // filter out all finished deadline task
+        setDeadlineTaskFilter(DeadlineTask.isNotFinishedDeadline());
         return filteredDeadlineTasks;
     }
 
     @Override
     public void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate) {
         filteredDeadlineTasks.setPredicate(predicate);
+    }
+
+    @Override
+    public void refilterDeadlineTaskFilteredList() {
+        Predicate<? super DeadlineTask> predicate = filteredDeadlineTasks.getPredicate();
+        assert predicate != null;
+        setDeadlineTaskFilter(null);
+        setDeadlineTaskFilter(predicate);
     }
 
 }
