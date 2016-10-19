@@ -7,6 +7,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
 
@@ -36,20 +37,19 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
 
-        if(command.modifiesData()){
-        	model.recordState(command);
-        	model.resetRedoables();
+        if (!(command instanceof UndoCommand)) {
 
+            model.recordState(command);
         }
+        //model.resetRedoables();
 
         command.setData(model);
         CommandResult result = command.execute();
-        
-        //checking for and correcting anomalities
-        //if(model.taskBookNoChange() && command.modifiesData()) {
-        	//model.removeTopRecordedState();
-        //}
-        
+
+        if (!model.hasUncommittedChanges()) {
+            model.discardRecentCommit();
+        }
+
         return result;
     }
 

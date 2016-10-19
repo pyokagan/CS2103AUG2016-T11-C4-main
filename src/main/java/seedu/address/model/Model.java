@@ -27,24 +27,24 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task);
-    
+
     //undo and redo
     /** Undo prev action that modifies data**/
     Command undo();
-    
+
     /** reset stack of redoable actions when a non undo modifying data command is called**/
     void resetRedoables();
-    
+
     void recordState(Command command);
-    
-    boolean taskBookNoChange();
-    
-    void removeTopRecordedState();
-    
+
+    boolean hasUncommittedChanges();
+
+    void discardRecentCommit();
+
     /** redo previous undo **/
     Command redo();
     /////////////end of undo and redo//////////
-    
+
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Task> getFilteredTaskList();
 
@@ -126,5 +126,5 @@ public interface Model {
      * If predicate is null, the filtered deadline task list will be populated with all deadline tasks.
      */
     void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
-    
- }
+
+}

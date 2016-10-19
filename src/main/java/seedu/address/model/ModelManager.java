@@ -33,8 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<DeadlineTask> filteredDeadlineTasks;
 
     //for undo
-    public Stack<TaskBook> stateStack = new Stack<TaskBook>();//a stack of past TaskBook states
-    public final Stack<Command> modifyingDataCommandHistory = new Stack<Command>();
+    public Stack<Commit> commitStack = new Stack<Commit>();//a stack of past TaskBook states
 
     //for redo
     public Stack<TaskBook> undoneStates = new Stack<TaskBook>();
@@ -93,20 +92,19 @@ public class ModelManager extends ComponentManager implements Model {
     //=============for undo and redo===================================
     @Override
     public Command undo() throws EmptyStackException {
-        undoneStates.push(new TaskBook(getTaskBook()));
-        TaskBook prevState = stateStack.pop();
-        resetData(prevState);
-        Command undoneAction = modifyingDataCommandHistory.pop();
-        undoneCommands.push(undoneAction);
+        //undoneStates.push(new TaskBook(getTaskBook()));
+        Commit lastCommit = commitStack.pop();
+        resetData(lastCommit.getTaskBook());
+        Command undoneAction = lastCommit.getCommand();
+        //undoneCommands.push(undoneAction);
         return undoneAction;
     }
 
     @Override
-    public void removeTopRecordedState() {
-    	stateStack.pop();
-    	modifyingDataCommandHistory.pop();
+    public void discardRecentCommit() {
+        commitStack.pop();
     }
-    
+
     @Override
     public void resetRedoables() {
         undoneCommands = new Stack<Command>();
@@ -115,27 +113,24 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void recordState(Command command) {
-    	TaskBook state = new TaskBook(getTaskBook());
-    	stateStack.push(state);
-    	modifyingDataCommandHistory.push(command);
+        commitStack.push(new Commit(command, new TaskBook(getTaskBook())));
     }
 
     @Override
     public Command redo() throws EmptyStackException {
-    	
-    	TaskBook state = undoneStates.pop();
-    	Command action = undoneCommands.pop();
-    	recordState(action);
-    	resetData(state);
-    	return action;
+        TaskBook state = undoneStates.pop();
+        Command action = undoneCommands.pop();
+        recordState(action);
+        resetData(state);
+        return action;
     }
-    
+
     /**
      * check if taskBook has changed.
      * @return
      */
-    public boolean taskBookNoChange() {
-    	return this.taskBook.equals(stateStack.peek());
+    public boolean hasUncommittedChanges() {
+        return !(this.taskBook.equals(commitStack.peek().getTaskBook()));
     }
 
     //=========== Filtered Task List Accessors ===============================================================
