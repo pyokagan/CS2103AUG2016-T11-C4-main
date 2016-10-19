@@ -4,12 +4,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.TaskBookChangedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.config.ReadOnlyConfig;
@@ -103,17 +99,6 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.fine("Attempting to move task book from " + taskBookStorage.getTaskBookFilePath() + " to "
                     + newFilePath);
         taskBookStorage.moveTaskBook(newFilePath);
-    }
-
-    @Override
-    @Subscribe
-    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveTaskBook(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
     }
 
 }
