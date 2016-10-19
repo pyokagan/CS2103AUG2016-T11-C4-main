@@ -99,6 +99,13 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    public void moveTaskBook(String newFilePath) throws IOException {
+        logger.fine("Attempting to move task book from " + taskBookStorage.getTaskBookFilePath() + " to "
+                    + newFilePath);
+        taskBookStorage.moveTaskBook(newFilePath);
+    }
+
+    @Override
     @Subscribe
     public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
