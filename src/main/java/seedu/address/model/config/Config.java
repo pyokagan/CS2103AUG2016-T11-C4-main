@@ -6,7 +6,7 @@ import java.util.logging.Level;
 /**
  * Config values used by the app
  */
-public class Config {
+public class Config implements ReadOnlyConfig {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
@@ -17,6 +17,7 @@ public class Config {
     public Config() {
     }
 
+    @Override
     public Level getLogLevel() {
         return logLevel;
     }
@@ -25,6 +26,7 @@ public class Config {
         this.logLevel = logLevel;
     }
 
+    @Override
     public String getTaskBookFilePath() {
         return taskBookFilePath;
     }
@@ -38,14 +40,14 @@ public class Config {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Config)) { //this handles null as well.
+        if (!(other instanceof ReadOnlyConfig)) { //this handles null as well.
             return false;
         }
 
-        Config o = (Config)other;
+        ReadOnlyConfig o = (ReadOnlyConfig)other;
 
-        return Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(taskBookFilePath, o.taskBookFilePath);
+        return Objects.equals(logLevel, o.getLogLevel())
+                && Objects.equals(taskBookFilePath, o.getTaskBookFilePath());
     }
 
     @Override
