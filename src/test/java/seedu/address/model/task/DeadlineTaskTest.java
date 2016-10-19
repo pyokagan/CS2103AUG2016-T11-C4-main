@@ -44,7 +44,8 @@ public class DeadlineTaskTest {
     @Test
     public void toString_returnsCorrectFormat() {
         final String expected = "DeadlineTask[name=Deadline Task Name, "
-                                + "due=1970-01-02T00:00]";
+                                + "due=1970-01-02T00:00, "
+                                + "finished=false]";
         final String actual = deadlineTask.toString();
         assertEquals(expected, actual);
     }
