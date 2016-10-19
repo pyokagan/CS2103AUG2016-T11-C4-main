@@ -35,7 +35,11 @@ public interface Model {
     /** reset stack of redoable actions when a non undo modifying data command is called**/
     void resetRedoables();
     
-    void recordStateBeforeChange(Command command);
+    void recordState(Command command);
+    
+    boolean taskBookNoChange();
+    
+    void removeTopRecordedState();
     
     /** redo previous undo **/
     Command redo();

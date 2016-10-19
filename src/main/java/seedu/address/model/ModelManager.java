@@ -102,13 +102,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public void removeTopRecordedState() {
+    	stateStack.pop();
+    	modifyingDataCommandHistory.pop();
+    }
+    
+    @Override
     public void resetRedoables() {
     	undoneCommands=new Stack<Command>();
     	undoneStates = new Stack<TaskBook>(); 
     }
     
     @Override
-    public void recordStateBeforeChange(Command command) {
+    public void recordState(Command command) {
     	TaskBook state = new TaskBook(getTaskBook());
     	stateStack.push(state);
     	modifyingDataCommandHistory.push(command);
@@ -119,11 +125,18 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	TaskBook state = undoneStates.pop();
     	Command action = undoneCommands.pop();
-    	recordStateBeforeChange(action);
+    	recordState(action);
     	resetData(state);
     	return action;
     }
     
+    /**
+     * check if taskBook has changed.
+     * @return
+     */
+    public boolean taskBookNoChange() {
+    	return this.taskBook.equals(stateStack.peek());
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
