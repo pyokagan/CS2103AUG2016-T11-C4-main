@@ -19,11 +19,10 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Window;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.config.Config;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -33,8 +32,6 @@ import seedu.address.testutil.GuiTests;
 public class UiManagerTest extends FxRobot {
 
     private Config config;
-
-    private UserPrefs userPrefs;
 
     private ObservableList<FloatingTask> floatingTaskList;
 
@@ -64,9 +61,8 @@ public class UiManagerTest extends FxRobot {
                .thenReturn(FXCollections.unmodifiableObservableList(deadlineTaskList));
         Mockito.when(logic.getFilteredEventTaskList())
                .thenReturn(FXCollections.unmodifiableObservableList(eventTaskList));
-        userPrefs = new UserPrefs();
         config = new Config();
-        uiManager = new UiManager(logic, config, userPrefs);
+        uiManager = new UiManager(logic, config);
         FxToolkit.setupStage(stage -> {
             uiManager.start(stage);
         });

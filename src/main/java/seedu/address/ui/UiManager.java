@@ -11,13 +11,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.config.Config;
 
 /**
  * The manager of the UI component.
@@ -28,28 +27,25 @@ public class UiManager extends ComponentManager implements Ui {
 
     private Logic logic;
     private Config config;
-    private UserPrefs prefs;
     private MainWindow mainWindow;
     private Stage primaryStage;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config) {
         super();
         this.logic = logic;
         this.config = config;
-        this.prefs = prefs;
     }
 
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
         this.primaryStage = primaryStage;
-        primaryStage.setTitle(config.getAppTitle());
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
+            mainWindow = new MainWindow(primaryStage, config, logic);
             primaryStage.setScene(mainWindow.getRoot());
             primaryStage.show();
         } catch (Throwable e) {
@@ -60,7 +56,6 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
-        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         primaryStage = null;
     }
 
