@@ -29,14 +29,9 @@ public class FindCommand extends Command {
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
-	@Override
-	public boolean modifiesData() {
-		return false;
-	}
-	
-	@Override
-	public String getCommandWord() {
-		return COMMAND_WORD;
-	}
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 
 }

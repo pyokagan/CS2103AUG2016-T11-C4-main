@@ -37,11 +37,6 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public boolean modifiesData() {
-        return true;
-    }
-
-    @Override
     public String getCommandWord() {
         return COMMAND_WORD;
     }

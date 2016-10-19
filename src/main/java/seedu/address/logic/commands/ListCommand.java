@@ -18,13 +18,8 @@ public class ListCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-	@Override
-	public boolean modifiesData() {
-		return false;
-	}
-	
-	@Override
-	public String getCommandWord() {
-		return COMMAND_WORD;
-	}
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

@@ -18,15 +18,10 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser);
     }
 
-	@Override
-	public boolean modifiesData() {
-		return false;
-	}
-	
-	@Override
-	public String getCommandWord() {
-		return null;
-	}
+    @Override
+    public String getCommandWord() {
+        return null;
+    }
 
 }
 

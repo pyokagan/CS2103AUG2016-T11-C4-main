@@ -33,12 +33,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<DeadlineTask> filteredDeadlineTasks;
 
     //for undo
-    public Stack<TaskBook> stateStack = new Stack<TaskBook>();//a stack of past TaskBook states
-    public final Stack<Command> modifyingDataCommandHistory = new Stack<Command>();
+    public Stack<Commit> commitStack = new Stack<Commit>();//a stack of past TaskBook states
 
     //for redo
-    public Stack<TaskBook> undoneStates = new Stack<TaskBook>();
-    public Stack<Command> undoneCommands = new Stack<Command>();
+    public Stack<Commit> redoables = new Stack<Commit>();
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -93,37 +91,50 @@ public class ModelManager extends ComponentManager implements Model {
     //=============for undo and redo===================================
     @Override
     public Command undo() throws EmptyStackException {
-        undoneStates.push(new TaskBook(getTaskBook()));
-        TaskBook prevState = stateStack.pop();
-        resetData(prevState);
-        Command undoneAction = modifyingDataCommandHistory.pop();
-        undoneCommands.push(undoneAction);
+        Commit lastCommit = commitStack.pop();
+        redoables.push(new Commit(lastCommit.getCommand(), new TaskBook(getTaskBook())));
+        resetData(lastCommit.getTaskBook());
+        Command undoneAction = lastCommit.getCommand();
         return undoneAction;
     }
 
     @Override
-    public void resetRedoables() {
-        undoneCommands = new Stack<Command>();
-        undoneStates = new Stack<TaskBook>();
+    public void discardRecentCommit() {
+        commitStack.pop();
     }
 
     @Override
-    public void recordStateBeforeChange(Command command) {
-        TaskBook state = new TaskBook(getTaskBook());
-        stateStack.push(state);
-        modifyingDataCommandHistory.push(command);
+    public void resetRedoables() {
+        redoables = new Stack<Commit>();
+    }
+
+    @Override
+    public void recordState(Command command) {
+        commitStack.push(new Commit(command, new TaskBook(getTaskBook())));
+    }
+
+    public Commit snapshot(Command command) {
+        return new Commit(command, new TaskBook(getTaskBook()));
     }
 
     @Override
     public Command redo() throws EmptyStackException {
-
-        TaskBook state = undoneStates.pop();
-        Command action = undoneCommands.pop();
-        recordStateBeforeChange(action);
-        resetData(state);
-        return action;
+        Commit commit = redoables.pop();
+        recordState(commit.getCommand());
+        resetData(commit.getTaskBook());
+        return commit.getCommand();
     }
 
+    /**
+     * check if taskBook has changed.
+     * @return
+     */
+    public boolean hasUncommittedChanges() throws EmptyStackException {
+        if (commitStack.isEmpty()) {
+            return true;
+        }
+        return !(this.taskBook.equals(commitStack.peek().getTaskBook()));
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
