@@ -17,7 +17,6 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.model.UserPrefs;
 
 /**
  * The manager of the UI component.
@@ -28,15 +27,13 @@ public class UiManager extends ComponentManager implements Ui {
 
     private Logic logic;
     private Config config;
-    private UserPrefs prefs;
     private MainWindow mainWindow;
     private Stage primaryStage;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config) {
         super();
         this.logic = logic;
         this.config = config;
-        this.prefs = prefs;
     }
 
     @Override
@@ -48,7 +45,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
+            mainWindow = new MainWindow(primaryStage, config, logic);
             primaryStage.setScene(mainWindow.getRoot());
             primaryStage.show();
         } catch (Throwable e) {
@@ -59,7 +56,6 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
-        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         primaryStage = null;
     }
 

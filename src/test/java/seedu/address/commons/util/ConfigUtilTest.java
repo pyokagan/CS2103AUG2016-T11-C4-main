@@ -74,7 +74,6 @@ public class ConfigUtilTest {
     private Config getTypicalConfig() {
         Config config = new Config();
         config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath("C:\\preferences.json");
         config.setTaskBookFilePath("taskbook.json");
         return config;
     }

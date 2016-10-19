@@ -12,7 +12,6 @@ import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskBook;
-import seedu.address.model.UserPrefs;
 
 /**
  * Manages storage of TaskBook data in local storage.
@@ -21,30 +20,15 @@ public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private TaskBookStorage taskBookStorage;
-    private UserPrefsStorage userPrefsStorage;
 
-    public StorageManager(TaskBookStorage taskBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TaskBookStorage taskBookStorage) {
         super();
         this.taskBookStorage = taskBookStorage;
-        this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String taskBookFilePath, String userPrefsFilePath) {
-        this(new JsonTaskBookStorage(taskBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(String taskBookFilePath) {
+        this(new JsonTaskBookStorage(taskBookFilePath));
     }
-
-    // ================ UserPrefs methods ==============================
-
-    @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
-        return userPrefsStorage.readUserPrefs();
-    }
-
-    @Override
-    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
-        userPrefsStorage.saveUserPrefs(userPrefs);
-    }
-
 
     // ================ TaskBook methods ==============================
 

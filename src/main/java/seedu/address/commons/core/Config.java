@@ -12,7 +12,6 @@ public class Config {
 
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
-    private String userPrefsFilePath = "preferences.json";
     private String taskBookFilePath = "data/taskbook.json";
 
     public Config() {
@@ -24,14 +23,6 @@ public class Config {
 
     public void setLogLevel(Level logLevel) {
         this.logLevel = logLevel;
-    }
-
-    public String getUserPrefsFilePath() {
-        return userPrefsFilePath;
-    }
-
-    public void setUserPrefsFilePath(String userPrefsFilePath) {
-        this.userPrefsFilePath = userPrefsFilePath;
     }
 
     public String getTaskBookFilePath() {
@@ -54,20 +45,18 @@ public class Config {
         Config o = (Config)other;
 
         return Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(taskBookFilePath, o.taskBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(logLevel, userPrefsFilePath, taskBookFilePath);
+        return Objects.hash(logLevel, taskBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Current log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskBookFilePath);
         return sb.toString();
     }

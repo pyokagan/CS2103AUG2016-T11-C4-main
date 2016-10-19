@@ -15,7 +15,6 @@ import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
-import seedu.address.model.UserPrefs;
 import seedu.address.testutil.EventsCollector;
 import seedu.address.testutil.TypicalTestTasks;
 
@@ -28,7 +27,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+        storageManager = new StorageManager(getTempFilePath("ab"));
     }
 
     private String getTempFilePath(String fileName) {
@@ -40,15 +39,6 @@ public class StorageManagerTest {
      * {@link JsonUserPrefsStorage} class.
      * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
      */
-
-    @Test
-    public void prefsReadSave() throws Exception {
-        UserPrefs original = new UserPrefs();
-        original.setGuiSettings(300, 600, 4, 6);
-        storageManager.saveUserPrefs(original);
-        UserPrefs retrieved = storageManager.readUserPrefs().get();
-        assertEquals(original, retrieved);
-    }
 
     @Test
     public void addressBookReadSave() throws Exception {
@@ -67,7 +57,7 @@ public class StorageManagerTest {
     @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new JsonTaskBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new JsonTaskBookStorageExceptionThrowingStub("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleTaskBookChangedEvent(new TaskBookChangedEvent(new TaskBook()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);

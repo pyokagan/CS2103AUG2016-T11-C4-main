@@ -7,18 +7,11 @@ import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskBook;
-import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends TaskBookStorage, UserPrefsStorage {
-
-    @Override
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
-
-    @Override
-    void saveUserPrefs(UserPrefs userPrefs) throws IOException;
+public interface Storage extends TaskBookStorage {
 
     @Override
     String getTaskBookFilePath();
