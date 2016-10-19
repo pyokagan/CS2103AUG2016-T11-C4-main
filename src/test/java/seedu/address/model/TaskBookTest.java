@@ -121,12 +121,4 @@ public class TaskBookTest {
         assertEquals(expected, taskBook.getDeadlineTasks());
     }
 
-    @Test
-    public void markDeadlineFinished_markDeadlineFinishedInList() {
-        final ArrayList<DeadlineTask> expected = new ArrayList<>(typicalDeadlineTasks.getDeadlineTasks());
-        taskBook.setDeadlineTasks(typicalDeadlineTasks.getDeadlineTasks());
-        taskBook.markDeadlineFinished(0);
-        assertEquals(expected.get(0).isFinished(), true);
-    }
-
 }
