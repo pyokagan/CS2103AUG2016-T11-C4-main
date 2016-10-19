@@ -13,7 +13,7 @@ public class MarkDeadlineFinishedCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 2";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deadline task finished: %1$s";
+    public static final String MESSAGE_MARK_TASK_FINISHED_SUCCESS = "Deadline task finished: %1$s";
 
     private final int targetIndex;
 
@@ -23,12 +23,24 @@ public class MarkDeadlineFinishedCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        DeadlineTask oldDeadlineTask;
         try {
-            final DeadlineTask finishedTask = model.markDeadlineFinished(targetIndex - 1);
-            return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, finishedTask));
+            oldDeadlineTask = model.getDeadlineTask(targetIndex - 1);
         } catch (IllegalValueException e) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+
+        DeadlineTask finishedDeadlineTask;
+        finishedDeadlineTask = new DeadlineTask(oldDeadlineTask, true);
+
+        try {
+            model.setDeadlineTask(targetIndex - 1, finishedDeadlineTask);
+        } catch (IllegalValueException e) {
+            throw new AssertionError("The target deadline cannot be missing", e);
+        }
+
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_FINISHED_SUCCESS, finishedDeadlineTask));
+
     }
 }
