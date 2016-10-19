@@ -7,11 +7,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import seedu.address.model.task.Name;
 
-@JsonPropertyOrder({"name", "due"})
+@JsonPropertyOrder({"name", "due", "finished"})
 public abstract class JsonDeadlineTaskMixin {
 
     JsonDeadlineTaskMixin(@JsonProperty("name") Name name,
-                       @JsonProperty("due") LocalDateTime due) {
+                       @JsonProperty("due") LocalDateTime due,
+                       @JsonProperty("finished") boolean finished) {
     }
 
 }
