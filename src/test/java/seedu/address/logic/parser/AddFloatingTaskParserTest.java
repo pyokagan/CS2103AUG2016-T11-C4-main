@@ -25,7 +25,7 @@ public class AddFloatingTaskParserTest {
     @Test
     public void parse() {
         // All arguments provided
-        assertParse("\"a\" 3", "a", "3");
+        assertParse("\"a\" p-3", "a", "3");
 
         // If priority is not given, then it default "0"
         assertParse("\"a\"", "a", "0");
@@ -45,7 +45,7 @@ public class AddFloatingTaskParserTest {
         }
         final Command command = parser.parse(args);
         assertTrue(command instanceof AddFloatingTaskCommand);
-        assertEquals(expected, ((AddFloatingTaskCommand)command).getFloatingTask());
+        assertEquals(expected, ((AddFloatingTaskCommand)command).getTask());
     }
 
     private void assertIncorrect(String args) {

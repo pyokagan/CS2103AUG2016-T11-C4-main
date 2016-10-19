@@ -8,16 +8,10 @@ import seedu.address.model.task.DeadlineTask;
 /**
  * Adds an deadline task to the task book.
  */
-public class AddDeadlineCommand extends Command {
+public class AddDeadlineCommand extends AddTaskCommand {
 
-    public static final String COMMAND_WORD = "due";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline to the task book. "
-            + "Parameters: \"NAME\" <DUE_DATE> <DUE_TIME>\n"
-            + "Example: " + COMMAND_WORD
-            + " \"Speech Transcript\" 11pm";
-
-    public static final String MESSAGE_SUCCESS = "New deadline added: %1$s";
+    public static final String MESSAGE_USAGE = "Parameters for adding deadline: \"NAME\" <DATE> <TIME> \n"
+            + "Example: " + COMMAND_WORD + " \"Deadline Name\" 12/12/2016 2pm";
 
     private final DeadlineTask deadlineTask;
 
@@ -25,7 +19,8 @@ public class AddDeadlineCommand extends Command {
         deadlineTask = new DeadlineTask(name, due);
     }
 
-    public DeadlineTask getDeadlineTask() {
+    @Override
+    public DeadlineTask getTask() {
         return deadlineTask;
     }
 
