@@ -34,17 +34,16 @@ public class DeadlineTask extends Task {
         this(new Name(name), due, false);
     }
 
+    public DeadlineTask(DeadlineTask oldTask, boolean finishStatus) {
+        this(oldTask.name, oldTask.getDue(), finishStatus);
+    }
+
     public LocalDateTime getDue() {
         return due;
     }
 
     public boolean isFinished() {
         return this.finished;
-    }
-
-    public void markAsFinished() {
-        assert this.finished == false;
-        this.finished = true;
     }
 
     @Override
