@@ -99,6 +99,9 @@ public interface Model {
     /** Replaces the given deadline task with a new deadline task */
     void setDeadlineTask(int indexInFilteredList, DeadlineTask newDeadlineTask) throws IllegalValueException;
 
+    /** Marks a deadline task as finished */
+    DeadlineTask markDeadlineFinished(int indexInFilteredList) throws IllegalValueException;
+
     /** Returns the filtered deadline task list as an unmodifiable ObservableList */
     ObservableList<DeadlineTask> getFilteredDeadlineTaskList();
 
@@ -108,5 +111,12 @@ public interface Model {
      * If predicate is null, the filtered deadline task list will be populated with all deadline tasks.
      */
     void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
+
+    /**
+     * Updates the filtered deadline task list using current filter used by the list.
+     *
+     * The current filter should be guaranteed not to be a null.
+     */
+    void refilterDeadlineTaskFilteredList();
 
 }
