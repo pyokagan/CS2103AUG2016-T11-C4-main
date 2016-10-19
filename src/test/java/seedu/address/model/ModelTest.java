@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.TypicalDeadlineTasks;
 import seedu.address.model.task.TypicalEventTasks;
 import seedu.address.model.task.TypicalFloatingTasks;
@@ -186,20 +185,4 @@ public class ModelTest {
         model.setDeadlineTask(0, tpdue.speechTranscript);
     }
 
-    @Test
-    public void markDeadlineFinished_marksIndexInFilteredList() throws Exception {
-        model.addDeadlineTask(tpdue.speechTranscript);
-        model.addDeadlineTask(tpdue.assembleTheMissiles);
-        model.setDeadlineTaskFilter(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
-        model.markDeadlineFinished(0);
-        model.setDeadlineTaskFilter(DeadlineTask.isNotFinishedDeadline());
-        assertEquals(Arrays.asList(tpdue.speechTranscript),
-                model.getFilteredDeadlineTaskList());
-    }
-
-    @Test
-    public void markDeadlineFinished_invalidIndex_throwsException() throws Exception {
-        thrown.expect(IllegalValueException.class);
-        model.markDeadlineFinished(0);
-    }
 }
