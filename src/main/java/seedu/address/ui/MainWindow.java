@@ -8,9 +8,9 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
+import seedu.address.model.config.Config;
 
 /**
  * The Main Window. Provides the basic application layout containing

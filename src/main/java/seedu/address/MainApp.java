@@ -9,7 +9,6 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -23,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
+import seedu.address.model.config.Config;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
