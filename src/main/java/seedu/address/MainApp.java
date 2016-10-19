@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
@@ -38,21 +37,28 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 0, 0, true);
 
-    protected Ui ui;
-    protected Logic logic;
-    protected Storage storage;
-    protected Model model;
-    protected Config config;
-    protected UserPrefs userPrefs;
+    private final String configPath;
+    private Ui ui;
+    private Logic logic;
+    private Storage storage;
+    private Model model;
+    private Config config;
+    private UserPrefs userPrefs;
 
-    public MainApp() {}
+    public MainApp() {
+        this(null);
+    }
+
+    public MainApp(String configPath) {
+        this.configPath = configPath;
+    }
 
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing TaskBook ]===========================");
         super.init();
 
-        config = initConfig(getApplicationParameter("config"));
+        config = initConfig(configPath != null ? configPath : getApplicationParameter("config"));
         storage = new StorageManager(config.getTaskBookFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
@@ -97,7 +103,7 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
-    protected Config initConfig(String configFilePath) {
+    private Config initConfig(String configFilePath) {
         Config initializedConfig;
         String configFilePathUsed;
 
@@ -128,7 +134,7 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
-    protected UserPrefs initPrefs(Config config) {
+    private UserPrefs initPrefs(Config config) {
         assert config != null;
 
         String prefsFilePath = config.getUserPrefsFilePath();
@@ -176,8 +182,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
-        Platform.exit();
-        System.exit(0);
     }
 
     @Subscribe

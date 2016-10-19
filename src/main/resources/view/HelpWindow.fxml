@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="helpWindowRoot" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.*?>
 
-   </children>
-</AnchorPane>
+<Stage xmlns:fx="http://javafx.com/fxml/1" title="Help" maximized="true">
+    <scene>
+        <Scene stylesheets="@DarkTheme.css">
+            <WebView fx:id="webView" />
+        </Scene>
+    </scene>
+</Stage>
