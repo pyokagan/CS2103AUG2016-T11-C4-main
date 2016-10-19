@@ -37,17 +37,18 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
+        boolean snapshot = false;
 
-        if (!(command instanceof UndoCommand)) {
+        if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
 
             model.recordState(command);
+            snapshot = true;
         }
-        //model.resetRedoables();
 
         command.setData(model);
         CommandResult result = command.execute();
 
-        if (!model.hasUncommittedChanges()) {
+        if (!model.hasUncommittedChanges() && snapshot) {
             model.discardRecentCommit();
         } else if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
             model.resetRedoables();

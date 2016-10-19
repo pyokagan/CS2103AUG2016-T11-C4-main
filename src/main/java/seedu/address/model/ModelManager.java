@@ -92,9 +92,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public Command undo() throws EmptyStackException {
         Commit lastCommit = commitStack.pop();
+        redoables.push(new Commit(lastCommit.getCommand(), new TaskBook(getTaskBook())));
         resetData(lastCommit.getTaskBook());
         Command undoneAction = lastCommit.getCommand();
-        redoables.push(lastCommit);
         return undoneAction;
     }
 
@@ -120,8 +120,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public Command redo() throws EmptyStackException {
         Commit commit = redoables.pop();
+        recordState(commit.getCommand());
         resetData(commit.getTaskBook());
-        commitStack.push(commit);
         return commit.getCommand();
     }
 
