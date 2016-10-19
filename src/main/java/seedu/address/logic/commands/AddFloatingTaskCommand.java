@@ -11,7 +11,7 @@ import seedu.address.model.task.Priority;
 public class AddFloatingTaskCommand extends AddTaskCommand {
 
     public static final String MESSAGE_USAGE = "Parameters for adding floating task: \"NAME\" [p-Priority] \n"
-            + "Example: " + COMMAND_WORD + " \"Floating Task Name\" p-3";
+            + "Example: " + COMMAND_WORD + " \"Floating Task Name\" p-3 \n";
 
     private final FloatingTask floatingTask;
 

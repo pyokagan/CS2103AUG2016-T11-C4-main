@@ -71,11 +71,8 @@ public class AddFloatingTaskParser {
         }
         if (isPriorityFormat(args.get(0))) {
             Matcher matcher = PRIORITY_PATTERN.matcher(args.remove(0));
-            matcher.find();
+            matcher.matches();
             result.priority = matcher.group("priority");
-            if (!Priority.isValidPriority(result.priority)) {
-                throw new IllegalValueException("priority can only range from 0 to 5");
-            }
         }
 
         if (!args.isEmpty()) {
