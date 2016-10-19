@@ -31,13 +31,13 @@ public class AddDeadlineCommand extends AddTaskCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, deadlineTask));
     }
 
-	@Override
-	public boolean modifiesData() {
-		return true;
-	}
+    @Override
+    public boolean modifiesData() {
+        return true;
+    }
 
-	@Override
-	public String getCommandWord() {
-		return COMMAND_WORD;
-	}
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

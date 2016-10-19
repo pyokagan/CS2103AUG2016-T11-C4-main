@@ -37,7 +37,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      * Tasks are copied into this TaskBook.
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
- 
+
         this();
         resetData(toBeCopied);
     }
@@ -59,7 +59,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      * @param newData
      */
     public void resetData(ReadOnlyTaskBook newData) {
-        
+
         setTasks(newData.getTasks());
         setFloatingTasks(newData.getFloatingTasks());
         setEventTasks(newData.getEventTasks());

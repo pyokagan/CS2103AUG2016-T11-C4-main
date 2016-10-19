@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-
-import java.util.Stack;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -11,7 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
-import seedu.address.model.TaskBook;
+
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -27,7 +25,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private final Model model;
     private final Parser parser;
-    
+
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new Parser();
@@ -37,12 +35,11 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        
-        if(command.modifiesData()){
-        	model.recordStateBeforeChange(command);
-        	model.resetRedoables();
+        if (command.modifiesData()) {
+            model.recordStateBeforeChange(command);
+            model.resetRedoables();
         }
-        
+
         command.setData(model);
         return command.execute();
     }
