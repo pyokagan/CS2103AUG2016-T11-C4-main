@@ -41,14 +41,9 @@ public class SelectCommand extends Command {
 
     }
 
-	@Override
-	public boolean modifiesData() {
-		return false;
-	}
-	
-	@Override
-	public String getCommandWord() {
-		return COMMAND_WORD;
-	}
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 
 }

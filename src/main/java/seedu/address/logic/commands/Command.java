@@ -43,16 +43,16 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
-    
+
     /**
      * Does this command modify data in TaskBook? true or false
      * @return
      */
-    public abstract boolean modifiesData();
-    
+
+
     /***
-     * To return the command word child classes of Command will have 
+     * To return the command word child classes of Command will have
      * @return
      */
-	public abstract String getCommandWord();
+    public abstract String getCommandWord();
 }

@@ -19,13 +19,8 @@ public class ClearCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-	@Override
-	public boolean modifiesData() {
-		return true;
-	}
-
-	@Override
-	public String getCommandWord() {
-		return COMMAND_WORD;
-	}
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

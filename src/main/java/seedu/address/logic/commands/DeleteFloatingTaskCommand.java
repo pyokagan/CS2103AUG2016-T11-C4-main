@@ -32,14 +32,8 @@ public class DeleteFloatingTaskCommand extends Command {
         }
     }
 
-	@Override
-	public boolean modifiesData() {
-		return true;
-	}
-	
-	@Override
-	public String getCommandWord() {
-		return COMMAND_WORD;
-	}
-
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }
