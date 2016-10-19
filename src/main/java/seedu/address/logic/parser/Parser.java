@@ -45,8 +45,6 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords seperated by whitespace
 
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)");
-
     public Parser() {
     }
 
@@ -120,12 +118,12 @@ public class Parser {
     }
 
     /**
-	 * Parses arguments in the context of the delete person command.
-	 *
-	 * @param args
-	 *            full command args string
-	 * @return the prepared command
-	 */
+     * Parses arguments in the context of the delete person command.
+    *
+    * @param args
+    *            full command args string
+    * @return the prepared command
+    */
     private Command prepareDelete(String args) {
 
         Optional<Integer> index = parseIndex(args);
@@ -137,60 +135,60 @@ public class Parser {
     }
 
     /**
-	 * Parses arguments in the context of the delete floating task command.
-	 *
-	 * @param args
-	 *            full command args string
-	 * @return the prepared command
-	 */
+     * Parses arguments in the context of the delete floating task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
     private Command prepareDeleteFloatingTask(String args) {
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(
-					String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteFloatingTaskCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteFloatingTaskCommand.MESSAGE_USAGE));
         }
         return new DeleteFloatingTaskCommand(index.get());
     }
 
     /**
-	 * Parses arguments in the context of the delete event command.
-	 *
-	 * @param args
-	 *            full command args string
-	 * @return the prepared command
-	 */
+     * Parses arguments in the context of the delete event command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
     private Command prepareDeleteEvent(String args) {
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(
-					String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
         }
         return new DeleteEventCommand(index.get());
     }
 
     /**
-	 * Parses arguments in the context of the delete deadline command.
-	 *
-	 * @param args
-	 *            full command args string
-	 * @return the prepared command
-	 */
+     *  Parses arguments in the context of the delete deadline command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
     private Command prepareDeleteDeadline(String args) {
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(
-					String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteDeadlineCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteDeadlineCommand.MESSAGE_USAGE));
         }
         return new DeleteDeadlineCommand(index.get());
     }
 
     /**
-	 * Parses arguments in the context of the select person command.
-	 *
-	 * @param args
-	 *            full command args string
-	 * @return the prepared command
-	 */
+     * Parses arguments in the context of the select person command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
     private Command prepareSelect(String args) {
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
@@ -201,10 +199,10 @@ public class Parser {
     }
 
     /**
-	 * Returns the specified index in the {@code command} IF a positive unsigned
-	 * integer is given as the index. Returns an {@code Optional.empty()}
-	 * otherwise.
-	 */
+     * Returns the specified index in the {@code command} IF a positive unsigned
+     * integer is given as the index. Returns an {@code Optional.empty()}
+     * otherwise.
+     */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
@@ -220,12 +218,12 @@ public class Parser {
     }
 
     /**
-	 * Parses arguments in the context of the find person command.
-	 *
-	 * @param args
-	 *            full command args string
-	 * @return the prepared command
-	 */
+     * Parses arguments in the context of the find person command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
