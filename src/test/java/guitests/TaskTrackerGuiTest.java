@@ -79,11 +79,11 @@ public abstract class TaskTrackerGuiTest {
     protected TaskBook getInitialData() {
         TaskBook ab = TestUtil.generateEmptyAddressBook();
         try {
-			TypicalTestTasks.loadAddressBookWithSampleData(ab);
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            TypicalTestTasks.loadAddressBookWithSampleData(ab);
+        } catch (IllegalValueException e) {
+
+            e.printStackTrace();
+        }
         return ab;
     }
 
