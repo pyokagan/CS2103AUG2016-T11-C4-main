@@ -26,6 +26,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MarkDeadlineFinishedCommand;
 import seedu.address.logic.commands.SelectCommand;
 
 /**
@@ -87,6 +88,9 @@ public class Parser {
 
         case EditDeadlineCommand.COMMAND_WORD:
             return new EditDeadlineParser().parse(arguments);
+
+        case MarkDeadlineFinishedCommand.COMMAND_WORD:
+            return prepareMarkDeadlineFinished(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -169,6 +173,21 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteDeadlineCommand.MESSAGE_USAGE));
         }
         return new DeleteDeadlineCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the mark deadline finished command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMarkDeadlineFinished(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDeadlineFinishedCommand.MESSAGE_USAGE));
+        }
+        return new MarkDeadlineFinishedCommand(index.get());
     }
 
     /**
