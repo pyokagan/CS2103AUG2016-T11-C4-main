@@ -3,14 +3,16 @@ import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.filter.NameContainsKeywordsPredicate;
-
+/**
+ * Searches for names in the task book that contain the input keyword.
+ */
 public class SearchCommand extends Command {
 	 public static final String COMMAND_WORD = "Search";
 
 	    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the list of tasks containing the keyword "
-	            + "Parameters: \"KEYWORD\" \n"
+	            + "\n"
 	            + "Example: " + COMMAND_WORD
-	            + " \"a\" ";
+	            + " \"bob\" ";
 
 	    public static final String MESSAGE_SUCCESS = "Search results displayed: %1$s";
 

@@ -26,6 +26,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
 
 /**
@@ -102,6 +103,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case SearchCommand.COMMAND_WORD:
+        	return new SearchParser().parse(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
