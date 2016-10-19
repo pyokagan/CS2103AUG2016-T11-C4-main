@@ -28,6 +28,13 @@ public class DeadlineTaskTest {
     }
 
     @Test
+    public void isFinished_returnsFinished() {
+        final boolean expected = false;
+        final boolean actual = deadlineTask.isFinished();
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void equals_isEqual_returnsTrue() throws Exception {
         final DeadlineTask other = new DeadlineTask("Deadline Task Name", UNIX_EPOCH.plusDays(1));
         assertTrue(deadlineTask.equals(other));
