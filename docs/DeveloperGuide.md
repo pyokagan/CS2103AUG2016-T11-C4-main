@@ -284,6 +284,52 @@ used to manage the logging levels and logging destinations.
 * `FINE`: Details that are not usually noteworthy but may be useful in
   debugging e.g. print the actual list instead of just its size
 
+### Model implementation
+
+The model component internally uses various classes to model the data of the
+application.
+
+#### The task classes
+
+Task Tracker is able to store floating tasks, deadline tasks and event tasks.
+These are modeled as separate `FloatingTask`, `DeadlineTask` and `EventTask`
+classes respectively. Each class contains the fields specific to each type of
+task. For instance, `DeadlineTask` has a `due` field which stores its due
+datetime, while `EventTask` has both `start` and `end` fields which stores its
+starting datetime and ending datetime respectively.
+
+These classes inherit from a common `Task` abstract base class, which contains
+their common fields.
+
+The task classes are all guranteed to be immutable POJOs.
+
+#### The `TaskBook` class
+
+The `TaskBook` class stores the lists of floating tasks, deadline tasks and
+event tasks. It is an internal class of the Model component -- external
+components can only access its data via the `ReadOnlyTaskBook` or `Model` interface.
+
+#### The `ReadOnlyTaskBook` interface
+
+The `ReadOnlyTaskBook` interface provides a read-only view to a `TaskBook`
+object.
+
+#### The `Config` class
+
+The `Config` class stores various configuration settings. It is an internal
+class of the Model component -- external components can only access its data
+via the `ReadOnlyConfig` or `Model` interface.
+
+#### The `ReadOnlyConfig` interface
+
+The `ReadOnlyConfig` interface provides a read-only view to a `Config` object.
+
+#### The `ModelManager` class
+
+The `ModelManager` class implements the `Model` interface, and provides access
+to the model data while hiding the internal complexity of its various classes.
+All external components can only interact with the model data via this class.
+
 ### UI implementation
 
 As mentioned in the [UI component architecture overview](#ui-component), the UI
