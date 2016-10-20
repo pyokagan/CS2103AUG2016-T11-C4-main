@@ -39,28 +39,34 @@
 
 ### Importing the project into Eclipse
 
-1. Fork this repo, and clone the fork to your computer
+Our central development repository lives on
+[Github](https://github.com/CS2103AUG2016-T11-C4/main).
 
-2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and
+1. Start by
+   [forking our central development repository](https://help.github.com/articles/fork-a-repo/)
+   on [Github](https://github.com/CS2103AUG2016-T11-C4/main)
+
+2. [Clone](https://help.github.com/articles/cloning-a-repository/) your
+   personal fork to your computer.
+
+3. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and
    **buildship** plugins as given in the prerequisites above)
 
-3. Click `File` > `Import`
+4. Click `File` > `Import`
 
-4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
+5. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 
-5. Click `Browse`, then locate the project's directory
+6. Click `Browse`, then locate the directory where you cloned the project to in
+   Step 2.
 
-6. Click `Finish`
+7. Click `Finish`. The project should be successfully imported, and you can now
+   start working on it.
 
-* If you are asked whether to 'keep' or 'overwrite' config files, choose to
-  'keep'.
-
-* Depending on your connection speed and server load, it can even take up to 30
-  minutes for the set up to finish (This is because Gradle downloads library
-  files from servers during the project set up process)
-
-* If Eclipse auto-changed any settings files during the import process, you can
-  discard those changes.
+> Note:
+>
+> Depending on your connection speed and server load, it can take up to 30
+> minutes from the set up to finish. This is because Gradle downloads library
+> files from servers during the project's set up process.
 
 ### Troubleshooting project setup
 
