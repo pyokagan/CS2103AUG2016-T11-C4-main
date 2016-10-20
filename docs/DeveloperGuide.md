@@ -289,18 +289,9 @@ used to manage the logging levels and logging destinations.
 By default, the application stores its configuration in the `config.json` file.
 This file can be modified to change the configuration of the application.
 
-* `appTitle`: The title of the application. This title will be displayed in the
-  user interface. (Default: `Task Tracker`)
-
-* `taskBookName`: Name of the user's task book. This name will be displayed in
-  the user interface. (Default: `MyTaskBook`)
-
 * `logLevel`: Sets the minimum required level for log messages to be
   output. See [Logging Levels](#logging-levels) for the list of available
   levels. (Default: `INFO`)
-
-* `userPrefsFilePath`: The path to the user's preference file. (Default:
-  `preferences.json`)
 
 * `taskBookFilePath`: The path to the user's task book file. (Default:
   `data/taskbook.json`)
