@@ -18,19 +18,24 @@
 
 ### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
+1. **JDK `1.8.0_60`** or later
 
     > Note: Having any Java 8 version is not enough.
-      This app will not work with earlier versions of Java 8.
+    > This app will not work with earlier versions of Java 8.
 
-2. **Eclipse** IDE
+2. [**Eclipse**](https://eclipse.org/) IDE
 
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in [this
-   page][efxclipse-install])
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious) )
 
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+4. **Buildship Gradle Integration** plugin from the
+   [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
-[efxclipse-install]: http://www.eclipse.org/efxclipse/install.html#for-the-ambitious
+5. A [**Github**](https://github.com/) account
+
+6. A [**Git**](https://git-scm.com/) client such as
+   [SourceTree](https://www.sourcetreeapp.com/) or
+   [Github Desktop](https://desktop.github.com/)
 
 ### Importing the project into Eclipse
 
