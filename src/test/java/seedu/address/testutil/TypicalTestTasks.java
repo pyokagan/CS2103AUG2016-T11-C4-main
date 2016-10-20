@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskBook;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.Task;
 
 /**
  *
@@ -64,11 +63,11 @@ public class TypicalTestTasks {
     public TaskBook getTypicalAddressBook() {
         TaskBook ab = new TaskBook();
         try {
-			loadAddressBookWithSampleData(ab);
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            loadAddressBookWithSampleData(ab);
+        } catch (IllegalValueException e) {
+
+            e.printStackTrace();
+        }
         return ab;
     }
 }

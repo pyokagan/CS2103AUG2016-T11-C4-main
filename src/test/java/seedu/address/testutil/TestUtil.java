@@ -30,7 +30,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.TaskBook;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.Name;
+
 import seedu.address.model.task.Task;
 import seedu.address.storage.JsonStorageModule;
 
