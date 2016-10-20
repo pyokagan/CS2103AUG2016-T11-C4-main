@@ -114,8 +114,8 @@ Our central development repository lives on
 <figcaption><div align="center">Figure 2.1: Architecture diagram of TaskTracker</div></figcaption>
 </figure>
 
-The **_Architecture Diagram_** given above explains the high-level design of
-the App.
+The **_Architecture Diagram_** (Figure 2.1) explains the high-level
+design of the application.
 
 Given below is a quick overview of each component.
 
