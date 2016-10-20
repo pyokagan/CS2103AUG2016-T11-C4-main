@@ -14,6 +14,23 @@
 
 <!-- END GITHUB -->
 
+## Introduction
+
+Welcome to the TaskTracker development team!
+
+TaskTracker is a digital assistant that keeps track of your tasks, events and
+deadlines. It allows you to manage them efficiently with a keyboard-oriented
+command line interface.
+
+This development guide aims to quickly familiarise you with the TaskTracker
+code base. It will give you an overview of the code architecture, as well as
+its various components and how they all interact with each other. This guide
+will also show you how to accomplish common development tasks, so you can fully
+integrate with our development workflow. By the end of this document, you will
+be ready to make your first awesome change to the code.
+
+Ready to dive in? Let's get started!
+
 ## Setting up
 
 ### Prerequisites
