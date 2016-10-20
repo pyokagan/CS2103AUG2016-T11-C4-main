@@ -70,23 +70,23 @@ Our central development repository lives on
 
 ### Troubleshooting project setup
 
-**Problem: Eclipse reports compile errors after new commits are pulled from Git**
+* **Problem: Eclipse reports compile errors after new commits are pulled from Git**
 
-* Reason: Eclipse fails to recognise new files that appeared due to the Git
-  pull.
+    * Reason: Eclipse fails to recognise new files that appeared due to the Git
+      pull.
 
-* Solution: Refresh the project in Eclipse:
+    * Solution: Refresh the project in Eclipse:
 
-  Right click on the project (in Eclipse package explorer), choose `Gradle` ->
-  `Refresh Gradle Project`.
+        Right click on the project (in Eclipse package explorer), choose `Gradle` ->
+        `Refresh Gradle Project`.
 
-**Problem: Eclipse reports some required libraries missing**
+* **Problem: Eclipse reports some required libraries missing**
 
-* Reason: Required libraries may not have been downloaded during the project
-  import.
+    * Reason: Required libraries may not have been downloaded during the project
+      import.
 
-* Solution: [Run tests using Gradle](#testing-with-gradle) once to download all
-  required libraries.
+    * Solution: [Run tests using Gradle](#testing-with-gradle) once to download all
+      required libraries.
 
 ## Design
 
