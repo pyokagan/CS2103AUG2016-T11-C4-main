@@ -506,23 +506,24 @@ Tests can be found in the `./src/test/java` folder.
 We have two types of tests:
 
 1. **GUI Tests** - These are _System Tests_ that test the entire App by
-   simulating user actions on the GUI.  These are in the `guitests` package.
+   simulating user actions on the GUI. These tests are in the
+   `seedu.address.testutil.GuiTests` category.
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include:
 
-   1. _Unit tests_ targeting the lowest level methods/classes.
+    1. _Unit tests_ targeting the lowest level methods/classes.
 
-      e.g. `seedu.address.commons.UrlUtilTest`
+        e.g. `seedu.address.commons.utils.StringUtilTest`
 
-   2. _Integration tests_ that are checking the integration of multiple code
-      units (those code units are assumed to be working).
+    2. _Integration tests_ that are checking the integration of multiple code
+       units (those code units are assumed to be working).
 
-      e.g. `seedu.address.storage.StorageManagerTest`
+        e.g. `seedu.address.storage.StorageManagerTest`
 
-   3. Hybrids of unit and integration tests. These test are checking multiple
-      code units as well as how the are connected together.
+    3. Hybrids of unit and integration tests. These test are checking multiple
+       code units as well as how the are connected together.
 
-      e.g. `seedu.address.logic.LogicManagerTest`
+        e.g. `seedu.address.logic.LogicManagerTest`
 
 ### Testing with Eclipse
 
@@ -550,15 +551,15 @@ We have two types of tests:
 
 ### Troubleshooting tests
 
-**Problem: Tests fail because a NullPointException was thrown when
+* **Problem: Tests fail because a NullPointException was thrown when
 AssertionError is expected**
 
-* Reason: Assertions are not enabled for JUnit tests.
-  This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
+    * Reason: Assertions are not enabled for JUnit tests.
+      This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
 
-* Solution: Enable assertions in JUnit tests as described
-  [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
-  Delete run configurations created when you ran tests earlier.
+    * Solution: Enable assertions in JUnit tests as described
+      [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+      Delete run configurations created when you ran tests earlier.
 
 <!-- BEGIN LATEX
 \appendix
