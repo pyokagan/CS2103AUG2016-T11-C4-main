@@ -330,6 +330,83 @@ The `ModelManager` class implements the `Model` interface, and provides access
 to the model data while hiding the internal complexity of its various classes.
 All external components can only interact with the model data via this class.
 
+### Storage implementation
+
+The storage component uses [Jackson](https://github.com/FasterXML/jackson) to
+serialize/deserialize model data to/from JSON files.
+
+#### Jackson Mixin classes
+
+Using Jackson's ability to [Mix-in annotations](http://wiki.fasterxml.com/JacksonMixInAnnotations),
+we are able to implement proper serialization/deserialization support for all of our model classes with very little code.
+
+In the `seedu.address.storage` package, these mixin classes have the name
+`Json{Model class name}Mixin`. For example, `JsonEventTaskMixin` is the mixin
+class for the `EventTask` model class. Its contents are as follows:
+```java
+package seedu.address.storage;
+
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import seedu.address.commons.time.LocalDateTimeDuration;
+import seedu.address.model.task.Name;
+
+@JsonPropertyOrder({"name", "start", "end"})
+public abstract class JsonEventTaskMixin {
+
+    JsonEventTaskMixin(@JsonProperty("name") Name name, @JsonProperty("start") LocalDateTime start,
+                       @JsonProperty("end") LocalDateTime end) {
+    }
+
+    @JsonIgnore
+    abstract LocalDateTimeDuration getDuration();
+
+}
+```
+As you can see, Jackson mixin annotations allow us to directly specify
+Jackson-specific annotations without needing to touch the actual class. This
+allows us to cleanly separate the storage implementation details from the model
+component.
+
+#### Jackson Module classes
+
+[Jackson modules](http://wiki.fasterxml.com/JacksonFeatureModules) allow us to
+bundle together related serialisation/deserialisation implementation classes
+into a single class, so that the serialisation/deserialisation logic is fully
+encapsulated.
+
+The storage package contains two module classes, `JsonConfigModule` and
+`JsonStorageModule` which bundle together the logic for
+serialising/deserialising `Config` and `TaskBook` classes respectively.
+
+#### The Storage interfaces
+
+The storage package defines two storage interfaces, `ConfigStorage` and
+`TaskBookStorage`. These interfaces contain methods for saving/loading
+`ReadOnlyConfig` and `ReadOnlyTaskBook` objects respectively.
+
+The storage package also defines a facade `Storage` interface, which combines
+together the aforementioned `ConfigStorage` and `TaskBookStorage` interfaces
+into a single interface.
+
+#### The JsonStorage classes
+
+The `JsonConfigStorage` class implements the `ConfigStorage` interface. It
+saves/loads `ReadOnlyConfig`s using Jackson's serialisation/deserialisation
+functionality, supplemented with our own Jackson modules and mixins.
+
+Likewise, the `JsonTaskBookStorage` class implements the `TaskBookStorage`
+interface and saves/loads `ReadOnlyTaskBook`s.
+
+#### The StorageManager class
+
+The `StorageManager` class wraps a `ConfigStorage` and `TaskBookStorage` and
+provides a single unified interface to them.
+
 ### UI implementation
 
 As mentioned in the [UI component architecture overview](#ui-component), the UI
