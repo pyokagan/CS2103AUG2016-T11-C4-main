@@ -10,7 +10,12 @@ public class ObservableListChangeListener {
 
     private boolean hasChanged = false;
 
+    private final ObservableList<?>[] lists;
+
     public ObservableListChangeListener(ObservableList<?>... lists) {
+        // Store a reference to the observable lists so they do not get GC'd
+        this.lists = lists;
+        // Install our listeners on the observable lists
         for (ObservableList<?> list : lists) {
             list.addListener((ListChangeListener.Change<? extends Object> change) -> {
                 hasChanged = true;
