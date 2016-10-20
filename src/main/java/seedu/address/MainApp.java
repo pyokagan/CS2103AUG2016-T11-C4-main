@@ -36,7 +36,7 @@ import seedu.address.ui.UiManager;
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    public static final Version VERSION = new Version(1, 0, 0, true);
+    public static final Version VERSION = new Version(0, 3, 0, true);
 
     /** Name of the application */
     public static final String NAME = "Task Tracker";
