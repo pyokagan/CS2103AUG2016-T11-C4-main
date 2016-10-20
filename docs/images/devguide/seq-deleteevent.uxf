@@ -1,58 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
   <help_text/>
-  <zoom_level>7</zoom_level>
+  <zoom_level>11</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>63</x>
-      <y>357</y>
-      <w>721</w>
-      <h>357</h>
+      <x>110</x>
+      <y>176</y>
+      <w>957</w>
+      <h>572</h>
     </coordinates>
     <panel_attributes>title=Deletion of event
-autoTick=true
 obj=:UI~a
 obj=:Logic~b
 obj=:Model~c
-obj=:EventsCenter~d
+obj=:Storage~d
 on=a
-on=b
-a.a2-&gt;b.b2 :execute("del-event 1")
-on=c
-b.b3-&gt;c.c3 :removeEventTask(1)
+a-&gt;b :execute("del-event 1") ;on=b
+b-&gt;c :removeEventTask(1) ;on=c
+c-&gt;b; off=c
+b-&gt;d :saveTaskBook(); on=d
+d-&gt;d + :Save to file
 on=d
-c.c4-&gt;d.d4 :post(TaskBookChangedEvent)
-d.d5.&gt;c.c5
 off=d
-c.c6.&gt;b.b6
-off=c
-b.b7.&gt;a.a7
-off=b
+d.&gt;b; off=d
+b.&gt;a; off=b
+a.&gt;gate; off=a
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>56</x>
-      <y>441</y>
-      <w>112</w>
-      <h>28</h>
+      <x>99</x>
+      <y>286</y>
+      <w>154</w>
+      <h>33</h>
     </coordinates>
-    <panel_attributes>lt=-&gt;
-del-event 1</panel_attributes>
-    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>56</x>
-      <y>665</y>
-      <w>112</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
   </element>
 </diagram>

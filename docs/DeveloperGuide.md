@@ -14,68 +14,96 @@
 
 <!-- END GITHUB -->
 
+## Introduction
+
+Welcome to the TaskTracker development team!
+
+TaskTracker is a digital assistant that keeps track of your tasks, events and
+deadlines. It allows you to manage them efficiently with a keyboard-oriented
+command line interface.
+
+This development guide aims to quickly familiarise you with the TaskTracker
+code base. It will give you an overview of the code architecture, as well as
+its various components and how they all interact with each other. This guide
+will also show you how to accomplish common development tasks, so you can fully
+integrate with our development workflow. By the end of this document, you will
+be ready to make your first awesome change to the code.
+
+Ready to dive in? Let's get started!
+
 ## Setting up
 
 ### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
+1. **JDK `1.8.0_60`** or later
 
     > Note: Having any Java 8 version is not enough.
-      This app will not work with earlier versions of Java 8.
+    > This app will not work with earlier versions of Java 8.
 
-2. **Eclipse** IDE
+2. [**Eclipse**](https://eclipse.org/) IDE
 
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in [this
-   page][efxclipse-install])
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious) )
 
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+4. **Buildship Gradle Integration** plugin from the
+   [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
-[efxclipse-install]: http://www.eclipse.org/efxclipse/install.html#for-the-ambitious
+5. A [**Github**](https://github.com/) account
+
+6. A [**Git**](https://git-scm.com/) client such as
+   [SourceTree](https://www.sourcetreeapp.com/) or
+   [Github Desktop](https://desktop.github.com/)
 
 ### Importing the project into Eclipse
 
-1. Fork this repo, and clone the fork to your computer
+Our central development repository lives on
+[Github](https://github.com/CS2103AUG2016-T11-C4/main).
 
-2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and
+1. Start by
+   [forking our central development repository](https://help.github.com/articles/fork-a-repo/)
+   on [Github](https://github.com/CS2103AUG2016-T11-C4/main)
+
+2. [Clone](https://help.github.com/articles/cloning-a-repository/) your
+   personal fork to your computer.
+
+3. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and
    **buildship** plugins as given in the prerequisites above)
 
-3. Click `File` > `Import`
+4. Click `File` > `Import`
 
-4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
+5. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 
-5. Click `Browse`, then locate the project's directory
+6. Click `Browse`, then locate the directory where you cloned the project to in
+   Step 2.
 
-6. Click `Finish`
+7. Click `Finish`. The project should be successfully imported, and you can now
+   start working on it.
 
-* If you are asked whether to 'keep' or 'overwrite' config files, choose to
-  'keep'.
-
-* Depending on your connection speed and server load, it can even take up to 30
-  minutes for the set up to finish (This is because Gradle downloads library
-  files from servers during the project set up process)
-
-* If Eclipse auto-changed any settings files during the import process, you can
-  discard those changes.
+> Note:
+>
+> Depending on your connection speed and server load, it can take up to 30
+> minutes from the set up to finish. This is because Gradle downloads library
+> files from servers during the project's set up process.
 
 ### Troubleshooting project setup
 
-**Problem: Eclipse reports compile errors after new commits are pulled from Git**
+* **Problem: Eclipse reports compile errors after new commits are pulled from Git**
 
-* Reason: Eclipse fails to recognise new files that appeared due to the Git
-  pull.
+    * Reason: Eclipse fails to recognise new files that appeared due to the Git
+      pull.
 
-* Solution: Refresh the project in Eclipse:
+    * Solution: Refresh the project in Eclipse:
 
-  Right click on the project (in Eclipse package explorer), choose `Gradle` ->
-  `Refresh Gradle Project`.
+        Right click on the project (in Eclipse package explorer), choose `Gradle` ->
+        `Refresh Gradle Project`.
 
-**Problem: Eclipse reports some required libraries missing**
+* **Problem: Eclipse reports some required libraries missing**
 
-* Reason: Required libraries may not have been downloaded during the project
-  import.
+    * Reason: Required libraries may not have been downloaded during the project
+      import.
 
-* Solution: [Run tests using Gradle](#testing-with-gradle) once to download all
-  required libraries.
+    * Solution: [Run tests using Gradle](#testing-with-gradle) once to download all
+      required libraries.
 
 ## Design
 
@@ -86,8 +114,8 @@
 <figcaption><div align="center">Figure 2.1: Architecture diagram of TaskTracker</div></figcaption>
 </figure>
 
-The **_Architecture Diagram_** given above explains the high-level design of
-the App.
+The **_Architecture Diagram_** (Figure 2.1) explains the high-level
+design of the application.
 
 Given below is a quick overview of each component.
 
@@ -160,9 +188,9 @@ The `Model` component:
 
 The `Storage` component:
 
-* can save `UserPref` objects in json format to the hard disk and read it back.
+* can save `TaskBook` objects to the hard disk and read it back.
 
-* can save `TaskBook` objects in json format to the hard disk and read it back.
+* can save `Config` objects to the hard disk and read it back.
 
 ### Logic component
 
@@ -177,19 +205,26 @@ The `Logic` component:
 
 * filters the lists of floating, deadline and event tasks in the task book.
 
+* writes the `Model` to the `Storage` if the `Model` has been modified by
+  command execution, so that changes will be persisted to disk.
+
 It accomplishes its parsing and execution of user commands in a few steps:
 
 1. `Logic` uses its own internal `Parser` to parse the user command.
 
 2. This results in a `Command` object which is executed by the `LogicManager`.
 
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task, or
+   changing a config setting.)
 
 4. The result of the command execution is encapsulated as a `CommandResult`
    object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic`
-component for the `execute("delete 1")` API call.
+5. If the `Model` has been modified as a result of the command, `Logic` will
+   then write the updated `Model` back to disk using the `Storage` component.
+
+Given in Figure 2.5 below is the sequence diagram for interactions within the
+`Logic` component for the `execute("delete 1")` API call.
 
 <figure>
 <img src="images/devguide/seq-deleteevent.png">
@@ -249,23 +284,217 @@ used to manage the logging levels and logging destinations.
 * `FINE`: Details that are not usually noteworthy but may be useful in
   debugging e.g. print the actual list instead of just its size
 
+### Model implementation
+
+The model component internally uses various classes to model the data of the
+application.
+
+#### The task classes
+
+Task Tracker is able to store floating tasks, deadline tasks and event tasks.
+These are modeled as separate `FloatingTask`, `DeadlineTask` and `EventTask`
+classes respectively. Each class contains the fields specific to each type of
+task. For instance, `DeadlineTask` has a `due` field which stores its due
+datetime, while `EventTask` has both `start` and `end` fields which stores its
+starting datetime and ending datetime respectively.
+
+These classes inherit from a common `Task` abstract base class, which contains
+their common fields.
+
+The task classes are all guranteed to be immutable POJOs.
+
+#### The `TaskBook` class
+
+The `TaskBook` class stores the lists of floating tasks, deadline tasks and
+event tasks. It is an internal class of the Model component -- external
+components can only access its data via the `ReadOnlyTaskBook` or `Model` interface.
+
+#### The `ReadOnlyTaskBook` interface
+
+The `ReadOnlyTaskBook` interface provides a read-only view to a `TaskBook`
+object.
+
+#### The `Config` class
+
+The `Config` class stores various configuration settings. It is an internal
+class of the Model component -- external components can only access its data
+via the `ReadOnlyConfig` or `Model` interface.
+
+#### The `ReadOnlyConfig` interface
+
+The `ReadOnlyConfig` interface provides a read-only view to a `Config` object.
+
+#### The `ModelManager` class
+
+The `ModelManager` class implements the `Model` interface, and provides access
+to the model data while hiding the internal complexity of its various classes.
+All external components can only interact with the model data via this class.
+
+### Storage implementation
+
+The storage component uses [Jackson](https://github.com/FasterXML/jackson) to
+serialize/deserialize model data to/from JSON files.
+
+#### Jackson Mixin classes
+
+Using Jackson's ability to [Mix-in annotations](http://wiki.fasterxml.com/JacksonMixInAnnotations),
+we are able to implement proper serialization/deserialization support for all of our model classes with very little code.
+
+In the `seedu.address.storage` package, these mixin classes have the name
+`Json{Model class name}Mixin`. For example, `JsonEventTaskMixin` is the mixin
+class for the `EventTask` model class. Its contents are as follows:
+```java
+package seedu.address.storage;
+
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import seedu.address.commons.time.LocalDateTimeDuration;
+import seedu.address.model.task.Name;
+
+@JsonPropertyOrder({"name", "start", "end"})
+public abstract class JsonEventTaskMixin {
+
+    JsonEventTaskMixin(@JsonProperty("name") Name name, @JsonProperty("start") LocalDateTime start,
+                       @JsonProperty("end") LocalDateTime end) {
+    }
+
+    @JsonIgnore
+    abstract LocalDateTimeDuration getDuration();
+
+}
+```
+As you can see, Jackson mixin annotations allow us to directly specify
+Jackson-specific annotations without needing to touch the actual class. This
+allows us to cleanly separate the storage implementation details from the model
+component.
+
+#### Jackson Module classes
+
+[Jackson modules](http://wiki.fasterxml.com/JacksonFeatureModules) allow us to
+bundle together related serialisation/deserialisation implementation classes
+into a single class, so that the serialisation/deserialisation logic is fully
+encapsulated.
+
+The storage package contains two module classes, `JsonConfigModule` and
+`JsonStorageModule` which bundle together the logic for
+serialising/deserialising `Config` and `TaskBook` classes respectively.
+
+#### The Storage interfaces
+
+The storage package defines two storage interfaces, `ConfigStorage` and
+`TaskBookStorage`. These interfaces contain methods for saving/loading
+`ReadOnlyConfig` and `ReadOnlyTaskBook` objects respectively.
+
+The storage package also defines a facade `Storage` interface, which combines
+together the aforementioned `ConfigStorage` and `TaskBookStorage` interfaces
+into a single interface.
+
+#### The JsonStorage classes
+
+The `JsonConfigStorage` class implements the `ConfigStorage` interface. It
+saves/loads `ReadOnlyConfig`s using Jackson's serialisation/deserialisation
+functionality, supplemented with our own Jackson modules and mixins.
+
+Likewise, the `JsonTaskBookStorage` class implements the `TaskBookStorage`
+interface and saves/loads `ReadOnlyTaskBook`s.
+
+#### The StorageManager class
+
+The `StorageManager` class wraps a `ConfigStorage` and `TaskBookStorage` and
+provides a single unified interface to them.
+
+### UI implementation
+
+As mentioned in the [UI component architecture overview](#ui-component), the UI
+component is made up of "UI Parts". Each UI Part inherits from the abstract
+class `UiPart` and models a distinct part of the user interface. For example,
+the `MainWindow` class, which implements the main application window, is a UI
+Part.
+
+UI Parts themselves can contain multiple child UI Parts as well. For example,
+the `MainWindow` UI Part itself contains a few child UI Parts such as the
+`CommandBox`, `ResultDisplay`, `EventTaskListPane` etc.
+
+The use of UI parts aids in encapsulation of the different components of the
+Task Tracker user interface.
+
+#### Implementing a new UI Part
+
+Internally, a UI Part consists of two things:
+
+* A scene graph constructed using the
+  [FXML Markup Language](https://docs.oracle.com/javafx/2/api/javafx/fxml/doc-files/introduction_to_fxml.html),
+  called the *view*.
+
+* Java code that implements the logic of the scene graph, called the
+  *controller*.
+
+The view and controller are defined in matching `*.fxml` and `*.java` files.
+For example, the `ResultDisplay` UI Part has its view defined in
+`src/main/resources/view/ResultDisplay.fxml` and its controller defined in
+`src/main/java/seedu/address/ui/ResultDisplay.java`.
+
+A simple view (`HelloWorldUiPart.fxml`) that contains a single "Hello World!"
+label could be implemented as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1">
+    <Label>Hello World!</Label>
+</VBox>
+```
+
+Its corresponding controller (`HelloWorldUiPart.java`) could be implemented as follows:
+```java
+package seedu.address.ui;
+
+import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
+
+public class HelloWorldUiPart extends UiPart<Pane> {
+
+    private static final String FXML = "/view/HelloWorldUiPart.fxml";
+
+    public HelloWorldUiPart() {
+        super(FXML);
+    }
+}
+```
+Notice how we need to pass the location of the `HelloWorldUiPart.fxml` to the
+superclass constructor. This tells the `UiPart` which FXML file to load.
+
+#### Initialising a UI Part
+
+UI Parts can be directly constructed. For instance, we could construct a new
+`HelloWorldUiPart` with:
+```java
+HelloWorldUiPart helloWorldUiPart = new HelloWorldUiPart();
+```
+
+The root node of its scene graph can then be accessed with its `getRoot()` getter:
+```java
+Pane helloWorldPane = helloWorldUiPart.getRoot();
+```
+
+This root node can then be added as a child to other scene graphs to compose
+the JavaFX Scene using multiple UI Parts.
+
 ## Configuration
 
 By default, the application stores its configuration in the `config.json` file.
 This file can be modified to change the configuration of the application.
 
-* `appTitle`: The title of the application. This title will be displayed in the
-  user interface. (Default: `Task Tracker`)
-
-* `taskBookName`: Name of the user's task book. This name will be displayed in
-  the user interface. (Default: `MyTaskBook`)
-
 * `logLevel`: Sets the minimum required level for log messages to be
   output. See [Logging Levels](#logging-levels) for the list of available
   levels. (Default: `INFO`)
-
-* `userPrefsFilePath`: The path to the user's preference file. (Default:
-  `preferences.json`)
 
 * `taskBookFilePath`: The path to the user's task book file. (Default:
   `data/taskbook.json`)
@@ -277,23 +506,24 @@ Tests can be found in the `./src/test/java` folder.
 We have two types of tests:
 
 1. **GUI Tests** - These are _System Tests_ that test the entire App by
-   simulating user actions on the GUI.  These are in the `guitests` package.
+   simulating user actions on the GUI. These tests are in the
+   `seedu.address.testutil.GuiTests` category.
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include:
 
-   1. _Unit tests_ targeting the lowest level methods/classes.
+    1. _Unit tests_ targeting the lowest level methods/classes.
 
-      e.g. `seedu.address.commons.UrlUtilTest`
+        e.g. `seedu.address.commons.utils.StringUtilTest`
 
-   2. _Integration tests_ that are checking the integration of multiple code
-      units (those code units are assumed to be working).
+    2. _Integration tests_ that are checking the integration of multiple code
+       units (those code units are assumed to be working).
 
-      e.g. `seedu.address.storage.StorageManagerTest`
+        e.g. `seedu.address.storage.StorageManagerTest`
 
-   3. Hybrids of unit and integration tests. These test are checking multiple
-      code units as well as how the are connected together.
+    3. Hybrids of unit and integration tests. These test are checking multiple
+       code units as well as how the are connected together.
 
-      e.g. `seedu.address.logic.LogicManagerTest`
+        e.g. `seedu.address.logic.LogicManagerTest`
 
 ### Testing with Eclipse
 
@@ -321,15 +551,15 @@ We have two types of tests:
 
 ### Troubleshooting tests
 
-**Problem: Tests fail because a NullPointException was thrown when
+* **Problem: Tests fail because a NullPointException was thrown when
 AssertionError is expected**
 
-* Reason: Assertions are not enabled for JUnit tests.
-  This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
+    * Reason: Assertions are not enabled for JUnit tests.
+      This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
 
-* Solution: Enable assertions in JUnit tests as described
-  [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
-  Delete run configurations created when you ran tests earlier.
+    * Solution: Enable assertions in JUnit tests as described
+      [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+      Delete run configurations created when you ran tests earlier.
 
 <!-- BEGIN LATEX
 \appendix
