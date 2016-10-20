@@ -205,19 +205,26 @@ The `Logic` component:
 
 * filters the lists of floating, deadline and event tasks in the task book.
 
+* writes the `Model` to the `Storage` if the `Model` has been modified by
+  command execution, so that changes will be persisted to disk.
+
 It accomplishes its parsing and execution of user commands in a few steps:
 
 1. `Logic` uses its own internal `Parser` to parse the user command.
 
 2. This results in a `Command` object which is executed by the `LogicManager`.
 
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task, or
+   changing a config setting.)
 
 4. The result of the command execution is encapsulated as a `CommandResult`
    object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic`
-component for the `execute("delete 1")` API call.
+5. If the `Model` has been modified as a result of the command, `Logic` will
+   then write the updated `Model` back to disk using the `Storage` component.
+
+Given in Figure 2.5 below is the sequence diagram for interactions within the
+`Logic` component for the `execute("delete 1")` API call.
 
 <figure>
 <img src="images/devguide/seq-deleteevent.png">
