@@ -188,9 +188,9 @@ The `Model` component:
 
 The `Storage` component:
 
-* can save `UserPref` objects in json format to the hard disk and read it back.
+* can save `TaskBook` objects to the hard disk and read it back.
 
-* can save `TaskBook` objects in json format to the hard disk and read it back.
+* can save `Config` objects to the hard disk and read it back.
 
 ### Logic component
 
