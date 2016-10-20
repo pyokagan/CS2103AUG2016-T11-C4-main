@@ -284,6 +284,86 @@ used to manage the logging levels and logging destinations.
 * `FINE`: Details that are not usually noteworthy but may be useful in
   debugging e.g. print the actual list instead of just its size
 
+### UI implementation
+
+As mentioned in the [UI component architecture overview](#ui-component), the UI
+component is made up of "UI Parts". Each UI Part inherits from the abstract
+class `UiPart` and models a distinct part of the user interface. For example,
+the `MainWindow` class, which implements the main application window, is a UI
+Part.
+
+UI Parts themselves can contain multiple child UI Parts as well. For example,
+the `MainWindow` UI Part itself contains a few child UI Parts such as the
+`CommandBox`, `ResultDisplay`, `EventTaskListPane` etc.
+
+The use of UI parts aids in encapsulation of the different components of the
+Task Tracker user interface.
+
+#### Implementing a new UI Part
+
+Internally, a UI Part consists of two things:
+
+* A scene graph constructed using the
+  [FXML Markup Language](https://docs.oracle.com/javafx/2/api/javafx/fxml/doc-files/introduction_to_fxml.html),
+  called the *view*.
+
+* Java code that implements the logic of the scene graph, called the
+  *controller*.
+
+The view and controller are defined in matching `*.fxml` and `*.java` files.
+For example, the `ResultDisplay` UI Part has its view defined in
+`src/main/resources/view/ResultDisplay.fxml` and its controller defined in
+`src/main/java/seedu/address/ui/ResultDisplay.java`.
+
+A simple view (`HelloWorldUiPart.fxml`) that contains a single "Hello World!"
+label could be implemented as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1">
+    <Label>Hello World!</Label>
+</VBox>
+```
+
+Its corresponding controller (`HelloWorldUiPart.java`) could be implemented as follows:
+```java
+package seedu.address.ui;
+
+import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
+
+public class HelloWorldUiPart extends UiPart<Pane> {
+
+    private static final String FXML = "/view/HelloWorldUiPart.fxml";
+
+    public HelloWorldUiPart() {
+        super(FXML);
+    }
+}
+```
+Notice how we need to pass the location of the `HelloWorldUiPart.fxml` to the
+superclass constructor. This tells the `UiPart` which FXML file to load.
+
+#### Initialising a UI Part
+
+UI Parts can be directly constructed. For instance, we could construct a new
+`HelloWorldUiPart` with:
+```java
+HelloWorldUiPart helloWorldUiPart = new HelloWorldUiPart();
+```
+
+The root node of its scene graph can then be accessed with its `getRoot()` getter:
+```java
+Pane helloWorldPane = helloWorldUiPart.getRoot();
+```
+
+This root node can then be added as a child to other scene graphs to compose
+the JavaFX Scene using multiple UI Parts.
+
 ## Configuration
 
 By default, the application stores its configuration in the `config.json` file.
