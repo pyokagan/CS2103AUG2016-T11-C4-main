@@ -66,7 +66,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempConfigFile, tempTaskBookFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedTaskBook = new TaskBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedTaskBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
         helpShown = false;
     }
 
@@ -110,7 +110,7 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedTaskBook, model.getAddressBook());
+        assertEquals(expectedTaskBook, model.getTaskBook());
         assertEquals(expectedTaskBook, latestSavedTaskBook);
     }
 
