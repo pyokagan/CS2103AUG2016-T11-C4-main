@@ -14,7 +14,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
-import seedu.address.testutil.TypicalTestTasks;
+import seedu.address.model.TaskBookBuilder;
 
 public class JsonTaskBookStorageTest {
 
@@ -51,8 +51,7 @@ public class JsonTaskBookStorageTest {
     @Test
     public void readAndSaveTaskBook_allInOrder_success() throws Exception {
         final String filePath = testFolder.getRoot().getPath() + "TempTaskBook.json";
-        final TypicalTestTasks tt = new TypicalTestTasks();
-        final TaskBook original = tt.getTypicalAddressBook();
+        final TaskBook original = new TaskBookBuilder().addTypicalTasks().build();
         final JsonTaskBookStorage storage = new JsonTaskBookStorage(filePath);
 
         // Save in new file and read back

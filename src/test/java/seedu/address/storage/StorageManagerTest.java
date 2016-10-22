@@ -12,7 +12,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
-import seedu.address.testutil.TypicalTestTasks;
+import seedu.address.model.TaskBookBuilder;
 
 public class StorageManagerTest {
 
@@ -38,11 +38,11 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        TaskBook original = new TypicalTestTasks().getTypicalAddressBook();
+        final TaskBook original = new TaskBookBuilder().addTypicalTasks().build();
         storageManager.saveTaskBook(original);
         ReadOnlyTaskBook retrieved = storageManager.readTaskBook().get();
         assertEquals(original, new TaskBook(retrieved));
-        //More extensive testing of TaskBook saving/reading is done in XmlTaskBookStorageTest
+        //More extensive testing of TaskBook saving/reading is done in JsonTaskBookStorageTest
     }
 
     @Test
