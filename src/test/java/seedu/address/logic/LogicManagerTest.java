@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -18,17 +17,15 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TypicalFloatingTasks;
+import seedu.address.model.task.DeadlineTask;
+import seedu.address.model.task.EventTask;
+import seedu.address.model.task.FloatingTask;
 import seedu.address.storage.StorageManager;
 
 public class LogicManagerTest {
@@ -44,18 +41,10 @@ public class LogicManagerTest {
 
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskBook latestSavedTaskBook;
-    private boolean helpShown;
-
-    private TypicalFloatingTasks tft = new TypicalFloatingTasks();
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
         latestSavedTaskBook = new TaskBook(abce.data);
-    }
-
-    @Subscribe
-    private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
-        helpShown = true;
     }
 
     @Before
@@ -67,7 +56,6 @@ public class LogicManagerTest {
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
-        helpShown = false;
     }
 
     @After
@@ -88,7 +76,8 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(),
+                              Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
     }
 
     /**
@@ -100,14 +89,18 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskBook expectedTaskBook,
-                                       List<? extends Task> expectedShownList) throws Exception {
+                                       List<FloatingTask> expectedFloatingTaskShownList,
+                                       List<DeadlineTask> expectedDeadlineTaskShownList,
+                                       List<EventTask> expectedEventTaskShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertEquals(expectedFloatingTaskShownList, model.getFilteredFloatingTaskList());
+        assertEquals(expectedDeadlineTaskShownList, model.getFilteredDeadlineTaskList());
+        assertEquals(expectedEventTaskShownList, model.getFilteredEventTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskBook, model.getTaskBook());
@@ -118,25 +111,6 @@ public class LogicManagerTest {
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
-    }
-
-    @Test
-    public void execute_help() throws Exception {
-        assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
-        assertTrue(helpShown);
-    }
-
-    @Test
-    public void execute_exit() throws Exception {
-        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
-    }
-
-    @Test
-    public void execute_clear() throws Exception {
-        model.addFloatingTask(tft.buyAHelicopter);
-        model.addFloatingTask(tft.readABook);
-
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
 
 }
