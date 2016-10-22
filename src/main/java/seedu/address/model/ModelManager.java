@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.config.Config;
@@ -15,8 +14,6 @@ import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -27,7 +24,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Config config;
     private final TaskBook taskBook;
-    private final FilteredList<Task> filteredTasks;
     private final FilteredList<FloatingTask> filteredFloatingTasks;
     private final FilteredList<EventTask> filteredEventTasks;
     private final FilteredList<DeadlineTask> filteredDeadlineTasks;
@@ -44,7 +40,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.config = new Config(config);
         this.taskBook = new TaskBook(taskBook);
-        this.filteredTasks = new FilteredList<>(this.taskBook.getTasks());
         this.filteredFloatingTasks = new FilteredList<>(this.taskBook.getFloatingTasks());
         this.filteredEventTasks = new FilteredList<>(this.taskBook.getEventTasks());
         this.filteredDeadlineTasks = new FilteredList<>(this.taskBook.getDeadlineTasks());
@@ -87,31 +82,6 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateTaskBookChanged() {
         raise(new TaskBookChangedEvent(taskBook));
-    }
-
-    @Override
-    public synchronized void deleteTask(Task target) throws TaskNotFoundException {
-        taskBook.removeTask(target);
-        indicateTaskBookChanged();
-    }
-
-    @Override
-    public synchronized void addTask(Task person) {
-        taskBook.addTask(person);
-        setFilter(null);
-        indicateTaskBookChanged();
-    }
-
-    //=========== Filtered Task List Accessors ===============================================================
-
-    @Override
-    public UnmodifiableObservableList<Task> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-
-    @Override
-    public void setFilter(Predicate<Task> predicate) {
-        filteredTasks.setPredicate(predicate);
     }
 
     //// Floating tasks
