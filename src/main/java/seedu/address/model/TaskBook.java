@@ -1,24 +1,21 @@
 package seedu.address.model;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskNotFoundException;
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskBook implements ReadOnlyTaskBook {
-
-    private final ObservableList<Task> tasks;
 
     private final ObservableList<FloatingTask> floatingTasks;
 
@@ -27,7 +24,6 @@ public class TaskBook implements ReadOnlyTaskBook {
     private final ObservableList<DeadlineTask> deadlineTasks;
 
     public TaskBook() {
-        tasks = FXCollections.observableArrayList();
         floatingTasks = FXCollections.observableArrayList();
         eventTasks = FXCollections.observableArrayList();
         deadlineTasks = FXCollections.observableArrayList();
@@ -45,38 +41,9 @@ public class TaskBook implements ReadOnlyTaskBook {
      * Replaces the contents of this TaskBook with {@code newData}.
      */
     public void resetData(ReadOnlyTaskBook newData) {
-        setTasks(newData.getTasks());
         setFloatingTasks(newData.getFloatingTasks());
         setEventTasks(newData.getEventTasks());
         setDeadlineTasks(newData.getDeadlineTasks());
-    }
-
-    //// task operations
-
-    @Override
-    public ObservableList<Task> getTasks() {
-        return FXCollections.unmodifiableObservableList(tasks);
-    }
-
-    public void setTasks(List<Task> persons) {
-        this.tasks.setAll(persons);
-    }
-
-    /**
-     * Adds a task to the task book.
-     * Also checks the new tasks's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
-     */
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    public boolean removeTask(Task key) throws TaskNotFoundException {
-        if (tasks.remove(key)) {
-            return true;
-        } else {
-            throw new TaskNotFoundException();
-        }
     }
 
     // floating task operations
@@ -161,15 +128,17 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     @Override
     public String toString() {
-        return tasks.size() + " tasks";
-        // TODO: refine later
+        return MoreObjects.toStringHelper(this)
+            .add("floatingTasks", floatingTasks)
+            .add("eventTasks", eventTasks)
+            .add("deadlineTasks", deadlineTasks)
+            .toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskBook // instanceof handles nulls
-                && this.tasks.equals(((TaskBook) other).tasks)
                 && this.floatingTasks.equals(((TaskBook) other).floatingTasks)
                 && this.eventTasks.equals(((TaskBook) other).eventTasks)
                 && this.deadlineTasks.equals(((TaskBook) other).deadlineTasks)
@@ -179,6 +148,6 @@ public class TaskBook implements ReadOnlyTaskBook {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, floatingTasks, eventTasks, deadlineTasks);
+        return Objects.hash(floatingTasks, eventTasks, deadlineTasks);
     }
 }
