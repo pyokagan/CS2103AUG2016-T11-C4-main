@@ -41,7 +41,8 @@ public class DeadlineTask extends Task {
         return other == this
                || (other instanceof DeadlineTask
                && name.equals(((DeadlineTask)other).name)
-               && due.equals(((DeadlineTask)other).due));
+               && due.equals(((DeadlineTask)other).due)
+               && finished == ((DeadlineTask)other).finished);
     }
 
     @Override
