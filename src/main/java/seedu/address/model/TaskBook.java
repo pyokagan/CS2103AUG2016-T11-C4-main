@@ -12,21 +12,20 @@ import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .equals comparison)
+ * Manages lists of {@link FloatingTask}, {@link DeadlineTask} and {@link EventTask}.
  */
 public class TaskBook implements ReadOnlyTaskBook {
 
     private final ObservableList<FloatingTask> floatingTasks;
 
-    private final ObservableList<EventTask> eventTasks;
-
     private final ObservableList<DeadlineTask> deadlineTasks;
+
+    private final ObservableList<EventTask> eventTasks;
 
     public TaskBook() {
         floatingTasks = FXCollections.observableArrayList();
-        eventTasks = FXCollections.observableArrayList();
         deadlineTasks = FXCollections.observableArrayList();
+        eventTasks = FXCollections.observableArrayList();
     }
 
     /**
@@ -42,11 +41,11 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public void resetData(ReadOnlyTaskBook newData) {
         setFloatingTasks(newData.getFloatingTasks());
-        setEventTasks(newData.getEventTasks());
         setDeadlineTasks(newData.getDeadlineTasks());
+        setEventTasks(newData.getEventTasks());
     }
 
-    // floating task operations
+    //// floating task operations
 
     @Override
     public ObservableList<FloatingTask> getFloatingTasks() {
@@ -70,6 +69,32 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     public void setFloatingTask(int index, FloatingTask newFloatingTask) {
         floatingTasks.set(index, newFloatingTask);
+    }
+
+    //// deadline task operations
+
+    @Override
+    public ObservableList<DeadlineTask> getDeadlineTasks() {
+        return FXCollections.unmodifiableObservableList(deadlineTasks);
+    }
+
+    public void setDeadlineTasks(Collection<DeadlineTask> deadlineTasks) {
+        this.deadlineTasks.setAll(deadlineTasks);
+    }
+
+    public void addDeadlineTask(DeadlineTask deadlineTask) {
+        deadlineTasks.add(deadlineTask);
+    }
+
+    /**
+     * Removes the DeadlineTask at position `index` in the list. Returns the removed DeadlineTask.
+     */
+    public DeadlineTask removeDeadlineTask(int index) {
+        return deadlineTasks.remove(index);
+    }
+
+    public void setDeadlineTask(int index, DeadlineTask newDeadlineTask) {
+        deadlineTasks.set(index, newDeadlineTask);
     }
 
     //// event task operations
@@ -98,40 +123,14 @@ public class TaskBook implements ReadOnlyTaskBook {
         eventTasks.set(index, newEventTask);
     }
 
-    ////deadline task operations
-
-    @Override
-    public ObservableList<DeadlineTask> getDeadlineTasks() {
-        return FXCollections.unmodifiableObservableList(deadlineTasks);
-    }
-
-    public void setDeadlineTasks(Collection<DeadlineTask> deadlineTasks) {
-        this.deadlineTasks.setAll(deadlineTasks);
-    }
-
-    public void addDeadlineTask(DeadlineTask deadlineTask) {
-        deadlineTasks.add(deadlineTask);
-    }
-
-    /**
-     * Removes the DeadlineTask at position `index` in the list. Returns the removed DeadlineTask.
-     */
-    public DeadlineTask removeDeadlineTask(int index) {
-        return deadlineTasks.remove(index);
-    }
-
-    public void setDeadlineTask(int index, DeadlineTask newDeadlineTask) {
-        deadlineTasks.set(index, newDeadlineTask);
-    }
-
     //// util methods
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
             .add("floatingTasks", floatingTasks)
-            .add("eventTasks", eventTasks)
             .add("deadlineTasks", deadlineTasks)
+            .add("eventTasks", eventTasks)
             .toString();
     }
 
@@ -140,14 +139,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         return other == this // short circuit if same object
                 || (other instanceof TaskBook // instanceof handles nulls
                 && this.floatingTasks.equals(((TaskBook) other).floatingTasks)
-                && this.eventTasks.equals(((TaskBook) other).eventTasks)
                 && this.deadlineTasks.equals(((TaskBook) other).deadlineTasks)
+                && this.eventTasks.equals(((TaskBook) other).eventTasks)
                 );
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(floatingTasks, eventTasks, deadlineTasks);
+        return Objects.hash(floatingTasks, deadlineTasks, eventTasks);
     }
 }
