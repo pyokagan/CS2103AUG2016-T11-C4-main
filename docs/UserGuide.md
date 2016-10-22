@@ -522,6 +522,7 @@ Edit an event to revise its name, starting/ending date/time and location.
 | et- | end time |
 | loc-| location |
 
+Format: 
 ```
 edit-event <INDEX> [ n-NEW_NAME] [sd-NEW_START_TIME] [st-NEW_START_DATE] [ed-NEW_END_DATE] [et-NEW_END_TIME] [n-NEW_NAME]
 ```
@@ -546,6 +547,7 @@ edit-event <INDEX> [ n-NEW_NAME] [sd-NEW_START_TIME] [st-NEW_START_DATE] [ed-NEW
 Mark a floating task/event/deadline as done on TaskTracker, the marked tasks
 will be archived.
 
+Format: 
 ```
 fin-float|-deadline|-event <INDEX>
 ```
@@ -564,6 +566,7 @@ fin-float|-deadline|-event <INDEX>
 
 Show all empty time slots in a given time period with a given duration.
 
+Format: 
 ```
 slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>
 ```
@@ -595,6 +598,7 @@ slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MIN
 
 #### View all events that start on and all deadline tasks due on a specific date.
 
+Format: 
 ```
 view [DATE]
 ```
@@ -605,6 +609,7 @@ view [DATE]
 
 #### View all time events and deadline task
 
+Format: 
 ```
 view
 ```
@@ -621,6 +626,7 @@ view
 
 Search task that contains specific keywords.
 
+Format: 
 ```
 search KEY_WORDS
 ```
@@ -647,12 +653,14 @@ search KEY_WORDS
 
 Undo the previous action that modifies data. Undo can be performed many times until the first action since the app was launched has been undone.
 
+Format: 
 ```
 undo
 ```
 
 View the stack of actions that undo will perform: `undo stack`
 
+Format: 
 ```
 undo stack
 ```
@@ -661,12 +669,14 @@ undo stack
 
 Redo the previous action that was undone by undo. The amount of consecutive redos doable is equal to the number of consecutive undos performed right before redo is entered.
 
+Format: 
 ```
 redo
 ```
 
 View the stack of actions that redo will perform: `redo stack`
 
+Format: 
 ```
 redo stack
 ```
@@ -675,6 +685,7 @@ redo stack
 
 Clears all entries from TaskTracker.
 
+Format: 
 ```
 clear
 ```
@@ -683,6 +694,7 @@ clear
 
 Exits the program.
 
+Format: 
 ```
 exit
 ```
