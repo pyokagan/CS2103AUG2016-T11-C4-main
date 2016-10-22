@@ -69,7 +69,7 @@ public class ModelManager extends ComponentManager implements Model {
     /// Task Book
 
     @Override
-    public void resetData(ReadOnlyTaskBook newData) {
+    public void resetTaskBook(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
         indicateTaskBookChanged();
     }
