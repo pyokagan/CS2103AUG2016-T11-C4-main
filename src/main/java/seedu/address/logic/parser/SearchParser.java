@@ -14,11 +14,12 @@ import seedu.address.logic.commands.SearchCommand;
 
 public class SearchParser {
 	private static final Pattern CMD_PATTERN =
-            Pattern.compile("^(?<keyword>)"+"$");
+            Pattern.compile("\\s*\"(?<keyword>[^\"])"+"$");
 
 
 	public Command parse(String args){
-    	final Matcher matcher = CMD_PATTERN.matcher(args.trim());
+
+		final Matcher matcher = CMD_PATTERN.matcher(args);
     	if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }

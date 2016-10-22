@@ -7,7 +7,7 @@ import seedu.address.model.filter.NameContainsKeywordsPredicate;
  * Searches for names in the task book that contain the input keyword.
  */
 public class SearchCommand extends Command {
-	 public static final String COMMAND_WORD = "Search";
+	 public static final String COMMAND_WORD = "search";
 
 	    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the list of tasks containing the keyword "
 	            + "\n"
