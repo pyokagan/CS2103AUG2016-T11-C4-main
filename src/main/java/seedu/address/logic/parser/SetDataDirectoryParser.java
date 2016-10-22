@@ -9,7 +9,7 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.SetDataDirectoryCommand;
 
 /**
- * Parser for the "setdatadir" command.
+ * TaskTrackerParser for the "setdatadir" command.
  */
 public class SetDataDirectoryParser {
 

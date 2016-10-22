@@ -26,7 +26,7 @@ import seedu.address.logic.commands.MarkFloatingTaskFinishedCommand;
 /**
  * Parses user input.
  */
-public class Parser {
+public class TaskTrackerParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -35,7 +35,7 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    public Parser() {}
+    public TaskTrackerParser() {}
 
     /**
      * Parses user input into command for execution.
