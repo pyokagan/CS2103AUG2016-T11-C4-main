@@ -55,11 +55,13 @@ public class ModelManager extends ComponentManager implements Model {
         this.filteredFloatingTasks = new FilteredList<>(this.taskBook.getFloatingTasks());
         this.filteredEventTasks = new FilteredList<>(this.taskBook.getEventTasks());
         this.filteredDeadlineTasks = new FilteredList<>(this.taskBook.getDeadlineTasks());
+        recordState(null);
         this.head = commits.size();
     }
 
     public ModelManager() {
         this(new Config(), new TaskBook());
+        recordState(null);
         this.head = commits.size();
     }
 
@@ -277,7 +279,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlineTasks.setPredicate(predicate);
     }
 
-    //undo redo
+    ////undo redo
 
     @Override
     public Command undo() throws IllegalValueException {
@@ -286,10 +288,11 @@ public class ModelManager extends ComponentManager implements Model {
             System.out.println(head);
             throw new IllegalValueException("No actions to undo");
         }
+        Command undoneAction = commits.get(head).getCommand();
         head--;
         Commit commit = commits.get(head);
         resetData(new TaskBook(commit.getTaskBook()));
-        return commit.getCommand();
+        return undoneAction;
     }
 
     @Override
