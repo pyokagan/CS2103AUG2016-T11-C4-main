@@ -27,6 +27,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkDeadlineFinishedCommand;
+import seedu.address.logic.commands.MarkFloatingTaskFinishedCommand;
 import seedu.address.logic.commands.SelectCommand;
 
 /**
@@ -76,6 +77,9 @@ public class Parser {
 
         case EditFloatingTaskCommand.COMMAND_WORD:
             return new EditFloatingTaskParser().parse(arguments);
+
+        case MarkFloatingTaskFinishedCommand.COMMAND_WORD:
+            return prepareMarkFloatingTaskFinished(arguments);
 
         case DeleteEventCommand.COMMAND_WORD:
             return prepareDeleteEvent(arguments);
@@ -146,6 +150,21 @@ public class Parser {
                                   DeleteFloatingTaskCommand.MESSAGE_USAGE));
         }
         return new DeleteFloatingTaskCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the mark floating task finished command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMarkFloatingTaskFinished(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkFloatingTaskFinishedCommand.MESSAGE_USAGE));
+        }
+        return new MarkFloatingTaskFinishedCommand(index.get());
     }
 
     /**
