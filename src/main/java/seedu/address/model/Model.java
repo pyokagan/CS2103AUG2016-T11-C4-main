@@ -153,4 +153,8 @@ public interface Model {
      */
     boolean hasUncommittedChanges();
 
+    String printRedoables();
+
+    String printUndoables();
+
 }

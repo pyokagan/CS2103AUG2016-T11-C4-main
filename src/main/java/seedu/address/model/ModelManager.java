@@ -320,6 +320,22 @@ public class ModelManager extends ComponentManager implements Model {
         return !(this.taskBook.equals(commits.get(commits.size() - 1).getTaskBook()));
     }
 
+    public String printUndoables() {
+        String trace = "";
+        for (int i = head; i > 0 ; i--) {
+            trace += commits.get(i).getCommand() + "\n";
+        }
+        return trace;
+    }
+
+    public String printRedoables() {
+        String trace = "";
+        for (int i = head; i < commits.size() ; i++) {
+            trace += commits.get(i).getCommand() + "\n";
+        }
+        return trace;
+    }
+
     private class Commit {
         private TaskBook taskBook;
         private Command command;
