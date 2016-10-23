@@ -41,7 +41,8 @@ public class FloatingTaskTest {
     @Test
     public void toString_returnsCorrectFormat() {
         final String expected = "FloatingTask[name=Floating Task Name, "
-                                + "priority=3]";
+                                + "priority=3, "
+                                + "finished=false]";
         final String actual = floatingTask.toString();
         assertEquals(expected, actual);
     }
