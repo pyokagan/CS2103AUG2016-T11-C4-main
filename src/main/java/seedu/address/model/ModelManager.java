@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -10,6 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
@@ -19,8 +22,8 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the address book data. All changes to any
+ * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -32,9 +35,13 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<EventTask> filteredEventTasks;
     private final FilteredList<DeadlineTask> filteredDeadlineTasks;
 
+    //for undo
+    private ArrayList<Commit> commits = new ArrayList<Commit>();//a stack of past TaskBook states
+    private int head;
+
     /**
-     * Initializes a ModelManager with the given config and TaskBook
-     * TaskBook and its variables should not be null
+     * Initializes a ModelManager with the given config and TaskBook TaskBook
+     * and its variables should not be null
      */
     public ModelManager(ReadOnlyConfig config, ReadOnlyTaskBook taskBook) {
         super();
@@ -48,10 +55,12 @@ public class ModelManager extends ComponentManager implements Model {
         this.filteredFloatingTasks = new FilteredList<>(this.taskBook.getFloatingTasks());
         this.filteredEventTasks = new FilteredList<>(this.taskBook.getEventTasks());
         this.filteredDeadlineTasks = new FilteredList<>(this.taskBook.getDeadlineTasks());
+        this.head = commits.size();
     }
 
     public ModelManager() {
         this(new Config(), new TaskBook());
+        this.head = commits.size();
     }
 
     /// Config
@@ -80,7 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskBook getAddressBook() {
+    public ReadOnlyTaskBook getTaskBook() {
         return taskBook;
     }
 
@@ -102,7 +111,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
-    //=========== Filtered Task List Accessors ===============================================================
+    // =========== Filtered Task List Accessors
+    // ===============================================================
 
     @Override
     public UnmodifiableObservableList<Task> getFilteredTaskList() {
@@ -142,7 +152,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized FloatingTask removeFloatingTask(int indexInFilteredList) throws IllegalValueException {
-        final FloatingTask removedFloating = taskBook.removeFloatingTask(getFloatingTaskSourceIndex(indexInFilteredList));
+        final FloatingTask removedFloating = taskBook
+                .removeFloatingTask(getFloatingTaskSourceIndex(indexInFilteredList));
         indicateTaskBookChanged();
         return removedFloating;
     }
@@ -243,7 +254,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized DeadlineTask removeDeadlineTask(int indexInFilteredList) throws IllegalValueException {
-        final DeadlineTask removedDeadline = taskBook.removeDeadlineTask(getDeadlineTaskSourceIndex(indexInFilteredList));
+        final DeadlineTask removedDeadline = taskBook
+                .removeDeadlineTask(getDeadlineTaskSourceIndex(indexInFilteredList));
         indicateTaskBookChanged();
         return removedDeadline;
     }
@@ -265,4 +277,65 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlineTasks.setPredicate(predicate);
     }
 
+    //undo redo
+
+    @Override
+    public Command undo() throws IllegalValueException {
+
+        if (head <= 0) {
+            System.out.println(head);
+            throw new IllegalValueException("No actions to undo");
+        }
+        head--;
+        Commit commit = commits.get(head);
+        resetData(new TaskBook(commit.getTaskBook()));
+        return commit.getCommand();
+    }
+
+    @Override
+    public void recordState(Command command) {
+        commits.add(new Commit(command, new TaskBook(getTaskBook())));
+        this.head = commits.size() - 1;
+    }
+
+    @Override
+    public Command redo() throws IllegalValueException {
+        if (head >= commits.size() - 1) {
+            System.out.println(head);
+            throw new IllegalValueException("no undos to redo");
+        }
+        head++;
+        Commit commit = commits.get(head);
+        resetData(new TaskBook(commit.getTaskBook()));
+        return commit.getCommand();
+    }
+
+    /**
+     * check if taskBook has changed.
+     * @return
+     */
+    public boolean hasUncommittedChanges() throws EmptyStackException {
+        if (commits.isEmpty()) {
+            return true;
+        }
+        return !(this.taskBook.equals(commits.get(commits.size() - 1).getTaskBook()));
+    }
+
+    private class Commit {
+        private TaskBook taskBook;
+        private Command command;
+
+        Commit(Command command, TaskBook state) {
+            this.taskBook = state;
+            this.command = command;
+        }
+
+        public TaskBook getTaskBook() {
+            return this.taskBook;
+        }
+
+        public Command getCommand() {
+            return this.command;
+        }
+    }
 }
