@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -282,10 +281,10 @@ public class ModelManager extends ComponentManager implements Model {
     ////undo redo
 
     @Override
-    public Command undo() throws IllegalValueException {
+    public Command undo() throws HeadAtBoundaryException {
 
         if (head <= 0) {
-            throw new IllegalValueException("No actions to undo");
+            throw new HeadAtBoundaryException("No actions to undo");
         }
         Command undoneAction = commits.get(head).getCommand();
         head--;
@@ -301,10 +300,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public Command redo() throws IllegalValueException {
+    public Command redo() throws HeadAtBoundaryException {
         if (head >= commits.size() - 1) {
             System.out.println(head);
-            throw new IllegalValueException("no undos to redo");
+            throw new HeadAtBoundaryException("no undos to redo");
         }
         head++;
         Commit commit = commits.get(head);
@@ -314,12 +313,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * check if taskBook has changed.
-     * @return
+     * @return true if TaskBook changed
      */
-    public boolean hasUncommittedChanges() throws EmptyStackException {
-        if (commits.isEmpty()) {
-            return true;
-        }
+    @Override
+    public boolean hasUncommittedChanges() {
         return !(this.taskBook.equals(commits.get(commits.size() - 1).getTaskBook()));
     }
 
@@ -338,6 +335,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         public Command getCommand() {
             return this.command;
+        }
+    }
+
+    public class HeadAtBoundaryException extends Exception {
+        public HeadAtBoundaryException(String message) {
+            super(message);
         }
     }
 }

@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ModelManager.HeadAtBoundaryException;
 
 public class RedoCommand extends Command {
 
@@ -12,7 +12,7 @@ public class RedoCommand extends Command {
         Command action;
         try {
             action = model.redo();
-        } catch (IllegalValueException e) {
+        } catch (HeadAtBoundaryException e) {
             return new CommandResult("No undos to redo.");
         }
         return new CommandResult("Redid " + action.toString());

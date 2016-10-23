@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ModelManager.HeadAtBoundaryException;
 
 public class UndoCommand extends Command {
 
@@ -14,7 +14,7 @@ public class UndoCommand extends Command {
         Command undoneAction;
         try {
             undoneAction = model.undo();
-        } catch (IllegalValueException e) {
+        } catch (HeadAtBoundaryException e) {
             return new CommandResult("No actions to undo.");
         }
         return new CommandResult("Successfully undid previous " + undoneAction.toString());
