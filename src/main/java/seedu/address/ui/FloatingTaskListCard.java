@@ -28,7 +28,7 @@ public class FloatingTaskListCard extends UiPart<Pane> {
         super(FXML);
         if (floatingTask != null) {
             indexLabel.setText(index + ". ");
-            nameLabel.setText(floatingTask.name.toString());
+            nameLabel.setText(floatingTask.getName().toString());
             priorityLabel.setText(floatingTask.getPriority().toString());
             finishedLabel.setText(String.valueOf(floatingTask.isFinished()));
         } else {

@@ -28,7 +28,7 @@ public class EventTaskListCard extends UiPart<Pane> {
         super(FXML);
         if (eventTask != null) {
             indexLabel.setText(index + ". ");
-            nameLabel.setText(eventTask.name.toString());
+            nameLabel.setText(eventTask.getName().toString());
             startLabel.setText(eventTask.getStart().toString());
             endLabel.setText(eventTask.getEnd().toString());
         } else {

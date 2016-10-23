@@ -16,7 +16,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
     @Override
     public boolean test(Task task) {
         return keywords.stream()
-                .filter(keyword -> StringUtil.containsIgnoreCase(task.name.toString(), keyword))
+                .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().toString(), keyword))
                 .findAny()
                 .isPresent();
     }

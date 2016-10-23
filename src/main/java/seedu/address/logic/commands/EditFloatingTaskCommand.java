@@ -54,7 +54,7 @@ public class EditFloatingTaskCommand extends Command {
         FloatingTask newFloatingTask;
 
         newFloatingTask = new FloatingTask(
-                newName != null ? newName : oldFloatingTask.name,
+                newName != null ? newName : oldFloatingTask.getName(),
                 newPriority != null ? newPriority : oldFloatingTask.getPriority()
         );
 

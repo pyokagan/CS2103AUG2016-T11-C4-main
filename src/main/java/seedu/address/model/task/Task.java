@@ -8,7 +8,7 @@ import seedu.address.commons.util.CollectionUtil;
  */
 public abstract class Task {
 
-    public final Name name;
+    protected final Name name;
 
     /**
      * Every field must be present and not null.
@@ -16,6 +16,10 @@ public abstract class Task {
     public Task(Name name) {
         assert !CollectionUtil.isAnyNull(name);
         this.name = name;
+    }
+
+    public Name getName() {
+        return name;
     }
 
 }

@@ -32,7 +32,7 @@ public class MarkDeadlineFinishedCommand extends Command {
         }
 
         DeadlineTask finishedDeadlineTask;
-        finishedDeadlineTask = new DeadlineTask(oldDeadlineTask.name,
+        finishedDeadlineTask = new DeadlineTask(oldDeadlineTask.getName(),
                                                 oldDeadlineTask.getDue(),
                                                 true);
 

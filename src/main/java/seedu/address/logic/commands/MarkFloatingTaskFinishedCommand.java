@@ -32,7 +32,7 @@ public class MarkFloatingTaskFinishedCommand extends Command {
         }
 
         FloatingTask finishedFloatingTask;
-        finishedFloatingTask = new FloatingTask(oldFloatingTask.name,
+        finishedFloatingTask = new FloatingTask(oldFloatingTask.getName(),
                                                 oldFloatingTask.getPriority(),
                                                 true);
 

@@ -59,7 +59,7 @@ public class EditDeadlineCommand extends Command {
 
         DeadlineTask newDeadlineTask;
         newDeadlineTask = new DeadlineTask(
-                newName != null ? newName : oldDeadlineTask.name,
+                newName != null ? newName : oldDeadlineTask.getName(),
                 LocalDateTime.of(
                         newDate != null ? newDate : oldDeadlineTask.getDue().toLocalDate(),
                         newTime != null ? newTime : oldDeadlineTask.getDue().toLocalTime()
