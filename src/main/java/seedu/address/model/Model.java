@@ -126,12 +126,30 @@ public interface Model {
     void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
 
     ////undo redo
+    /**
+     * saves a copy of the current TaskBook, and the Command that causes the change from the previous TaskBook to the current TaskBook.
+     * @param command
+     */
     void recordState(Command command);
 
+    /**
+     * resets the TaskBook to the TaskBook before it was changed by the most recent undo.
+     * @return the Command that was redone
+     * @throws IllegalValueException
+     */
     Command redo() throws IllegalValueException;
 
+    /**
+     * resets the TaskBook to it's previous state.
+     * @return the Command that was undone
+     * @throws IllegalValueException
+     */
     Command undo() throws IllegalValueException;
 
+    /**
+     *@return true if TaskBook has changed
+     *Unlikely the commits list will be empty since recordState() is called when ModelManager is initialised. Thus there will always be at least one Commit in commits.
+     */
     boolean hasUncommittedChanges();
 
 }
