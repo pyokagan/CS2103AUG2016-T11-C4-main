@@ -5,8 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
-
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 import seedu.address.commons.util.SubstringRange;
 
@@ -58,7 +57,7 @@ public class DateParser implements Parser<LocalDate> {
         case "yst": // yesterday
             return Optional.of(referenceDate.minusDays(1));
         default:
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 
