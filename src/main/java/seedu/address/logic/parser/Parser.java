@@ -110,10 +110,10 @@ public class Parser {
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new RedoCommand();
 
         case SetDataDirectoryParser.COMMAND_WORD:
             return new SetDataDirectoryParser().parse(arguments);
