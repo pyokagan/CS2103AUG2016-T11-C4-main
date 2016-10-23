@@ -13,4 +13,8 @@
         <Label>Priority: </Label>
         <Label fx:id="priorityLabel">$priority</Label>
     </HBox>
+    <HBox spacing="5" alignment="CENTER_LEFT">
+        <Label>Finished: </Label>
+        <Label fx:id="finishedLabel">$finished</Label>
+    </HBox>
 </VBox>

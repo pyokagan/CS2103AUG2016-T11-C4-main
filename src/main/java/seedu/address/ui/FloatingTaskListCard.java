@@ -18,6 +18,9 @@ public class FloatingTaskListCard extends UiPart<Pane> {
     @FXML
     private Label priorityLabel;
 
+    @FXML
+    private Label finishedLabel;
+
     /**
      * @param floatingTask: The floating task to display. Can be null to not display anything.
      */
@@ -27,6 +30,7 @@ public class FloatingTaskListCard extends UiPart<Pane> {
             indexLabel.setText(index + ". ");
             nameLabel.setText(floatingTask.name.toString());
             priorityLabel.setText(floatingTask.getPriority().toString());
+            finishedLabel.setText(String.valueOf(floatingTask.isFinished()));
         } else {
             getRoot().setVisible(false);
         }
