@@ -55,7 +55,7 @@ public class FloatingTask extends Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, priority);
+        return Objects.hash(name, priority, finished);
     }
 
     @Override

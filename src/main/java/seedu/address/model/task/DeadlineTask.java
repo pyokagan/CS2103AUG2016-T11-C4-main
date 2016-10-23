@@ -47,7 +47,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, due);
+        return Objects.hash(name, due, finished);
     }
 
     @Override
