@@ -1,31 +1,13 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import seedu.address.logic.commands.AddDeadlineCommand;
-import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.AddFloatingTaskCommand;
 import seedu.address.logic.commands.AddTaskCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.IncorrectCommand;
 
-public class AddTaskParser {
+public class AddTaskParser implements Parser<AddTaskCommand> {
 
-    private final AddDeadlineParser addDeadlineParser;
-
-    private final AddEventParser addEventParser;
-
-    private final AddFloatingTaskParser addFloatingTaskParser;
-
-    private final Command incorrectCommand =
-            new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            AddTaskCommand.MESSAGE_USAGE
-            + AddDeadlineCommand.MESSAGE_USAGE
-            + AddEventCommand.MESSAGE_USAGE
-            + AddFloatingTaskCommand.MESSAGE_USAGE));
+    private final OverloadParser<AddTaskCommand> overloadParser;
 
     public AddTaskParser() {
         this(Optional.empty());
@@ -36,30 +18,14 @@ public class AddTaskParser {
     }
 
     public AddTaskParser(Optional<LocalDateTime> referenceDateTime) {
-        addDeadlineParser = new AddDeadlineParser(referenceDateTime);
-        addEventParser = new AddEventParser(referenceDateTime);
-        addFloatingTaskParser = new AddFloatingTaskParser();
+        overloadParser = new OverloadParser<AddTaskCommand>()
+                            .addParser("Add an event", new AddEventParser(referenceDateTime))
+                            .addParser("Add a deadline", new AddDeadlineParser(referenceDateTime))
+                            .addParser("Add a floating task", new AddFloatingTaskParser());
     }
 
-    public Command parse(String str) {
-        try {
-            return addEventParser.parse(str);
-        } catch (ParseException e) {
-            // do nothing
-        }
-
-        try {
-            return addDeadlineParser.parse(str);
-        } catch (ParseException e) {
-            // do nothing
-        }
-
-        try {
-            return addFloatingTaskParser.parse(str);
-        } catch (ParseException e) {
-            // do nothing
-        }
-
-        return incorrectCommand;
+    @Override
+    public AddTaskCommand parse(String str) throws ParseException {
+        return overloadParser.parse(str);
     }
 }
