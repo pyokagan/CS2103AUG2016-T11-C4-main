@@ -24,7 +24,7 @@ public class DeleteDeadlineCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            final DeadlineTask deletedTask = model.removeDeadlineTask(targetIndex - 1);
+            final DeadlineTask deletedTask = model.removeDeadlineTask(targetIndex);
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask));
         } catch (IllegalValueException e) {
             indicateAttemptToExecuteIncorrectCommand();
