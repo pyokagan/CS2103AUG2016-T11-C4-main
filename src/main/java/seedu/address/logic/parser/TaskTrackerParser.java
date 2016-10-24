@@ -3,11 +3,9 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -32,8 +30,6 @@ public class TaskTrackerParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     public TaskTrackerParser() {}
 
@@ -110,7 +106,11 @@ public class TaskTrackerParser {
             }
 
         case MarkDeadlineFinishedCommand.COMMAND_WORD:
-            return prepareMarkDeadlineFinished(arguments);
+            try {
+                return new MarkDeadlineFinishedParser().parse(arguments);
+            } catch (ParseException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -131,39 +131,6 @@ public class TaskTrackerParser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    /**
-     * Parses arguments in the context of the mark deadline finished command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareMarkDeadlineFinished(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDeadlineFinishedCommand.MESSAGE_USAGE));
-        }
-        return new MarkDeadlineFinishedCommand(index.get());
-    }
-
-    /**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
-     */
-    private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        String index = matcher.group("targetIndex");
-        if (!StringUtil.isUnsignedInteger(index)) {
-            return Optional.empty();
-        }
-        return Optional.of(Integer.parseInt(index));
-
     }
 
 }
