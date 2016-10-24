@@ -15,8 +15,12 @@ public class AddEventCommand extends AddTaskCommand {
 
     private final EventTask eventTask;
 
+    public AddEventCommand(EventTask eventTask) {
+        this.eventTask = eventTask;
+    }
+
     public AddEventCommand(String name, LocalDateTime start, LocalDateTime end) throws IllegalValueException {
-        eventTask = new EventTask(name, start, end);
+        this(new EventTask(name, start, end));
     }
 
     @Override

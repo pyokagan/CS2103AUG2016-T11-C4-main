@@ -37,16 +37,17 @@ public class AddTaskParser {
 
     public AddTaskParser(Optional<LocalDateTime> referenceDateTime) {
         addDeadlineParser = new AddDeadlineParser(referenceDateTime);
-        addEventParser = new AddEventParser(referenceDateTime.orElse(null));
+        addEventParser = new AddEventParser(referenceDateTime);
         addFloatingTaskParser = new AddFloatingTaskParser();
     }
 
     public Command parse(String str) {
         Command cmd;
 
-        cmd = addEventParser.parse(str);
-        if (!(cmd instanceof IncorrectCommand)) {
-            return cmd;
+        try {
+            return addEventParser.parse(str);
+        } catch (ParseException e) {
+            // do nothing
         }
 
         try {
