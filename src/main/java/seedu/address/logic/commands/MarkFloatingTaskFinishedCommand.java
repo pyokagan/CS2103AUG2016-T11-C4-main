@@ -25,7 +25,7 @@ public class MarkFloatingTaskFinishedCommand extends Command {
     public CommandResult execute() {
         FloatingTask oldFloatingTask;
         try {
-            oldFloatingTask = model.getFloatingTask(targetIndex - 1);
+            oldFloatingTask = model.getFloatingTask(targetIndex);
         } catch (IllegalValueException e) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -37,7 +37,7 @@ public class MarkFloatingTaskFinishedCommand extends Command {
                                                 true);
 
         try {
-            model.setFloatingTask(targetIndex - 1, finishedFloatingTask);
+            model.setFloatingTask(targetIndex, finishedFloatingTask);
         } catch (IllegalValueException e) {
             throw new AssertionError("The target floating task cannot be missing", e);
         }
