@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import seedu.address.logic.commands.AddDeadlineCommand;
 import seedu.address.logic.commands.AddEventCommand;
@@ -27,12 +28,16 @@ public class AddTaskParser {
             + AddFloatingTaskCommand.MESSAGE_USAGE));
 
     public AddTaskParser() {
-        this(null);
+        this(Optional.empty());
     }
 
     public AddTaskParser(LocalDateTime referenceDateTime) {
+        this(Optional.of(referenceDateTime));
+    }
+
+    public AddTaskParser(Optional<LocalDateTime> referenceDateTime) {
         addDeadlineParser = new AddDeadlineParser(referenceDateTime);
-        addEventParser = new AddEventParser(referenceDateTime);
+        addEventParser = new AddEventParser(referenceDateTime.orElse(null));
         addFloatingTaskParser = new AddFloatingTaskParser();
     }
 
@@ -44,9 +49,10 @@ public class AddTaskParser {
             return cmd;
         }
 
-        cmd = addDeadlineParser.parse(str);
-        if (!(cmd instanceof IncorrectCommand)) {
-            return cmd;
+        try {
+            return addDeadlineParser.parse(str);
+        } catch (ParseException e) {
+            // do nothing
         }
 
         cmd = addFloatingTaskParser.parse(str);
