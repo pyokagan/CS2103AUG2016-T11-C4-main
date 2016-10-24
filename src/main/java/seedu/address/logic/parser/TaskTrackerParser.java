@@ -64,7 +64,11 @@ public class TaskTrackerParser {
             return prepareDeleteFloatingTask(arguments);
 
         case EditFloatingTaskCommand.COMMAND_WORD:
-            return new EditFloatingTaskParser().parse(arguments);
+            try {
+                return new EditFloatingTaskParser().parse(arguments);
+            } catch (ParseException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
 
         case MarkFloatingTaskFinishedCommand.COMMAND_WORD:
             return prepareMarkFloatingTaskFinished(arguments);
