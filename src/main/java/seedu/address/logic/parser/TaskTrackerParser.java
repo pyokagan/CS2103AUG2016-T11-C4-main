@@ -61,7 +61,11 @@ public class TaskTrackerParser {
             }
 
         case DeleteFloatingTaskCommand.COMMAND_WORD:
-            return prepareDeleteFloatingTask(arguments);
+            try {
+                return new DeleteFloatingTaskParser().parse(arguments);
+            } catch (ParseException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
 
         case EditFloatingTaskCommand.COMMAND_WORD:
             try {
@@ -115,22 +119,6 @@ public class TaskTrackerParser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    /**
-     * Parses arguments in the context of the delete floating task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDeleteFloatingTask(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                  DeleteFloatingTaskCommand.MESSAGE_USAGE));
-        }
-        return new DeleteFloatingTaskCommand(index.get());
     }
 
     /**
