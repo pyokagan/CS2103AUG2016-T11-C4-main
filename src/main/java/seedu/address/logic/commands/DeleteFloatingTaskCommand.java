@@ -24,7 +24,7 @@ public class DeleteFloatingTaskCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            final FloatingTask deletedTask = model.removeFloatingTask(targetIndex - 1);
+            final FloatingTask deletedTask = model.removeFloatingTask(targetIndex);
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask));
         } catch (IllegalValueException e) {
             indicateAttemptToExecuteIncorrectCommand();
