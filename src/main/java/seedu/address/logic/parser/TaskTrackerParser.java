@@ -96,7 +96,11 @@ public class TaskTrackerParser {
             }
 
         case DeleteDeadlineCommand.COMMAND_WORD:
-            return prepareDeleteDeadline(arguments);
+            try {
+                return new DeleteDeadlineParser().parse(arguments);
+            } catch (ParseException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
 
         case EditDeadlineCommand.COMMAND_WORD:
             try {
@@ -127,21 +131,6 @@ public class TaskTrackerParser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    /**
-     * Parses arguments in the context of the delete deadline command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDeleteDeadline(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteDeadlineCommand.MESSAGE_USAGE));
-        }
-        return new DeleteDeadlineCommand(index.get());
     }
 
     /**
