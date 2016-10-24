@@ -42,8 +42,6 @@ public class AddTaskParser {
     }
 
     public Command parse(String str) {
-        Command cmd;
-
         try {
             return addEventParser.parse(str);
         } catch (ParseException e) {
@@ -56,9 +54,10 @@ public class AddTaskParser {
             // do nothing
         }
 
-        cmd = addFloatingTaskParser.parse(str);
-        if (!(cmd instanceof IncorrectCommand)) {
-            return cmd;
+        try {
+            return addFloatingTaskParser.parse(str);
+        } catch (ParseException e) {
+            // do nothing
         }
 
         return incorrectCommand;
