@@ -15,8 +15,12 @@ public class AddFloatingTaskCommand extends AddTaskCommand {
 
     private final FloatingTask floatingTask;
 
+    public AddFloatingTaskCommand(FloatingTask floatingTask) {
+        this.floatingTask = floatingTask;
+    }
+
     public AddFloatingTaskCommand(String name, String priority) throws IllegalValueException {
-        this.floatingTask = new FloatingTask(new Name(name), new Priority(priority));
+        this(new FloatingTask(new Name(name), new Priority(priority)));
     }
 
     @Override
