@@ -82,7 +82,11 @@ public class TaskTrackerParser {
             }
 
         case DeleteEventCommand.COMMAND_WORD:
-            return prepareDeleteEvent(arguments);
+            try {
+                return new DeleteEventParser().parse(arguments);
+            } catch (ParseException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
 
         case EditEventCommand.COMMAND_WORD:
             try {
@@ -123,21 +127,6 @@ public class TaskTrackerParser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    /**
-     * Parses arguments in the context of the delete event command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDeleteEvent(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
-        }
-        return new DeleteEventCommand(index.get());
     }
 
     /**
