@@ -102,7 +102,11 @@ public class TaskTrackerParser {
             return new HelpCommand();
 
         case SetDataDirectoryParser.COMMAND_WORD:
-            return new SetDataDirectoryParser().parse(arguments);
+            try {
+                return new SetDataDirectoryParser().parse(arguments);
+            } catch (ParseException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
