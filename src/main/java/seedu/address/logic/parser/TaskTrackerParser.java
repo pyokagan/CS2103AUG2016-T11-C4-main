@@ -120,7 +120,11 @@ public class TaskTrackerParser {
             }
 
         case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            try {
+                return new ExitCommandParser().parse(arguments);
+            } catch (ParseException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
