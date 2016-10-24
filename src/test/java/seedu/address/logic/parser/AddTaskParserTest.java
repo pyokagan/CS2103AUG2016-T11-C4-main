@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.time.TypicalLocalDateTimes.PI_DAY;
+import static seedu.address.testutil.TestUtil.assertThrows;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,6 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -27,7 +27,7 @@ public class AddTaskParserTest {
     }
 
     @Test
-    public void parseAddEventCommand() {
+    public void parseAddEventCommand() throws ParseException {
         // All arguments provided
         assertAddEventParse("\"a\" 1/2/2000 4:30am to 2/3/2100 6:32pm", "a", LocalDateTime.of(2000, 2, 1, 4, 30),
                     LocalDateTime.of(2100, 3, 2, 18, 32));
@@ -58,7 +58,7 @@ public class AddTaskParserTest {
     }
 
     @Test
-    public void parseAddDeadlineCommand() {
+    public void parseAddDeadlineCommand() throws ParseException {
         // All arguments provided
         assertAddDeadlineParse("\"a\" 1/2/2000 4:30am", "a", LocalDateTime.of(2000, 2, 1, 4, 30));
 
@@ -76,7 +76,7 @@ public class AddTaskParserTest {
     }
 
     @Test
-    public void parseAddFloatingTaskCommand() {
+    public void parseAddFloatingTaskCommand() throws ParseException {
         // All arguments provided
         assertAddFloatingTaskParse("\"a\" p-3", "a", "3");
 
@@ -87,7 +87,8 @@ public class AddTaskParserTest {
         assertIncorrect("\"a\" 4 extraArg");
     }
 
-    private void assertAddEventParse(String args, String name, LocalDateTime start, LocalDateTime end) {
+    private void assertAddEventParse(String args, String name, LocalDateTime start, LocalDateTime end)
+                throws ParseException {
         final EventTask expected;
         try {
             expected = new EventTask(name, start, end);
@@ -99,7 +100,8 @@ public class AddTaskParserTest {
         assertEquals(expected, ((AddTaskCommand)command).getTask());
     }
 
-    private void assertAddDeadlineParse(String args, String name, LocalDateTime due) {
+    private void assertAddDeadlineParse(String args, String name, LocalDateTime due)
+            throws ParseException {
         final DeadlineTask expected;
         try {
             expected = new DeadlineTask(name, due);
@@ -113,7 +115,8 @@ public class AddTaskParserTest {
         assertEquals(expected, ((AddTaskCommand)command).getTask());
     }
 
-    private void assertAddFloatingTaskParse(String args, String name, String priorityString) {
+    private void assertAddFloatingTaskParse(String args, String name, String priorityString)
+            throws ParseException {
         final FloatingTask expected;
         final Priority priority;
         try {
@@ -128,7 +131,6 @@ public class AddTaskParserTest {
     }
 
     private void assertIncorrect(String args) {
-        final Command command = parser.parse(args);
-        assertTrue(command instanceof IncorrectCommand);
+        assertThrows(ParseException.class, () -> parser.parse(args));
     }
 }

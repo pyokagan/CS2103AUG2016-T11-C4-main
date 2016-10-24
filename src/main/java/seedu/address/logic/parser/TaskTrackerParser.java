@@ -54,7 +54,11 @@ public class TaskTrackerParser {
         switch (commandWord) {
 
         case AddTaskCommand.COMMAND_WORD:
-            return new AddTaskParser().parse(arguments);
+            try {
+                return new AddTaskParser().parse(arguments);
+            } catch (ParseException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
 
         case DeleteFloatingTaskCommand.COMMAND_WORD:
             return prepareDeleteFloatingTask(arguments);
