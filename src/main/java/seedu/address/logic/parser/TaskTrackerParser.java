@@ -1,37 +1,28 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import seedu.address.logic.commands.AddTaskCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteDeadlineCommand;
-import seedu.address.logic.commands.DeleteEventCommand;
-import seedu.address.logic.commands.DeleteFloatingTaskCommand;
-import seedu.address.logic.commands.EditDeadlineCommand;
-import seedu.address.logic.commands.EditEventCommand;
-import seedu.address.logic.commands.EditFloatingTaskCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
-import seedu.address.logic.commands.MarkDeadlineFinishedCommand;
-import seedu.address.logic.commands.MarkFloatingTaskFinishedCommand;
 
 /**
  * Parses user input.
  */
 public class TaskTrackerParser {
 
-    /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    public TaskTrackerParser() {}
+    private final SubcommandParser parser = new SubcommandParser()
+            .putSubcommand("add", new AddTaskParser())
+            .putSubcommand("edit-float", new EditFloatingTaskParser())
+            .putSubcommand("del-float", new DeleteFloatingTaskParser())
+            .putSubcommand("fin-float", new MarkFloatingTaskFinishedParser())
+            .putSubcommand("del-event", new DeleteEventParser())
+            .putSubcommand("edit-event", new EditEventParser())
+            .putSubcommand("del-deadline", new DeleteDeadlineParser())
+            .putSubcommand("edit-deadline", new EditDeadlineParser())
+            .putSubcommand("fin-deadline", new MarkDeadlineFinishedParser())
+            .putSubcommand("clear", new ClearCommandParser())
+            .putSubcommand("exit", new ExitCommandParser())
+            .putSubcommand("help", new HelpCommandParser())
+            .putSubcommand("setdatadir", new SetDataDirectoryParser())
+            ;
 
     /**
      * Parses user input into command for execution.
@@ -40,108 +31,10 @@ public class TaskTrackerParser {
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-        switch (commandWord) {
-
-        case AddTaskCommand.COMMAND_WORD:
-            try {
-                return new AddTaskParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case DeleteFloatingTaskCommand.COMMAND_WORD:
-            try {
-                return new DeleteFloatingTaskParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case EditFloatingTaskCommand.COMMAND_WORD:
-            try {
-                return new EditFloatingTaskParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case MarkFloatingTaskFinishedCommand.COMMAND_WORD:
-            try {
-                return new MarkFloatingTaskFinishedParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case DeleteEventCommand.COMMAND_WORD:
-            try {
-                return new DeleteEventParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case EditEventCommand.COMMAND_WORD:
-            try {
-                return new EditEventParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case DeleteDeadlineCommand.COMMAND_WORD:
-            try {
-                return new DeleteDeadlineParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case EditDeadlineCommand.COMMAND_WORD:
-            try {
-                return new EditDeadlineParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case MarkDeadlineFinishedCommand.COMMAND_WORD:
-            try {
-                return new MarkDeadlineFinishedParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case ClearCommand.COMMAND_WORD:
-            try {
-                return new ClearCommandParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case ExitCommand.COMMAND_WORD:
-            try {
-                return new ExitCommandParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case HelpCommand.COMMAND_WORD:
-            try {
-                return new HelpCommandParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        case SetDataDirectoryParser.COMMAND_WORD:
-            try {
-                return new SetDataDirectoryParser().parse(arguments);
-            } catch (ParseException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-
-        default:
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+        try {
+            return parser.parse(userInput);
+        } catch (ParseException e) {
+            return new IncorrectCommand(e.getMessage());
         }
     }
 

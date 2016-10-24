@@ -1,8 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +16,6 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskBook;
@@ -66,8 +63,7 @@ public class LogicManagerTest {
     @Test
     public void execute_invalid() throws Exception {
         String invalidCommand = "       ";
-        assertCommandBehavior(invalidCommand,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        assertCommandBehavior(invalidCommand, "No command name given");
     }
 
     /**
@@ -110,7 +106,7 @@ public class LogicManagerTest {
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, "Unknown command: uicfhmowqewca");
     }
 
 }
