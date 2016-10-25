@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,6 +14,7 @@ import org.junit.rules.ExpectedException;
 import junit.framework.Assert;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
@@ -199,6 +200,114 @@ public class ModelTest {
     }
 
     @Test
+    public void hasUncommitedChanges_manages_clear() {
+        //check for empty taskbook
+        assertEquals(new TaskBook(), model.getTaskBook());
+
+        //clear an empty taskbook
+        Command clear = new ClearCommand();
+        clear.setData(model);
+        clear.execute();
+        assertFalse(model.hasUncommittedChanges());
+
+        //create dummy command to store in record state
+        Command dummy = null;
+
+        //clear a non-empty taskbook
+        model.addFloatingTask(tpflt.buyAHelicopter);
+        model.recordState(dummy);
+        clear.setData(model);
+        clear.execute();
+        assertTrue(model.hasUncommittedChanges());
+    }
+
+    @Test
+    public void recordStateAndUndo_properlyUndosConsecutiveAdds() throws Exception {
+        // These are just dummy commands that test that recordState() correctly stores them, but does not
+        // execute them.
+        Command command1 = new Command() {
+            @Override
+            public CommandResult execute() {
+                Assert.fail("Should not be called");
+                return new CommandResult("");
+            }
+        };
+        Command command2 = new Command() {
+            @Override
+            public CommandResult execute() {
+                Assert.fail("Should not be called");
+                return new CommandResult("");
+            }
+        };
+
+        Command command3 = new Command() {
+            @Override
+            public CommandResult execute() {
+                Assert.fail("Should not be called");
+                return new CommandResult("");
+            }
+        };
+
+        //create expected TaskBook
+        TaskBook dummybook = new TaskBook();
+
+        //Model task book is initially empty
+        assertEquals(dummybook, model.getTaskBook());
+
+        //We 'execute' command1
+        model.addFloatingTask(tpflt.buyAHelicopter);
+        model.recordState(command1);
+
+        //update expected TaskBook
+        dummybook.addFloatingTask(tpflt.buyAHelicopter);
+
+        //We 'execute' command2
+        model.addFloatingTask(tpflt.readABook);
+        model.recordState(command2);
+
+        //update expected TaskBook
+        dummybook.addFloatingTask(tpflt.readABook);
+
+        //We 'execute' command3
+        model.addEventTask(tpent.launchNuclearWeapons);
+        model.recordState(command3);
+
+        //update expected TaskBook
+        dummybook.addEventTask(tpent.launchNuclearWeapons);
+
+        assertEquals(dummybook, model.getTaskBook());
+
+        //undo command 3
+        assertEquals(command3, model.undo());
+
+        //update expected TaskBook
+        dummybook.removeEventTask(0);
+
+        //test
+        assertEquals(dummybook, model.getTaskBook());
+
+        //undo command 2
+        assertEquals(command2, model.undo());
+
+        //update expected taskbook
+        dummybook.removeFloatingTask(1);
+
+        //test
+        assertEquals(dummybook, model.getTaskBook());
+
+        //undo command 1
+        assertEquals(command1, model.undo());
+
+        //update expected taskbook
+        dummybook.removeFloatingTask(0);
+
+        //test
+        assertEquals(new TaskBook(), dummybook);
+        assertEquals(dummybook, model.getTaskBook());
+
+    }
+
+    @Test
     public void recordStateAndUndo_properlyManagesStack() throws Exception {
         // These are just dummy commands that test that recordState() correctly stores them, but does not
         // execute them.
@@ -210,6 +319,14 @@ public class ModelTest {
             }
         };
         Command command2 = new Command() {
+            @Override
+            public CommandResult execute() {
+                Assert.fail("Should not be called");
+                return new CommandResult("");
+            }
+        };
+
+        Command command3 = new Command() {
             @Override
             public CommandResult execute() {
                 Assert.fail("Should not be called");
@@ -237,6 +354,31 @@ public class ModelTest {
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
 
         // At this point, we should not be able to undo anymore.
+        thrown.expect(HeadAtBoundaryException.class);
         model.undo();
+
+        //We "execute" command 3, adding an event
+        model.addEventTask(tpent.launchNuclearWeapons);
+        model.recordState(command3);
+
+        //undo command3
+        assertEquals(command3, model.undo());
+        assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
+
+        // We "execute" command1, adding a floating task
+        model.addFloatingTask(tpflt.buyAHelicopter);
+        model.recordState(command1);
+
+        // Undo command1
+        assertEquals(command1, model.undo());
+        assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
+
+        // We "execute" command2, adding an event
+        model.addEventTask(tpent.lunchWithBillGates);
+        model.recordState(command2);
+
+        // Undo command2
+        assertEquals(command2, model.undo());
+        assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
     }
 }

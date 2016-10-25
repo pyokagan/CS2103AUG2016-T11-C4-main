@@ -284,7 +284,7 @@ public class ModelManager extends ComponentManager implements Model {
     public Command undo() throws HeadAtBoundaryException {
 
         if (head <= 0) {
-            throw new HeadAtBoundaryException("No actions to undo");
+            throw new HeadAtBoundaryException();
         }
         Command undoneAction = commits.get(head).getCommand();
         head--;
@@ -296,19 +296,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void recordState(Command command) {
         //clear redoable, which are the commits above head
-
-        while (this.head < (commits.size() - 1)) {
+        head ++;
+        while (this.head < (commits.size())) {
             commits.remove(head);
-            head ++;
         }
         commits.add(new Commit(command, new TaskBook(getTaskBook())));
+        head = commits.size() - 1;
     }
 
     @Override
     public Command redo() throws HeadAtBoundaryException {
         if (head >= commits.size() - 1) {
-            System.out.println(head);
-            throw new HeadAtBoundaryException("no undos to redo");
+            throw new HeadAtBoundaryException();
         }
         head++;
         Commit commit = commits.get(head);
@@ -360,8 +359,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public class HeadAtBoundaryException extends Exception {
-        public HeadAtBoundaryException(String message) {
-            super(message);
+        public HeadAtBoundaryException() {
+            super();
         }
     }
 }
