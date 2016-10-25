@@ -48,7 +48,7 @@ public class CommandBoxTest extends GuiTest {
     }
 
     @Test
-    public void commandInputChanged_callsLogicExecute() {
+    public void commandInputChanged_callsLogicExecute() throws Exception {
         final String inputCommand = "some command";
         final CommandResult result = new CommandResult("some result");
         Mockito.when(logic.execute(inputCommand)).thenReturn(result);
@@ -62,7 +62,7 @@ public class CommandBoxTest extends GuiTest {
     }
 
     @Test
-    public void incorrectCommand_restoresCommandText() {
+    public void incorrectCommand_restoresCommandText() throws Exception {
         final String inputCommand = "some command";
         final CommandResult result = new CommandResult("some result");
         Mockito.when(logic.execute(inputCommand)).thenReturn(result);

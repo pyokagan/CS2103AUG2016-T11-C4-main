@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.parser.ParseException;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -15,7 +16,7 @@ public interface Logic {
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      */
-    CommandResult execute(String commandText);
+    CommandResult execute(String commandText) throws ParseException;
 
     /** Returns the filtered list of floating tasks */
     ObservableList<FloatingTask> getFilteredFloatingTaskList();
