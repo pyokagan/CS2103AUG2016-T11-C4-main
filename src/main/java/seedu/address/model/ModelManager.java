@@ -295,8 +295,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void recordState(Command command) {
+        //clear redoable, which are the commits above head
+
+        while (this.head < (commits.size() - 1)) {
+            commits.remove(head);
+            head ++;
+        }
         commits.add(new Commit(command, new TaskBook(getTaskBook())));
-        this.head = commits.size() - 1;
     }
 
     @Override
