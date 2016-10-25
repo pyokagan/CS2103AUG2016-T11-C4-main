@@ -75,7 +75,7 @@ public class EditEventCommand extends Command {
         EventTask newEventTask;
         try {
             newEventTask = new EventTask(
-                    newName != null ? newName : oldEventTask.name,
+                    newName != null ? newName : oldEventTask.getName(),
                     LocalDateTime.of(
                             newStartDate != null ? newStartDate : oldEventTask.getStart().toLocalDate(),
                             newStartTime != null ? newStartTime : oldEventTask.getStart().toLocalTime()

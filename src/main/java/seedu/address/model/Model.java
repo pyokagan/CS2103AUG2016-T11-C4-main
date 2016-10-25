@@ -3,21 +3,18 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskNotFoundException;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
 
-    /// Config
+    //// Config
 
     /** Returns current config as a read-only view */
     ReadOnlyConfig getConfig();
@@ -28,29 +25,13 @@ public interface Model {
     /** Sets configured task book file path */
     void setTaskBookFilePath(String taskBookFilePath);
 
-    /// Task Book
+    //// Task Book
 
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyTaskBook newData);
+    /** Clears existing backing task book and replaces with the provided new task book data. */
+    void resetTaskBook(ReadOnlyTaskBook newTaskBook);
 
     /** Returns the TaskBook */
-    ReadOnlyTaskBook getAddressBook();
-
-    /** Deletes the given task. */
-    void deleteTask(Task target) throws TaskNotFoundException;
-
-    /** Adds the given task */
-    void addTask(Task task);
-
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
-    UnmodifiableObservableList<Task> getFilteredTaskList();
-
-    /**
-     * Updates the filter of the filtered task list to filter by the given predicate.
-     *
-     * If predicate is null, all tasks will be shown.
-     */
-    void setFilter(Predicate<Task> predicate);
+    ReadOnlyTaskBook getTaskBook();
 
     //// Floating Tasks
 
@@ -76,30 +57,6 @@ public interface Model {
      */
     void setFloatingTaskFilter(Predicate<? super FloatingTask> predicate);
 
-    //// Event Tasks
-
-    /** Adds the given event task */
-    void addEventTask(EventTask eventTask);
-
-    /** Retrieves the given event task from the specified index in the filtered event task list */
-    EventTask getEventTask(int indexInFilteredList) throws IllegalValueException;
-
-    /** Removes the given event task and returns it. */
-    EventTask removeEventTask(int indexInFilteredList) throws IllegalValueException;
-
-    /** Replaces the given event task with a new event task */
-    void setEventTask(int indexInFilteredList, EventTask newEventTask) throws IllegalValueException;
-
-    /** Returns the filtered event task list as an unmodifiable ObservableList */
-    ObservableList<EventTask> getFilteredEventTaskList();
-
-    /**
-     * Updates the filter of the filtered event task list to filter by the given predicate.
-     *
-     * If predicate is null, the filtered event task list will be populated with all event tasks.
-     */
-    void setEventTaskFilter(Predicate<? super EventTask> predicate);
-
     //// Deadline Tasks
 
     /** Adds the given deadline task */
@@ -123,5 +80,29 @@ public interface Model {
      * If predicate is null, the filtered deadline task list will be populated with all deadline tasks.
      */
     void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
+
+    //// Event Tasks
+
+    /** Adds the given event task */
+    void addEventTask(EventTask eventTask);
+
+    /** Retrieves the given event task from the specified index in the filtered event task list */
+    EventTask getEventTask(int indexInFilteredList) throws IllegalValueException;
+
+    /** Removes the given event task and returns it. */
+    EventTask removeEventTask(int indexInFilteredList) throws IllegalValueException;
+
+    /** Replaces the given event task with a new event task */
+    void setEventTask(int indexInFilteredList, EventTask newEventTask) throws IllegalValueException;
+
+    /** Returns the filtered event task list as an unmodifiable ObservableList */
+    ObservableList<EventTask> getFilteredEventTaskList();
+
+    /**
+     * Updates the filter of the filtered event task list to filter by the given predicate.
+     *
+     * If predicate is null, the filtered event task list will be populated with all event tasks.
+     */
+    void setEventTaskFilter(Predicate<? super EventTask> predicate);
 
 }

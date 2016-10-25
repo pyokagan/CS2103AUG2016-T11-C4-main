@@ -37,7 +37,6 @@ public class TaskBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), taskBook.getTasks());
         assertEquals(Collections.emptyList(), taskBook.getFloatingTasks());
         assertEquals(Collections.emptyList(), taskBook.getEventTasks());
         assertEquals(Collections.emptyList(), taskBook.getDeadlineTasks());
