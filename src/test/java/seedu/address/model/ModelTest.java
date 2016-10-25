@@ -6,15 +6,22 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Before;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import junit.framework.Assert;
+
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.ModelManager.HeadAtBoundaryException;
 import seedu.address.model.task.TypicalDeadlineTasks;
 import seedu.address.model.task.TypicalEventTasks;
 import seedu.address.model.task.TypicalFloatingTasks;
 
+@SuppressWarnings("deprecation")
 public class ModelTest {
 
     @Rule
@@ -184,5 +191,52 @@ public class ModelTest {
         thrown.expect(IllegalValueException.class);
         model.setDeadlineTask(0, tpdue.speechTranscript);
     }
-    
-    
+
+    @Test
+    public void undo_redo_throws_HeadAtBoundaryException() throws HeadAtBoundaryException {
+        thrown.expect(HeadAtBoundaryException.class);
+        model.undo();
+    }
+
+    @Test
+    public void recordStateAndUndo_properlyManagesStack() throws Exception {
+        // These are just dummy commands that test that recordState() correctly stores them, but does not
+        // execute them.
+        Command command1 = new Command() {
+            @Override
+            public CommandResult execute() {
+                Assert.fail("Should not be called");
+                return new CommandResult("");
+            }
+        };
+        Command command2 = new Command() {
+            @Override
+            public CommandResult execute() {
+                Assert.fail("Should not be called");
+                return new CommandResult("");
+            }
+        };
+
+        // Model task book is initially empty
+        assertEquals(new TaskBook(), model.getTaskBook());
+
+        // We "execute" command1, adding a floating task
+        model.addFloatingTask(tpflt.buyAHelicopter);
+        model.recordState(command1);
+
+        // Undo command1
+        assertEquals(command1, model.undo());
+        assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
+
+        // We "execute" command2, adding an event
+        model.addEventTask(tpent.lunchWithBillGates);
+        model.recordState(command2);
+
+        // Undo command2
+        assertEquals(command2, model.undo());
+        assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
+
+        // At this point, we should not be able to undo anymore.
+        model.undo();
+    }
+}
