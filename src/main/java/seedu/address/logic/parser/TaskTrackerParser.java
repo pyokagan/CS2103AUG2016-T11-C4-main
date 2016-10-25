@@ -73,7 +73,11 @@ public class TaskTrackerParser {
             return prepareDeleteEvent(arguments);
 
         case EditEventCommand.COMMAND_WORD:
-            return new EditEventParser().parse(arguments);
+            try {
+                return new EditEventParser().parse(arguments);
+            } catch (ParseException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
 
         case DeleteDeadlineCommand.COMMAND_WORD:
             return prepareDeleteDeadline(arguments);
