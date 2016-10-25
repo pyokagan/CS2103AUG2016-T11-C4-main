@@ -184,5 +184,28 @@ public class ModelTest {
         thrown.expect(IllegalValueException.class);
         model.setDeadlineTask(0, tpdue.speechTranscript);
     }
+    
+    // Model task book is initially empty
+    assertEquals(new TaskBook(), model.getTaskBook());
+
+    // We "execute" command1, adding a floating task
+    model.addFloatingTask(tpflt.buyAHelicopter);
+    model.recordState(command1);
+
+    // Undo command1
+    assertEquals(command1, model.undo());
+    assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is  back to being empty
+
+    // We "execute" command2, adding an event
+    model.addEventTask(tpent.lunchWithBillGates);
+    model.recordState(command2);
+
+    // Undo command2
+    assertEquals(command2, model.undo());
+    assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
+
+    // At this point, we should not be able to undo anymore.
+    thrown.expect(HeadAtBoundaryException.class);
+    model.undo();
 
 }
