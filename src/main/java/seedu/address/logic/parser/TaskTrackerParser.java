@@ -18,6 +18,8 @@ public class TaskTrackerParser {
             .putSubcommand("del-deadline", new DeleteDeadlineParser())
             .putSubcommand("edit-deadline", new EditDeadlineParser())
             .putSubcommand("fin-deadline", new MarkDeadlineFinishedParser())
+            .putSubcommand("hide-finished", new HideFinishedTaskParser())
+            .putSubcommand("view", new ShowAllTaskParser())
             .putSubcommand("clear", new ClearCommandParser())
             .putSubcommand("exit", new ExitCommandParser())
             .putSubcommand("help", new HelpCommandParser())
