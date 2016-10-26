@@ -45,7 +45,7 @@ public class DeadlineTaskListCardTest extends FxRobot {
             return deadlineTaskListCard.getRoot();
         });
         setupNodes();
-        assertEquals("42. ", indexLabel.getText());
+        assertEquals("d42. ", indexLabel.getText());
         assertEquals("Speech Transcript", nameLabel.getText());
         assertEquals("1970-01-01T01:00", dueLabel.getText());
     }

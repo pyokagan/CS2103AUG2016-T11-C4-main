@@ -48,7 +48,7 @@ public class EventTaskListCardTest extends FxRobot {
             return eventTaskListCard.getRoot();
         });
         setupNodes();
-        assertEquals("42. ", indexLabel.getText());
+        assertEquals("e42. ", indexLabel.getText());
         assertEquals("Lunch with Bill Gates", nameLabel.getText());
         assertEquals("1970-01-01T00:00", startLabel.getText());
         assertEquals("1970-01-01T01:00", endLabel.getText());

@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.model.task.DeadlineTask;
 
 public class DeadlineTaskListCard extends UiPart<Pane> {
@@ -27,7 +28,7 @@ public class DeadlineTaskListCard extends UiPart<Pane> {
     public DeadlineTaskListCard(DeadlineTask deadlineTask, int index) {
         super(FXML);
         if (deadlineTask != null) {
-            indexLabel.setText(index + ". ");
+            indexLabel.setText(IndexPrefix.DEADLINE.getPrefixString() + index + ". ");
             nameLabel.setText(deadlineTask.getName().toString());
             dueLabel.setText(deadlineTask.getDue().toString());
             finishedLabel.setText(String.valueOf(deadlineTask.isFinished()));
