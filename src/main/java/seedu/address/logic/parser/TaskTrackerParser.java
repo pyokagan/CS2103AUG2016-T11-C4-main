@@ -13,6 +13,8 @@ public class TaskTrackerParser {
             .putSubcommand("edit", new EditCommandParser())
             .putSubcommand("del", new DeleteCommandParser())
             .putSubcommand("fin", new MarkFinishedCommandParser())
+            .putSubcommand("hide-finished", new HideFinishedTaskParser())
+            .putSubcommand("view", new ShowAllTaskParser())
             .putSubcommand("clear", new ClearCommandParser())
             .putSubcommand("exit", new ExitCommandParser())
             .putSubcommand("help", new HelpCommandParser())
