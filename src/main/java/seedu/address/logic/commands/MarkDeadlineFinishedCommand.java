@@ -37,7 +37,7 @@ public class MarkDeadlineFinishedCommand extends Command {
                                                 true);
 
         try {
-            model.setDeadlineTask(targetIndex - 1, finishedDeadlineTask);
+            model.setDeadlineTask(targetIndex, finishedDeadlineTask);
         } catch (IllegalValueException e) {
             throw new AssertionError("The target deadline cannot be missing", e);
         }
