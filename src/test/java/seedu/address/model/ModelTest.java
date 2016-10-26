@@ -197,6 +197,9 @@ public class ModelTest {
     public void undo_redo_throws_HeadAtBoundaryException() throws HeadAtBoundaryException {
         thrown.expect(HeadAtBoundaryException.class);
         model.undo();
+
+        thrown.expect(HeadAtBoundaryException.class);
+        model.redo();
     }
 
     @Test
@@ -222,7 +225,7 @@ public class ModelTest {
     }
 
     @Test
-    public void recordStateAndUndo_properlyUndosConsecutiveAdds() throws Exception {
+    public void recordStateAndUndo_Redo_properlyUndosConsecutiveAdds() throws Exception {
         // These are just dummy commands that test that recordState() correctly stores them, but does not
         // execute them.
         Command command1 = new Command() {
@@ -274,6 +277,7 @@ public class ModelTest {
 
         //update expected TaskBook
         dummybook.addEventTask(tpent.launchNuclearWeapons);
+        TaskBook dummybook3 = new TaskBook(dummybook); //dummybook3 has float:[buyAHelicopter, readAbook], event:[launchNuclearWeapons]
 
         assertEquals(dummybook, model.getTaskBook());
 
@@ -282,6 +286,7 @@ public class ModelTest {
 
         //update expected TaskBook
         dummybook.removeEventTask(0);
+        TaskBook dummybook2 = new TaskBook(dummybook); //dummybook2 has float:[buyAHelicopter, readAbook]
 
         //test
         assertEquals(dummybook, model.getTaskBook());
@@ -291,6 +296,7 @@ public class ModelTest {
 
         //update expected taskbook
         dummybook.removeFloatingTask(1);
+        TaskBook dummybook1 = new TaskBook(dummybook); //dummybook1 has float:[buyAHelicopter]
 
         //test
         assertEquals(dummybook, model.getTaskBook());
@@ -299,12 +305,28 @@ public class ModelTest {
         assertEquals(command1, model.undo());
 
         //update expected taskbook
-        dummybook.removeFloatingTask(0);
+        dummybook.removeFloatingTask(0); //empty taskbook
 
         //test
         assertEquals(new TaskBook(), dummybook);
         assertEquals(dummybook, model.getTaskBook());
 
+        //consecutive redos
+        //redo command1
+        assertEquals(command1, model.redo());
+        assertEquals(dummybook1, model.getTaskBook());
+
+        //redo command2
+        assertEquals(command2, model.redo());
+        assertEquals(dummybook2, model.getTaskBook());
+
+        //redo command3
+        assertEquals(command3, model.redo());
+        assertEquals(dummybook3, model.getTaskBook());
+
+        //no more redos expected
+        thrown.expect(HeadAtBoundaryException.class);
+        model.redo();
     }
 
     @Test
