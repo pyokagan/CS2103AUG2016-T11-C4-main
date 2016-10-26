@@ -32,6 +32,9 @@ public class DeadlineTaskListCard extends UiPart<Pane> {
             nameLabel.setText(deadlineTask.getName().toString());
             dueLabel.setText(deadlineTask.getDue().toString());
             finishedLabel.setText(String.valueOf(deadlineTask.isFinished()));
+            if (deadlineTask.isFinished()) {
+                getRoot().getStyleClass().add("finished");
+            }
         } else {
             getRoot().setVisible(false);
         }
