@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -57,13 +58,13 @@ public class ModelTest {
     }
 
     @Test
-    public void removeFloatingTask_removesIndexInFilteredList() throws Exception {
+    public void removeFloatingTask_emptiesIndexInFilteredList() throws Exception {
         model.addFloatingTask(tpflt.readABook);
         model.addFloatingTask(tpflt.buyAHelicopter);
         model.setFloatingTaskFilter(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
         model.removeFloatingTask(0);
         model.setFloatingTaskFilter(null);
-        assertEquals(Arrays.asList(tpflt.readABook), model.getFilteredFloatingTaskList());
+        assertEquals(Arrays.asList(Optional.of(tpflt.readABook)), model.getFilteredFloatingTaskList());
     }
 
     @Test
@@ -79,7 +80,7 @@ public class ModelTest {
         model.setFloatingTaskFilter(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
         model.setFloatingTask(0, tpflt.readABook);
         model.setFloatingTaskFilter(null);
-        assertEquals(Arrays.asList(tpflt.readABook, tpflt.readABook),
+        assertEquals(Arrays.asList(Optional.of(tpflt.readABook), Optional.of(tpflt.readABook)),
                     model.getFilteredFloatingTaskList());
     }
 

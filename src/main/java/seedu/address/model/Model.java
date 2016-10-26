@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -48,7 +49,7 @@ public interface Model {
     void setFloatingTask(int indexInFilteredList, FloatingTask newFloatingTask) throws IllegalValueException;
 
     /** Returns the filtered Floating task list as an unmodifiable ObservableList */
-    ObservableList<FloatingTask> getFilteredFloatingTaskList();
+    ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList();
 
     /**
      * Updates the filter of the filtered Floating task list to filter by the given predicate.

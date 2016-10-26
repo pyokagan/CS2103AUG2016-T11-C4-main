@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -77,7 +78,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<FloatingTask> getFilteredFloatingTaskList() {
+    public ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList() {
         return model.getFilteredFloatingTaskList();
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -33,7 +34,7 @@ public class UiManagerTest extends FxRobot {
 
     private Config config;
 
-    private ObservableList<FloatingTask> floatingTaskList;
+    private ObservableList<Optional<FloatingTask>> floatingTaskList;
 
     private ObservableList<EventTask> eventTaskList;
 
