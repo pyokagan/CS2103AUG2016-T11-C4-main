@@ -24,7 +24,7 @@ public class DeleteEventCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            final EventTask deletedTask = model.removeEventTask(targetIndex - 1);
+            final EventTask deletedTask = model.removeEventTask(targetIndex);
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask));
         } catch (IllegalValueException e) {
             indicateAttemptToExecuteIncorrectCommand();

@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.time.TypicalLocalDateTimes.PI_DAY;
+import static seedu.address.testutil.TestUtil.assertThrows;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,6 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.model.task.EventTask;
 
 public class AddEventParserTest {
@@ -25,7 +25,7 @@ public class AddEventParserTest {
     }
 
     @Test
-    public void parse() {
+    public void parse() throws ParseException {
         // All arguments provided
         assertParse("\"a\" 1/2/2000 4:30am to 2/3/2100 6:32pm", "a", LocalDateTime.of(2000, 2, 1, 4, 30),
                     LocalDateTime.of(2100, 3, 2, 18, 32));
@@ -58,7 +58,7 @@ public class AddEventParserTest {
         assertIncorrect("\"a\" 4/5/2016 7:23am to 6/7/2017 8:42pm extraArg");
     }
 
-    private void assertParse(String args, String name, LocalDateTime start, LocalDateTime end) {
+    private void assertParse(String args, String name, LocalDateTime start, LocalDateTime end) throws ParseException {
         final EventTask expected;
         try {
             expected = new EventTask(name, start, end);
@@ -71,8 +71,7 @@ public class AddEventParserTest {
     }
 
     private void assertIncorrect(String args) {
-        final Command command = parser.parse(args);
-        assertTrue(command instanceof IncorrectCommand);
+        assertThrows(ParseException.class, () -> parser.parse(args));
     }
 
 }

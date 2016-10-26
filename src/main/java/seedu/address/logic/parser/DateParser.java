@@ -5,15 +5,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+import java.util.Optional;
 
-import com.google.common.base.Optional;
-
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.SubstringRange;
 
 /**
  * A parser for dates in day/month/year format.
  */
-public class DateParser {
+public class DateParser implements Parser<LocalDate> {
 
     private final LocalDate referenceDate;
 
@@ -28,11 +27,16 @@ public class DateParser {
                 .toFormatter();
     }
 
+    public DateParser() {
+        this(LocalDate.now());
+    }
+
     public LocalDate getReferenceDate() {
         return referenceDate;
     }
 
-    public LocalDate parse(String str) throws IllegalValueException {
+    @Override
+    public LocalDate parse(String str) throws ParseException {
         final Optional<LocalDate> nameDate = parseAsName(str.trim());
         if (nameDate.isPresent()) {
             return nameDate.get();
@@ -40,7 +44,7 @@ public class DateParser {
         try {
             return LocalDate.parse(str.trim(), dateFormatter);
         } catch (DateTimeParseException e) {
-            throw new IllegalValueException(e.toString());
+            throw new ParseException(e.toString(), e, SubstringRange.of(str));
         }
     }
 
@@ -53,7 +57,7 @@ public class DateParser {
         case "yst": // yesterday
             return Optional.of(referenceDate.minusDays(1));
         default:
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 

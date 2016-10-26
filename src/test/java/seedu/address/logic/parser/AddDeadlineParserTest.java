@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.time.TypicalLocalDateTimes.PI_DAY;
+import static seedu.address.testutil.TestUtil.assertThrows;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,6 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddDeadlineCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.model.task.DeadlineTask;
 
 public class AddDeadlineParserTest {
@@ -26,7 +26,7 @@ public class AddDeadlineParserTest {
     }
 
     @Test
-    public void parse() {
+    public void parse() throws ParseException {
         // All arguments provided
         assertParse("\"a\" 1/2/2000 4:30am", "a", LocalDateTime.of(2000, 2, 1, 4, 30));
 
@@ -44,7 +44,7 @@ public class AddDeadlineParserTest {
         assertIncorrect("\"a\" 8/1/2012 1:49am extraArg");
     }
 
-    private void assertParse(String args, String name, LocalDateTime due) {
+    private void assertParse(String args, String name, LocalDateTime due) throws ParseException {
         final DeadlineTask expected;
         try {
             expected = new DeadlineTask(name, due);
@@ -59,8 +59,7 @@ public class AddDeadlineParserTest {
     }
 
     private void assertIncorrect(String args) {
-        final Command command = parser.parse(args);
-        assertTrue(command instanceof IncorrectCommand);
+        assertThrows(ParseException.class, () -> parser.parse(args));
     }
 
 }

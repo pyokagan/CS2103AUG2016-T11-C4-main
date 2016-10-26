@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TestUtil.assertThrows;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,6 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddFloatingTaskCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Priority;
 
@@ -23,7 +23,7 @@ public class AddFloatingTaskParserTest {
     }
 
     @Test
-    public void parse() {
+    public void parse() throws ParseException {
         // All arguments provided
         assertParse("\"a\" p-3", "a", "3");
 
@@ -34,7 +34,7 @@ public class AddFloatingTaskParserTest {
         assertIncorrect("\"a\" 4 extraArg");
     }
 
-    private void assertParse(String args, String name, String priorityString) {
+    private void assertParse(String args, String name, String priorityString) throws ParseException {
         final FloatingTask expected;
         final Priority priority;
         try {
@@ -49,8 +49,7 @@ public class AddFloatingTaskParserTest {
     }
 
     private void assertIncorrect(String args) {
-        final Command command = parser.parse(args);
-        assertTrue(command instanceof IncorrectCommand);
+        assertThrows(ParseException.class, () -> parser.parse(args));
     }
 
 }

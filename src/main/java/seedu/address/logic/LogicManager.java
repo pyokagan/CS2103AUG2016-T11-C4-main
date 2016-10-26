@@ -9,7 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.TaskTrackerParser;
 import seedu.address.model.Model;
 import seedu.address.model.TaskBookChangeListener;
 import seedu.address.model.config.Config;
@@ -27,12 +27,12 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final Parser parser;
+    private final TaskTrackerParser parser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.parser = new Parser();
+        this.parser = new TaskTrackerParser();
     }
 
     @Override

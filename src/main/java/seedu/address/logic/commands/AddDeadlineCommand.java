@@ -15,8 +15,12 @@ public class AddDeadlineCommand extends AddTaskCommand {
 
     private final DeadlineTask deadlineTask;
 
+    public AddDeadlineCommand(DeadlineTask deadlineTask) {
+        this.deadlineTask = deadlineTask;
+    }
+
     public AddDeadlineCommand(String name, LocalDateTime due) throws IllegalValueException {
-        deadlineTask = new DeadlineTask(name, due);
+        this(new DeadlineTask(name, due));
     }
 
     @Override

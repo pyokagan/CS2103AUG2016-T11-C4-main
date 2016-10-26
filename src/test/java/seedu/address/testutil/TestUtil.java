@@ -7,9 +7,13 @@ import junit.framework.AssertionFailedError;
  */
 public class TestUtil {
 
-    public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
+    public interface AssertThrowsCallback {
+        void call() throws Exception;
+    }
+
+    public static void assertThrows(Class<? extends Throwable> expected, AssertThrowsCallback callback) {
         try {
-            executable.run();
+            callback.call();
         } catch (Throwable actualException) {
             if (!actualException.getClass().isAssignableFrom(expected)) {
                 String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),

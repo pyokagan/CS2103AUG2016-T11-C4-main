@@ -1,102 +1,33 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddFloatingTaskCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.parser.CommandLineParser.Argument;
+import seedu.address.logic.parser.CommandLineParser.OptionalFlag;
+import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 
-public class AddFloatingTaskParser {
-    private static final Pattern ARG_PATTERN =
-            Pattern.compile("\\s*\"(?<quotedArg>[^\"]+)\"\\s*|\\s*(?<unquotedArg>[^\\s]+)\\s*");
+public class AddFloatingTaskParser implements Parser<AddFloatingTaskCommand> {
 
-    private final Command incorrectCommand = new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                                                  AddFloatingTaskCommand.MESSAGE_USAGE));
+    private final Argument<Name> nameArg = new Argument<>("NAME", new NameParser());
+    private final OptionalFlag<Priority> priorityFlag = new OptionalFlag<>("p-", "PRIORITY", new PriorityParser());
+    private final CommandLineParser cmdParser = new CommandLineParser()
+                                                    .addArgument(nameArg)
+                                                    .putFlag(priorityFlag);
 
-    private static final Pattern PRIORITY_PATTERN = Pattern.compile("p-(?<priority>\\d)");
+    @Override
+    public AddFloatingTaskCommand parse(String str) throws ParseException {
+        cmdParser.parse(str);
 
-    public AddFloatingTaskParser() {
-    }
-
-    public Command parse(String str) {
-        final ParseResult args;
+        final FloatingTask toAdd;
         try {
-            args = parseArguments(str.trim());
+            toAdd = new FloatingTask(nameArg.getValue(),
+                                     priorityFlag.getValue().orElse(new Priority("0")));
         } catch (IllegalValueException e) {
-            return incorrectCommand;
+            throw new AssertionError("Should not happen", e);
         }
-
-        // There may not be a {priority} argument
-        if (args.priority == null) {
-            try {
-                return new AddFloatingTaskCommand(args.name,
-                        Integer.toString(Priority.LOWER_BOUND));
-            } catch (IllegalValueException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-        } else { //args.priority != null
-            try {
-                return new AddFloatingTaskCommand(args.name, args.priority);
-            } catch (IllegalValueException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
-        }
-
-    }
-
-    private static class ParseResult {
-        String name;
-        String priority;
-    }
-
-    private static ParseResult parseArguments(String str) throws IllegalValueException {
-        final ParseResult result = new ParseResult();
-        final ArrayList<String> args = splitArgs(str);
-
-        // name
-        if (args.isEmpty()) {
-            throw new IllegalValueException("expected name");
-        }
-        result.name = args.remove(0);
-
-        // priority (optional)
-        if (args.isEmpty()) {
-            return result;
-        }
-        if (isPriorityFormat(args.get(0))) {
-            Matcher matcher = PRIORITY_PATTERN.matcher(args.remove(0));
-            matcher.matches();
-            result.priority = matcher.group("priority");
-        }
-
-        if (!args.isEmpty()) {
-            throw new IllegalValueException("too many arguments");
-        }
-        return result;
-
-    }
-
-    private static ArrayList<String> splitArgs(String str) {
-        final Matcher matcher = ARG_PATTERN.matcher(str);
-        final ArrayList<String> args = new ArrayList<>();
-        int start = 0;
-        while (matcher.find(start)) {
-            args.add(matcher.group("quotedArg") != null ? matcher.group("quotedArg")
-                                                        : matcher.group("unquotedArg"));
-            start = matcher.end();
-        }
-        return args;
-    }
-
-    private static boolean isPriorityFormat(String str) {
-        Matcher matcher = PRIORITY_PATTERN.matcher(str.trim());
-        return matcher.matches();
+        return new AddFloatingTaskCommand(toAdd);
     }
 
 }
