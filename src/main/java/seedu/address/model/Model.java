@@ -57,11 +57,6 @@ public interface Model {
      */
     void setFloatingTaskFilter(Predicate<? super FloatingTask> predicate);
 
-    /**
-     * Updates the filter of the filtered floating task list to remove all finished tasks from the list.
-     */
-    void setIsFinishedFloatingTaskFilter();
-
     //// Deadline Tasks
 
     /** Adds the given deadline task */
@@ -85,11 +80,6 @@ public interface Model {
      * If predicate is null, the filtered deadline task list will be populated with all deadline tasks.
      */
     void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
-
-    /**
-     * Updates the filter of the filtered deadline task list to remove all finished tasks from the list.
-     */
-    void setIsFinishedDeadlineFilter();
 
     //// Event Tasks
 
