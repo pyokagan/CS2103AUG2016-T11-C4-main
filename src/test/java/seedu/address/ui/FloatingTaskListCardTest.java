@@ -45,7 +45,7 @@ public class FloatingTaskListCardTest extends FxRobot {
             return floatingTaskListCard.getRoot();
         });
         setupNodes();
-        assertEquals("42. ", indexLabel.getText());
+        assertEquals("f42. ", indexLabel.getText());
         assertEquals("buy A Helicopter", nameLabel.getText());
         assertEquals("4", priorityLabel.getText());
     }

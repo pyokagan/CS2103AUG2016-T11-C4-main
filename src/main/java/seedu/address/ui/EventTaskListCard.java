@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.model.task.EventTask;
 
 public class EventTaskListCard extends UiPart<Pane> {
@@ -27,7 +28,7 @@ public class EventTaskListCard extends UiPart<Pane> {
     public EventTaskListCard(EventTask eventTask, int index) {
         super(FXML);
         if (eventTask != null) {
-            indexLabel.setText(index + ". ");
+            indexLabel.setText(IndexPrefix.EVENT.getPrefixString() + index + ". ");
             nameLabel.setText(eventTask.getName().toString());
             startLabel.setText(eventTask.getStart().toString());
             endLabel.setText(eventTask.getEnd().toString());

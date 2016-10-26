@@ -27,19 +27,19 @@ public class EditFloatingTaskParserTest {
     @Test
     public void parse() throws ParseException, IllegalValueException {
         // No modification
-        assertParse("1", 0, null, null);
+        assertParse("f1", 0, null, null);
 
         // name
-        assertParse("1 n-new name", 0, new Name("new name"), null);
+        assertParse("f1 n-new name", 0, new Name("new name"), null);
 
         // priority
-        assertParse("1 p-2", 0, null, new Priority("2"));
+        assertParse("f1 p-2", 0, null, new Priority("2"));
 
         // All arguments
-        assertParse("3 n-thisname p-5", 2, new Name("thisname"), new Priority("5"));
+        assertParse("f3 n-thisname p-5", 2, new Name("thisname"), new Priority("5"));
 
         // Invalid flags
-        assertIncorrect("5 invalid-flag");
+        assertIncorrect("f5 invalid-flag");
     }
 
     private void assertParse(String args, int targetIndex, Name name, Priority priority)

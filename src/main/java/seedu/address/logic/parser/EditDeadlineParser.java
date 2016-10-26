@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.logic.commands.EditDeadlineCommand;
 import seedu.address.logic.parser.CommandLineParser.Argument;
 import seedu.address.logic.parser.CommandLineParser.OptionalFlag;
@@ -12,7 +13,7 @@ import seedu.address.model.task.Name;
 
 public class EditDeadlineParser implements Parser<EditDeadlineCommand> {
 
-    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser());
+    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(IndexPrefix.DEADLINE));
     private final OptionalFlag<LocalDate> newDateFlag = new OptionalFlag<>("dd-", "NEW_DUE_DATE", new DateParser());
     private final OptionalFlag<LocalTime> newTimeFlag = new OptionalFlag<>("dt-", "NEW_DUE_TIME", new TimeParser());
     private final OptionalFlag<Name> newNameFlag = new OptionalFlag<>("n-", "NEW_NAME", new NameParser());

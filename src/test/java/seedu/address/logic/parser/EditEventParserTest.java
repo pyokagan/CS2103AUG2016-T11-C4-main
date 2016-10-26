@@ -27,25 +27,25 @@ public class EditEventParserTest {
     @Test
     public void parse() throws ParseException {
         // No modifications
-        assertParse("1", 0, null, null, null, null);
+        assertParse("e1", 0, null, null, null, null);
 
         // startDate
-        assertParse("2 sd-4/5/2016", 1, LocalDate.of(2016, 5, 4), null, null, null);
+        assertParse("e2 sd-4/5/2016", 1, LocalDate.of(2016, 5, 4), null, null, null);
 
         // startTime
-        assertParse("3 st-5:32am", 2, null, LocalTime.of(5, 32), null, null);
+        assertParse("e3 st-5:32am", 2, null, LocalTime.of(5, 32), null, null);
 
         // endDate
-        assertParse("4 ed-7/8", 3, null, null, LocalDate.of(1970, 8, 7), null);
+        assertParse("e4 ed-7/8", 3, null, null, LocalDate.of(1970, 8, 7), null);
 
         // endTime
-        assertParse("5 et-7pm", 4, null, null, null, LocalTime.of(19, 0));
+        assertParse("e5 et-7pm", 4, null, null, null, LocalTime.of(19, 0));
 
         // Index cannot be negative
-        assertIncorrect("-1");
+        assertIncorrect("e-1");
 
         // Invalid flags
-        assertIncorrect("8 invalid-flag");
+        assertIncorrect("e8 invalid-flag");
     }
 
     private void assertParse(String args, int targetIndex, LocalDate newStartDate, LocalTime newStartTime,
