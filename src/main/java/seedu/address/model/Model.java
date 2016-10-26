@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -58,6 +59,8 @@ public interface Model {
      */
     void setFloatingTaskFilter(Predicate<? super FloatingTask> predicate);
 
+    void setFloatingTaskSortComparator(Comparator<? super FloatingTask> comparator);
+
     //// Deadline Tasks
 
     /** Adds the given deadline task */
@@ -82,6 +85,8 @@ public interface Model {
      */
     void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
 
+    void setDeadlineTaskSortComparator(Comparator<? super DeadlineTask> comparator);
+
     //// Event Tasks
 
     /** Adds the given event task */
@@ -105,5 +110,7 @@ public interface Model {
      * If predicate is null, the filtered event task list will be populated with all event tasks.
      */
     void setEventTaskFilter(Predicate<? super EventTask> predicate);
+
+    void setEventTaskSortComparator(Comparator<? super EventTask> comparator);
 
 }

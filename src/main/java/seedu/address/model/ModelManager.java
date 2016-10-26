@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -131,6 +132,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredFloatingTasks.setFilter(predicate);
     }
 
+    @Override
+    public void setFloatingTaskSortComparator(Comparator<? super FloatingTask> comparator) {
+        filteredFloatingTasks.setSortComparator(comparator);
+    }
+
     //// Deadline tasks
 
     @Override
@@ -172,6 +178,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate) {
         filteredDeadlineTasks.setFilter(predicate);
+    }
+
+    @Override
+    public void setDeadlineTaskSortComparator(Comparator<? super DeadlineTask> comparator) {
+        filteredDeadlineTasks.setSortComparator(comparator);
     }
 
     //// Event tasks
@@ -216,6 +227,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEventTasks.setFilter(predicate);
     }
 
+    @Override
+    public void setEventTaskSortComparator(Comparator<? super EventTask> comparator) {
+        filteredEventTasks.setSortComparator(comparator);
+    }
+
     private static class ItemMapping<E> {
         final Optional<E> value;
         Optional<Integer> sourceIndex;
@@ -238,6 +254,7 @@ public class ModelManager extends ComponentManager implements Model {
         private final ObservableList<E> sourceList;
         private final ObservableList<ItemMapping<E>> filteredList;
         private Predicate<? super E> filter;
+        private Comparator<? super E> sortComparator;
 
         ItemMappingList(ObservableList<E> sourceList) {
             this.sourceList = sourceList;
@@ -251,6 +268,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         void setFilter(Predicate<? super E> filter) {
             this.filter = filter;
+            repopulate();
+        }
+
+        void setSortComparator(Comparator<? super E> comparator) {
+            this.sortComparator = comparator;
             repopulate();
         }
 
@@ -302,6 +324,9 @@ public class ModelManager extends ComponentManager implements Model {
                     continue;
                 }
                 newFilteredList.add(new ItemMapping<E>(item, i));
+            }
+            if (sortComparator != null) {
+                newFilteredList.sort((a, b) -> sortComparator.compare(a.value.get(), b.value.get()));
             }
             filteredList.setAll(newFilteredList);
         }
