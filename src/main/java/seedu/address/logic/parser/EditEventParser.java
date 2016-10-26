@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.parser.CommandLineParser.Argument;
 import seedu.address.logic.parser.CommandLineParser.OptionalFlag;
@@ -12,7 +13,7 @@ import seedu.address.model.task.Name;
 
 public class EditEventParser implements Parser<EditEventCommand> {
 
-    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser());
+    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(IndexPrefix.EVENT));
     private final OptionalFlag<LocalDate> newStartDateFlag = new OptionalFlag<>("sd-", "NEW_START_DATE", new DateParser());
     private final OptionalFlag<LocalTime> newStartTimeFlag = new OptionalFlag<>("st-", "NEW_START_TIME", new TimeParser());
     private final OptionalFlag<LocalDate> newEndDateFlag = new OptionalFlag<>("ed-", "NEW_END_DATE", new DateParser());
