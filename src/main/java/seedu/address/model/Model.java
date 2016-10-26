@@ -73,7 +73,7 @@ public interface Model {
     void setDeadlineTask(int indexInFilteredList, DeadlineTask newDeadlineTask) throws IllegalValueException;
 
     /** Returns the filtered deadline task list as an unmodifiable ObservableList */
-    ObservableList<DeadlineTask> getFilteredDeadlineTaskList();
+    ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList();
 
     /**
      * Updates the filter of the filtered deadline task list to filter by the given predicate.

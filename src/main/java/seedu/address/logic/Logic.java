@@ -23,7 +23,7 @@ public interface Logic {
     ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList();
 
     /** Returns the filtered list of deadline tasks */
-    ObservableList<DeadlineTask> getFilteredDeadlineTaskList();
+    ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList();
 
     /** Returns the filtered list of event tasks */
     ObservableList<EventTask> getFilteredEventTaskList();

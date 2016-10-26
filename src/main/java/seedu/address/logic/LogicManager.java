@@ -83,7 +83,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<DeadlineTask> getFilteredDeadlineTaskList() {
+    public ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList() {
         return model.getFilteredDeadlineTaskList();
     }
 

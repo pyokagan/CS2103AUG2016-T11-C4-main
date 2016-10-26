@@ -31,7 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
 
     private final ItemMappingList<FloatingTask> filteredFloatingTasks;
-    private final FilteredList<DeadlineTask> filteredDeadlineTasks;
+    private final ItemMappingList<DeadlineTask> filteredDeadlineTasks;
     private final FilteredList<EventTask> filteredEventTasks;
 
     /**
@@ -47,7 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.config = new Config(config);
         this.taskBook = new TaskBook(taskBook);
         this.filteredFloatingTasks = new ItemMappingList<>(this.taskBook.getFloatingTasks());
-        this.filteredDeadlineTasks = new FilteredList<>(this.taskBook.getDeadlineTasks());
+        this.filteredDeadlineTasks = new ItemMappingList<>(this.taskBook.getDeadlineTasks());
         this.filteredEventTasks = new FilteredList<>(this.taskBook.getEventTasks());
     }
 
@@ -138,30 +138,20 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addDeadlineTask(DeadlineTask deadlineTask) {
         assert deadlineTask.isFinished() == false;
         taskBook.addDeadlineTask(deadlineTask);
-        setDeadlineTaskFilter(null);
+        filteredDeadlineTasks.add(deadlineTask, taskBook.getDeadlineTasks().size() - 1);
         indicateTaskBookChanged();
     }
 
     @Override
     public synchronized DeadlineTask getDeadlineTask(int indexInFilteredList) throws IllegalValueException {
-        try {
-            return filteredDeadlineTasks.get(indexInFilteredList);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("invalid index");
-        }
-    }
-
-    private int getDeadlineTaskSourceIndex(int indexInFilteredList) throws IllegalValueException {
-        try {
-            return filteredDeadlineTasks.getSourceIndex(indexInFilteredList);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("invalid index");
-        }
+        return filteredDeadlineTasks.get(indexInFilteredList);
     }
 
     @Override
     public synchronized DeadlineTask removeDeadlineTask(int indexInFilteredList) throws IllegalValueException {
-        final DeadlineTask removedDeadline = taskBook.removeDeadlineTask(getDeadlineTaskSourceIndex(indexInFilteredList));
+        final int sourceIndex = filteredDeadlineTasks.getSourceIndex(indexInFilteredList);
+        final DeadlineTask removedDeadline = taskBook.removeDeadlineTask(sourceIndex);
+        filteredDeadlineTasks.remove(indexInFilteredList);
         indicateTaskBookChanged();
         return removedDeadline;
     }
@@ -169,18 +159,20 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void setDeadlineTask(int indexInFilteredList, DeadlineTask newDeadlineTask)
             throws IllegalValueException {
-        taskBook.setDeadlineTask(getDeadlineTaskSourceIndex(indexInFilteredList), newDeadlineTask);
+        final int sourceIndex = filteredDeadlineTasks.getSourceIndex(indexInFilteredList);
+        taskBook.setDeadlineTask(sourceIndex, newDeadlineTask);
+        filteredDeadlineTasks.set(indexInFilteredList, newDeadlineTask);
         indicateTaskBookChanged();
     }
 
     @Override
-    public ObservableList<DeadlineTask> getFilteredDeadlineTaskList() {
-        return filteredDeadlineTasks;
+    public ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList() {
+        return filteredDeadlineTasks.getObservableListView();
     }
 
     @Override
     public void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate) {
-        filteredDeadlineTasks.setPredicate(predicate);
+        filteredDeadlineTasks.setFilter(predicate);
     }
 
     //// Event tasks

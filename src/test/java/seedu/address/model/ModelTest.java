@@ -160,7 +160,7 @@ public class ModelTest {
         model.setDeadlineTaskFilter(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
         model.removeDeadlineTask(0);
         model.setDeadlineTaskFilter(null);
-        assertEquals(Arrays.asList(tpdue.speechTranscript), model.getFilteredDeadlineTaskList());
+        assertEquals(Arrays.asList(Optional.of(tpdue.speechTranscript)), model.getFilteredDeadlineTaskList());
     }
 
     @Test
@@ -176,7 +176,7 @@ public class ModelTest {
         model.setDeadlineTaskFilter(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
         model.setDeadlineTask(0, tpdue.speechTranscript);
         model.setDeadlineTaskFilter(null);
-        assertEquals(Arrays.asList(tpdue.speechTranscript, tpdue.speechTranscript),
+        assertEquals(Arrays.asList(Optional.of(tpdue.speechTranscript), Optional.of(tpdue.speechTranscript)),
                     model.getFilteredDeadlineTaskList());
     }
 

@@ -38,7 +38,7 @@ public class UiManagerTest extends FxRobot {
 
     private ObservableList<EventTask> eventTaskList;
 
-    private ObservableList<DeadlineTask> deadlineTaskList;
+    private ObservableList<Optional<DeadlineTask>> deadlineTaskList;
 
     @Mock
     private Logic logic;
