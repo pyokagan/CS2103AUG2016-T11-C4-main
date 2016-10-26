@@ -34,6 +34,8 @@ public class FloatingTaskListCard extends UiPart<Pane> {
             finishedLabel.setText(String.valueOf(floatingTask.isFinished()));
             if (floatingTask.isFinished()) {
                 getRoot().getStyleClass().add("finished");
+            } else {
+                getRoot().getStyleClass().add("priority" + floatingTask.getPriority().toString());
             }
         } else {
             getRoot().setVisible(false);

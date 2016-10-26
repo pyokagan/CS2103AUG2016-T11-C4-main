@@ -330,3 +330,26 @@
 .card.overdue .text {
     -fx-fill: red;
 }
+
+.card.priority0 {
+}
+
+.card.priority1 {
+    -fx-border-color: #007fff;
+}
+
+.card.priority2 {
+    -fx-border-color: #7fff00;
+}
+
+.card.priority3 {
+    -fx-border-color: #ffff00;
+}
+
+.card.priority4 {
+    -fx-border-color: #ff9900;
+}
+
+.card.priority5 {
+    -fx-border-color: #ff0000;
+}
