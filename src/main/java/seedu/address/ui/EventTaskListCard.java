@@ -36,6 +36,8 @@ public class EventTaskListCard extends UiPart<Pane> {
             endLabel.setText(eventTask.getEnd().toString());
             if (eventTask.getEnd().isBefore(LocalDateTime.now())) {
                 getRoot().getStyleClass().add("finished");
+            } else if (eventTask.getStart().isBefore(LocalDateTime.now())) {
+                getRoot().getStyleClass().add("inProgress");
             }
         } else {
             getRoot().setVisible(false);
