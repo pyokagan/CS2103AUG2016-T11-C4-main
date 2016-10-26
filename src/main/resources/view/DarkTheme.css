@@ -322,3 +322,11 @@
 .card.inProgress {
     -fx-border-color: green;
 }
+
+.card.overdue {
+    -fx-border-color: red;
+}
+
+.card.overdue .text {
+    -fx-fill: red;
+}

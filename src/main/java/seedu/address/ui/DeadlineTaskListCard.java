@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -34,6 +36,8 @@ public class DeadlineTaskListCard extends UiPart<Pane> {
             finishedLabel.setText(String.valueOf(deadlineTask.isFinished()));
             if (deadlineTask.isFinished()) {
                 getRoot().getStyleClass().add("finished");
+            } else if (deadlineTask.getDue().isBefore(LocalDateTime.now())) {
+                getRoot().getStyleClass().add("overdue");
             }
         } else {
             getRoot().setVisible(false);
