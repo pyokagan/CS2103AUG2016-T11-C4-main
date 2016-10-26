@@ -11,6 +11,8 @@ import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
+import seedu.address.model.filter.DeadlineTaskFinishedPredicate;
+import seedu.address.model.filter.FloatingTaskFinishedPredicate;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -89,7 +91,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addFloatingTask(FloatingTask floatingTask) {
         taskBook.addFloatingTask(floatingTask);
-        setFloatingTaskFilter(null);
         indicateTaskBookChanged();
     }
 
@@ -134,13 +135,17 @@ public class ModelManager extends ComponentManager implements Model {
         filteredFloatingTasks.setPredicate(predicate);
     }
 
+    @Override
+    public void setIsFinishedFloatingTaskFilter() {
+        setFloatingTaskFilter(new FloatingTaskFinishedPredicate());
+    }
+
     //// Deadline tasks
 
     @Override
     public synchronized void addDeadlineTask(DeadlineTask deadlineTask) {
         assert deadlineTask.isFinished() == false;
         taskBook.addDeadlineTask(deadlineTask);
-        setDeadlineTaskFilter(null);
         indicateTaskBookChanged();
     }
 
@@ -185,12 +190,16 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlineTasks.setPredicate(predicate);
     }
 
+    @Override
+    public void setIsFinishedDeadlineFilter() {
+        setDeadlineTaskFilter(new DeadlineTaskFinishedPredicate());
+    }
+
     //// Event tasks
 
     @Override
     public synchronized void addEventTask(EventTask eventTask) {
         taskBook.addEventTask(eventTask);
-        setEventTaskFilter(null);
         indicateTaskBookChanged();
     }
 
