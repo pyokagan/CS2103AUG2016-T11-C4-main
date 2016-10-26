@@ -36,7 +36,7 @@ public class UiManagerTest extends FxRobot {
 
     private ObservableList<Optional<FloatingTask>> floatingTaskList;
 
-    private ObservableList<EventTask> eventTaskList;
+    private ObservableList<Optional<EventTask>> eventTaskList;
 
     private ObservableList<Optional<DeadlineTask>> deadlineTaskList;
 

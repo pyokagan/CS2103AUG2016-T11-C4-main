@@ -97,7 +97,7 @@ public interface Model {
     void setEventTask(int indexInFilteredList, EventTask newEventTask) throws IllegalValueException;
 
     /** Returns the filtered event task list as an unmodifiable ObservableList */
-    ObservableList<EventTask> getFilteredEventTaskList();
+    ObservableList<Optional<EventTask>> getFilteredEventTaskList();
 
     /**
      * Updates the filter of the filtered event task list to filter by the given predicate.

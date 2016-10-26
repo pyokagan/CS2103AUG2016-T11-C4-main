@@ -88,7 +88,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<EventTask> getFilteredEventTaskList() {
+    public ObservableList<Optional<EventTask>> getFilteredEventTaskList() {
         return model.getFilteredEventTaskList();
     }
 

@@ -112,7 +112,7 @@ public class ModelTest {
         model.setEventTaskFilter(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
         model.removeEventTask(0);
         model.setEventTaskFilter(null);
-        assertEquals(Arrays.asList(tpent.lunchWithBillGates), model.getFilteredEventTaskList());
+        assertEquals(Arrays.asList(Optional.of(tpent.lunchWithBillGates)), model.getFilteredEventTaskList());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class ModelTest {
         model.setEventTaskFilter(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
         model.setEventTask(0, tpent.lunchWithBillGates);
         model.setEventTaskFilter(null);
-        assertEquals(Arrays.asList(tpent.lunchWithBillGates, tpent.lunchWithBillGates),
+        assertEquals(Arrays.asList(Optional.of(tpent.lunchWithBillGates), Optional.of(tpent.lunchWithBillGates)),
                     model.getFilteredEventTaskList());
     }
 
