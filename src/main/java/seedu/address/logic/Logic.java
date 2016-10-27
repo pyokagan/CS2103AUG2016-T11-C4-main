@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.DeadlineTask;
@@ -18,12 +20,12 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of floating tasks */
-    ObservableList<FloatingTask> getFilteredFloatingTaskList();
+    ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList();
 
     /** Returns the filtered list of deadline tasks */
-    ObservableList<DeadlineTask> getFilteredDeadlineTaskList();
+    ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList();
 
     /** Returns the filtered list of event tasks */
-    ObservableList<EventTask> getFilteredEventTaskList();
+    ObservableList<Optional<EventTask>> getFilteredEventTaskList();
 
 }

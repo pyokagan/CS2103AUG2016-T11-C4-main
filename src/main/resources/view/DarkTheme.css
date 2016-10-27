@@ -311,5 +311,45 @@
 .card {
     -fx-padding: 5px 5px 5px 15px;
     -fx-border-color: #d6d6d6;
-    -fx-border-width: 1 1 1 1;
+    -fx-border-width: 1px 1px 1px 10px;
+}
+
+.card.finished .text {
+    -fx-strikethrough: true;
+    -fx-fill: gray;
+}
+
+.card.inProgress {
+    -fx-border-color: green;
+}
+
+.card.overdue {
+    -fx-border-color: red;
+}
+
+.card.overdue .text {
+    -fx-fill: red;
+}
+
+.card.priority0 {
+}
+
+.card.priority1 {
+    -fx-border-color: #007fff;
+}
+
+.card.priority2 {
+    -fx-border-color: #7fff00;
+}
+
+.card.priority3 {
+    -fx-border-color: #ffff00;
+}
+
+.card.priority4 {
+    -fx-border-color: #ff9900;
+}
+
+.card.priority5 {
+    -fx-border-color: #ff0000;
 }

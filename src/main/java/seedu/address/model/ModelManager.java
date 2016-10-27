@@ -1,14 +1,19 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.MappedList;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
@@ -24,9 +29,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Config config;
     private final TaskBook taskBook;
-    private final FilteredList<FloatingTask> filteredFloatingTasks;
-    private final FilteredList<DeadlineTask> filteredDeadlineTasks;
-    private final FilteredList<EventTask> filteredEventTasks;
+
+    private final ItemMappingList<FloatingTask> filteredFloatingTasks;
+    private final ItemMappingList<DeadlineTask> filteredDeadlineTasks;
+    private final ItemMappingList<EventTask> filteredEventTasks;
 
     /**
      * Initializes a ModelManager with the given config and TaskBook
@@ -40,9 +46,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.config = new Config(config);
         this.taskBook = new TaskBook(taskBook);
-        this.filteredFloatingTasks = new FilteredList<>(this.taskBook.getFloatingTasks());
-        this.filteredDeadlineTasks = new FilteredList<>(this.taskBook.getDeadlineTasks());
-        this.filteredEventTasks = new FilteredList<>(this.taskBook.getEventTasks());
+        this.filteredFloatingTasks = new ItemMappingList<>(this.taskBook.getFloatingTasks());
+        this.filteredDeadlineTasks = new ItemMappingList<>(this.taskBook.getDeadlineTasks());
+        this.filteredEventTasks = new ItemMappingList<>(this.taskBook.getEventTasks());
     }
 
     public ModelManager() {
@@ -89,29 +95,20 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addFloatingTask(FloatingTask floatingTask) {
         taskBook.addFloatingTask(floatingTask);
+        filteredFloatingTasks.add(floatingTask, taskBook.getFloatingTasks().size() - 1);
         indicateTaskBookChanged();
     }
 
     @Override
     public synchronized FloatingTask getFloatingTask(int indexInFilteredList) throws IllegalValueException {
-        try {
-            return filteredFloatingTasks.get(indexInFilteredList);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("invalid index");
-        }
-    }
-
-    private int getFloatingTaskSourceIndex(int indexInFilteredList) throws IllegalValueException {
-        try {
-            return filteredFloatingTasks.getSourceIndex(indexInFilteredList);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("invalid index");
-        }
+        return filteredFloatingTasks.get(indexInFilteredList);
     }
 
     @Override
     public synchronized FloatingTask removeFloatingTask(int indexInFilteredList) throws IllegalValueException {
-        final FloatingTask removedFloating = taskBook.removeFloatingTask(getFloatingTaskSourceIndex(indexInFilteredList));
+        final int sourceIndex = filteredFloatingTasks.getSourceIndex(indexInFilteredList);
+        final FloatingTask removedFloating = taskBook.removeFloatingTask(sourceIndex);
+        filteredFloatingTasks.remove(indexInFilteredList);
         indicateTaskBookChanged();
         return removedFloating;
     }
@@ -119,18 +116,25 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void setFloatingTask(int indexInFilteredList, FloatingTask newFloatingTask)
             throws IllegalValueException {
-        taskBook.setFloatingTask(getFloatingTaskSourceIndex(indexInFilteredList), newFloatingTask);
+        final int sourceIndex = filteredFloatingTasks.getSourceIndex(indexInFilteredList);
+        taskBook.setFloatingTask(sourceIndex, newFloatingTask);
+        filteredFloatingTasks.set(indexInFilteredList, newFloatingTask);
         indicateTaskBookChanged();
     }
 
     @Override
-    public ObservableList<FloatingTask> getFilteredFloatingTaskList() {
-        return filteredFloatingTasks;
+    public ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList() {
+        return filteredFloatingTasks.getObservableListView();
     }
 
     @Override
     public void setFloatingTaskFilter(Predicate<? super FloatingTask> predicate) {
-        filteredFloatingTasks.setPredicate(predicate);
+        filteredFloatingTasks.setFilter(predicate);
+    }
+
+    @Override
+    public void setFloatingTaskSortComparator(Comparator<? super FloatingTask> comparator) {
+        filteredFloatingTasks.setSortComparator(comparator);
     }
 
     //// Deadline tasks
@@ -139,29 +143,20 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addDeadlineTask(DeadlineTask deadlineTask) {
         assert deadlineTask.isFinished() == false;
         taskBook.addDeadlineTask(deadlineTask);
+        filteredDeadlineTasks.add(deadlineTask, taskBook.getDeadlineTasks().size() - 1);
         indicateTaskBookChanged();
     }
 
     @Override
     public synchronized DeadlineTask getDeadlineTask(int indexInFilteredList) throws IllegalValueException {
-        try {
-            return filteredDeadlineTasks.get(indexInFilteredList);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("invalid index");
-        }
-    }
-
-    private int getDeadlineTaskSourceIndex(int indexInFilteredList) throws IllegalValueException {
-        try {
-            return filteredDeadlineTasks.getSourceIndex(indexInFilteredList);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("invalid index");
-        }
+        return filteredDeadlineTasks.get(indexInFilteredList);
     }
 
     @Override
     public synchronized DeadlineTask removeDeadlineTask(int indexInFilteredList) throws IllegalValueException {
-        final DeadlineTask removedDeadline = taskBook.removeDeadlineTask(getDeadlineTaskSourceIndex(indexInFilteredList));
+        final int sourceIndex = filteredDeadlineTasks.getSourceIndex(indexInFilteredList);
+        final DeadlineTask removedDeadline = taskBook.removeDeadlineTask(sourceIndex);
+        filteredDeadlineTasks.remove(indexInFilteredList);
         indicateTaskBookChanged();
         return removedDeadline;
     }
@@ -169,18 +164,25 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void setDeadlineTask(int indexInFilteredList, DeadlineTask newDeadlineTask)
             throws IllegalValueException {
-        taskBook.setDeadlineTask(getDeadlineTaskSourceIndex(indexInFilteredList), newDeadlineTask);
+        final int sourceIndex = filteredDeadlineTasks.getSourceIndex(indexInFilteredList);
+        taskBook.setDeadlineTask(sourceIndex, newDeadlineTask);
+        filteredDeadlineTasks.set(indexInFilteredList, newDeadlineTask);
         indicateTaskBookChanged();
     }
 
     @Override
-    public ObservableList<DeadlineTask> getFilteredDeadlineTaskList() {
-        return filteredDeadlineTasks;
+    public ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList() {
+        return filteredDeadlineTasks.getObservableListView();
     }
 
     @Override
     public void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate) {
-        filteredDeadlineTasks.setPredicate(predicate);
+        filteredDeadlineTasks.setFilter(predicate);
+    }
+
+    @Override
+    public void setDeadlineTaskSortComparator(Comparator<? super DeadlineTask> comparator) {
+        filteredDeadlineTasks.setSortComparator(comparator);
     }
 
     //// Event tasks
@@ -188,29 +190,20 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addEventTask(EventTask eventTask) {
         taskBook.addEventTask(eventTask);
+        filteredEventTasks.add(eventTask, taskBook.getEventTasks().size() - 1);
         indicateTaskBookChanged();
     }
 
     @Override
     public synchronized EventTask getEventTask(int indexInFilteredList) throws IllegalValueException {
-        try {
-            return filteredEventTasks.get(indexInFilteredList);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("invalid index");
-        }
-    }
-
-    private int getEventTaskSourceIndex(int indexInFilteredList) throws IllegalValueException {
-        try {
-            return filteredEventTasks.getSourceIndex(indexInFilteredList);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("invalid index");
-        }
+        return filteredEventTasks.get(indexInFilteredList);
     }
 
     @Override
     public synchronized EventTask removeEventTask(int indexInFilteredList) throws IllegalValueException {
-        final EventTask removedEvent = taskBook.removeEventTask(getEventTaskSourceIndex(indexInFilteredList));
+        final int sourceIndex = filteredEventTasks.getSourceIndex(indexInFilteredList);
+        final EventTask removedEvent = taskBook.removeEventTask(sourceIndex);
+        filteredEventTasks.remove(indexInFilteredList);
         indicateTaskBookChanged();
         return removedEvent;
     }
@@ -218,18 +211,125 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void setEventTask(int indexInFilteredList, EventTask newEventTask)
             throws IllegalValueException {
-        taskBook.setEventTask(getEventTaskSourceIndex(indexInFilteredList), newEventTask);
+        final int sourceIndex = filteredEventTasks.getSourceIndex(indexInFilteredList);
+        taskBook.setEventTask(sourceIndex, newEventTask);
+        filteredEventTasks.set(indexInFilteredList, newEventTask);
         indicateTaskBookChanged();
     }
 
     @Override
-    public ObservableList<EventTask> getFilteredEventTaskList() {
-        return filteredEventTasks;
+    public ObservableList<Optional<EventTask>> getFilteredEventTaskList() {
+        return filteredEventTasks.getObservableListView();
     }
 
     @Override
     public void setEventTaskFilter(Predicate<? super EventTask> predicate) {
-        filteredEventTasks.setPredicate(predicate);
+        filteredEventTasks.setFilter(predicate);
+    }
+
+    @Override
+    public void setEventTaskSortComparator(Comparator<? super EventTask> comparator) {
+        filteredEventTasks.setSortComparator(comparator);
+    }
+
+    private static class ItemMapping<E> {
+        final Optional<E> value;
+        Optional<Integer> sourceIndex;
+
+        ItemMapping(Optional<E> value, Optional<Integer> sourceIndex) {
+            this.value = value;
+            this.sourceIndex = sourceIndex;
+        }
+
+        ItemMapping(E value, int sourceIndex) {
+            this(Optional.of(value), Optional.of(sourceIndex));
+        }
+
+        static <E> ItemMapping<E> empty() {
+            return new ItemMapping<E>(Optional.empty(), Optional.empty());
+        }
+    }
+
+    private static class ItemMappingList<E> {
+        private final ObservableList<E> sourceList;
+        private final ObservableList<ItemMapping<E>> filteredList;
+        private Predicate<? super E> filter;
+        private Comparator<? super E> sortComparator;
+
+        ItemMappingList(ObservableList<E> sourceList) {
+            this.sourceList = sourceList;
+            this.filteredList = FXCollections.observableArrayList();
+            repopulate();
+        }
+
+        ObservableList<Optional<E>> getObservableListView() {
+            return new MappedList<>(filteredList, itemMapping -> itemMapping.value);
+        }
+
+        void setFilter(Predicate<? super E> filter) {
+            this.filter = filter;
+            repopulate();
+        }
+
+        void setSortComparator(Comparator<? super E> comparator) {
+            this.sortComparator = comparator;
+            repopulate();
+        }
+
+        int getSourceIndex(int filteredIndex) throws IllegalValueException {
+            try {
+                return filteredList.get(filteredIndex).sourceIndex.get();
+            } catch (IndexOutOfBoundsException | NoSuchElementException e) {
+                throw new IllegalValueException("invalid index");
+            }
+        }
+
+        E get(int filteredIndex) throws IllegalValueException {
+            try {
+                return filteredList.get(filteredIndex).value.get();
+            } catch (IndexOutOfBoundsException | NoSuchElementException e) {
+                throw new IllegalValueException("invalid index");
+            }
+        }
+
+        void set(int filteredIndex, E item) throws IllegalValueException {
+            final int sourceIndex = getSourceIndex(filteredIndex);
+            try {
+                filteredList.set(filteredIndex, new ItemMapping<>(item, sourceIndex));
+            } catch (IndexOutOfBoundsException e) {
+                throw new IllegalValueException("invalid index");
+            }
+        }
+
+        void add(E item, int sourceIndex) {
+            filteredList.add(new ItemMapping<>(item, sourceIndex));
+        }
+
+        void remove(int filteredIndex) throws IllegalValueException {
+            int deletedSourceIndex = getSourceIndex(filteredIndex);
+            filteredList.set(filteredIndex, ItemMapping.empty());
+            // Adjust mapping of sourceIndexes
+            for (ItemMapping<E> item : filteredList) {
+                if (item.sourceIndex.isPresent() && item.sourceIndex.get() > deletedSourceIndex) {
+                    item.sourceIndex = Optional.of(item.sourceIndex.get() - 1);
+                }
+            }
+        }
+
+        void repopulate() {
+            ArrayList<ItemMapping<E>> newFilteredList = new ArrayList<>();
+            for (int i = 0; i < sourceList.size(); i++) {
+                final E item = sourceList.get(i);
+                if (filter != null && !filter.test(item)) {
+                    continue;
+                }
+                newFilteredList.add(new ItemMapping<E>(item, i));
+            }
+            if (sortComparator != null) {
+                newFilteredList.sort((a, b) -> sortComparator.compare(a.value.get(), b.value.get()));
+            }
+            filteredList.setAll(newFilteredList);
+        }
     }
 
 }

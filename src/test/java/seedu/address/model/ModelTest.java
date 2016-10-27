@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -57,13 +58,13 @@ public class ModelTest {
     }
 
     @Test
-    public void removeFloatingTask_removesIndexInFilteredList() throws Exception {
+    public void removeFloatingTask_emptiesIndexInFilteredList() throws Exception {
         model.addFloatingTask(tpflt.readABook);
         model.addFloatingTask(tpflt.buyAHelicopter);
         model.setFloatingTaskFilter(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
         model.removeFloatingTask(0);
         model.setFloatingTaskFilter(null);
-        assertEquals(Arrays.asList(tpflt.readABook), model.getFilteredFloatingTaskList());
+        assertEquals(Arrays.asList(Optional.of(tpflt.readABook)), model.getFilteredFloatingTaskList());
     }
 
     @Test
@@ -79,7 +80,7 @@ public class ModelTest {
         model.setFloatingTaskFilter(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
         model.setFloatingTask(0, tpflt.readABook);
         model.setFloatingTaskFilter(null);
-        assertEquals(Arrays.asList(tpflt.readABook, tpflt.readABook),
+        assertEquals(Arrays.asList(Optional.of(tpflt.readABook), Optional.of(tpflt.readABook)),
                     model.getFilteredFloatingTaskList());
     }
 
@@ -111,7 +112,7 @@ public class ModelTest {
         model.setEventTaskFilter(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
         model.removeEventTask(0);
         model.setEventTaskFilter(null);
-        assertEquals(Arrays.asList(tpent.lunchWithBillGates), model.getFilteredEventTaskList());
+        assertEquals(Arrays.asList(Optional.of(tpent.lunchWithBillGates)), model.getFilteredEventTaskList());
     }
 
     @Test
@@ -127,7 +128,7 @@ public class ModelTest {
         model.setEventTaskFilter(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
         model.setEventTask(0, tpent.lunchWithBillGates);
         model.setEventTaskFilter(null);
-        assertEquals(Arrays.asList(tpent.lunchWithBillGates, tpent.lunchWithBillGates),
+        assertEquals(Arrays.asList(Optional.of(tpent.lunchWithBillGates), Optional.of(tpent.lunchWithBillGates)),
                     model.getFilteredEventTaskList());
     }
 
@@ -159,7 +160,7 @@ public class ModelTest {
         model.setDeadlineTaskFilter(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
         model.removeDeadlineTask(0);
         model.setDeadlineTaskFilter(null);
-        assertEquals(Arrays.asList(tpdue.speechTranscript), model.getFilteredDeadlineTaskList());
+        assertEquals(Arrays.asList(Optional.of(tpdue.speechTranscript)), model.getFilteredDeadlineTaskList());
     }
 
     @Test
@@ -175,7 +176,7 @@ public class ModelTest {
         model.setDeadlineTaskFilter(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
         model.setDeadlineTask(0, tpdue.speechTranscript);
         model.setDeadlineTaskFilter(null);
-        assertEquals(Arrays.asList(tpdue.speechTranscript, tpdue.speechTranscript),
+        assertEquals(Arrays.asList(Optional.of(tpdue.speechTranscript), Optional.of(tpdue.speechTranscript)),
                     model.getFilteredDeadlineTaskList());
     }
 

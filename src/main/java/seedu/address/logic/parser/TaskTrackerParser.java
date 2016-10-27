@@ -19,6 +19,7 @@ public class TaskTrackerParser {
             .putSubcommand("exit", new ExitCommandParser())
             .putSubcommand("help", new HelpCommandParser())
             .putSubcommand("setdatadir", new SetDataDirectoryParser())
+            .putSubcommand("list", new ListCommandParser())
             ;
 
     /**

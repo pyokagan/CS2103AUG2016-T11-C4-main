@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -48,7 +50,7 @@ public interface Model {
     void setFloatingTask(int indexInFilteredList, FloatingTask newFloatingTask) throws IllegalValueException;
 
     /** Returns the filtered Floating task list as an unmodifiable ObservableList */
-    ObservableList<FloatingTask> getFilteredFloatingTaskList();
+    ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList();
 
     /**
      * Updates the filter of the filtered Floating task list to filter by the given predicate.
@@ -56,6 +58,8 @@ public interface Model {
      * If predicate is null, the filtered Floating task list will be populated with all Floating tasks.
      */
     void setFloatingTaskFilter(Predicate<? super FloatingTask> predicate);
+
+    void setFloatingTaskSortComparator(Comparator<? super FloatingTask> comparator);
 
     //// Deadline Tasks
 
@@ -72,7 +76,7 @@ public interface Model {
     void setDeadlineTask(int indexInFilteredList, DeadlineTask newDeadlineTask) throws IllegalValueException;
 
     /** Returns the filtered deadline task list as an unmodifiable ObservableList */
-    ObservableList<DeadlineTask> getFilteredDeadlineTaskList();
+    ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList();
 
     /**
      * Updates the filter of the filtered deadline task list to filter by the given predicate.
@@ -80,6 +84,8 @@ public interface Model {
      * If predicate is null, the filtered deadline task list will be populated with all deadline tasks.
      */
     void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
+
+    void setDeadlineTaskSortComparator(Comparator<? super DeadlineTask> comparator);
 
     //// Event Tasks
 
@@ -96,7 +102,7 @@ public interface Model {
     void setEventTask(int indexInFilteredList, EventTask newEventTask) throws IllegalValueException;
 
     /** Returns the filtered event task list as an unmodifiable ObservableList */
-    ObservableList<EventTask> getFilteredEventTaskList();
+    ObservableList<Optional<EventTask>> getFilteredEventTaskList();
 
     /**
      * Updates the filter of the filtered event task list to filter by the given predicate.
@@ -104,5 +110,7 @@ public interface Model {
      * If predicate is null, the filtered event task list will be populated with all event tasks.
      */
     void setEventTaskFilter(Predicate<? super EventTask> predicate);
+
+    void setEventTaskSortComparator(Comparator<? super EventTask> comparator);
 
 }

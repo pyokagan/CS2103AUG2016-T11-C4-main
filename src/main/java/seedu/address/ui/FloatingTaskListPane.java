@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -12,19 +14,19 @@ public class FloatingTaskListPane extends UiPart<Pane> {
     private static final String FXML = "/view/FloatingTaskListPane.fxml";
 
     @FXML
-    private ListView<FloatingTask> floatingTaskListView;
+    private ListView<Optional<FloatingTask>> floatingTaskListView;
 
-    public FloatingTaskListPane(ObservableList<FloatingTask> floatingTaskList) {
+    public FloatingTaskListPane(ObservableList<Optional<FloatingTask>> floatingTaskList) {
         super(FXML);
         floatingTaskListView.setItems(floatingTaskList);
         floatingTaskListView.setCellFactory(listView -> new FloatingTaskListCell());
     }
 
-    private static class FloatingTaskListCell extends ListCell<FloatingTask> {
+    private static class FloatingTaskListCell extends ListCell<Optional<FloatingTask>> {
         @Override
-        protected void updateItem(FloatingTask floatingTask, boolean empty) {
+        protected void updateItem(Optional<FloatingTask> floatingTask, boolean empty) {
             super.updateItem(floatingTask, empty);
-            final FloatingTaskListCard card = new FloatingTaskListCard(floatingTask, getIndex() + 1);
+            final FloatingTaskListCard card = new FloatingTaskListCard(empty ? null : floatingTask.orElse(null), getIndex() + 1);
             setGraphic(card.getRoot());
         }
     }

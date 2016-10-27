@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -32,6 +34,11 @@ public class EventTaskListCard extends UiPart<Pane> {
             nameLabel.setText(eventTask.getName().toString());
             startLabel.setText(eventTask.getStart().toString());
             endLabel.setText(eventTask.getEnd().toString());
+            if (eventTask.getEnd().isBefore(LocalDateTime.now())) {
+                getRoot().getStyleClass().add("finished");
+            } else if (eventTask.getStart().isBefore(LocalDateTime.now())) {
+                getRoot().getStyleClass().add("inProgress");
+            }
         } else {
             getRoot().setVisible(false);
         }
