@@ -14,9 +14,11 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.util.AppUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.config.Config;
+import seedu.address.ui.TrayIcon.MessageType;
 
 /**
  * The manager of the UI component.
@@ -29,6 +31,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private MainWindow mainWindow;
     private Stage primaryStage;
+    private TrayIcon trayIcon;
 
     public UiManager(Logic logic, Config config) {
         super();
@@ -40,9 +43,10 @@ public class UiManager extends ComponentManager implements Ui {
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
         this.primaryStage = primaryStage;
-
-        //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        trayIcon = new TrayIcon(AppUtil.getImage(ICON_APPLICATION), MainApp.NAME);
+        trayIcon.setTrayIconAction(() -> System.out.println("Hi!"));
+        trayIcon.displayMessage("Task Tracker is still running!", "Click here to reopen it!", MessageType.INFO);
 
         try {
             mainWindow = new MainWindow(primaryStage, config, logic);
@@ -56,6 +60,10 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
+        if (trayIcon != null) {
+            trayIcon.destroy();
+            trayIcon = null;
+        }
         primaryStage = null;
     }
 
