@@ -33,7 +33,7 @@ public class UiManager extends ComponentManager implements Ui {
     private MainWindow mainWindow;
     private Stage primaryStage;
     private TrayIcon trayIcon;
-    private HotkeyListener hotKeyListener;
+    private HotkeyListener hotkeyListener;
 
     public UiManager(Logic logic, Config config) {
         super();
@@ -47,10 +47,9 @@ public class UiManager extends ComponentManager implements Ui {
         this.primaryStage = primaryStage;
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
         trayIcon = new TrayIcon(AppUtil.getImage(ICON_APPLICATION), MainApp.NAME);
-        trayIcon.setTrayIconAction(() -> System.out.println("Hi!"));
-        trayIcon.displayMessage("Task Tracker is still running!", "Click here to reopen it!", MessageType.INFO);
-        hotKeyListener = new HotkeyListener(JIntellitypeConstants.MOD_CONTROL, (int)' ');
-        hotKeyListener.setAction(() -> System.out.println("Ctrl-Space pressed!"));
+        trayIcon.setTrayIconAction(this::toggleHide);
+        hotkeyListener = new HotkeyListener(JIntellitypeConstants.MOD_CONTROL, (int)' ');
+        hotkeyListener.setAction(this::toggleHide);
 
         try {
             mainWindow = new MainWindow(primaryStage, config, logic);
@@ -64,6 +63,10 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
+        if (hotkeyListener != null) {
+            hotkeyListener.destroy();
+            hotkeyListener = null;
+        }
         if (trayIcon != null) {
             trayIcon.destroy();
             trayIcon = null;
@@ -103,6 +106,20 @@ public class UiManager extends ComponentManager implements Ui {
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
+    }
+
+    private void toggleHide() {
+        if (primaryStage.isShowing()) {
+            Platform.setImplicitExit(false);
+            primaryStage.hide();
+            trayIcon.displayMessage("Task Tracker is still running!", "Double-click here to re-open it!",
+                                    MessageType.INFO);
+        } else {
+            primaryStage.show();
+            primaryStage.toFront();
+            primaryStage.requestFocus();
+            Platform.setImplicitExit(true);
+        }
     }
 
     //==================== Event Handling Code =================================================================
