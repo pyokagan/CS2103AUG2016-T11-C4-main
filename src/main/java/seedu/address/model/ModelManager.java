@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.MappedList;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
@@ -34,6 +35,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final ItemMappingList<DeadlineTask> filteredDeadlineTasks;
     private final ItemMappingList<EventTask> filteredEventTasks;
 
+    //for undo
+    private ArrayList<Commit> commits = new ArrayList<Commit>();
+    private int head; //head points to a the current commit which holds the TaskBook displayed by the UI
+
     /**
      * Initializes a ModelManager with the given config and TaskBook
      * TaskBook and its variables should not be null
@@ -49,6 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.filteredFloatingTasks = new ItemMappingList<>(this.taskBook.getFloatingTasks());
         this.filteredDeadlineTasks = new ItemMappingList<>(this.taskBook.getDeadlineTasks());
         this.filteredEventTasks = new ItemMappingList<>(this.taskBook.getEventTasks());
+        recordState(null);
     }
 
     public ModelManager() {
@@ -332,4 +338,73 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    ////undo redo
+
+    @Override
+    public Command undo() throws HeadAtBoundaryException {
+
+        if (head <= 0) {
+            throw new HeadAtBoundaryException();
+        }
+        Command undoneAction = commits.get(head).getCommand();
+        head--;
+        Commit commit = commits.get(head);
+        taskBook.resetData(new TaskBook(commit.getTaskBook()));
+        return undoneAction;
+    }
+
+    @Override
+    public void recordState(Command command) {
+        //clear redoable, which are the commits above head
+        head ++;
+        while (this.head < (commits.size())) {
+            commits.remove(head);
+        }
+        commits.add(new Commit(command, new TaskBook(getTaskBook())));
+        head = commits.size() - 1;
+    }
+
+    @Override
+    public Command redo() throws HeadAtBoundaryException {
+        if (head >= commits.size() - 1) {
+            throw new HeadAtBoundaryException();
+        }
+        head++;
+        Commit commit = commits.get(head);
+        taskBook.resetData(new TaskBook(commit.getTaskBook()));
+        return commit.getCommand();
+    }
+
+    /**
+     * check if taskBook has changed.
+     * @return true if TaskBook changed
+     */
+    @Override
+    public boolean hasUncommittedChanges() {
+        return !(this.taskBook.equals(commits.get(head).getTaskBook()));
+    }
+
+    private class Commit {
+        private TaskBook taskBook;
+        private Command command;
+
+        Commit(Command command, TaskBook state) {
+            this.taskBook = state;
+            this.command = command;
+        }
+
+        public TaskBook getTaskBook() {
+            return this.taskBook;
+        }
+
+        public Command getCommand() {
+            return this.command;
+        }
+    }
+
+    public class HeadAtBoundaryException extends Exception {
+        public HeadAtBoundaryException() {
+            super();
+        }
+    }
 }

@@ -20,6 +20,8 @@ public class TaskTrackerParser {
             .putSubcommand("help", new HelpCommandParser())
             .putSubcommand("setdatadir", new SetDataDirectoryParser())
             .putSubcommand("list", new ListCommandParser())
+            .putSubcommand("undo", new UndoCommandParser())
+            .putSubcommand("redo", new RedoCommandParser())
             ;
 
     /**
