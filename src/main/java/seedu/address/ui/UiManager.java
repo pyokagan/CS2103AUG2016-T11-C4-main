@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
+import com.melloware.jintellitype.JIntellitypeConstants;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -32,6 +33,7 @@ public class UiManager extends ComponentManager implements Ui {
     private MainWindow mainWindow;
     private Stage primaryStage;
     private TrayIcon trayIcon;
+    private HotkeyListener hotKeyListener;
 
     public UiManager(Logic logic, Config config) {
         super();
@@ -47,6 +49,8 @@ public class UiManager extends ComponentManager implements Ui {
         trayIcon = new TrayIcon(AppUtil.getImage(ICON_APPLICATION), MainApp.NAME);
         trayIcon.setTrayIconAction(() -> System.out.println("Hi!"));
         trayIcon.displayMessage("Task Tracker is still running!", "Click here to reopen it!", MessageType.INFO);
+        hotKeyListener = new HotkeyListener(JIntellitypeConstants.MOD_CONTROL, (int)' ');
+        hotKeyListener.setAction(() -> System.out.println("Ctrl-Space pressed!"));
 
         try {
             mainWindow = new MainWindow(primaryStage, config, logic);
