@@ -83,6 +83,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetTaskBook(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
+        filteredFloatingTasks.repopulate();
+        filteredDeadlineTasks.repopulate();
+        filteredEventTasks.repopulate();
         indicateTaskBookChanged();
     }
 
@@ -342,14 +345,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public Command undo() throws HeadAtBoundaryException {
-
         if (head <= 0) {
             throw new HeadAtBoundaryException();
         }
         Command undoneAction = commits.get(head).getCommand();
         head--;
         Commit commit = commits.get(head);
-        taskBook.resetData(new TaskBook(commit.getTaskBook()));
+        resetTaskBook(commit.getTaskBook());
         return undoneAction;
     }
 
@@ -371,7 +373,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         head++;
         Commit commit = commits.get(head);
-        taskBook.resetData(new TaskBook(commit.getTaskBook()));
+        resetTaskBook(commit.getTaskBook());
         return commit.getCommand();
     }
 
