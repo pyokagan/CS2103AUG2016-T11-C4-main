@@ -1,7 +1,13 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.time.LocalDateTime;
 
+import seedu.address.logic.commands.AddDeadlineCommand;
+import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AddFloatingTaskCommand;
+import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
 
@@ -13,10 +19,15 @@ public class AddTaskParser {
 
     private final AddFloatingTaskParser addFloatingTaskParser;
 
+    private final Command incorrectCommand =
+            new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            AddTaskCommand.MESSAGE_USAGE
+            + AddDeadlineCommand.MESSAGE_USAGE
+            + AddEventCommand.MESSAGE_USAGE
+            + AddFloatingTaskCommand.MESSAGE_USAGE));
+
     public AddTaskParser() {
-        addDeadlineParser = new AddDeadlineParser();
-        addEventParser = new AddEventParser();
-        addFloatingTaskParser = new AddFloatingTaskParser();
+        this(null);
     }
 
     public AddTaskParser(LocalDateTime referenceDateTime) {
@@ -38,6 +49,11 @@ public class AddTaskParser {
             return cmd;
         }
 
-        return addFloatingTaskParser.parse(str);
+        cmd = addFloatingTaskParser.parse(str);
+        if (!(cmd instanceof IncorrectCommand)) {
+            return cmd;
+        }
+
+        return incorrectCommand;
     }
 }

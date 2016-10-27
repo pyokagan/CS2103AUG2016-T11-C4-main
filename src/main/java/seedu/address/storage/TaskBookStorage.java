@@ -41,4 +41,11 @@ public interface TaskBookStorage {
      */
     void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException;
 
+    /**
+     * Moves the task book to the newFilePath.
+     * @throws IOException if an IO error occurred while moving the task book file.
+     *         The configured task book file path will remain unchanged.
+     */
+    void moveTaskBook(String newFilePath) throws IOException;
+
 }

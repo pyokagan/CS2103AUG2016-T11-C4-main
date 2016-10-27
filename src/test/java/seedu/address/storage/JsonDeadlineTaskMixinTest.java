@@ -17,12 +17,17 @@ public class JsonDeadlineTaskMixinTest {
 
     private static ObjectMapper objectMapper;
 
-    public static final DeadlineTask TEST_DEADLINE;
-    public static final String TEST_DEADLINE_JSON = "{\"name\":\"deadline name\",\"due\":[1970,1,2,0,0]}";
+    public static final DeadlineTask TEST_DEADLINE1;
+    public static final DeadlineTask TEST_DEADLINE2;
+    public static final String TEST_DEADLINE1_JSON = "{\"name\":\"deadline name1\",\"due\":[1970,1,2,0,0],"
+                                                    + "\"finished\":false}";
+    public static final String TEST_DEADLINE2_JSON = "{\"name\":\"deadline name2\",\"due\":[1970,1,2,0,0],"
+                                                    + "\"finished\":true}";
 
     static {
         try {
-            TEST_DEADLINE = new DeadlineTask(new Name("deadline name"), UNIX_EPOCH.plusDays(1));
+            TEST_DEADLINE1 = new DeadlineTask(new Name("deadline name1"), UNIX_EPOCH.plusDays(1));
+            TEST_DEADLINE2 = new DeadlineTask(new Name("deadline name2"), UNIX_EPOCH.plusDays(1), true);
         } catch (IllegalValueException e) {
             throw new RuntimeException(e);
         }
@@ -39,16 +44,22 @@ public class JsonDeadlineTaskMixinTest {
 
     @Test
     public void serialize() throws Exception {
-        final String expected = TEST_DEADLINE_JSON;
-        final String actual = objectMapper.writeValueAsString(TEST_DEADLINE);
-        assertEquals(expected, actual);
+        final String expected1 = TEST_DEADLINE1_JSON;
+        final String expected2 = TEST_DEADLINE2_JSON;
+        final String actual1 = objectMapper.writeValueAsString(TEST_DEADLINE1);
+        final String actual2 = objectMapper.writeValueAsString(TEST_DEADLINE2);
+        assertEquals(expected1, actual1);
+        assertEquals(expected2, actual2);
     }
 
     @Test
     public void deserialize() throws Exception {
-        final DeadlineTask expected = TEST_DEADLINE;
-        final DeadlineTask actual = objectMapper.readValue(TEST_DEADLINE_JSON, DeadlineTask.class);
-        assertEquals(expected, actual);
+        final DeadlineTask expected1 = TEST_DEADLINE1;
+        final DeadlineTask expected2 = TEST_DEADLINE2;
+        final DeadlineTask actual1 = objectMapper.readValue(TEST_DEADLINE1_JSON, DeadlineTask.class);
+        final DeadlineTask actual2 = objectMapper.readValue(TEST_DEADLINE2_JSON, DeadlineTask.class);
+        assertEquals(expected1, actual1);
+        assertEquals(expected2, actual2);
     }
 
 }

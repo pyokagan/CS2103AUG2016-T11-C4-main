@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import seedu.address.commons.events.BaseEvent;
+import seedu.address.model.config.Config;
 
 /**
  * Configures and manages loggers and handlers, including their logging level

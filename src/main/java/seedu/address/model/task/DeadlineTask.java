@@ -7,22 +7,33 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 public class DeadlineTask extends Task {
 
-    private static final String FMT_STRING = "DeadlineTask[name=%s, due=%s]";
+    private static final String FMT_STRING = "DeadlineTask[name=%s, due=%s, finished=%s]";
 
     private final LocalDateTime due;
 
-    public DeadlineTask(Name name, LocalDateTime due) {
+    private final boolean finished;
+
+    public DeadlineTask(Name name, LocalDateTime due, boolean finished) {
         super(name);
         assert due != null;
         this.due = due;
+        this.finished = finished;
+    }
+
+    public DeadlineTask(Name name, LocalDateTime due) {
+        this(name, due, false);
     }
 
     public DeadlineTask(String name, LocalDateTime due) throws IllegalValueException {
-        this(new Name(name), due);
+        this(new Name(name), due, false);
     }
 
     public LocalDateTime getDue() {
         return due;
+    }
+
+    public boolean isFinished() {
+        return this.finished;
     }
 
     @Override
@@ -40,7 +51,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return String.format(FMT_STRING, name, due);
+        return String.format(FMT_STRING, name, due, finished);
     }
 
 }

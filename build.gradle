@@ -34,6 +34,7 @@ ext {
 dependencies {
     compile 'org.controlsfx:controlsfx:8.40.11'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.+'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.4'
     compile 'com.google.guava:guava:19.0'
 
@@ -44,6 +45,7 @@ dependencies {
         exclude group: "junit", module: "junit"
     }
     testCompile 'org.testfx:openjfx-monocle:1.8.0_20'
+    testCompile 'org.mockito:mockito-core:1.+'
 }
 
 shadowJar {
@@ -60,9 +62,10 @@ test {
     systemProperty 'testfx.setup.timeout', '60000'
     testLogging.exceptionFormat = 'full'
 
-    include 'seedu/address/**'
-    if (guiTests == 'true')
-        include 'guitests/**'
+    useJUnit {
+        if (guiTests != 'true')
+            excludeCategories 'seedu.address.testutil.GuiTests'
+    }
 
     beforeTest { descriptor ->
         if (headless == 'true') {

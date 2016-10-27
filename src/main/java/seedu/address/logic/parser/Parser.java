@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -26,6 +27,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MarkDeadlineFinishedCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
 
@@ -89,11 +91,14 @@ public class Parser {
         case EditDeadlineCommand.COMMAND_WORD:
             return new EditDeadlineParser().parse(arguments);
 
+        case MarkDeadlineFinishedCommand.COMMAND_WORD:
+            return prepareMarkDeadlineFinished(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return prepareFind(arguments);
+    //    case FindCommand.COMMAND_WORD:
+      //      return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -104,11 +109,16 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+
         case SearchCommand.COMMAND_WORD:
-        	return new SearchParser().parse(arguments);
+        	return prepareSearch(arguments);
+
+        case SetDataDirectoryParser.COMMAND_WORD:
+            return new SetDataDirectoryParser().parse(arguments);
+
 
         default:
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+           return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
@@ -176,6 +186,21 @@ public class Parser {
     }
 
     /**
+     * Parses arguments in the context of the mark deadline finished command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMarkDeadlineFinished(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDeadlineFinishedCommand.MESSAGE_USAGE));
+        }
+        return new MarkDeadlineFinishedCommand(index.get());
+    }
+
+    /**
      * Parses arguments in the context of the select person command.
      *
      * @param args full command args string
@@ -215,7 +240,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareFind(String args) {
+    private Command prepareSearch(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -225,7 +250,12 @@ public class Parser {
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        try {
+			return new SearchCommand(keywordSet);
+		} catch (IllegalValueException e) {
+			throw new AssertionError("should not happen", e);
+			//e.printStackTrace();
+		}
     }
 
 }

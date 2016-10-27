@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>7</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>196</x>
-      <y>357</y>
-      <w>98</w>
-      <h>28</h>
+      <x>192</x>
+      <y>368</y>
+      <w>112</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 Storage</panel_attributes>
@@ -16,10 +16,10 @@ Storage</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>329</x>
-      <y>357</y>
-      <w>98</w>
-      <h>28</h>
+      <x>344</x>
+      <y>368</y>
+      <w>112</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>StorageManager</panel_attributes>
     <additional_attributes/>
@@ -27,22 +27,22 @@ Storage</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>462</x>
-      <y>315</y>
-      <w>98</w>
-      <h>28</h>
+      <x>496</x>
+      <y>320</y>
+      <w>112</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-UserPrefsStorage</panel_attributes>
+ConfigStorage</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>462</x>
-      <y>378</y>
-      <w>98</w>
-      <h>28</h>
+      <x>496</x>
+      <y>392</y>
+      <w>112</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 TaskBookStorage</panel_attributes>
@@ -51,21 +51,21 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>595</x>
-      <y>315</y>
-      <w>105</w>
-      <h>28</h>
+      <x>648</x>
+      <y>320</y>
+      <w>120</w>
+      <h>32</h>
     </coordinates>
-    <panel_attributes>JsonUserPrefsStorage</panel_attributes>
+    <panel_attributes>JsonConfigStorage</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>595</x>
-      <y>378</y>
-      <w>105</w>
-      <h>28</h>
+      <x>648</x>
+      <y>392</y>
+      <w>120</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>JsonTaskBookStorage</panel_attributes>
     <additional_attributes/>
@@ -73,10 +73,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>553</x>
-      <y>322</y>
-      <w>56</w>
-      <h>21</h>
+      <x>600</x>
+      <y>328</y>
+      <w>64</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;..</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
@@ -84,10 +84,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>553</x>
-      <y>385</y>
-      <w>56</w>
-      <h>21</h>
+      <x>600</x>
+      <y>400</y>
+      <w>64</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;..</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
@@ -95,10 +95,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
-      <y>322</y>
-      <w>56</w>
-      <h>63</h>
+      <x>448</x>
+      <y>328</y>
+      <w>64</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;70.0;40.0;70.0;40.0;10.0;60.0;10.0</additional_attributes>
@@ -106,10 +106,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
-      <y>364</y>
-      <w>56</w>
-      <h>42</h>
+      <x>448</x>
+      <y>376</y>
+      <w>64</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;40.0;10.0;40.0;40.0;60.0;40.0</additional_attributes>
@@ -117,10 +117,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>287</x>
-      <y>364</y>
-      <w>56</w>
-      <h>21</h>
+      <x>296</x>
+      <y>376</y>
+      <w>64</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;..</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
@@ -128,10 +128,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>595</x>
-      <y>427</y>
-      <w>105</w>
-      <h>28</h>
+      <x>648</x>
+      <y>448</y>
+      <w>120</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>JsonStorageModule</panel_attributes>
     <additional_attributes/>
@@ -139,10 +139,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>637</x>
-      <y>399</y>
-      <w>21</w>
-      <h>42</h>
+      <x>696</x>
+      <y>416</y>
+      <w>24</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
@@ -150,10 +150,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>742</x>
-      <y>378</y>
-      <w>112</w>
-      <h>21</h>
+      <x>816</x>
+      <y>392</y>
+      <w>128</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>JsonTaskBookMixin</panel_attributes>
     <additional_attributes/>
@@ -161,10 +161,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>742</x>
-      <y>406</y>
-      <w>112</w>
-      <h>21</h>
+      <x>816</x>
+      <y>424</y>
+      <w>128</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>JsonDeadlineTaskMixin</panel_attributes>
     <additional_attributes/>
@@ -172,10 +172,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>742</x>
-      <y>434</y>
-      <w>112</w>
-      <h>21</h>
+      <x>816</x>
+      <y>456</y>
+      <w>128</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>JsonFloatingTaskMixin</panel_attributes>
     <additional_attributes/>
@@ -183,21 +183,21 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>742</x>
-      <y>462</y>
-      <w>112</w>
-      <h>21</h>
+      <x>816</x>
+      <y>488</y>
+      <w>128</w>
+      <h>24</h>
     </coordinates>
-    <panel_attributes>JsonEventTaskMixin</panel_attributes>
+    <panel_attributes>...</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>693</x>
-      <y>378</y>
-      <w>63</w>
-      <h>77</h>
+      <x>760</x>
+      <y>392</y>
+      <w>72</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;90.0;40.0;90.0;40.0;10.0;70.0;10.0</additional_attributes>
@@ -205,10 +205,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>693</x>
-      <y>406</y>
-      <w>63</w>
-      <h>49</h>
+      <x>760</x>
+      <y>424</y>
+      <w>72</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;50.0;40.0;50.0;40.0;10.0;70.0;10.0</additional_attributes>
@@ -216,10 +216,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>693</x>
-      <y>434</y>
-      <w>63</w>
-      <h>21</h>
+      <x>760</x>
+      <y>456</y>
+      <w>72</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
@@ -227,10 +227,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>693</x>
-      <y>434</y>
-      <w>63</w>
-      <h>49</h>
+      <x>760</x>
+      <y>456</y>
+      <w>72</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;40.0;10.0;40.0;50.0;70.0;50.0</additional_attributes>
@@ -238,10 +238,10 @@ TaskBookStorage</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>182</x>
-      <y>273</y>
-      <w>679</w>
-      <h>217</h>
+      <x>176</x>
+      <y>240</y>
+      <w>776</w>
+      <h>280</h>
     </coordinates>
     <panel_attributes>Storage
 fontsize=30
@@ -252,12 +252,78 @@ fg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>154</x>
-      <y>364</y>
-      <w>56</w>
-      <h>21</h>
+      <x>144</x>
+      <y>376</y>
+      <w>64</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=..&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>648</x>
+      <y>264</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>JsonConfigModule</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>696</x>
+      <y>288</y>
+      <w>24</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>264</y>
+      <w>72</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;30.0;40.0;30.0;40.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>816</x>
+      <y>264</y>
+      <w>128</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>JsonLevelDeserializer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>816</x>
+      <y>296</y>
+      <w>128</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>...</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>280</y>
+      <w>72</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0;40.0;30.0;70.0;30.0</additional_attributes>
   </element>
 </diagram>

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -15,6 +16,20 @@ import seedu.address.model.task.TaskNotFoundException;
  * The API of the Model component.
  */
 public interface Model {
+
+    /// Config
+
+    /** Returns current config as a read-only view */
+    ReadOnlyConfig getConfig();
+
+    /** Returns configured task book file path. */
+    String getTaskBookFilePath();
+
+    /** Sets configured task book file path */
+    void setTaskBookFilePath(String taskBookFilePath);
+
+    /// Task Book
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskBook newData);
 

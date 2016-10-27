@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.address.model.config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,11 +14,8 @@ public class ConfigTest {
 
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : Task Tracker\n"
-                + "Current log level : INFO\n"
-                + "Preference file Location : preferences.json\n"
-                + "Local data file location : data/taskbook.json\n"
-                + "TaskBook name : MyTaskBook";
+        String defaultConfigAsString = "Current log level : INFO\n"
+                + "Local data file location : data/taskbook.json";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }

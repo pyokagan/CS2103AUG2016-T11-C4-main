@@ -1,17 +1,16 @@
 package seedu.address.ui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.MainApp;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.config.Config;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -65,15 +64,14 @@ public class MainWindow extends UiPart<Scene> {
 
     private final Stage primaryStage;
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public MainWindow(Stage primaryStage, Config config, Logic logic) {
         super(FXML);
         this.primaryStage = primaryStage;
 
         //Configure the UI
-        setTitle(config.getAppTitle());
+        setTitle(MainApp.NAME);
         setIcon(ICON);
         setWindowMinSize();
-        setWindowDefaultSize(prefs);
         fillInnerParts(config, logic);
         setAccelerators();
     }
@@ -97,24 +95,8 @@ public class MainWindow extends UiPart<Scene> {
         statusbarPlaceholder.setNode(statusBarFooter.getRoot());
     }
 
-    public void hide() {
-        primaryStage.hide();
-    }
-
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
-    }
-
-    /**
-     * Sets the default size based on user preferences.
-     */
-    protected void setWindowDefaultSize(UserPrefs prefs) {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
-        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
-            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
-            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
-        }
     }
 
     private void setWindowMinSize() {
@@ -122,18 +104,10 @@ public class MainWindow extends UiPart<Scene> {
         primaryStage.setMinWidth(MIN_WIDTH);
     }
 
-    /**
-     * Returns the current size and the position of the main Window.
-     */
-    public GuiSettings getCurrentGuiSetting() {
-        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-    }
-
     @FXML
     public void handleHelp() {
-        final HelpWindow helpWindow = new HelpWindow(primaryStage);
-        helpWindow.show();
+        final HelpWindow helpWindow = new HelpWindow();
+        helpWindow.getRoot().showAndWait();
     }
 
     /**
@@ -141,7 +115,7 @@ public class MainWindow extends UiPart<Scene> {
      */
     @FXML
     private void handleExit() {
-        raise(new ExitAppRequestEvent());
+        Platform.exit();
     }
 
     /**

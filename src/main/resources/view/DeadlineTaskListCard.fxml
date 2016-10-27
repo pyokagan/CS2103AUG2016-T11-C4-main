@@ -13,5 +13,9 @@
         <Label>Due: </Label>
         <Label fx:id="dueLabel">$due</Label>
     </HBox>
+    <HBox spacing="5" alignment="CENTER_LEFT">
+        <Label>Finished: </Label>
+        <Label fx:id="finishedLabel">$finished</Label>
+    </HBox>
 </VBox>
 

@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.TaskBookChangedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskBook;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.config.ReadOnlyConfig;
+import seedu.address.storage.config.ConfigStorage;
+import seedu.address.storage.config.JsonConfigStorage;
 
 /**
  * Manages storage of TaskBook data in local storage.
@@ -20,31 +18,51 @@ import seedu.address.model.UserPrefs;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private TaskBookStorage taskBookStorage;
-    private UserPrefsStorage userPrefsStorage;
 
-    public StorageManager(TaskBookStorage taskBookStorage, UserPrefsStorage userPrefsStorage) {
+    private final ConfigStorage configStorage;
+
+    private final TaskBookStorage taskBookStorage;
+
+    public StorageManager(ConfigStorage configStorage, TaskBookStorage taskBookStorage) {
         super();
+        this.configStorage = configStorage;
         this.taskBookStorage = taskBookStorage;
-        this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String taskBookFilePath, String userPrefsFilePath) {
-        this(new JsonTaskBookStorage(taskBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(ConfigStorage configStorage, String taskBookFilePath) {
+        this(configStorage, new JsonTaskBookStorage(taskBookFilePath));
     }
 
-    // ================ UserPrefs methods ==============================
+    public StorageManager(String configFilePath, String taskBookFilePath) {
+        this(new JsonConfigStorage(configFilePath), taskBookFilePath);
+    }
+
+    // ================ ConfigStorage methods =========================
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
-        return userPrefsStorage.readUserPrefs();
+    public String getConfigFilePath() {
+        return configStorage.getConfigFilePath();
     }
 
     @Override
-    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
-        userPrefsStorage.saveUserPrefs(userPrefs);
+    public Optional<ReadOnlyConfig> readConfig() throws DataConversionException, IOException {
+        return configStorage.readConfig();
     }
 
+    @Override
+    public Optional<ReadOnlyConfig> readConfig(String filePath) throws DataConversionException, IOException {
+        return configStorage.readConfig(filePath);
+    }
+
+    @Override
+    public void saveConfig(ReadOnlyConfig config) throws IOException {
+        configStorage.saveConfig(config);
+    }
+
+    @Override
+    public void saveConfig(ReadOnlyConfig config, String filePath) throws IOException {
+        configStorage.saveConfig(config, filePath);
+    }
 
     // ================ TaskBook methods ==============================
 
@@ -77,14 +95,10 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    @Subscribe
-    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveTaskBook(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
+    public void moveTaskBook(String newFilePath) throws IOException {
+        logger.fine("Attempting to move task book from " + taskBookStorage.getTaskBookFilePath() + " to "
+                    + newFilePath);
+        taskBookStorage.moveTaskBook(newFilePath);
     }
 
 }

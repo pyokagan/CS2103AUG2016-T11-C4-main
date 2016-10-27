@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.google.common.io.Files;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -21,7 +22,7 @@ public class JsonTaskBookStorage implements TaskBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonTaskBookStorage.class);
 
-    private final String filePath;
+    private String filePath;
 
     private final ObjectMapper objectMapper;
 
@@ -78,6 +79,19 @@ public class JsonTaskBookStorage implements TaskBookStorage {
         final File file = new File(filePath);
         FileUtil.createIfMissing(file);
         objectMapper.writeValue(file, taskBook);
+    }
+
+    @Override
+    public void moveTaskBook(String newFilePath) throws IOException {
+        assert newFilePath != null;
+        final File file = new File(filePath);
+        final File newFile = new File(newFilePath);
+        if (FileUtil.isFileExists(newFile)) {
+            throw new IOException(newFilePath + " already exists.");
+        }
+        Files.createParentDirs(newFile);
+        Files.move(file, newFile);
+        filePath = newFilePath;
     }
 
 }

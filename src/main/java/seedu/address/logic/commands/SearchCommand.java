@@ -16,20 +16,20 @@ public class SearchCommand extends Command {
 
 	    public static final String MESSAGE_SUCCESS = "Search results displayed: %1$s";
 
-	    private final Set<String> keyword;
+	    private final Set<String> keywords;
 
 	    public SearchCommand(Set<String> search) throws IllegalValueException{
-	    	this.keyword = search;
+	    	this.keywords = search;
 	    }
 
-	    public Set<String> getKeyWord(){
-	    	return keyword;
+	    public Set<String> getKeyWords(){
+	    	return keywords;
 	    }
 
 	    @Override
 	    public CommandResult execute() {
 	        assert model != null;
-	        model.setFilter(new NameContainsKeywordsPredicate(keyword));
+	        model.setFilter(new NameContainsKeywordsPredicate(keywords));
 	        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
 	    }
 

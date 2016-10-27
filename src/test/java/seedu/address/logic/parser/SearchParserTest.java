@@ -30,7 +30,7 @@ public class SearchParserTest {
 	private void assertParse(String args, Set<String> keyword){
 		final Command command = parser.parse(args);
 		assertTrue(command instanceof SearchCommand);
-		assertEquals(keyword, ((SearchCommand)command).getKeyWord());
+		assertEquals(keyword, ((SearchCommand)command).getKeyWords());
 	}
 	private void assertIncorrect(String args){
 		final Command command = parser.parse(args);
