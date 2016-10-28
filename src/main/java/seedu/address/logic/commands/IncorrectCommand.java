@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.Model;
 
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
@@ -13,7 +14,7 @@ public class IncorrectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         indicateAttemptToExecuteIncorrectCommand();
         return new CommandResult(feedbackToUser);
     }

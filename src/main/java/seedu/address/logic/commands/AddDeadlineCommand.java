@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import java.time.LocalDateTime;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
 
 /**
@@ -29,7 +30,7 @@ public class AddDeadlineCommand extends AddTaskCommand {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         assert model != null;
         model.addDeadlineTask(deadlineTask);
         return new CommandResult(String.format(MESSAGE_SUCCESS, deadlineTask));

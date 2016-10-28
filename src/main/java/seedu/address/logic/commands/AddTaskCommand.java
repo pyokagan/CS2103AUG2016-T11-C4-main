@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
 /**
@@ -16,6 +17,6 @@ public abstract class AddTaskCommand extends Command {
     public abstract Task getTask();
 
     @Override
-    public abstract CommandResult execute();
+    public abstract CommandResult execute(Model model);
 
 }

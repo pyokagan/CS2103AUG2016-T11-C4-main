@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.model.ModelManager;
 import seedu.address.testutil.EventsCollector;
 
 public class HelpCommandTest {
@@ -14,7 +15,8 @@ public class HelpCommandTest {
     public void execute() {
         final HelpCommand command = new HelpCommand();
         final EventsCollector eventsCollector = new EventsCollector();
-        final CommandResult result = command.execute();
+        final ModelManager model = new ModelManager();
+        final CommandResult result = command.execute(model);
         assertEquals("Opened help window.", result.feedbackToUser);
         assertTrue(eventsCollector.get(0) instanceof ShowHelpRequestEvent);
     }

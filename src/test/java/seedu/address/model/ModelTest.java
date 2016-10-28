@@ -316,15 +316,13 @@ public class ModelTest {
 
         //clear an empty taskbook
         Command clear = new ClearCommand();
-        clear.setData(model);
-        clear.execute();
+        clear.execute(model);
         assertFalse(model.hasUncommittedChanges());
 
         //clear a non-empty taskbook
         model.addFloatingTask(tpflt.buyAHelicopter);
         model.recordState("dummy command");
-        clear.setData(model);
-        clear.execute();
+        clear.execute(model);
         assertTrue(model.hasUncommittedChanges());
     }
 

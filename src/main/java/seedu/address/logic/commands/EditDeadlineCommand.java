@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Name;
 
@@ -47,7 +48,7 @@ public class EditDeadlineCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         DeadlineTask oldDeadlineTask;
         try {
             oldDeadlineTask = model.getDeadlineTask(targetIndex);

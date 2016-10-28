@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
 
 public class DeleteEventCommand extends Command {
@@ -22,7 +23,7 @@ public class DeleteEventCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         try {
             final EventTask deletedTask = model.removeEventTask(targetIndex);
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask));

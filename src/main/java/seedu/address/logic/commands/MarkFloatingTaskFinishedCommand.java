@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
 
 public class MarkFloatingTaskFinishedCommand extends Command {
@@ -22,7 +23,7 @@ public class MarkFloatingTaskFinishedCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         FloatingTask oldFloatingTask;
         try {
             oldFloatingTask = model.getFloatingTask(targetIndex);

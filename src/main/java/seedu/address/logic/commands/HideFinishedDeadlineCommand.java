@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.Model;
 import seedu.address.model.filter.DeadlineTaskFinishedPredicate;
 
 public class HideFinishedDeadlineCommand extends Command {
@@ -13,7 +14,7 @@ public class HideFinishedDeadlineCommand extends Command {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "All finished Deadlines hided.";
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         model.setDeadlineTaskPredicate(new DeadlineTaskFinishedPredicate());
         return new CommandResult(MESSAGE_EDIT_TASK_SUCCESS);
     }

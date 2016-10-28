@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.Name;
 
@@ -60,7 +61,7 @@ public class EditEventCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         EventTask oldEventTask;
         try {
             oldEventTask = model.getEventTask(targetIndex);

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.Model.Commit;
+import seedu.address.model.Model;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
 
 public class UndoCommand extends Command {
@@ -10,7 +11,7 @@ public class UndoCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         final Commit undoneCommit;
         try {
             undoneCommit = model.undo();

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
@@ -29,7 +30,7 @@ public class AddFloatingTaskCommand extends AddTaskCommand {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         assert model != null;
         model.addFloatingTask(floatingTask);
         return new CommandResult(String.format(MESSAGE_SUCCESS, floatingTask));

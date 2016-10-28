@@ -1,11 +1,12 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.Model;
 import seedu.address.model.WorkingTaskBook;
 
 public class ListCommand extends Command {
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         assert model != null;
         model.setFloatingTaskComparator(WorkingTaskBook.DEFAULT_FLOATING_TASK_COMPARATOR);
         model.setFloatingTaskPredicate(null);

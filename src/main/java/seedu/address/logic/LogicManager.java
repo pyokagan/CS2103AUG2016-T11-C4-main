@@ -44,8 +44,7 @@ public class LogicManager extends ComponentManager implements Logic {
         final TaskBookChangeListener taskBookListener = new TaskBookChangeListener(model.getTaskBook());
         final Config oldConfig = new Config(model.getConfig());
         Command command = parser.parseCommand(commandText);
-        command.setData(model);
-        final CommandResult result = command.execute();
+        final CommandResult result = command.execute(model);
         updateConfigStorage(oldConfig);
         updateTaskBookStorage(taskBookListener);
 
