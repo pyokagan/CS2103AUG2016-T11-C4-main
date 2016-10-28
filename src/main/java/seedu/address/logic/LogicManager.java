@@ -48,7 +48,7 @@ public class LogicManager extends ComponentManager implements Logic {
         updateTaskBookStorage(taskBookListener);
 
         if (model.hasUncommittedChanges()) {
-            model.recordState(command);
+            model.recordState(command.toString());
         }
         return result;
 

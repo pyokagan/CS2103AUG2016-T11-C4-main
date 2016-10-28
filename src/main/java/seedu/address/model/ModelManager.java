@@ -14,7 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.MappedList;
-import seedu.address.logic.commands.Command;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
@@ -344,37 +343,39 @@ public class ModelManager extends ComponentManager implements Model {
     ////undo redo
 
     @Override
-    public Command undo() throws HeadAtBoundaryException {
+    public Commit undo() throws HeadAtBoundaryException {
         if (head <= 0) {
             throw new HeadAtBoundaryException();
         }
-        Command undoneAction = commits.get(head).getCommand();
+        final Commit undoneCommit = commits.get(head);
         head--;
         Commit commit = commits.get(head);
         resetTaskBook(commit.getTaskBook());
-        return undoneAction;
+        return undoneCommit;
     }
 
     @Override
-    public void recordState(Command command) {
+    public Commit recordState(String name) {
         //clear redoable, which are the commits above head
         head ++;
         while (this.head < (commits.size())) {
             commits.remove(head);
         }
-        commits.add(new Commit(command, new TaskBook(getTaskBook())));
+        final Commit newCommit = new Commit(name, getTaskBook());
+        commits.add(newCommit);
         head = commits.size() - 1;
+        return newCommit;
     }
 
     @Override
-    public Command redo() throws HeadAtBoundaryException {
+    public Commit redo() throws HeadAtBoundaryException {
         if (head >= commits.size() - 1) {
             throw new HeadAtBoundaryException();
         }
         head++;
         Commit commit = commits.get(head);
         resetTaskBook(commit.getTaskBook());
-        return commit.getCommand();
+        return commit;
     }
 
     /**
@@ -386,21 +387,31 @@ public class ModelManager extends ComponentManager implements Model {
         return !(this.taskBook.equals(commits.get(head).getTaskBook()));
     }
 
-    private class Commit {
+    private class Commit implements Model.Commit {
+        private String name;
         private TaskBook taskBook;
-        private Command command;
 
-        Commit(Command command, TaskBook state) {
-            this.taskBook = state;
-            this.command = command;
+        Commit(String name, ReadOnlyTaskBook taskBook) {
+            this.name = name;
+            this.taskBook = new TaskBook(taskBook);
         }
 
-        public TaskBook getTaskBook() {
-            return this.taskBook;
+        @Override
+        public String getName() {
+            return name;
         }
 
-        public Command getCommand() {
-            return this.command;
+        public ReadOnlyTaskBook getTaskBook() {
+            return taskBook;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return other == this
+                   || (other instanceof Commit
+                   && name.equals(((Commit)other).name)
+                   && taskBook.equals(((Commit)other).taskBook)
+                   );
         }
     }
 

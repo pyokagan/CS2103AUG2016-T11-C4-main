@@ -1,29 +1,27 @@
 package seedu.address.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.Before;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import junit.framework.Assert;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.Model.Commit;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
 import seedu.address.model.task.TypicalDeadlineTasks;
 import seedu.address.model.task.TypicalEventTasks;
 import seedu.address.model.task.TypicalFloatingTasks;
 
-@SuppressWarnings("deprecation")
 public class ModelTest {
 
     @Rule
@@ -214,12 +212,9 @@ public class ModelTest {
         clear.execute();
         assertFalse(model.hasUncommittedChanges());
 
-        //create dummy command to store in record state
-        Command dummy = null;
-
         //clear a non-empty taskbook
         model.addFloatingTask(tpflt.buyAHelicopter);
-        model.recordState(dummy);
+        model.recordState("dummy command");
         clear.setData(model);
         clear.execute();
         assertTrue(model.hasUncommittedChanges());
@@ -227,31 +222,6 @@ public class ModelTest {
 
     @Test
     public void recordStateAndUndo_Redo_properlyUndosConsecutiveAdds() throws Exception {
-        // These are just dummy commands that test that recordState() correctly stores them, but does not
-        // execute them.
-        Command command1 = new Command() {
-            @Override
-            public CommandResult execute() {
-                Assert.fail("Should not be called");
-                return new CommandResult("");
-            }
-        };
-        Command command2 = new Command() {
-            @Override
-            public CommandResult execute() {
-                Assert.fail("Should not be called");
-                return new CommandResult("");
-            }
-        };
-
-        Command command3 = new Command() {
-            @Override
-            public CommandResult execute() {
-                Assert.fail("Should not be called");
-                return new CommandResult("");
-            }
-        };
-
         //create expected TaskBook
         TaskBook dummybook = new TaskBook();
 
@@ -260,7 +230,7 @@ public class ModelTest {
 
         //We 'execute' command1
         model.addFloatingTask(tpflt.buyAHelicopter);
-        model.recordState(command1);
+        final Commit command1Commit = model.recordState("command1");
 
         //update expected TaskBook
         dummybook.addFloatingTask(tpflt.buyAHelicopter);
@@ -268,7 +238,7 @@ public class ModelTest {
 
         //We 'execute' command2
         model.addFloatingTask(tpflt.readABook);
-        model.recordState(command2);
+        final Commit command2Commit = model.recordState("command2");
 
         //update expected TaskBook
         dummybook.addFloatingTask(tpflt.readABook);
@@ -276,7 +246,7 @@ public class ModelTest {
 
         //We 'execute' command3
         model.addEventTask(tpent.launchNuclearWeapons);
-        model.recordState(command3);
+        final Commit command3Commit = model.recordState("command3");
 
         //update expected TaskBook
         dummybook.addEventTask(tpent.launchNuclearWeapons);
@@ -285,7 +255,7 @@ public class ModelTest {
         assertEquals(dummybook, model.getTaskBook());
 
         //undo command 3
-        assertEquals(command3, model.undo());
+        assertEquals(command3Commit, model.undo());
 
         //update expected TaskBook
         dummybook.removeEventTask(0);
@@ -295,7 +265,7 @@ public class ModelTest {
         assertEquals(dummybook, model.getTaskBook());
 
         //undo command 2
-        assertEquals(command2, model.undo());
+        assertEquals(command2Commit, model.undo());
 
         //test with hasUncommittedChanges
         assertFalse(model.hasUncommittedChanges());
@@ -308,7 +278,7 @@ public class ModelTest {
         assertEquals(dummybook, model.getTaskBook());
 
         //undo command 1
-        assertEquals(command1, model.undo());
+        assertEquals(command1Commit, model.undo());
 
         //test with hasUncommittedChanges
         assertFalse(model.hasUncommittedChanges());
@@ -322,18 +292,18 @@ public class ModelTest {
 
         //consecutive redos
         //redo command1
-        assertEquals(command1, model.redo());
+        assertEquals(command1Commit, model.redo());
         assertEquals(dummybook1, model.getTaskBook());
 
         //redo command2
-        assertEquals(command2, model.redo());
+        assertEquals(command2Commit, model.redo());
         assertEquals(dummybook2, model.getTaskBook());
 
         //test with hasUncommittedChanges
         assertFalse(model.hasUncommittedChanges());
 
         //redo command3
-        assertEquals(command3, model.redo());
+        assertEquals(command3Commit, model.redo());
         assertEquals(dummybook3, model.getTaskBook());
 
         //no more redos expected
@@ -343,48 +313,23 @@ public class ModelTest {
 
     @Test
     public void recordStateAndUndo_properlyManagesStack() throws Exception {
-        // These are just dummy commands that test that recordState() correctly stores them, but does not
-        // execute them.
-        Command command1 = new Command() {
-            @Override
-            public CommandResult execute() {
-                Assert.fail("Should not be called");
-                return new CommandResult("");
-            }
-        };
-        Command command2 = new Command() {
-            @Override
-            public CommandResult execute() {
-                Assert.fail("Should not be called");
-                return new CommandResult("");
-            }
-        };
-
-        Command command3 = new Command() {
-            @Override
-            public CommandResult execute() {
-                Assert.fail("Should not be called");
-                return new CommandResult("");
-            }
-        };
-
         // Model task book is initially empty
         assertEquals(new TaskBook(), model.getTaskBook());
 
         // We "execute" command1, adding a floating task
         model.addFloatingTask(tpflt.buyAHelicopter);
-        model.recordState(command1);
+        final Commit command1Commit = model.recordState("command 1");
 
         // Undo command1
-        assertEquals(command1, model.undo());
+        assertEquals(command1Commit, model.undo());
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
 
         // We "execute" command2, adding an event
         model.addEventTask(tpent.lunchWithBillGates);
-        model.recordState(command2);
+        final Commit command2Commit = model.recordState("command 2");
 
         // Undo command2
-        assertEquals(command2, model.undo());
+        assertEquals(command2Commit, model.undo());
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
 
         // At this point, we should not be able to undo anymore.
@@ -396,26 +341,26 @@ public class ModelTest {
 
         //We "execute" command 3, adding an event
         model.addEventTask(tpent.launchNuclearWeapons);
-        model.recordState(command3);
+        final Commit command3Commit = model.recordState("command 3");
 
         //undo command3
-        assertEquals(command3, model.undo());
+        assertEquals(command3Commit, model.undo());
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
 
-        // We "execute" command1, adding a floating task
+        // We "execute" 4, adding a floating task
         model.addFloatingTask(tpflt.buyAHelicopter);
-        model.recordState(command1);
+        final Commit command4Commit = model.recordState("command 4");
 
-        // Undo command1
-        assertEquals(command1, model.undo());
+        // Undo command4
+        assertEquals(command4Commit, model.undo());
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
 
-        // We "execute" command2, adding an event
+        // We "execute" command5, adding an event
         model.addEventTask(tpent.lunchWithBillGates);
-        model.recordState(command2);
+        final Commit command5Commit = model.recordState("command 5");
 
-        // Undo command2
-        assertEquals(command2, model.undo());
+        // Undo command5
+        assertEquals(command5Commit, model.undo());
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
     }
 }
