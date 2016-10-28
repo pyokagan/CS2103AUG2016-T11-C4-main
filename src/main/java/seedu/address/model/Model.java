@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.Command;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
 import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
@@ -127,31 +126,37 @@ public interface Model {
     /** Sets the comparator used to sort the event task list. */
     void setEventTaskComparator(Comparator<? super EventTask> comparator);
 
-    ////undo redo
-    /**
-     * saves a copy of the current TaskBook, and the Command that causes the change from the previous TaskBook to the current TaskBook.
-     * @param command
-     */
-    void recordState(Command command);
+    //// undo/redo
 
     /**
-     * resets the TaskBook to the TaskBook before it was changed by the most recent undo.
-     * @return the Command that was redone
+     * Saves the state of the model as a commit.
+     * @param name The name of the commit.
+     * @return The new commit.
+     */
+    Commit recordState(String name);
+
+    /**
+     * Redoes the most recently undone commit.
+     * @return The commit that was redone.
+     * @throws HeadAtBoundaryException if there are no more commits to redo.
+     */
+    Commit redo() throws HeadAtBoundaryException;
+
+    /**
+     * Undoes the most recent commit.
+     * @return the commit that was undone.
      * @throws HeadAtBoundaryException
      */
-    Command redo() throws HeadAtBoundaryException;
+    Commit undo() throws HeadAtBoundaryException;
 
     /**
-     * resets the TaskBook to it's previous state.
-     * @return the Command that was undone
-     * @throws HeadAtBoundaryException
-     */
-    Command undo() throws HeadAtBoundaryException;
-
-    /**
-     *@return true if TaskBook has changed
-     *Unlikely the commits list will be empty since recordState() is called when ModelManager is initialised. Thus there will always be at least one Commit in commits.
+     * Returns true if the model differs from the current commit's recorded model.
      */
     boolean hasUncommittedChanges();
+
+    public interface Commit {
+        /** The name of the commit */
+        String getName();
+    }
 
 }

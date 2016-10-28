@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.Model.Commit;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
 
 public class RedoCommand extends Command {
@@ -9,13 +10,13 @@ public class RedoCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        Command action;
+        final Commit commit;
         try {
-            action = model.redo();
+            commit = model.redo();
         } catch (HeadAtBoundaryException e) {
             return new CommandResult("No undos to redo.");
         }
-        return new CommandResult("Redid " + action.toString());
+        return new CommandResult("Redid " + commit.getName());
     }
 
 }
