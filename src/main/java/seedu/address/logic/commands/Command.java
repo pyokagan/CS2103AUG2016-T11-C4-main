@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.model.Model;
 
@@ -10,16 +9,6 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
     protected Model model;
-
-    /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
-     *
-     * @param displaySize used to generate summary
-     * @return summary message for tasks displayed
-     */
-    public static String getMessageForTaskListShownSummary(int displaySize) {
-        return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize);
-    }
 
     /**
      * Executes the command and returns the result message.
