@@ -21,8 +21,8 @@ public class DeadlineTaskListCard extends UiPart<Pane> {
     @FXML
     private Label dueLabel;
 
-    @FXML
-    private Label finishedLabel;
+    //@FXML
+    //private Label bananaLabel;
 
     /**
      * @param deadlineTask The deadline task to display. Can be null to not display anything.
@@ -33,7 +33,7 @@ public class DeadlineTaskListCard extends UiPart<Pane> {
             indexLabel.setText(IndexPrefix.DEADLINE.getPrefixString() + index + ". ");
             nameLabel.setText(deadlineTask.getName().toString());
             dueLabel.setText(deadlineTask.getDue().toString());
-            finishedLabel.setText(String.valueOf(deadlineTask.isFinished()));
+            //bananaLabel.setText(String.valueOf(deadlineTask.isFinished()));
             if (deadlineTask.isFinished()) {
                 getRoot().getStyleClass().add("finished");
             } else if (deadlineTask.getDue().isBefore(LocalDateTime.now())) {
