@@ -195,7 +195,7 @@ public class ModelTest {
     @Test
     public void undo_redo_throws_HeadAtBoundaryException() throws HeadAtBoundaryException {
         thrown.expect(HeadAtBoundaryException.class);
-        model.undo();
+        model.undo(1);
 
         thrown.expect(HeadAtBoundaryException.class);
         model.redo();
@@ -255,7 +255,7 @@ public class ModelTest {
         assertEquals(dummybook, model.getTaskBook());
 
         //undo command 3
-        assertEquals(command3Commit, model.undo());
+        assertEquals(Arrays.asList(command3Commit), model.undo(1));
 
         //update expected TaskBook
         dummybook.removeEventTask(0);
@@ -265,7 +265,7 @@ public class ModelTest {
         assertEquals(dummybook, model.getTaskBook());
 
         //undo command 2
-        assertEquals(command2Commit, model.undo());
+        assertEquals(Arrays.asList(command2Commit), model.undo(1));
 
         //test with hasUncommittedChanges
         assertFalse(model.hasUncommittedChanges());
@@ -278,7 +278,7 @@ public class ModelTest {
         assertEquals(dummybook, model.getTaskBook());
 
         //undo command 1
-        assertEquals(command1Commit, model.undo());
+        assertEquals(Arrays.asList(command1Commit), model.undo(1));
 
         //test with hasUncommittedChanges
         assertFalse(model.hasUncommittedChanges());
@@ -321,7 +321,7 @@ public class ModelTest {
         final Commit command1Commit = model.recordState("command 1");
 
         // Undo command1
-        assertEquals(command1Commit, model.undo());
+        assertEquals(Arrays.asList(command1Commit), model.undo(1));
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
 
         // We "execute" command2, adding an event
@@ -329,12 +329,12 @@ public class ModelTest {
         final Commit command2Commit = model.recordState("command 2");
 
         // Undo command2
-        assertEquals(command2Commit, model.undo());
+        assertEquals(Arrays.asList(command2Commit), model.undo(1));
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
 
         // At this point, we should not be able to undo anymore.
         thrown.expect(HeadAtBoundaryException.class);
-        model.undo();
+        model.undo(1);
 
         //test with hasUncommittedChanges
         assertFalse(model.hasUncommittedChanges());
@@ -344,7 +344,7 @@ public class ModelTest {
         final Commit command3Commit = model.recordState("command 3");
 
         //undo command3
-        assertEquals(command3Commit, model.undo());
+        assertEquals(Arrays.asList(command3Commit), model.undo(1));
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
 
         // We "execute" 4, adding a floating task
@@ -352,7 +352,7 @@ public class ModelTest {
         final Commit command4Commit = model.recordState("command 4");
 
         // Undo command4
-        assertEquals(command4Commit, model.undo());
+        assertEquals(Arrays.asList(command4Commit), model.undo(1));
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
 
         // We "execute" command5, adding an event
@@ -360,7 +360,7 @@ public class ModelTest {
         final Commit command5Commit = model.recordState("command 5");
 
         // Undo command5
-        assertEquals(command5Commit, model.undo());
+        assertEquals(Arrays.asList(command5Commit), model.undo(1));
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
     }
 }

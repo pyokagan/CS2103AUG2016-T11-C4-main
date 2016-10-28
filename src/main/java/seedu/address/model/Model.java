@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -131,11 +132,11 @@ public interface Model {
     Commit redo() throws HeadAtBoundaryException;
 
     /**
-     * Undoes the most recent commit.
-     * @return the commit that was undone.
+     * Undoes the most recent n commits.
+     * @return the commits that were undone, in the order in which they were undone.
      * @throws HeadAtBoundaryException
      */
-    Commit undo() throws HeadAtBoundaryException;
+    List<Commit> undo(int n) throws HeadAtBoundaryException;
 
     /**
      * Returns true if the model differs from the current commit's recorded model.

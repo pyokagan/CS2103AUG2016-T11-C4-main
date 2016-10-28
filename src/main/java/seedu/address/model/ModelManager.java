@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -343,15 +344,17 @@ public class ModelManager extends ComponentManager implements Model {
     ////undo redo
 
     @Override
-    public Commit undo() throws HeadAtBoundaryException {
+    public List<Model.Commit> undo(int n) throws HeadAtBoundaryException {
         if (head <= 0) {
             throw new HeadAtBoundaryException();
         }
-        final Commit undoneCommit = commits.get(head);
-        head--;
+        final List<Model.Commit> undoneCommits = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            undoneCommits.add(commits.get(head--));
+        }
         Commit commit = commits.get(head);
         resetTaskBook(commit.getTaskBook());
-        return undoneCommit;
+        return undoneCommits;
     }
 
     @Override
