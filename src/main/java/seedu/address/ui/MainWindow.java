@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.config.Config;
 
 /**
@@ -90,6 +91,7 @@ public class MainWindow extends UiPart<Scene> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.setNode(resultDisplay.getRoot());
         commandBox = new CommandBox(resultDisplay, logic);
+        commandBox.setOnCommandResult(this::onCommandResult);
         commandBoxPlaceholder.setNode(commandBox.getRoot());
         statusBarFooter = new StatusBarFooter(config.getTaskBookFilePath());
         statusbarPlaceholder.setNode(statusBarFooter.getRoot());
@@ -124,6 +126,9 @@ public class MainWindow extends UiPart<Scene> {
      */
     private void setIcon(String iconSource) {
         primaryStage.getIcons().add(AppUtil.getImage(iconSource));
+    }
+
+    private void onCommandResult(CommandResult result) {
     }
 
 }

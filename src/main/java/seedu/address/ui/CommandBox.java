@@ -28,12 +28,18 @@ public class CommandBox extends UiPart<Pane> {
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
+    private OnCommandResultCallback onCommandResultCallback;
+
     public CommandBox(ResultDisplay resultDisplay, Logic logic) {
         super(FXML);
         this.resultDisplay = resultDisplay;
         this.logic = logic;
         FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+    }
+
+    public void setOnCommandResult(OnCommandResultCallback callback) {
+        this.onCommandResultCallback = callback;
     }
 
     @FXML
@@ -48,6 +54,9 @@ public class CommandBox extends UiPart<Pane> {
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+        if (onCommandResultCallback != null) {
+            onCommandResultCallback.call(mostRecentResult);
+        }
     }
 
     /**
@@ -77,6 +86,10 @@ public class CommandBox extends UiPart<Pane> {
      */
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
+    }
+
+    public interface OnCommandResultCallback {
+        void call(CommandResult result);
     }
 
 }
