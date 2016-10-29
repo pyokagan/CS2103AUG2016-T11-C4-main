@@ -27,6 +27,7 @@ public class DeadlineTaskListCard extends UiPart<Pane> {
     public DeadlineTaskListCard(DeadlineTask deadlineTask, int index) {
         super(FXML);
         if (deadlineTask != null) {
+            indexLabel.setWrapText(true);
             indexLabel.setText(IndexPrefix.DEADLINE.getPrefixString() + index + ". ");
             nameLabel.setText(deadlineTask.getName().toString());
             dueLabel.setText(deadlineTask.getDue().toString());
