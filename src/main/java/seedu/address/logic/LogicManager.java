@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -11,6 +10,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.TaskTrackerParser;
+import seedu.address.model.IndexedItem;
 import seedu.address.model.Model;
 import seedu.address.model.TaskBookChangeListener;
 import seedu.address.model.config.Config;
@@ -83,18 +83,18 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList() {
-        return model.getFilteredFloatingTaskList();
+    public ObservableList<IndexedItem<FloatingTask>> getFloatingTaskList() {
+        return model.getFloatingTaskList();
     }
 
     @Override
-    public ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList() {
-        return model.getFilteredDeadlineTaskList();
+    public ObservableList<IndexedItem<DeadlineTask>> getDeadlineTaskList() {
+        return model.getDeadlineTaskList();
     }
 
     @Override
-    public ObservableList<Optional<EventTask>> getFilteredEventTaskList() {
-        return model.getFilteredEventTaskList();
+    public ObservableList<IndexedItem<EventTask>> getEventTaskList() {
+        return model.getEventTaskList();
     }
 
 }

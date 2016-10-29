@@ -13,7 +13,7 @@ public class ShowAllDeadlineCommand extends Command {
     @Override
     public CommandResult execute() {
         // clear the filter/predicate of the filtered deadline list.
-        model.setDeadlineTaskFilter(null);
+        model.setDeadlineTaskPredicate(null);
         return new CommandResult(MESSAGE_EDIT_TASK_SUCCESS);
     }
 }

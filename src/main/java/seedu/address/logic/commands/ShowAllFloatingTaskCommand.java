@@ -13,7 +13,7 @@ public class ShowAllFloatingTaskCommand extends Command {
     @Override
     public CommandResult execute() {
         // clear the filter/predicate of the filtered floating task list.
-        model.setFloatingTaskFilter(null);
+        model.setFloatingTaskPredicate(null);
         return new CommandResult(MESSAGE_EDIT_TASK_SUCCESS);
     }
 }

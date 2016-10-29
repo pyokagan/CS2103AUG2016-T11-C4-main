@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -23,6 +22,7 @@ import javafx.stage.Window;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.IndexedItem;
 import seedu.address.model.config.Config;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
@@ -34,11 +34,11 @@ public class UiManagerTest extends FxRobot {
 
     private Config config;
 
-    private ObservableList<Optional<FloatingTask>> floatingTaskList;
+    private ObservableList<IndexedItem<FloatingTask>> floatingTaskList;
 
-    private ObservableList<Optional<EventTask>> eventTaskList;
+    private ObservableList<IndexedItem<EventTask>> eventTaskList;
 
-    private ObservableList<Optional<DeadlineTask>> deadlineTaskList;
+    private ObservableList<IndexedItem<DeadlineTask>> deadlineTaskList;
 
     @Mock
     private Logic logic;
@@ -56,11 +56,11 @@ public class UiManagerTest extends FxRobot {
         floatingTaskList = FXCollections.observableArrayList();
         eventTaskList = FXCollections.observableArrayList();
         deadlineTaskList = FXCollections.observableArrayList();
-        Mockito.when(logic.getFilteredFloatingTaskList())
+        Mockito.when(logic.getFloatingTaskList())
                .thenReturn(FXCollections.unmodifiableObservableList(floatingTaskList));
-        Mockito.when(logic.getFilteredDeadlineTaskList())
+        Mockito.when(logic.getDeadlineTaskList())
                .thenReturn(FXCollections.unmodifiableObservableList(deadlineTaskList));
-        Mockito.when(logic.getFilteredEventTaskList())
+        Mockito.when(logic.getEventTaskList())
                .thenReturn(FXCollections.unmodifiableObservableList(eventTaskList));
         config = new Config();
         uiManager = new UiManager(logic, config);

@@ -82,11 +82,11 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     void fillInnerParts(Config config, Logic logic) {
-        floatingTaskListPane = new FloatingTaskListPane(logic.getFilteredFloatingTaskList());
+        floatingTaskListPane = new FloatingTaskListPane(logic.getFloatingTaskList());
         floatingTaskListRegion.setNode(floatingTaskListPane.getRoot());
-        eventTaskListPane = new EventTaskListPane(logic.getFilteredEventTaskList());
+        eventTaskListPane = new EventTaskListPane(logic.getEventTaskList());
         eventTaskListRegion.setNode(eventTaskListPane.getRoot());
-        deadlineTaskListPane = new DeadlineTaskListPane(logic.getFilteredDeadlineTaskList());
+        deadlineTaskListPane = new DeadlineTaskListPane(logic.getDeadlineTaskList());
         deadlineTaskListRegion.setNode(deadlineTaskListPane.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.setNode(resultDisplay.getRoot());

@@ -1,19 +1,20 @@
 package seedu.address.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Before;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import junit.framework.Assert;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -44,9 +45,12 @@ public class ModelTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), model.getFilteredFloatingTaskList());
-        assertEquals(Collections.emptyList(), model.getFilteredEventTaskList());
-        assertEquals(Collections.emptyList(), model.getFilteredDeadlineTaskList());
+        assertEquals(Collections.emptyList(), model.getFloatingTaskList());
+        assertEquals(Collections.emptyList(), model.getEventTaskList());
+        assertEquals(Collections.emptyList(), model.getDeadlineTaskList());
+        assertEquals(WorkingTaskBook.DEFAULT_FLOATING_TASK_COMPARATOR, model.getFloatingTaskComparator());
+        assertEquals(WorkingTaskBook.DEFAULT_DEADLINE_TASK_COMPARATOR, model.getDeadlineTaskComparator());
+        assertEquals(WorkingTaskBook.DEFAULT_EVENT_TASK_COMPARATOR, model.getEventTaskComparator());
     }
 
     @Test
@@ -69,10 +73,10 @@ public class ModelTest {
     public void removeFloatingTask_emptiesIndexInFilteredList() throws Exception {
         model.addFloatingTask(tpflt.readABook);
         model.addFloatingTask(tpflt.buyAHelicopter);
-        model.setFloatingTaskFilter(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
+        model.setFloatingTaskPredicate(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
         model.removeFloatingTask(0);
-        model.setFloatingTaskFilter(null);
-        assertEquals(Arrays.asList(Optional.of(tpflt.readABook)), model.getFilteredFloatingTaskList());
+        model.setFloatingTaskPredicate(null);
+        assertEquals(Arrays.asList(tpflt.readABook), unindexList(model.getFloatingTaskList()));
     }
 
     @Test
@@ -85,11 +89,10 @@ public class ModelTest {
     public void setFloatingTask_replacesIndexInFilteredList() throws Exception {
         model.addFloatingTask(tpflt.readABook);
         model.addFloatingTask(tpflt.buyAHelicopter);
-        model.setFloatingTaskFilter(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
+        model.setFloatingTaskPredicate(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
         model.setFloatingTask(0, tpflt.readABook);
-        model.setFloatingTaskFilter(null);
-        assertEquals(Arrays.asList(Optional.of(tpflt.readABook), Optional.of(tpflt.readABook)),
-                    model.getFilteredFloatingTaskList());
+        model.setFloatingTaskPredicate(null);
+        assertEquals(Arrays.asList(tpflt.readABook, tpflt.readABook), unindexList(model.getFloatingTaskList()));
     }
 
     @Test
@@ -117,10 +120,10 @@ public class ModelTest {
     public void removeEventTask_removesIndexInFilteredList() throws Exception {
         model.addEventTask(tpent.lunchWithBillGates);
         model.addEventTask(tpent.launchNuclearWeapons);
-        model.setEventTaskFilter(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
+        model.setEventTaskPredicate(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
         model.removeEventTask(0);
-        model.setEventTaskFilter(null);
-        assertEquals(Arrays.asList(Optional.of(tpent.lunchWithBillGates)), model.getFilteredEventTaskList());
+        model.setEventTaskPredicate(null);
+        assertEquals(Arrays.asList(tpent.lunchWithBillGates), unindexList(model.getEventTaskList()));
     }
 
     @Test
@@ -133,11 +136,11 @@ public class ModelTest {
     public void setEventTask_replacesIndexInFilteredList() throws Exception {
         model.addEventTask(tpent.lunchWithBillGates);
         model.addEventTask(tpent.launchNuclearWeapons);
-        model.setEventTaskFilter(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
+        model.setEventTaskPredicate(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
         model.setEventTask(0, tpent.lunchWithBillGates);
-        model.setEventTaskFilter(null);
-        assertEquals(Arrays.asList(Optional.of(tpent.lunchWithBillGates), Optional.of(tpent.lunchWithBillGates)),
-                    model.getFilteredEventTaskList());
+        model.setEventTaskPredicate(null);
+        assertEquals(Arrays.asList(tpent.lunchWithBillGates, tpent.lunchWithBillGates),
+                    unindexList(model.getEventTaskList()));
     }
 
     @Test
@@ -165,10 +168,10 @@ public class ModelTest {
     public void removeDeadlineTask_removesIndexInFilteredList() throws Exception {
         model.addDeadlineTask(tpdue.speechTranscript);
         model.addDeadlineTask(tpdue.assembleTheMissiles);
-        model.setDeadlineTaskFilter(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
+        model.setDeadlineTaskPredicate(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
         model.removeDeadlineTask(0);
-        model.setDeadlineTaskFilter(null);
-        assertEquals(Arrays.asList(Optional.of(tpdue.speechTranscript)), model.getFilteredDeadlineTaskList());
+        model.setDeadlineTaskPredicate(null);
+        assertEquals(Arrays.asList(tpdue.speechTranscript), unindexList(model.getDeadlineTaskList()));
     }
 
     @Test
@@ -181,11 +184,11 @@ public class ModelTest {
     public void setDeadlineTask_replacesIndexInFilteredList() throws Exception {
         model.addDeadlineTask(tpdue.speechTranscript);
         model.addDeadlineTask(tpdue.assembleTheMissiles);
-        model.setDeadlineTaskFilter(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
+        model.setDeadlineTaskPredicate(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
         model.setDeadlineTask(0, tpdue.speechTranscript);
-        model.setDeadlineTaskFilter(null);
-        assertEquals(Arrays.asList(Optional.of(tpdue.speechTranscript), Optional.of(tpdue.speechTranscript)),
-                    model.getFilteredDeadlineTaskList());
+        model.setDeadlineTaskPredicate(null);
+        assertEquals(Arrays.asList(tpdue.speechTranscript, tpdue.speechTranscript),
+                unindexList(model.getDeadlineTaskList()));
     }
 
     @Test
@@ -417,5 +420,9 @@ public class ModelTest {
         // Undo command2
         assertEquals(command2, model.undo());
         assertEquals(new TaskBook(), model.getTaskBook()); // Model task book is back to being empty
+    }
+
+    private <E> List<E> unindexList(List<IndexedItem<E>> list) {
+        return list.stream().map(x -> x.getItem()).collect(Collectors.toList());
     }
 }
