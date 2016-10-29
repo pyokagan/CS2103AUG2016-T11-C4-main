@@ -5,17 +5,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<HBox xmlns:fx="http://javafx.com/fxml/1" spacing="20" alignment="CENTER_LEFT" maxHeight="120.0" minHeight="40.0"
-        prefHeight="50.0" stylesheets="@DarkTheme.css" styleClass="card">
-   <AnchorPane prefHeight="50" minWidth="500">      
-   <HBox spacing = "5" alignment="CENTER_LEFT" AnchorPane.topAnchor="8">     
+<HBox xmlns:fx="http://javafx.com/fxml/1" spacing="10" alignment="CENTER_LEFT" maxHeight="120.0" minHeight="40.0"
+        prefHeight="45.0" stylesheets="@DarkTheme.css" styleClass="card">  
+   <HBox spacing = "5" alignment="CENTER_LEFT" HBox.Hgrow="ALWAYS">     
         <Label fx:id="indexLabel" styleClass="cell_big_label"></Label>
         <Label fx:id="nameLabel" styleClass="cell_big_label"></Label>     
    </HBox>
-   <HBox spacing="5" alignment="CENTER_RIGHT" AnchorPane.topAnchor="8" AnchorPane.rightAnchor="0.0">     	
+   <HBox spacing="5" alignment="CENTER_RIGHT" HBox.Hgrow="ALWAYS">     	
        	<Label>Priority: </Label>
        	<Label fx:id="priorityLabel">$priority</Label>
    </HBox>
-   </AnchorPane>
 </HBox>
 
