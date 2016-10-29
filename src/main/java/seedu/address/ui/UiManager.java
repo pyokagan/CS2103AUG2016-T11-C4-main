@@ -1,14 +1,17 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 import com.melloware.jintellitype.JIntellitypeConstants;
 
 import javafx.application.Platform;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
@@ -19,6 +22,7 @@ import seedu.address.commons.util.AppUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.config.Config;
+import seedu.address.model.config.WindowRect;
 import seedu.address.ui.TrayIcon.MessageType;
 
 /**
@@ -34,6 +38,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Stage primaryStage;
     private TrayIcon trayIcon;
     private HotkeyListener hotkeyListener;
+    private Optional<WindowRect> savedWindowRect = Optional.empty();
 
     public UiManager(Logic logic, Config config) {
         super();
@@ -111,6 +116,7 @@ public class UiManager extends ComponentManager implements Ui {
     private void toggleHide() {
         if (primaryStage.isShowing()) {
             Platform.setImplicitExit(false);
+            savedWindowRect = primaryStage.isMaximized() ? Optional.empty() : Optional.of(getWindowRect());
             primaryStage.hide();
             trayIcon.displayMessage("Task Tracker is still running!", "Double-click here to re-open it!",
                                     MessageType.INFO);
@@ -119,7 +125,24 @@ public class UiManager extends ComponentManager implements Ui {
             primaryStage.toFront();
             primaryStage.requestFocus();
             Platform.setImplicitExit(true);
+            if (savedWindowRect.isPresent()) {
+                setWindowRect(savedWindowRect.get());
+            }
         }
+    }
+
+    private WindowRect getWindowRect() {
+        return new WindowRect(primaryStage.getWidth(), primaryStage.getHeight(),
+                              primaryStage.getX(), primaryStage.getY());
+    }
+
+    private void setWindowRect(WindowRect rect) {
+        assert rect != null;
+        primaryStage.setWidth(rect.getWidth());
+        primaryStage.setHeight(rect.getHeight());
+        final Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX(rect.getX().orElse((bounds.getWidth() - primaryStage.getWidth()) / 2));
+        primaryStage.setY(rect.getY().orElse((bounds.getHeight() - primaryStage.getHeight()) / 2));
     }
 
     //==================== Event Handling Code =================================================================
