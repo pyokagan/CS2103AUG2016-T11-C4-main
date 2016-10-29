@@ -11,6 +11,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExitCommandResult;
 import seedu.address.model.config.Config;
 import seedu.address.model.task.TaskType;
 
@@ -133,6 +134,10 @@ public class MainWindow extends UiPart<Scene> {
 
     private void onCommandResult(CommandResult result) {
         updateTaskSelection();
+
+        if (result instanceof ExitCommandResult) {
+            handleExit();
+        }
     }
 
     /**
