@@ -42,7 +42,7 @@ public class IndexParser implements Parser<Integer> {
                                      new SubstringRange(prefix.length(), str.length()));
         }
 
-        return Integer.parseInt(indexStr) - 1;
+        return Integer.parseInt(indexStr);
     }
 
 }

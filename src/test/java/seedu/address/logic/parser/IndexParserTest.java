@@ -52,7 +52,7 @@ public class IndexParserTest {
     public void parse_validIndex_returnsIntegerMinusOne() throws Exception {
         final IndexParser parser = new IndexParser("453", "super parser index");
         int index = parser.parse("4539001");
-        assertEquals(9000, index);
+        assertEquals(9001, index);
     }
 
 }

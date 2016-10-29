@@ -56,11 +56,11 @@ public class ModelTest {
     @Test
     public void addFloatingTask_appendsFloatingTask() throws Exception {
         model.addFloatingTask(tpflt.readABook);
-        assertEquals(tpflt.readABook, model.getFloatingTask(0));
+        assertEquals(tpflt.readABook, model.getFloatingTask(1));
         model.addFloatingTask(tpflt.buyAHelicopter);
-        assertEquals(tpflt.readABook, model.getFloatingTask(0));
-        assertEquals(tpflt.buyAHelicopter, model.getFloatingTask(1));
-        assertEquals(tpflt.readABook, model.getFloatingTask(0));
+        assertEquals(tpflt.readABook, model.getFloatingTask(1));
+        assertEquals(tpflt.buyAHelicopter, model.getFloatingTask(2));
+        assertEquals(tpflt.readABook, model.getFloatingTask(1));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ModelTest {
         model.addFloatingTask(tpflt.readABook);
         model.addFloatingTask(tpflt.buyAHelicopter);
         model.setFloatingTaskPredicate(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
-        model.removeFloatingTask(0);
+        model.removeFloatingTask(1);
         model.setFloatingTaskPredicate(null);
         assertEquals(Arrays.asList(tpflt.readABook), unindexList(model.getFloatingTaskList()));
     }
@@ -82,7 +82,7 @@ public class ModelTest {
     @Test
     public void removeFloatingTask_invalidIndex_throwsException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        model.removeFloatingTask(0);
+        model.removeFloatingTask(1);
     }
 
     @Test
@@ -90,7 +90,7 @@ public class ModelTest {
         model.addFloatingTask(tpflt.readABook);
         model.addFloatingTask(tpflt.buyAHelicopter);
         model.setFloatingTaskPredicate(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
-        model.setFloatingTask(0, tpflt.readABook);
+        model.setFloatingTask(1, tpflt.readABook);
         model.setFloatingTaskPredicate(null);
         assertEquals(Arrays.asList(tpflt.readABook, tpflt.readABook), unindexList(model.getFloatingTaskList()));
     }
@@ -98,22 +98,22 @@ public class ModelTest {
     @Test
     public void setFloatingTask_invalidIndex_throwsException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        model.setFloatingTask(0, tpflt.readABook);
+        model.setFloatingTask(1, tpflt.readABook);
     }
 
     @Test
     public void addEventTask_appendsEventTask() throws Exception {
         model.addEventTask(tpent.lunchWithBillGates);
-        assertEquals(tpent.lunchWithBillGates, model.getEventTask(0));
+        assertEquals(tpent.lunchWithBillGates, model.getEventTask(1));
         model.addEventTask(tpent.launchNuclearWeapons);
-        assertEquals(tpent.lunchWithBillGates, model.getEventTask(0));
-        assertEquals(tpent.launchNuclearWeapons, model.getEventTask(1));
+        assertEquals(tpent.lunchWithBillGates, model.getEventTask(1));
+        assertEquals(tpent.launchNuclearWeapons, model.getEventTask(2));
     }
 
     @Test
     public void getEventTask_invalidIndex_throwsException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        model.getEventTask(0);
+        model.getEventTask(1);
     }
 
     @Test
@@ -121,7 +121,7 @@ public class ModelTest {
         model.addEventTask(tpent.lunchWithBillGates);
         model.addEventTask(tpent.launchNuclearWeapons);
         model.setEventTaskPredicate(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
-        model.removeEventTask(0);
+        model.removeEventTask(1);
         model.setEventTaskPredicate(null);
         assertEquals(Arrays.asList(tpent.lunchWithBillGates), unindexList(model.getEventTaskList()));
     }
@@ -129,7 +129,7 @@ public class ModelTest {
     @Test
     public void removeEventTask_invalidIndex_throwsException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        model.removeEventTask(0);
+        model.removeEventTask(1);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class ModelTest {
         model.addEventTask(tpent.lunchWithBillGates);
         model.addEventTask(tpent.launchNuclearWeapons);
         model.setEventTaskPredicate(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
-        model.setEventTask(0, tpent.lunchWithBillGates);
+        model.setEventTask(1, tpent.lunchWithBillGates);
         model.setEventTaskPredicate(null);
         assertEquals(Arrays.asList(tpent.lunchWithBillGates, tpent.lunchWithBillGates),
                     unindexList(model.getEventTaskList()));
@@ -146,22 +146,22 @@ public class ModelTest {
     @Test
     public void setEventTask_invalidIndex_throwsException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        model.setEventTask(0, tpent.lunchWithBillGates);
+        model.setEventTask(1, tpent.lunchWithBillGates);
     }
 
     @Test
     public void addDeadlineTask_appendsDeadlineTask() throws Exception {
         model.addDeadlineTask(tpdue.speechTranscript);
-        assertEquals(tpdue.speechTranscript, model.getDeadlineTask(0));
+        assertEquals(tpdue.speechTranscript, model.getDeadlineTask(1));
         model.addDeadlineTask(tpdue.assembleTheMissiles);
-        assertEquals(tpdue.speechTranscript, model.getDeadlineTask(0));
-        assertEquals(tpdue.assembleTheMissiles, model.getDeadlineTask(1));
+        assertEquals(tpdue.speechTranscript, model.getDeadlineTask(1));
+        assertEquals(tpdue.assembleTheMissiles, model.getDeadlineTask(2));
     }
 
     @Test
     public void getDeadlineTask_invalidIndex_throwsException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        model.getDeadlineTask(0);
+        model.getDeadlineTask(1);
     }
 
     @Test
@@ -169,7 +169,7 @@ public class ModelTest {
         model.addDeadlineTask(tpdue.speechTranscript);
         model.addDeadlineTask(tpdue.assembleTheMissiles);
         model.setDeadlineTaskPredicate(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
-        model.removeDeadlineTask(0);
+        model.removeDeadlineTask(1);
         model.setDeadlineTaskPredicate(null);
         assertEquals(Arrays.asList(tpdue.speechTranscript), unindexList(model.getDeadlineTaskList()));
     }
@@ -177,7 +177,7 @@ public class ModelTest {
     @Test
     public void removeDeadlineTask_invalidIndex_throwsException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        model.removeDeadlineTask(0);
+        model.removeDeadlineTask(1);
     }
 
     @Test
@@ -185,7 +185,7 @@ public class ModelTest {
         model.addDeadlineTask(tpdue.speechTranscript);
         model.addDeadlineTask(tpdue.assembleTheMissiles);
         model.setDeadlineTaskPredicate(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
-        model.setDeadlineTask(0, tpdue.speechTranscript);
+        model.setDeadlineTask(1, tpdue.speechTranscript);
         model.setDeadlineTaskPredicate(null);
         assertEquals(Arrays.asList(tpdue.speechTranscript, tpdue.speechTranscript),
                 unindexList(model.getDeadlineTaskList()));
@@ -194,7 +194,7 @@ public class ModelTest {
     @Test
     public void setDeadlineTask_invalidIndex_throwsException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        model.setDeadlineTask(0, tpdue.speechTranscript);
+        model.setDeadlineTask(1, tpdue.speechTranscript);
     }
 
     @Test

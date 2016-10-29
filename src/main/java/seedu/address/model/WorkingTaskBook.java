@@ -346,8 +346,10 @@ public class WorkingTaskBook {
             if (sortedWorkingItemList.getComparator() != null) {
                 Collections.sort(newWorkingList, sortedWorkingItemList.getComparator());
             }
+            // Add our 0-index empty value (so that indexes start at one)
+            newWorkingList.add(0, new WorkingItem<>());
             // Re-index the list
-            for (int i = 0; i < newWorkingList.size(); i++) {
+            for (int i = 1; i < newWorkingList.size(); i++) {
                 final WorkingItem<E> src = newWorkingList.get(i);
                 newWorkingList.set(i, new WorkingItem<>(i, src.getItem(), src.sourceIndex));
             }
