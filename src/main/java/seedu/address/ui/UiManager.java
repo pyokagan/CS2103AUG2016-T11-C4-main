@@ -39,6 +39,7 @@ public class UiManager extends ComponentManager implements Ui {
     private TrayIcon trayIcon;
     private HotkeyListener hotkeyListener;
     private Optional<WindowRect> savedWindowRect = Optional.empty();
+    private boolean stillRunningMessageShown;
 
     public UiManager(Logic logic, Config config) {
         super();
@@ -118,8 +119,11 @@ public class UiManager extends ComponentManager implements Ui {
             Platform.setImplicitExit(false);
             savedWindowRect = primaryStage.isMaximized() ? Optional.empty() : Optional.of(getWindowRect());
             primaryStage.hide();
-            trayIcon.displayMessage("Task Tracker is still running!", "Double-click here to re-open it!",
-                                    MessageType.INFO);
+            if (!stillRunningMessageShown) {
+                trayIcon.displayMessage("Task Tracker is still running!", "Double-click here to re-open it!",
+                                        MessageType.INFO);
+                stillRunningMessageShown = true;
+            }
         } else {
             primaryStage.show();
             primaryStage.toFront();
