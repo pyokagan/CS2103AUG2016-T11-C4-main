@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
-    <Label styleClass="label-header">Events</Label>
+    <Label styleClass="header">Events</Label>
     <ListView fx:id="eventTaskListView" VBox.vgrow="ALWAYS" />
 </VBox>
 
