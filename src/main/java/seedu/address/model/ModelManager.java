@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -241,6 +242,7 @@ public class ModelManager extends ComponentManager implements Model {
         head--;
         Commit commit = commits.get(head);
         workingTaskBook.resetData(commit.workingTaskBook);
+        config.resetData(commit.config);
         return undoneCommit;
     }
 
@@ -249,7 +251,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert name != null;
         //clear redoable, which are the commits above head
         commits.subList(head + 1, commits.size()).clear();
-        final Commit newCommit = new Commit(name, workingTaskBook);
+        final Commit newCommit = new Commit(name, workingTaskBook, getConfig());
         commits.add(newCommit);
         head = commits.size() - 1;
         return newCommit;
@@ -263,6 +265,7 @@ public class ModelManager extends ComponentManager implements Model {
         head++;
         Commit commit = commits.get(head);
         workingTaskBook.resetData(commit.workingTaskBook);
+        config.resetData(commit.config);
         return commit;
     }
 
@@ -272,16 +275,19 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public boolean hasUncommittedChanges() {
-        return !(getTaskBook().equals(commits.get(head).getTaskBook()));
+        return !getTaskBook().equals(commits.get(head).getTaskBook())
+                || !Objects.equals(getConfig(), commits.get(head).config);
     }
 
     private class Commit implements Model.Commit {
         private String name;
         private final WorkingTaskBook workingTaskBook;
+        private final Config config;
 
-        private Commit(String name, WorkingTaskBook workingTaskBook) {
+        private Commit(String name, WorkingTaskBook workingTaskBook, ReadOnlyConfig config) {
             this.name = name;
             this.workingTaskBook = new WorkingTaskBook(workingTaskBook);
+            this.config = new Config(config);
         }
 
         @Override
