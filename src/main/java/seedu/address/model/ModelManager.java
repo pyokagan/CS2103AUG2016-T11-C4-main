@@ -281,6 +281,7 @@ public class ModelManager extends ComponentManager implements Model {
         Commit commit = commits.get(head);
         workingTaskBook.resetData(commit.workingTaskBook);
         config.resetData(commit.config);
+        setTaskSelect(commit.taskSelect);
         return undoneCommit;
     }
 
@@ -289,7 +290,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert name != null;
         //clear redoable, which are the commits above head
         commits.subList(head + 1, commits.size()).clear();
-        final Commit newCommit = new Commit(name, workingTaskBook, getConfig());
+        final Commit newCommit = new Commit(name, workingTaskBook, getConfig(), getTaskSelect());
         commits.add(newCommit);
         head = commits.size() - 1;
         return newCommit;
@@ -304,6 +305,7 @@ public class ModelManager extends ComponentManager implements Model {
         Commit commit = commits.get(head);
         workingTaskBook.resetData(commit.workingTaskBook);
         config.resetData(commit.config);
+        setTaskSelect(commit.taskSelect);
         return commit;
     }
 
@@ -321,11 +323,14 @@ public class ModelManager extends ComponentManager implements Model {
         private String name;
         private final WorkingTaskBook workingTaskBook;
         private final Config config;
+        private final Optional<TaskSelect> taskSelect;
 
-        private Commit(String name, WorkingTaskBook workingTaskBook, ReadOnlyConfig config) {
+        private Commit(String name, WorkingTaskBook workingTaskBook, ReadOnlyConfig config,
+                       Optional<TaskSelect> taskSelect) {
             this.name = name;
             this.workingTaskBook = new WorkingTaskBook(workingTaskBook);
             this.config = new Config(config);
+            this.taskSelect = taskSelect;
         }
 
         @Override
