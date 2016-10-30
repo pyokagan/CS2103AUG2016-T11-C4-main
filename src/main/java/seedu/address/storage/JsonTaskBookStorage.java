@@ -89,8 +89,10 @@ public class JsonTaskBookStorage implements TaskBookStorage {
         if (FileUtil.isFileExists(newFile)) {
             throw new IOException(newFilePath + " already exists.");
         }
-        Files.createParentDirs(newFile);
-        Files.move(file, newFile);
+        if (FileUtil.isFileExists(file)) {
+            Files.createParentDirs(newFile);
+            Files.move(file, newFile);
+        }
         filePath = newFilePath;
     }
 
