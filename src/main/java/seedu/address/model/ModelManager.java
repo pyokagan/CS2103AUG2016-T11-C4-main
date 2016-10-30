@@ -240,7 +240,7 @@ public class ModelManager extends ComponentManager implements Model {
         final Commit undoneCommit = commits.get(head);
         head--;
         Commit commit = commits.get(head);
-        resetTaskBook(commit.getTaskBook());
+        workingTaskBook.resetData(commit.workingTaskBook);
         return undoneCommit;
     }
 
@@ -249,7 +249,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert name != null;
         //clear redoable, which are the commits above head
         commits.subList(head + 1, commits.size()).clear();
-        final Commit newCommit = new Commit(name, getTaskBook());
+        final Commit newCommit = new Commit(name, workingTaskBook);
         commits.add(newCommit);
         head = commits.size() - 1;
         return newCommit;
@@ -262,7 +262,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         head++;
         Commit commit = commits.get(head);
-        resetTaskBook(commit.getTaskBook());
+        workingTaskBook.resetData(commit.workingTaskBook);
         return commit;
     }
 
@@ -277,11 +277,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     private class Commit implements Model.Commit {
         private String name;
-        private TaskBook taskBook;
+        private final WorkingTaskBook workingTaskBook;
 
-        Commit(String name, ReadOnlyTaskBook taskBook) {
+        private Commit(String name, WorkingTaskBook workingTaskBook) {
             this.name = name;
-            this.taskBook = new TaskBook(taskBook);
+            this.workingTaskBook = new WorkingTaskBook(workingTaskBook);
         }
 
         @Override
@@ -289,8 +289,8 @@ public class ModelManager extends ComponentManager implements Model {
             return name;
         }
 
-        public ReadOnlyTaskBook getTaskBook() {
-            return taskBook;
+        private ReadOnlyTaskBook getTaskBook() {
+            return workingTaskBook.getTaskBook();
         }
 
         @Override
@@ -298,7 +298,7 @@ public class ModelManager extends ComponentManager implements Model {
             return other == this
                    || (other instanceof Commit
                    && name.equals(((Commit)other).name)
-                   && taskBook.equals(((Commit)other).taskBook)
+                   && workingTaskBook.equals(((Commit)other).workingTaskBook)
                    );
         }
     }
