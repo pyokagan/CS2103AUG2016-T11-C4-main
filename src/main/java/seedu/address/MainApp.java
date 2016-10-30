@@ -5,14 +5,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -152,12 +149,6 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
-    }
-
-    @Subscribe
-    public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        this.stop();
     }
 
     public static void main(String[] args) {
