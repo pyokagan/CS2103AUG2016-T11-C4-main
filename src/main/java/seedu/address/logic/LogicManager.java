@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.TaskSelect;
 import seedu.address.storage.Storage;
 
 /**
@@ -80,6 +82,11 @@ public class LogicManager extends ComponentManager implements Logic {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+    }
+
+    @Override
+    public Optional<TaskSelect> getTaskSelect() {
+        return model.getTaskSelect();
     }
 
     @Override

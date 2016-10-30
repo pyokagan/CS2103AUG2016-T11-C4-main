@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -19,6 +21,27 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
         super(FXML);
         deadlineTaskListView.setItems(deadlineTaskList);
         deadlineTaskListView.setCellFactory(listView -> new DeadlineTaskListCell());
+    }
+
+    /**
+     * Selects a deadline task as specified by its working index.
+     */
+    public void select(int workingIndex) {
+        final List<IndexedItem<DeadlineTask>> deadlineTaskList = deadlineTaskListView.getItems();
+        for (int i = 0; i < deadlineTaskList.size(); i++) {
+            if (deadlineTaskList.get(i).getWorkingIndex() == workingIndex) {
+                deadlineTaskListView.scrollTo(i);
+                deadlineTaskListView.getSelectionModel().select(i);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Clears any deadline task selection.
+     */
+    public void clearSelect() {
+        deadlineTaskListView.getSelectionModel().clearSelection();
     }
 
     private static class DeadlineTaskListCell extends ListCell<IndexedItem<DeadlineTask>> {

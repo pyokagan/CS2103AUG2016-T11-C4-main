@@ -12,6 +12,7 @@ import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.config.Config;
+import seedu.address.model.task.TaskType;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -64,10 +65,12 @@ public class MainWindow extends UiPart<Scene> {
     private UiRegion statusbarPlaceholder;
 
     private final Stage primaryStage;
+    private final Logic logic;
 
     public MainWindow(Stage primaryStage, Config config, Logic logic) {
         super(FXML);
         this.primaryStage = primaryStage;
+        this.logic = logic;
 
         //Configure the UI
         setTitle(MainApp.NAME);
@@ -129,6 +132,39 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     private void onCommandResult(CommandResult result) {
+        updateTaskSelection();
+    }
+
+    /**
+     * Update task selection in UI.
+     */
+    private void updateTaskSelection() {
+        if (!logic.getTaskSelect().isPresent()) {
+            return;
+        }
+        final TaskType taskType = logic.getTaskSelect().get().getTaskType();
+        final int workingIndex = logic.getTaskSelect().get().getWorkingIndex();
+
+        // Floating task list pane
+        if (taskType == TaskType.FLOAT) {
+            floatingTaskListPane.select(workingIndex);
+        } else {
+            floatingTaskListPane.clearSelect();
+        }
+
+        // Deadline task list pane
+        if (taskType == TaskType.DEADLINE) {
+            deadlineTaskListPane.select(workingIndex);
+        } else {
+            deadlineTaskListPane.clearSelect();
+        }
+
+        // Event task list pane
+        if (taskType == TaskType.EVENT) {
+            eventTaskListPane.select(workingIndex);
+        } else {
+            eventTaskListPane.clearSelect();
+        }
     }
 
 }

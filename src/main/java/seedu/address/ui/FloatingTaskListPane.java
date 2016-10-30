@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -19,6 +21,27 @@ public class FloatingTaskListPane extends UiPart<Pane> {
         super(FXML);
         floatingTaskListView.setItems(floatingTaskList);
         floatingTaskListView.setCellFactory(listView -> new FloatingTaskListCell());
+    }
+
+    /**
+     * Selects a floating task as specified by its working index.
+     */
+    public void select(int workingIndex) {
+        final List<IndexedItem<FloatingTask>> floatingTaskList = floatingTaskListView.getItems();
+        for (int i = 0; i < floatingTaskList.size(); i++) {
+            if (floatingTaskList.get(i).getWorkingIndex() == workingIndex) {
+                floatingTaskListView.scrollTo(i);
+                floatingTaskListView.getSelectionModel().select(i);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Clears any floating task selection.
+     */
+    public void clearSelect() {
+        floatingTaskListView.getSelectionModel().clearSelection();
     }
 
     private static class FloatingTaskListCell extends ListCell<IndexedItem<FloatingTask>> {

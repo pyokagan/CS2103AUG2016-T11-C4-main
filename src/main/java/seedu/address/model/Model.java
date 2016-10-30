@@ -11,6 +11,7 @@ import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.TaskSelect;
 
 /**
  * The API of the Model component.
@@ -35,6 +36,14 @@ public interface Model {
 
     /** Returns the TaskBook */
     ReadOnlyTaskBook getTaskBook();
+
+    //// Task Select
+
+    /** Returns the task being selected, if any. */
+    Optional<TaskSelect> getTaskSelect();
+
+    /** Sets the task being selected. */
+    void setTaskSelect(Optional<TaskSelect> taskSelect);
 
     //// Floating Tasks
 
