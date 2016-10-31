@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -17,15 +14,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
-import org.testfx.util.WaitForAsyncUtils;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.IndexedItem;
 import seedu.address.model.config.Config;
@@ -87,20 +80,6 @@ public class UiManagerTest extends FxRobot {
 
     @Test
     public void startStop_works() {
-    }
-
-    @Test
-    public void onShowHelpRequestEvent_showsHelp() throws Exception {
-        Platform.runLater((() -> EventsCenter.getInstance().post(new ShowHelpRequestEvent())));
-        WaitForAsyncUtils.waitFor(3, TimeUnit.SECONDS, () -> {
-            try {
-                Window w = window(window -> from(rootNode(window)).lookup("#webView").tryQuery().isPresent());
-                interact(() -> w.hide());
-                return true;
-            } catch (NoSuchElementException e) {
-                return false;
-            }
-        });
     }
 
     @Test
