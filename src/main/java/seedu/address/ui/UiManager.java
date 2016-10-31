@@ -114,33 +114,56 @@ public class UiManager extends ComponentManager implements Ui {
         System.exit(1);
     }
 
-    private void toggleHide() {
-        if (primaryStage.isShowing()) {
-            Platform.setImplicitExit(false);
-            savedWindowRect = primaryStage.isMaximized() ? Optional.empty() : Optional.of(getWindowRect());
-            primaryStage.hide();
-            if (!stillRunningMessageShown) {
-                trayIcon.displayMessage("Task Tracker is still running!", "Double-click here to re-open it!",
-                                        MessageType.INFO);
-                stillRunningMessageShown = true;
-            }
-        } else {
-            primaryStage.show();
-            primaryStage.toFront();
-            primaryStage.requestFocus();
-            Platform.setImplicitExit(true);
-            if (savedWindowRect.isPresent()) {
-                setWindowRect(savedWindowRect.get());
-            }
+    /**
+     * Hide the UI, running it in the background.
+     */
+    public void hide() {
+        Platform.setImplicitExit(false);
+        savedWindowRect = primaryStage.isMaximized() ? Optional.empty() : Optional.of(getWindowRect());
+        primaryStage.hide();
+        if (!stillRunningMessageShown) {
+            trayIcon.displayMessage("Task Tracker is still running!", "Double-click here to re-open it!",
+                                    MessageType.INFO);
+            stillRunningMessageShown = true;
         }
     }
 
-    private WindowRect getWindowRect() {
+    /**
+     * Show the UI, bringing it to the foreground.
+     */
+    public void show() {
+        primaryStage.show();
+        primaryStage.toFront();
+        primaryStage.requestFocus();
+        Platform.setImplicitExit(true);
+        if (savedWindowRect.isPresent()) {
+            setWindowRect(savedWindowRect.get());
+        }
+    }
+
+    /**
+     * Toggle the hiding/showing of the UI.
+     */
+    public void toggleHide() {
+        if (primaryStage.isShowing()) {
+            hide();
+        } else {
+            show();
+        }
+    }
+
+    /**
+     * Returns the dimensions of the primary window of the UI.
+     */
+    public WindowRect getWindowRect() {
         return new WindowRect(primaryStage.getWidth(), primaryStage.getHeight(),
                               primaryStage.getX(), primaryStage.getY());
     }
 
-    private void setWindowRect(WindowRect rect) {
+    /**
+     * Sets the dimensions of the primary window of the UI.
+     */
+    public void setWindowRect(WindowRect rect) {
         assert rect != null;
         primaryStage.setWidth(rect.getWidth());
         primaryStage.setHeight(rect.getHeight());
