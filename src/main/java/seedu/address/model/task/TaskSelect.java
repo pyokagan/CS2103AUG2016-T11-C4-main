@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import com.google.common.base.MoreObjects;
+
 /**
  * Represents a task that is being selected.
  * Guarantees: immutable, a POJO.
@@ -30,6 +32,14 @@ public class TaskSelect {
                 || (other instanceof TaskSelect
                 && taskType == ((TaskSelect)other).taskType
                 && workingIndex == ((TaskSelect)other).workingIndex);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("taskType", taskType)
+                .add("workingIndex", workingIndex)
+                .toString();
     }
 
 }

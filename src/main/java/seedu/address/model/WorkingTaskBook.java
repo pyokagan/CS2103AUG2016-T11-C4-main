@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import com.google.common.base.MoreObjects;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -384,6 +386,14 @@ public class WorkingTaskBook {
         @Override
         public E getItem() {
             return item.get();
+        }
+
+        @Override
+        public String toString() {
+            return MoreObjects.toStringHelper(this)
+                    .add("workingIndex", workingIndex)
+                    .add("item", item)
+                    .toString();
         }
     }
 
