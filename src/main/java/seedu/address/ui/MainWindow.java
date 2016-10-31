@@ -10,7 +10,10 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExitCommandResult;
 import seedu.address.model.config.Config;
+import seedu.address.model.task.TaskType;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -63,10 +66,12 @@ public class MainWindow extends UiPart<Scene> {
     private UiRegion statusbarPlaceholder;
 
     private final Stage primaryStage;
+    private final Logic logic;
 
     public MainWindow(Stage primaryStage, Config config, Logic logic) {
         super(FXML);
         this.primaryStage = primaryStage;
+        this.logic = logic;
 
         //Configure the UI
         setTitle(MainApp.NAME);
@@ -81,15 +86,16 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     void fillInnerParts(Config config, Logic logic) {
-        floatingTaskListPane = new FloatingTaskListPane(logic.getFilteredFloatingTaskList());
+        floatingTaskListPane = new FloatingTaskListPane(logic.getFloatingTaskList());
         floatingTaskListRegion.setNode(floatingTaskListPane.getRoot());
-        eventTaskListPane = new EventTaskListPane(logic.getFilteredEventTaskList());
+        eventTaskListPane = new EventTaskListPane(logic.getEventTaskList());
         eventTaskListRegion.setNode(eventTaskListPane.getRoot());
-        deadlineTaskListPane = new DeadlineTaskListPane(logic.getFilteredDeadlineTaskList());
+        deadlineTaskListPane = new DeadlineTaskListPane(logic.getDeadlineTaskList());
         deadlineTaskListRegion.setNode(deadlineTaskListPane.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.setNode(resultDisplay.getRoot());
         commandBox = new CommandBox(resultDisplay, logic);
+        commandBox.setOnCommandResult(this::onCommandResult);
         commandBoxPlaceholder.setNode(commandBox.getRoot());
         statusBarFooter = new StatusBarFooter(config.getTaskBookFilePath());
         statusbarPlaceholder.setNode(statusBarFooter.getRoot());
@@ -124,6 +130,46 @@ public class MainWindow extends UiPart<Scene> {
      */
     private void setIcon(String iconSource) {
         primaryStage.getIcons().add(AppUtil.getImage(iconSource));
+    }
+
+    private void onCommandResult(CommandResult result) {
+        updateTaskSelection();
+
+        if (result instanceof ExitCommandResult) {
+            handleExit();
+        }
+    }
+
+    /**
+     * Update task selection in UI.
+     */
+    private void updateTaskSelection() {
+        if (!logic.getTaskSelect().isPresent()) {
+            return;
+        }
+        final TaskType taskType = logic.getTaskSelect().get().getTaskType();
+        final int workingIndex = logic.getTaskSelect().get().getWorkingIndex();
+
+        // Floating task list pane
+        if (taskType == TaskType.FLOAT) {
+            floatingTaskListPane.select(workingIndex);
+        } else {
+            floatingTaskListPane.clearSelect();
+        }
+
+        // Deadline task list pane
+        if (taskType == TaskType.DEADLINE) {
+            deadlineTaskListPane.select(workingIndex);
+        } else {
+            deadlineTaskListPane.clearSelect();
+        }
+
+        // Event task list pane
+        if (taskType == TaskType.EVENT) {
+            eventTaskListPane.select(workingIndex);
+        } else {
+            eventTaskListPane.clearSelect();
+        }
     }
 
 }

@@ -1,23 +1,21 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-
 /**
- * Terminates the program.
+ * Requests to terminate the application.
  */
 public class ExitCommand extends Command {
 
-    public static final String COMMAND_WORD = "exit";
-
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Task Book as requested ...";
-
-    public ExitCommand() {}
-
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ExitAppRequestEvent());
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+        return new Result();
+    }
+
+    private static class Result extends CommandResult implements ExitCommandResult {
+        private static final String MSG_EXIT = "Exiting as requested...";
+
+        private Result() {
+            super(MSG_EXIT);
+        }
     }
 
 }

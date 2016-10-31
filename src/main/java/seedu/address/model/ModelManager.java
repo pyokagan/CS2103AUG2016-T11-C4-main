@@ -2,24 +2,23 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.MappedList;
-import seedu.address.logic.commands.Command;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.TaskSelect;
+import seedu.address.model.task.TaskType;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,15 +28,12 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Config config;
-    private final TaskBook taskBook;
-
-    private final ItemMappingList<FloatingTask> filteredFloatingTasks;
-    private final ItemMappingList<DeadlineTask> filteredDeadlineTasks;
-    private final ItemMappingList<EventTask> filteredEventTasks;
+    private final WorkingTaskBook workingTaskBook;
+    private Optional<TaskSelect> taskSelect = Optional.empty();
 
     //for undo
     private ArrayList<Commit> commits = new ArrayList<Commit>();
-    private int head; //head points to a the current commit which holds the TaskBook displayed by the UI
+    private int head = -1; //head points to a the current commit which holds the TaskBook displayed by the UI
 
     /**
      * Initializes a ModelManager with the given config and TaskBook
@@ -50,11 +46,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with config: " + config + " and task book: " + taskBook);
 
         this.config = new Config(config);
-        this.taskBook = new TaskBook(taskBook);
-        this.filteredFloatingTasks = new ItemMappingList<>(this.taskBook.getFloatingTasks());
-        this.filteredDeadlineTasks = new ItemMappingList<>(this.taskBook.getDeadlineTasks());
-        this.filteredEventTasks = new ItemMappingList<>(this.taskBook.getEventTasks());
-        recordState(null);
+        this.workingTaskBook = new WorkingTaskBook(taskBook);
+        recordState("initial commit");
     }
 
     public ModelManager() {
@@ -82,299 +75,238 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetTaskBook(ReadOnlyTaskBook newData) {
-        taskBook.resetData(newData);
-        filteredFloatingTasks.repopulate();
-        filteredDeadlineTasks.repopulate();
-        filteredEventTasks.repopulate();
+        workingTaskBook.resetData(newData);
+        setTaskSelect(Optional.empty());
         indicateTaskBookChanged();
     }
 
     @Override
     public ReadOnlyTaskBook getTaskBook() {
-        return taskBook;
+        return workingTaskBook.getTaskBook();
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskBookChanged() {
-        raise(new TaskBookChangedEvent(taskBook));
+        raise(new TaskBookChangedEvent(workingTaskBook.getTaskBook()));
+    }
+
+    //// Task select
+
+    @Override
+    public Optional<TaskSelect> getTaskSelect() {
+        return taskSelect;
+    }
+
+    @Override
+    public void setTaskSelect(Optional<TaskSelect> taskSelect) {
+        assert taskSelect != null;
+        this.taskSelect = taskSelect;
     }
 
     //// Floating tasks
 
     @Override
-    public synchronized void addFloatingTask(FloatingTask floatingTask) {
-        taskBook.addFloatingTask(floatingTask);
-        filteredFloatingTasks.add(floatingTask, taskBook.getFloatingTasks().size() - 1);
+    public synchronized int addFloatingTask(FloatingTask floatingTask) {
+        final int workingIndex = workingTaskBook.addFloatingTask(floatingTask);
         indicateTaskBookChanged();
+        setTaskSelect(Optional.of(new TaskSelect(TaskType.FLOAT, workingIndex)));
+        return workingIndex;
     }
 
     @Override
-    public synchronized FloatingTask getFloatingTask(int indexInFilteredList) throws IllegalValueException {
-        return filteredFloatingTasks.get(indexInFilteredList);
+    public synchronized FloatingTask getFloatingTask(int workingIndex) throws IllegalValueException {
+        return workingTaskBook.getFloatingTask(workingIndex);
     }
 
     @Override
-    public synchronized FloatingTask removeFloatingTask(int indexInFilteredList) throws IllegalValueException {
-        final int sourceIndex = filteredFloatingTasks.getSourceIndex(indexInFilteredList);
-        final FloatingTask removedFloating = taskBook.removeFloatingTask(sourceIndex);
-        filteredFloatingTasks.remove(indexInFilteredList);
+    public synchronized FloatingTask removeFloatingTask(int workingIndex) throws IllegalValueException {
+        final FloatingTask removedFloating = workingTaskBook.removeFloatingTask(workingIndex);
         indicateTaskBookChanged();
+        if (getTaskSelect().equals(Optional.of(new TaskSelect(TaskType.FLOAT, workingIndex)))) {
+            setTaskSelect(Optional.empty());
+        }
         return removedFloating;
     }
 
     @Override
-    public synchronized void setFloatingTask(int indexInFilteredList, FloatingTask newFloatingTask)
+    public synchronized void setFloatingTask(int workingIndex, FloatingTask newFloatingTask)
             throws IllegalValueException {
-        final int sourceIndex = filteredFloatingTasks.getSourceIndex(indexInFilteredList);
-        taskBook.setFloatingTask(sourceIndex, newFloatingTask);
-        filteredFloatingTasks.set(indexInFilteredList, newFloatingTask);
+        workingTaskBook.setFloatingTask(workingIndex, newFloatingTask);
         indicateTaskBookChanged();
+        setTaskSelect(Optional.of(new TaskSelect(TaskType.FLOAT, workingIndex)));
     }
 
     @Override
-    public ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList() {
-        return filteredFloatingTasks.getObservableListView();
+    public ObservableList<IndexedItem<FloatingTask>> getFloatingTaskList() {
+        return workingTaskBook.getFloatingTaskList();
     }
 
     @Override
-    public void setFloatingTaskFilter(Predicate<? super FloatingTask> predicate) {
-        filteredFloatingTasks.setFilter(predicate);
+    public void setFloatingTaskPredicate(Predicate<? super FloatingTask> predicate) {
+        workingTaskBook.setFloatingTaskPredicate(predicate);
+        setTaskSelect(Optional.empty());
     }
 
     @Override
-    public void setFloatingTaskSortComparator(Comparator<? super FloatingTask> comparator) {
-        filteredFloatingTasks.setSortComparator(comparator);
+    public Comparator<? super FloatingTask> getFloatingTaskComparator() {
+        return workingTaskBook.getFloatingTaskComparator();
+    }
+
+    @Override
+    public void setFloatingTaskComparator(Comparator<? super FloatingTask> comparator) {
+        workingTaskBook.setFloatingTaskComparator(comparator);
+        setTaskSelect(Optional.empty());
     }
 
     //// Deadline tasks
 
     @Override
-    public synchronized void addDeadlineTask(DeadlineTask deadlineTask) {
+    public synchronized int addDeadlineTask(DeadlineTask deadlineTask) {
         assert deadlineTask.isFinished() == false;
-        taskBook.addDeadlineTask(deadlineTask);
-        filteredDeadlineTasks.add(deadlineTask, taskBook.getDeadlineTasks().size() - 1);
+        final int workingIndex = workingTaskBook.addDeadlineTask(deadlineTask);
         indicateTaskBookChanged();
+        setTaskSelect(Optional.of(new TaskSelect(TaskType.DEADLINE, workingIndex)));
+        return workingIndex;
     }
 
     @Override
-    public synchronized DeadlineTask getDeadlineTask(int indexInFilteredList) throws IllegalValueException {
-        return filteredDeadlineTasks.get(indexInFilteredList);
+    public synchronized DeadlineTask getDeadlineTask(int workingIndex) throws IllegalValueException {
+        return workingTaskBook.getDeadlineTask(workingIndex);
     }
 
     @Override
-    public synchronized DeadlineTask removeDeadlineTask(int indexInFilteredList) throws IllegalValueException {
-        final int sourceIndex = filteredDeadlineTasks.getSourceIndex(indexInFilteredList);
-        final DeadlineTask removedDeadline = taskBook.removeDeadlineTask(sourceIndex);
-        filteredDeadlineTasks.remove(indexInFilteredList);
+    public synchronized DeadlineTask removeDeadlineTask(int workingIndex) throws IllegalValueException {
+        final DeadlineTask removedDeadline = workingTaskBook.removeDeadlineTask(workingIndex);
         indicateTaskBookChanged();
+        if (getTaskSelect().equals(Optional.of(new TaskSelect(TaskType.DEADLINE, workingIndex)))) {
+            setTaskSelect(Optional.empty());
+        }
         return removedDeadline;
     }
 
     @Override
-    public synchronized void setDeadlineTask(int indexInFilteredList, DeadlineTask newDeadlineTask)
+    public synchronized void setDeadlineTask(int workingIndex, DeadlineTask newDeadlineTask)
             throws IllegalValueException {
-        final int sourceIndex = filteredDeadlineTasks.getSourceIndex(indexInFilteredList);
-        taskBook.setDeadlineTask(sourceIndex, newDeadlineTask);
-        filteredDeadlineTasks.set(indexInFilteredList, newDeadlineTask);
+        workingTaskBook.setDeadlineTask(workingIndex, newDeadlineTask);
         indicateTaskBookChanged();
+        setTaskSelect(Optional.of(new TaskSelect(TaskType.DEADLINE, workingIndex)));
     }
 
     @Override
-    public ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList() {
-        return filteredDeadlineTasks.getObservableListView();
+    public ObservableList<IndexedItem<DeadlineTask>> getDeadlineTaskList() {
+        return workingTaskBook.getDeadlineTaskList();
     }
 
     @Override
-    public void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate) {
-        filteredDeadlineTasks.setFilter(predicate);
+    public void setDeadlineTaskPredicate(Predicate<? super DeadlineTask> predicate) {
+        workingTaskBook.setDeadlineTaskPredicate(predicate);
+        setTaskSelect(Optional.empty());
     }
 
     @Override
-    public void setDeadlineTaskSortComparator(Comparator<? super DeadlineTask> comparator) {
-        filteredDeadlineTasks.setSortComparator(comparator);
+    public Comparator<? super DeadlineTask> getDeadlineTaskComparator() {
+        return workingTaskBook.getDeadlineTaskComparator();
+    }
+
+    @Override
+    public void setDeadlineTaskComparator(Comparator<? super DeadlineTask> comparator) {
+        workingTaskBook.setDeadlineTaskComparator(comparator);
+        setTaskSelect(Optional.empty());
     }
 
     //// Event tasks
 
     @Override
-    public synchronized void addEventTask(EventTask eventTask) {
-        taskBook.addEventTask(eventTask);
-        filteredEventTasks.add(eventTask, taskBook.getEventTasks().size() - 1);
+    public synchronized int addEventTask(EventTask eventTask) {
+        final int workingIndex = workingTaskBook.addEventTask(eventTask);
         indicateTaskBookChanged();
+        setTaskSelect(Optional.of(new TaskSelect(TaskType.EVENT, workingIndex)));
+        return workingIndex;
     }
 
     @Override
-    public synchronized EventTask getEventTask(int indexInFilteredList) throws IllegalValueException {
-        return filteredEventTasks.get(indexInFilteredList);
+    public synchronized EventTask getEventTask(int workingIndex) throws IllegalValueException {
+        return workingTaskBook.getEventTask(workingIndex);
     }
 
     @Override
-    public synchronized EventTask removeEventTask(int indexInFilteredList) throws IllegalValueException {
-        final int sourceIndex = filteredEventTasks.getSourceIndex(indexInFilteredList);
-        final EventTask removedEvent = taskBook.removeEventTask(sourceIndex);
-        filteredEventTasks.remove(indexInFilteredList);
+    public synchronized EventTask removeEventTask(int workingIndex) throws IllegalValueException {
+        final EventTask removedEvent = workingTaskBook.removeEventTask(workingIndex);
         indicateTaskBookChanged();
+        if (getTaskSelect().equals(Optional.of(new TaskSelect(TaskType.EVENT, workingIndex)))) {
+            setTaskSelect(Optional.empty());
+        }
         return removedEvent;
     }
 
     @Override
-    public synchronized void setEventTask(int indexInFilteredList, EventTask newEventTask)
+    public synchronized void setEventTask(int workingIndex, EventTask newEventTask)
             throws IllegalValueException {
-        final int sourceIndex = filteredEventTasks.getSourceIndex(indexInFilteredList);
-        taskBook.setEventTask(sourceIndex, newEventTask);
-        filteredEventTasks.set(indexInFilteredList, newEventTask);
+        workingTaskBook.setEventTask(workingIndex, newEventTask);
         indicateTaskBookChanged();
+        setTaskSelect(Optional.of(new TaskSelect(TaskType.EVENT, workingIndex)));
     }
 
     @Override
-    public ObservableList<Optional<EventTask>> getFilteredEventTaskList() {
-        return filteredEventTasks.getObservableListView();
+    public ObservableList<IndexedItem<EventTask>> getEventTaskList() {
+        return workingTaskBook.getEventTaskList();
     }
 
     @Override
-    public void setEventTaskFilter(Predicate<? super EventTask> predicate) {
-        filteredEventTasks.setFilter(predicate);
+    public void setEventTaskPredicate(Predicate<? super EventTask> predicate) {
+        workingTaskBook.setEventTaskPredicate(predicate);
+        setTaskSelect(Optional.empty());
     }
 
     @Override
-    public void setEventTaskSortComparator(Comparator<? super EventTask> comparator) {
-        filteredEventTasks.setSortComparator(comparator);
+    public Comparator<? super EventTask> getEventTaskComparator() {
+        return workingTaskBook.getEventTaskComparator();
     }
 
-    private static class ItemMapping<E> {
-        final Optional<E> value;
-        Optional<Integer> sourceIndex;
-
-        ItemMapping(Optional<E> value, Optional<Integer> sourceIndex) {
-            this.value = value;
-            this.sourceIndex = sourceIndex;
-        }
-
-        ItemMapping(E value, int sourceIndex) {
-            this(Optional.of(value), Optional.of(sourceIndex));
-        }
-
-        static <E> ItemMapping<E> empty() {
-            return new ItemMapping<E>(Optional.empty(), Optional.empty());
-        }
-    }
-
-    private static class ItemMappingList<E> {
-        private final ObservableList<E> sourceList;
-        private final ObservableList<ItemMapping<E>> filteredList;
-        private Predicate<? super E> filter;
-        private Comparator<? super E> sortComparator;
-
-        ItemMappingList(ObservableList<E> sourceList) {
-            this.sourceList = sourceList;
-            this.filteredList = FXCollections.observableArrayList();
-            repopulate();
-        }
-
-        ObservableList<Optional<E>> getObservableListView() {
-            return new MappedList<>(filteredList, itemMapping -> itemMapping.value);
-        }
-
-        void setFilter(Predicate<? super E> filter) {
-            this.filter = filter;
-            repopulate();
-        }
-
-        void setSortComparator(Comparator<? super E> comparator) {
-            this.sortComparator = comparator;
-            repopulate();
-        }
-
-        int getSourceIndex(int filteredIndex) throws IllegalValueException {
-            try {
-                return filteredList.get(filteredIndex).sourceIndex.get();
-            } catch (IndexOutOfBoundsException | NoSuchElementException e) {
-                throw new IllegalValueException("invalid index");
-            }
-        }
-
-        E get(int filteredIndex) throws IllegalValueException {
-            try {
-                return filteredList.get(filteredIndex).value.get();
-            } catch (IndexOutOfBoundsException | NoSuchElementException e) {
-                throw new IllegalValueException("invalid index");
-            }
-        }
-
-        void set(int filteredIndex, E item) throws IllegalValueException {
-            final int sourceIndex = getSourceIndex(filteredIndex);
-            try {
-                filteredList.set(filteredIndex, new ItemMapping<>(item, sourceIndex));
-            } catch (IndexOutOfBoundsException e) {
-                throw new IllegalValueException("invalid index");
-            }
-        }
-
-        void add(E item, int sourceIndex) {
-            filteredList.add(new ItemMapping<>(item, sourceIndex));
-        }
-
-        void remove(int filteredIndex) throws IllegalValueException {
-            int deletedSourceIndex = getSourceIndex(filteredIndex);
-            filteredList.set(filteredIndex, ItemMapping.empty());
-            // Adjust mapping of sourceIndexes
-            for (ItemMapping<E> item : filteredList) {
-                if (item.sourceIndex.isPresent() && item.sourceIndex.get() > deletedSourceIndex) {
-                    item.sourceIndex = Optional.of(item.sourceIndex.get() - 1);
-                }
-            }
-        }
-
-        void repopulate() {
-            ArrayList<ItemMapping<E>> newFilteredList = new ArrayList<>();
-            for (int i = 0; i < sourceList.size(); i++) {
-                final E item = sourceList.get(i);
-                if (filter != null && !filter.test(item)) {
-                    continue;
-                }
-                newFilteredList.add(new ItemMapping<E>(item, i));
-            }
-            if (sortComparator != null) {
-                newFilteredList.sort((a, b) -> sortComparator.compare(a.value.get(), b.value.get()));
-            }
-            filteredList.setAll(newFilteredList);
-        }
+    @Override
+    public void setEventTaskComparator(Comparator<? super EventTask> comparator) {
+        workingTaskBook.setEventTaskComparator(comparator);
+        setTaskSelect(Optional.empty());
     }
 
     ////undo redo
 
     @Override
-    public Command undo() throws HeadAtBoundaryException {
+    public Commit undo() throws HeadAtBoundaryException {
         if (head <= 0) {
             throw new HeadAtBoundaryException();
         }
-        Command undoneAction = commits.get(head).getCommand();
+        final Commit undoneCommit = commits.get(head);
         head--;
         Commit commit = commits.get(head);
-        resetTaskBook(commit.getTaskBook());
-        return undoneAction;
+        workingTaskBook.resetData(commit.workingTaskBook);
+        config.resetData(commit.config);
+        setTaskSelect(commit.taskSelect);
+        return undoneCommit;
     }
 
     @Override
-    public void recordState(Command command) {
+    public Commit recordState(String name) {
+        assert name != null;
         //clear redoable, which are the commits above head
-        head ++;
-        while (this.head < (commits.size())) {
-            commits.remove(head);
-        }
-        commits.add(new Commit(command, new TaskBook(getTaskBook())));
+        commits.subList(head + 1, commits.size()).clear();
+        final Commit newCommit = new Commit(name, workingTaskBook, getConfig(), getTaskSelect());
+        commits.add(newCommit);
         head = commits.size() - 1;
+        return newCommit;
     }
 
     @Override
-    public Command redo() throws HeadAtBoundaryException {
+    public Commit redo() throws HeadAtBoundaryException {
         if (head >= commits.size() - 1) {
             throw new HeadAtBoundaryException();
         }
         head++;
         Commit commit = commits.get(head);
-        resetTaskBook(commit.getTaskBook());
-        return commit.getCommand();
+        workingTaskBook.resetData(commit.workingTaskBook);
+        config.resetData(commit.config);
+        setTaskSelect(commit.taskSelect);
+        return commit;
     }
 
     /**
@@ -383,24 +315,40 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public boolean hasUncommittedChanges() {
-        return !(this.taskBook.equals(commits.get(head).getTaskBook()));
+        return !getTaskBook().equals(commits.get(head).getTaskBook())
+                || !Objects.equals(getConfig(), commits.get(head).config);
     }
 
-    private class Commit {
-        private TaskBook taskBook;
-        private Command command;
+    private class Commit implements Model.Commit {
+        private String name;
+        private final WorkingTaskBook workingTaskBook;
+        private final Config config;
+        private final Optional<TaskSelect> taskSelect;
 
-        Commit(Command command, TaskBook state) {
-            this.taskBook = state;
-            this.command = command;
+        private Commit(String name, WorkingTaskBook workingTaskBook, ReadOnlyConfig config,
+                       Optional<TaskSelect> taskSelect) {
+            this.name = name;
+            this.workingTaskBook = new WorkingTaskBook(workingTaskBook);
+            this.config = new Config(config);
+            this.taskSelect = taskSelect;
         }
 
-        public TaskBook getTaskBook() {
-            return this.taskBook;
+        @Override
+        public String getName() {
+            return name;
         }
 
-        public Command getCommand() {
-            return this.command;
+        private ReadOnlyTaskBook getTaskBook() {
+            return workingTaskBook.getTaskBook();
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return other == this
+                   || (other instanceof Commit
+                   && name.equals(((Commit)other).name)
+                   && workingTaskBook.equals(((Commit)other).workingTaskBook)
+                   );
         }
     }
 

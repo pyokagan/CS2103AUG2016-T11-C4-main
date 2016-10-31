@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,6 +17,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.IndexedItem;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskBook;
@@ -94,9 +96,9 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedFloatingTaskShownList, model.getFilteredFloatingTaskList());
-        assertEquals(expectedDeadlineTaskShownList, model.getFilteredDeadlineTaskList());
-        assertEquals(expectedEventTaskShownList, model.getFilteredEventTaskList());
+        assertEquals(expectedFloatingTaskShownList, unindexList(model.getFloatingTaskList()));
+        assertEquals(expectedDeadlineTaskShownList, unindexList(model.getDeadlineTaskList()));
+        assertEquals(expectedEventTaskShownList, unindexList(model.getEventTaskList()));
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskBook, model.getTaskBook());
@@ -107,6 +109,10 @@ public class LogicManagerTest {
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, "Unknown command: uicfhmowqewca");
+    }
+
+    private <E> List<E> unindexList(List<IndexedItem<E>> list) {
+        return list.stream().map(x -> x.getItem()).collect(Collectors.toList());
     }
 
 }

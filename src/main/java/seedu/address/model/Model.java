@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.Command;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
 import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.TaskSelect;
 
 /**
  * The API of the Model component.
@@ -37,109 +37,135 @@ public interface Model {
     /** Returns the TaskBook */
     ReadOnlyTaskBook getTaskBook();
 
+    //// Task Select
+
+    /** Returns the task being selected, if any. */
+    Optional<TaskSelect> getTaskSelect();
+
+    /** Sets the task being selected. */
+    void setTaskSelect(Optional<TaskSelect> taskSelect);
+
     //// Floating Tasks
 
-    /* Adds the given floating task */
-    void addFloatingTask(FloatingTask floatingTask);
+    /* Adds the given floating task and returns its working index. */
+    int addFloatingTask(FloatingTask floatingTask);
 
-    /** Retrieves the given Floating task from the specified index in the filtered Floating task list */
-    FloatingTask getFloatingTask(int indexInFilteredList) throws IllegalValueException;
+    /** Retrieves the given floating task given its working index. */
+    FloatingTask getFloatingTask(int workingIndex) throws IllegalValueException;
 
     /** Removes the given Floating task and returns it. */
-    FloatingTask removeFloatingTask(int indexInFilteredList) throws IllegalValueException;
+    FloatingTask removeFloatingTask(int workingIndex) throws IllegalValueException;
 
     /** Replaces the given Floating task with a new Floating task */
-    void setFloatingTask(int indexInFilteredList, FloatingTask newFloatingTask) throws IllegalValueException;
+    void setFloatingTask(int workingIndex, FloatingTask newFloatingTask) throws IllegalValueException;
 
     /** Returns the filtered Floating task list as an unmodifiable ObservableList */
-    ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList();
+    ObservableList<IndexedItem<FloatingTask>> getFloatingTaskList();
 
     /**
      * Updates the filter of the filtered Floating task list to filter by the given predicate.
      *
      * If predicate is null, the filtered Floating task list will be populated with all Floating tasks.
      */
-    void setFloatingTaskFilter(Predicate<? super FloatingTask> predicate);
+    void setFloatingTaskPredicate(Predicate<? super FloatingTask> predicate);
 
-    void setFloatingTaskSortComparator(Comparator<? super FloatingTask> comparator);
+    /** Returns the comparator used to sort the floating task list. */
+    Comparator<? super FloatingTask> getFloatingTaskComparator();
+
+    /** Sets the comparator used to sort the floating task list. */
+    void setFloatingTaskComparator(Comparator<? super FloatingTask> comparator);
 
     //// Deadline Tasks
 
-    /** Adds the given deadline task */
-    void addDeadlineTask(DeadlineTask deadlineTask);
+    /** Adds the given deadline task and returns its working index. */
+    int addDeadlineTask(DeadlineTask deadlineTask);
 
     /** Retrieves the given deadline task from the specified index in the filtered deadline task list */
-    DeadlineTask getDeadlineTask(int indexInFilteredList) throws IllegalValueException;
+    DeadlineTask getDeadlineTask(int workingIndex) throws IllegalValueException;
 
     /** Removes the given deadline task and returns it. */
-    DeadlineTask removeDeadlineTask(int indexInFilteredList) throws IllegalValueException;
+    DeadlineTask removeDeadlineTask(int workingIndex) throws IllegalValueException;
 
     /** Replaces the given deadline task with a new deadline task */
-    void setDeadlineTask(int indexInFilteredList, DeadlineTask newDeadlineTask) throws IllegalValueException;
+    void setDeadlineTask(int workingIndex, DeadlineTask newDeadlineTask) throws IllegalValueException;
 
     /** Returns the filtered deadline task list as an unmodifiable ObservableList */
-    ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList();
+    ObservableList<IndexedItem<DeadlineTask>> getDeadlineTaskList();
 
     /**
      * Updates the filter of the filtered deadline task list to filter by the given predicate.
      *
      * If predicate is null, the filtered deadline task list will be populated with all deadline tasks.
      */
-    void setDeadlineTaskFilter(Predicate<? super DeadlineTask> predicate);
+    void setDeadlineTaskPredicate(Predicate<? super DeadlineTask> predicate);
 
-    void setDeadlineTaskSortComparator(Comparator<? super DeadlineTask> comparator);
+    /** Returns the comparator used to sort the deadline task list. */
+    Comparator<? super DeadlineTask> getDeadlineTaskComparator();
+
+    /** Sets the comparator used to sort the deadline task list. */
+    void setDeadlineTaskComparator(Comparator<? super DeadlineTask> comparator);
 
     //// Event Tasks
 
-    /** Adds the given event task */
-    void addEventTask(EventTask eventTask);
+    /** Adds the given event task and returns its working index */
+    int addEventTask(EventTask eventTask);
 
-    /** Retrieves the given event task from the specified index in the filtered event task list */
-    EventTask getEventTask(int indexInFilteredList) throws IllegalValueException;
+    /** Retrieves the given event task with the specified working index */
+    EventTask getEventTask(int workingIndex) throws IllegalValueException;
 
     /** Removes the given event task and returns it. */
-    EventTask removeEventTask(int indexInFilteredList) throws IllegalValueException;
+    EventTask removeEventTask(int workingIndex) throws IllegalValueException;
 
     /** Replaces the given event task with a new event task */
-    void setEventTask(int indexInFilteredList, EventTask newEventTask) throws IllegalValueException;
+    void setEventTask(int workingIndex, EventTask newEventTask) throws IllegalValueException;
 
     /** Returns the filtered event task list as an unmodifiable ObservableList */
-    ObservableList<Optional<EventTask>> getFilteredEventTaskList();
+    ObservableList<IndexedItem<EventTask>> getEventTaskList();
 
     /**
      * Updates the filter of the filtered event task list to filter by the given predicate.
      *
      * If predicate is null, the filtered event task list will be populated with all event tasks.
      */
-    void setEventTaskFilter(Predicate<? super EventTask> predicate);
+    void setEventTaskPredicate(Predicate<? super EventTask> predicate);
 
-    void setEventTaskSortComparator(Comparator<? super EventTask> comparator);
+    /** Returns the comparator used to sort the event task list. */
+    Comparator<? super EventTask> getEventTaskComparator();
 
-    ////undo redo
+    /** Sets the comparator used to sort the event task list. */
+    void setEventTaskComparator(Comparator<? super EventTask> comparator);
+
+    //// undo/redo
+
     /**
-     * saves a copy of the current TaskBook, and the Command that causes the change from the previous TaskBook to the current TaskBook.
-     * @param command
+     * Saves the state of the model as a commit.
+     * @param name The name of the commit.
+     * @return The new commit.
      */
-    void recordState(Command command);
+    Commit recordState(String name);
 
     /**
-     * resets the TaskBook to the TaskBook before it was changed by the most recent undo.
-     * @return the Command that was redone
+     * Redoes the most recently undone commit.
+     * @return The commit that was redone.
+     * @throws HeadAtBoundaryException if there are no more commits to redo.
+     */
+    Commit redo() throws HeadAtBoundaryException;
+
+    /**
+     * Undoes the most recent commit.
+     * @return the commit that was undone.
      * @throws HeadAtBoundaryException
      */
-    Command redo() throws HeadAtBoundaryException;
+    Commit undo() throws HeadAtBoundaryException;
 
     /**
-     * resets the TaskBook to it's previous state.
-     * @return the Command that was undone
-     * @throws HeadAtBoundaryException
-     */
-    Command undo() throws HeadAtBoundaryException;
-
-    /**
-     *@return true if TaskBook has changed
-     *Unlikely the commits list will be empty since recordState() is called when ModelManager is initialised. Thus there will always be at least one Commit in commits.
+     * Returns true if the model differs from the current commit's recorded model.
      */
     boolean hasUncommittedChanges();
+
+    public interface Commit {
+        /** The name of the commit */
+        String getName();
+    }
 
 }

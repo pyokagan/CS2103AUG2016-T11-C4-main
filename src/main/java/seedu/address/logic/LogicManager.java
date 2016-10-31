@@ -11,6 +11,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.TaskTrackerParser;
+import seedu.address.model.IndexedItem;
 import seedu.address.model.Model;
 import seedu.address.model.TaskBookChangeListener;
 import seedu.address.model.config.Config;
@@ -18,6 +19,7 @@ import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
+import seedu.address.model.task.TaskSelect;
 import seedu.address.storage.Storage;
 
 /**
@@ -48,7 +50,7 @@ public class LogicManager extends ComponentManager implements Logic {
         updateTaskBookStorage(taskBookListener);
 
         if (model.hasUncommittedChanges()) {
-            model.recordState(command);
+            model.recordState(command.toString());
         }
         return result;
 
@@ -83,18 +85,23 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Optional<FloatingTask>> getFilteredFloatingTaskList() {
-        return model.getFilteredFloatingTaskList();
+    public Optional<TaskSelect> getTaskSelect() {
+        return model.getTaskSelect();
     }
 
     @Override
-    public ObservableList<Optional<DeadlineTask>> getFilteredDeadlineTaskList() {
-        return model.getFilteredDeadlineTaskList();
+    public ObservableList<IndexedItem<FloatingTask>> getFloatingTaskList() {
+        return model.getFloatingTaskList();
     }
 
     @Override
-    public ObservableList<Optional<EventTask>> getFilteredEventTaskList() {
-        return model.getFilteredEventTaskList();
+    public ObservableList<IndexedItem<DeadlineTask>> getDeadlineTaskList() {
+        return model.getDeadlineTaskList();
+    }
+
+    @Override
+    public ObservableList<IndexedItem<EventTask>> getEventTaskList() {
+        return model.getEventTaskList();
     }
 
 }
