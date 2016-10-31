@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -22,16 +23,19 @@ public interface Logic {
      * Executes the command and returns the result.
      * @param command The command to execute.
      * @return the result of the command execution.
+     * @throws CommandException if an error occurred while executing the command.
+     * @throws IOException if an error occurred while saving the modified model to disk.
      */
-    CommandResult execute(Command command) throws CommandException;
+    CommandResult execute(Command command) throws CommandException, IOException;
 
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
+     * @throws ParseException if the commandText could not be parsed.
      * @see #execute(Command)
      */
-    CommandResult execute(String commandText) throws ParseException, CommandException;
+    CommandResult execute(String commandText) throws ParseException, CommandException, IOException;
 
     /** Returns the current TaskSelect, if any. */
     Optional<TaskSelect> getTaskSelect();

@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -48,7 +50,7 @@ public class CommandBoxTest extends GuiTest {
     }
 
     @Test
-    public void commandInputChanged_callsLogicExecute() throws ParseException, CommandException {
+    public void commandInputChanged_callsLogicExecute() throws ParseException, CommandException, IOException {
         final String inputCommand = "some command";
         final CommandResult result = new CommandResult("some result");
         Mockito.when(logic.execute(inputCommand)).thenReturn(result);
@@ -62,7 +64,7 @@ public class CommandBoxTest extends GuiTest {
     }
 
     @Test
-    public void incorrectCommand_restoresCommandText() throws ParseException, CommandException {
+    public void incorrectCommand_restoresCommandText() throws ParseException, CommandException, IOException {
         final String inputCommand = "some command";
         Mockito.when(logic.execute(inputCommand)).thenThrow(new CommandException("some exception"));
 

@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -55,7 +56,7 @@ public class CommandBox extends UiPart<Pane> {
             if (onCommandResultCallback != null) {
                 onCommandResultCallback.call(result);
             }
-        } catch (ParseException | CommandException e) {
+        } catch (ParseException | CommandException | IOException e) {
             logger.info("Result: " + e.toString());
             setStyleToIndicateIncorrectCommand();
             resultDisplay.postMessage(e.getMessage());

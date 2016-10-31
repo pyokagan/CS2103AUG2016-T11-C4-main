@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.commands.CommandResult;
@@ -46,7 +45,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(Command command) throws CommandException {
+    public CommandResult execute(Command command) throws CommandException, IOException {
         final TaskBookChangeListener taskBookListener = new TaskBookChangeListener(model.getTaskBook());
         final Config oldConfig = new Config(model.getConfig());
         final CommandResult result = command.execute(model);
@@ -59,36 +58,28 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws ParseException, CommandException {
+    public CommandResult execute(String commandText) throws ParseException, CommandException, IOException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         return execute(parser.parse(commandText));
     }
 
-    private void updateTaskBookStorage(TaskBookChangeListener listener) {
-        try {
-            if (listener.getHasChanged()) {
-                logger.info("Task book data changed, saving to file");
-                storage.saveTaskBook(model.getTaskBook());
-            }
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
+    private void updateTaskBookStorage(TaskBookChangeListener listener) throws IOException {
+        if (listener.getHasChanged()) {
+            logger.info("Task book data changed, saving to file");
+            storage.saveTaskBook(model.getTaskBook());
         }
     }
 
-    private void updateConfigStorage(Config oldConfig) {
+    private void updateConfigStorage(Config oldConfig) throws IOException {
         final ReadOnlyConfig newConfig = model.getConfig();
-        try {
-            if (!oldConfig.equals(newConfig)) {
-                logger.info("Config changed, saving to file");
-                storage.saveConfig(newConfig);
-            }
+        if (!oldConfig.equals(newConfig)) {
+            logger.info("Config changed, saving to file");
+            storage.saveConfig(newConfig);
+        }
 
-            if (!oldConfig.getTaskBookFilePath().equals(newConfig.getTaskBookFilePath())) {
-                logger.info("Task book file path changed, moving task book");
-                storage.moveTaskBook(newConfig.getTaskBookFilePath());
-            }
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
+        if (!oldConfig.getTaskBookFilePath().equals(newConfig.getTaskBookFilePath())) {
+            logger.info("Task book file path changed, moving task book");
+            storage.moveTaskBook(newConfig.getTaskBookFilePath());
         }
     }
 
