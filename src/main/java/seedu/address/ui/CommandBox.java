@@ -42,6 +42,13 @@ public class CommandBox extends UiPart<Pane> {
         this.onCommandResultCallback = callback;
     }
 
+    /**
+     * Focus on the command box text field.
+     */
+    public void requestFocus() {
+        commandTextField.requestFocus();
+    }
+
     @FXML
     private void handleCommandInputChanged() {
         //Take a copy of the command text
