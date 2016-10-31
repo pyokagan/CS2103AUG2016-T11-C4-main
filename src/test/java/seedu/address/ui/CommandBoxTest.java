@@ -13,8 +13,6 @@ import org.mockito.MockitoAnnotations;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.commands.CommandResult;
@@ -66,14 +64,10 @@ public class CommandBoxTest extends GuiTest {
     @Test
     public void incorrectCommand_restoresCommandText() throws ParseException, CommandException {
         final String inputCommand = "some command";
-        final CommandResult result = new CommandResult("some result");
-        Mockito.when(logic.execute(inputCommand)).thenReturn(result);
+        Mockito.when(logic.execute(inputCommand)).thenThrow(new CommandException("some exception"));
 
         textField.setText(inputCommand);
         clickOn(textField).push(KeyCode.ENTER);
-        assertEquals("", textField.getText());
-
-        EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(null));
         assertEquals(inputCommand, textField.getText());
     }
 

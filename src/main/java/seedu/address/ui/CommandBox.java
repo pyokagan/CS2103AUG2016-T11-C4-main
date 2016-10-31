@@ -2,13 +2,10 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandException;
@@ -80,13 +77,6 @@ public class CommandBox extends UiPart<Pane> {
     private void setStyleToIndicateCorrectCommand() {
         commandTextField.getStyleClass().remove("error");
         commandTextField.setText("");
-    }
-
-    @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
-        setStyleToIndicateIncorrectCommand();
-        restoreCommandText();
     }
 
     /**
