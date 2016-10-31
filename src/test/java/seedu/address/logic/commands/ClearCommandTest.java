@@ -17,8 +17,7 @@ public class ClearCommandTest {
         final TaskBook taskBook = new TaskBookBuilder().addTypicalTasks().build();
         final Model model = new ModelManager(new Config(), taskBook);
         final ClearCommand command = new ClearCommand();
-        command.setData(model);
-        final CommandResult result = command.execute();
+        final CommandResult result = command.execute(model);
         assertEquals(new TaskBook(), model.getTaskBook());
         assertEquals("Task book has been cleared!", result.feedbackToUser);
     }

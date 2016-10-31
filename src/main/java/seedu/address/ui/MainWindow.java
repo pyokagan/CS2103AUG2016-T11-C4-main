@@ -13,6 +13,7 @@ import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
+import seedu.address.logic.commands.HelpCommandResult;
 import seedu.address.model.config.Config;
 import seedu.address.model.task.TaskType;
 
@@ -113,7 +114,7 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     @FXML
-    public void handleHelp() {
+    private void handleHelp() {
         final HelpWindow helpWindow = new HelpWindow();
         helpWindow.getRoot().showAndWait();
     }
@@ -139,6 +140,10 @@ public class MainWindow extends UiPart<Scene> {
 
         if (result instanceof ExitCommandResult) {
             handleExit();
+        }
+
+        if (result instanceof HelpCommandResult) {
+            handleHelp();
         }
     }
 

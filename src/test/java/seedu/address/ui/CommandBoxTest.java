@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -13,10 +15,10 @@ import org.mockito.MockitoAnnotations;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.parser.ParseException;
 import seedu.address.testutil.GuiTests;
 
 /**
@@ -48,7 +50,7 @@ public class CommandBoxTest extends GuiTest {
     }
 
     @Test
-    public void commandInputChanged_callsLogicExecute() {
+    public void commandInputChanged_callsLogicExecute() throws ParseException, CommandException, IOException {
         final String inputCommand = "some command";
         final CommandResult result = new CommandResult("some result");
         Mockito.when(logic.execute(inputCommand)).thenReturn(result);
@@ -62,16 +64,12 @@ public class CommandBoxTest extends GuiTest {
     }
 
     @Test
-    public void incorrectCommand_restoresCommandText() {
+    public void incorrectCommand_restoresCommandText() throws ParseException, CommandException, IOException {
         final String inputCommand = "some command";
-        final CommandResult result = new CommandResult("some result");
-        Mockito.when(logic.execute(inputCommand)).thenReturn(result);
+        Mockito.when(logic.execute(inputCommand)).thenThrow(new CommandException("some exception"));
 
         textField.setText(inputCommand);
         clickOn(textField).push(KeyCode.ENTER);
-        assertEquals("", textField.getText());
-
-        EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(null));
         assertEquals(inputCommand, textField.getText());
     }
 

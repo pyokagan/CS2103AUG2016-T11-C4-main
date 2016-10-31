@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
 import com.melloware.jintellitype.JIntellitypeConstants;
 
 import javafx.application.Platform;
@@ -16,8 +15,6 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -78,11 +75,6 @@ public class UiManager extends ComponentManager implements Ui {
             trayIcon = null;
         }
         primaryStage = null;
-    }
-
-    private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
-        final String content = details + ":\n" + cause.toString();
-        showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description, content);
     }
 
     private Image getImage(String imagePath) {
@@ -170,20 +162,6 @@ public class UiManager extends ComponentManager implements Ui {
         final Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setX(rect.getX().orElse((bounds.getWidth() - primaryStage.getWidth()) / 2));
         primaryStage.setY(rect.getY().orElse((bounds.getHeight() - primaryStage.getHeight()) / 2));
-    }
-
-    //==================== Event Handling Code =================================================================
-
-    @Subscribe
-    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
-    }
-
-    @Subscribe
-    private void handleShowHelpEvent(ShowHelpRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.handleHelp();
     }
 
 }

@@ -18,6 +18,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandException;
 import seedu.address.model.Model.Commit;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
 import seedu.address.model.task.DeadlineTask;
@@ -310,21 +311,19 @@ public class ModelTest {
     }
 
     @Test
-    public void hasUncommitedChanges_manages_clear() {
+    public void hasUncommitedChanges_manages_clear() throws CommandException {
         //check for empty taskbook
         assertEquals(new TaskBook(), model.getTaskBook());
 
         //clear an empty taskbook
         Command clear = new ClearCommand();
-        clear.setData(model);
-        clear.execute();
+        clear.execute(model);
         assertFalse(model.hasUncommittedChanges());
 
         //clear a non-empty taskbook
         model.addFloatingTask(tpflt.buyAHelicopter);
         model.recordState("dummy command");
-        clear.setData(model);
-        clear.execute();
+        clear.execute(model);
         assertTrue(model.hasUncommittedChanges());
     }
 

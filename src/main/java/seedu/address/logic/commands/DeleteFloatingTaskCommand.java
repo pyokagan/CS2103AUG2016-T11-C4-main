@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
 
-public class DeleteFloatingTaskCommand extends Command {
+public class DeleteFloatingTaskCommand implements Command {
 
     public static final String COMMAND_WORD = "del-float";
 
@@ -22,13 +22,12 @@ public class DeleteFloatingTaskCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) throws CommandException {
         try {
             final FloatingTask deletedTask = model.removeFloatingTask(targetIndex);
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask));
         } catch (IllegalValueException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(e);
         }
     }
 

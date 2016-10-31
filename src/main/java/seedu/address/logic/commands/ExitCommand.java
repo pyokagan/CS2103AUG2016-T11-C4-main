@@ -1,12 +1,14 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.Model;
+
 /**
  * Requests to terminate the application.
  */
-public class ExitCommand extends Command {
+public class ExitCommand implements Command {
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         return new Result();
     }
 

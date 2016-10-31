@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
@@ -8,7 +9,7 @@ import seedu.address.model.task.Priority;
 /**
  * Adds an event task to the task book.
  */
-public class AddFloatingTaskCommand extends AddTaskCommand {
+public class AddFloatingTaskCommand implements AddTaskCommand {
 
     public static final String MESSAGE_USAGE = "Parameters for adding floating task: \"NAME\" [p-Priority] \n"
             + "Example: " + COMMAND_WORD + " \"Floating Task Name\" p-3 \n";
@@ -29,7 +30,7 @@ public class AddFloatingTaskCommand extends AddTaskCommand {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         assert model != null;
         model.addFloatingTask(floatingTask);
         return new CommandResult(String.format(MESSAGE_SUCCESS, floatingTask));

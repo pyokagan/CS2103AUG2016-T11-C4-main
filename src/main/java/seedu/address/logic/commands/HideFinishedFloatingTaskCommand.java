@@ -1,8 +1,9 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.Model;
 import seedu.address.model.filter.FloatingTaskFinishedPredicate;
 
-public class HideFinishedFloatingTaskCommand extends Command {
+public class HideFinishedFloatingTaskCommand implements Command {
 
     public static final String COMMAND_WORD = "hide-finished";
 
@@ -13,7 +14,7 @@ public class HideFinishedFloatingTaskCommand extends Command {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "All finished Floating Task hided.";
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) {
         model.setFloatingTaskPredicate(new FloatingTaskFinishedPredicate());
         return new CommandResult(MESSAGE_EDIT_TASK_SUCCESS);
     }
