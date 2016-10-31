@@ -12,6 +12,7 @@ import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.parser.ParseException;
 
 public class CommandBox extends UiPart<Pane> {
 
@@ -58,11 +59,17 @@ public class CommandBox extends UiPart<Pane> {
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
-        mostRecentResult = logic.execute(previousCommandTest);
-        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
-        logger.info("Result: " + mostRecentResult.feedbackToUser);
-        if (onCommandResultCallback != null) {
-            onCommandResultCallback.call(mostRecentResult);
+        try {
+            mostRecentResult = logic.execute(previousCommandTest);
+            resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+            logger.info("Result: " + mostRecentResult.feedbackToUser);
+            if (onCommandResultCallback != null) {
+                onCommandResultCallback.call(mostRecentResult);
+            }
+        } catch (ParseException e) {
+            setStyleToIndicateIncorrectCommand();
+            restoreCommandText();
+            resultDisplay.postMessage(e.getMessage());
         }
     }
 

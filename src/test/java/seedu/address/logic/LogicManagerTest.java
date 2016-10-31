@@ -2,10 +2,6 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,15 +12,11 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.IndexedItem;
+import seedu.address.logic.parser.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
-import seedu.address.model.task.DeadlineTask;
-import seedu.address.model.task.EventTask;
-import seedu.address.model.task.FloatingTask;
 import seedu.address.storage.StorageManager;
 
 public class LogicManagerTest {
@@ -63,56 +55,23 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_invalid() throws Exception {
-        String invalidCommand = "       ";
-        assertCommandBehavior(invalidCommand, "No command name given");
-    }
-
-    /**
-     * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
-     */
-    private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(),
-                              Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
-    }
-
-    /**
-     * Executes the command and confirms that the result message is correct and
-     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal task book data are same as those in the {@code expectedTaskBook} <br>
-     *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedTaskBook} was saved to the storage file. <br>
-     */
-    private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyTaskBook expectedTaskBook,
-                                       List<FloatingTask> expectedFloatingTaskShownList,
-                                       List<DeadlineTask> expectedDeadlineTaskShownList,
-                                       List<EventTask> expectedEventTaskShownList) throws Exception {
-
-        //Execute the command
-        CommandResult result = logic.execute(inputCommand);
-
-        //Confirm the ui display elements should contain the right data
-        assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedFloatingTaskShownList, unindexList(model.getFloatingTaskList()));
-        assertEquals(expectedDeadlineTaskShownList, unindexList(model.getDeadlineTaskList()));
-        assertEquals(expectedEventTaskShownList, unindexList(model.getEventTaskList()));
-
-        //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedTaskBook, model.getTaskBook());
-        assertEquals(expectedTaskBook, latestSavedTaskBook);
+    public void execute_invalid() {
+        try {
+            logic.execute("    ");
+            assert false : "expected ParseException";
+        } catch (ParseException e) {
+            assertEquals("No command name given", e.getMessage());
+        }
     }
 
     @Test
-    public void execute_unknownCommandWord() throws Exception {
-        String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, "Unknown command: uicfhmowqewca");
-    }
-
-    private <E> List<E> unindexList(List<IndexedItem<E>> list) {
-        return list.stream().map(x -> x.getItem()).collect(Collectors.toList());
+    public void execute_unknownCommandWord() {
+        try {
+            logic.execute("uicfhmowqewca");
+            assert false : "expected ParseException";
+        } catch (ParseException e) {
+            assertEquals("Unknown command: uicfhmowqewca", e.getMessage());
+        }
     }
 
 }

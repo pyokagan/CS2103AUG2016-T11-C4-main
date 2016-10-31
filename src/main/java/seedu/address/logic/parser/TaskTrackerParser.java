@@ -1,13 +1,11 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.IncorrectCommand;
 
 /**
- * Parses user input.
+ * Top level task tracker command-line parser.
  */
-public class TaskTrackerParser {
-
+public class TaskTrackerParser implements Parser<Command> {
     private final SubcommandParser parser = new SubcommandParser()
             .putSubcommand("add", new AddTaskParser())
             .putSubcommand("edit", new EditCommandParser())
@@ -24,18 +22,8 @@ public class TaskTrackerParser {
             .putSubcommand("redo", new RedoCommandParser())
             ;
 
-    /**
-     * Parses user input into command for execution.
-     *
-     * @param userInput full user input string
-     * @return the command based on the user input
-     */
-    public Command parseCommand(String userInput) {
-        try {
-            return parser.parse(userInput);
-        } catch (ParseException e) {
-            return new IncorrectCommand(e.getMessage());
-        }
+    @Override
+    public Command parse(String userInput) throws ParseException {
+        return parser.parse(userInput);
     }
-
 }
