@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.ParseException;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.TaskTrackerParser;
 import seedu.address.model.IndexedItem;
 import seedu.address.model.Model;
@@ -32,12 +33,16 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final TaskTrackerParser parser;
+    private final Parser<? extends Command> parser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, Parser<? extends Command> parser) {
         this.model = model;
         this.storage = storage;
-        this.parser = new TaskTrackerParser();
+        this.parser = parser;
+    }
+
+    public LogicManager(Model model, Storage storage) {
+        this(model, storage, new TaskTrackerParser());
     }
 
     @Override
