@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.ParseException;
 import seedu.address.model.IndexedItem;
@@ -20,7 +21,7 @@ public interface Logic {
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      */
-    CommandResult execute(String commandText) throws ParseException;
+    CommandResult execute(String commandText) throws ParseException, CommandException;
 
     /** Returns the current TaskSelect, if any. */
     Optional<TaskSelect> getTaskSelect();

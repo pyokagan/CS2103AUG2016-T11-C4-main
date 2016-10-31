@@ -12,6 +12,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
+import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.parser.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -55,7 +56,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_invalid() {
+    public void execute_invalid() throws CommandException {
         try {
             logic.execute("    ");
             assert false : "expected ParseException";
@@ -65,7 +66,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_unknownCommandWord() {
+    public void execute_unknownCommandWord() throws CommandException {
         try {
             logic.execute("uicfhmowqewca");
             assert false : "expected ParseException";

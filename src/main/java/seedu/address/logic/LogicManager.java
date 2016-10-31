@@ -9,6 +9,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.ParseException;
 import seedu.address.logic.parser.TaskTrackerParser;
@@ -40,7 +41,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws ParseException {
+    public CommandResult execute(String commandText) throws ParseException, CommandException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         final TaskBookChangeListener taskBookListener = new TaskBookChangeListener(model.getTaskBook());
         final Config oldConfig = new Config(model.getConfig());

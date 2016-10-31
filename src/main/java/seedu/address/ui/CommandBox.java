@@ -11,6 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.ParseException;
 
@@ -66,7 +67,7 @@ public class CommandBox extends UiPart<Pane> {
             if (onCommandResultCallback != null) {
                 onCommandResultCallback.call(mostRecentResult);
             }
-        } catch (ParseException e) {
+        } catch (ParseException | CommandException e) {
             setStyleToIndicateIncorrectCommand();
             restoreCommandText();
             resultDisplay.postMessage(e.getMessage());

@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.ParseException;
 import seedu.address.testutil.GuiTests;
@@ -49,7 +50,7 @@ public class CommandBoxTest extends GuiTest {
     }
 
     @Test
-    public void commandInputChanged_callsLogicExecute() throws ParseException {
+    public void commandInputChanged_callsLogicExecute() throws ParseException, CommandException {
         final String inputCommand = "some command";
         final CommandResult result = new CommandResult("some result");
         Mockito.when(logic.execute(inputCommand)).thenReturn(result);
@@ -63,7 +64,7 @@ public class CommandBoxTest extends GuiTest {
     }
 
     @Test
-    public void incorrectCommand_restoresCommandText() throws ParseException {
+    public void incorrectCommand_restoresCommandText() throws ParseException, CommandException {
         final String inputCommand = "some command";
         final CommandResult result = new CommandResult("some result");
         Mockito.when(logic.execute(inputCommand)).thenReturn(result);
