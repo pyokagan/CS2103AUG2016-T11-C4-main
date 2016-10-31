@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
@@ -61,13 +60,12 @@ public class EditEventCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         EventTask oldEventTask;
         try {
             oldEventTask = model.getEventTask(targetIndex);
         } catch (IllegalValueException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(e);
         }
 
         EventTask newEventTask;
@@ -84,8 +82,7 @@ public class EditEventCommand extends Command {
                     )
             );
         } catch (IllegalValueException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(e.getMessage());
+            throw new CommandException(e);
         }
 
         try {

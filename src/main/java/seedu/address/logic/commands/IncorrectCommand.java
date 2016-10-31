@@ -14,9 +14,8 @@ public class IncorrectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
-        indicateAttemptToExecuteIncorrectCommand();
-        return new CommandResult(feedbackToUser);
+    public CommandResult execute(Model model) throws CommandException {
+        throw new CommandException(feedbackToUser);
     }
 
 }

@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
@@ -43,13 +42,12 @@ public class EditFloatingTaskCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         final FloatingTask oldFloatingTask;
         try {
             oldFloatingTask = model.getFloatingTask(targetIndex);
         } catch (IllegalValueException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(e);
         }
 
         final FloatingTask newFloatingTask;
