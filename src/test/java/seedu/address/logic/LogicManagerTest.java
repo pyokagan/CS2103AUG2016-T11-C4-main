@@ -2,77 +2,130 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
-import com.google.common.eventbus.Subscribe;
-
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.model.TaskBookChangedEvent;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandException;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.ParseException;
+import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyTaskBook;
-import seedu.address.model.TaskBook;
-import seedu.address.storage.StorageManager;
+import seedu.address.model.task.TypicalFloatingTasks;
+import seedu.address.storage.Storage;
 
 public class LogicManagerTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-    /**
-     * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
-     */
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
-    private Model model;
+    private TypicalFloatingTasks tpflt = new TypicalFloatingTasks();
+
+    @Spy
+    private Model model = new ModelManager();
+
+    @Mock
+    private Storage storage;
+
+    @Mock
+    private Parser<Command> parser;
+
     private Logic logic;
-
-    //These are for checking the correctness of the events raised
-    private ReadOnlyTaskBook latestSavedTaskBook;
-
-    @Subscribe
-    private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
-        latestSavedTaskBook = new TaskBook(abce.data);
-    }
 
     @Before
     public void setup() {
-        model = new ModelManager();
-        String tempConfigFile = saveFolder.getRoot().getPath() + "tempConfig.json";
-        String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempTaskBook.json";
-        logic = new LogicManager(model, new StorageManager(tempConfigFile, tempTaskBookFile));
-        EventsCenter.getInstance().registerHandler(this);
-
-        latestSavedTaskBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
-    }
-
-    @After
-    public void teardown() {
-        EventsCenter.clearSubscribers();
+        MockitoAnnotations.initMocks(this);
+        logic = new LogicManager(model, storage, parser);
     }
 
     @Test
-    public void execute_invalid() throws CommandException {
-        try {
-            logic.execute("    ");
-            assert false : "expected ParseException";
-        } catch (ParseException e) {
-            assertEquals("No command name given", e.getMessage());
-        }
+    public void execute_commandThatReturnsCommandResult_returnsCommandResult() throws Exception {
+        final CommandResult expected = new CommandResult("myResult");
+        final CommandResult actual = logic.execute(model -> expected);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void execute_unknownCommandWord() throws CommandException {
-        try {
-            logic.execute("uicfhmowqewca");
-            assert false : "expected ParseException";
-        } catch (ParseException e) {
-            assertEquals("Unknown command: uicfhmowqewca", e.getMessage());
-        }
+    public void execute_commandThrowsCommandException_throwsCommandException() throws Exception {
+        thrown.expect(CommandException.class);
+        thrown.expectMessage("some exception");
+        logic.execute(model -> {
+            throw new CommandException("some exception");
+        });
+    }
+
+    @Test
+    public void execute_parserReturnsCommand_executesThatReturnedCommand() throws Exception {
+        final CommandResult someResult = new CommandResult("some result");
+        final Command someCommand = model -> someResult;
+        Mockito.when(parser.parse("some command")).thenReturn(someCommand);
+        final CommandResult actual = logic.execute("some command");
+        assertEquals(someResult, actual);
+    }
+
+    @Test
+    public void execute_parserThrowsParseException_throwsParseException() throws Exception {
+        Mockito.when(parser.parse("my command")).thenThrow(new ParseException("some parse exception"));
+        thrown.expect(ParseException.class);
+        thrown.expectMessage("some parse exception");
+        logic.execute("my command");
+    }
+
+    @Test
+    public void execute_withCommandThatModifiesTaskBook_savesTaskBook() throws Exception {
+        logic.execute(model -> {
+            model.addFloatingTask(tpflt.buyAHelicopter);
+            return new CommandResult("task book modified");
+        });
+        Mockito.verify(storage).saveTaskBook(model.getTaskBook());
+    }
+
+    @Test
+    public void execute_withCommandThatModifiesTaskBook_recordsState() throws Exception {
+        final Command command = model -> {
+            model.addFloatingTask(tpflt.readABook);
+            return new CommandResult("task book modified");
+        };
+        logic.execute(command);
+        Mockito.verify(model).recordState(command.toString());
+    }
+
+    @Test
+    public void execute_withCommandThatModifiesConfig_savesConfig() throws Exception {
+        logic.execute(model -> {
+            model.setTaskBookFilePath("a");
+            return new CommandResult("modified config");
+        });
+        Mockito.verify(storage).moveTaskBook("a");
+    }
+
+    @Test
+    public void execute_withCommandThatModifiesConfig_recordsState() throws Exception {
+        final Command command = model -> {
+            model.setTaskBookFilePath("a");
+            return new CommandResult("modified config");
+        };
+        logic.execute(command);
+        Mockito.verify(model).recordState(command.toString());
+    }
+
+    @Test
+    public void execute_withCommandThatModifiesTaskBookPath_movesTaskBook() throws Exception {
+        logic.execute(model -> {
+            model.setTaskBookFilePath("a");
+            return new CommandResult("modified task book path");
+        });
+        Mockito.verify(storage).moveTaskBook("a");
     }
 
 }
