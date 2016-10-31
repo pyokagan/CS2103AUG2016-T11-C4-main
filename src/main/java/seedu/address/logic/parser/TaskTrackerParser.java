@@ -11,6 +11,7 @@ public class TaskTrackerParser implements Parser<Command> {
             .putSubcommand("edit", new EditCommandParser())
             .putSubcommand("del", new DeleteCommandParser())
             .putSubcommand("fin", new MarkFinishedCommandParser())
+            .putSubcommand("unfin", new MarkTaskUnfinishedCommandParser())
             .putSubcommand("hide-finished", new HideFinishedTaskParser())
             .putSubcommand("view", new ShowAllTaskParser())
             .putSubcommand("clear", new ClearCommandParser())

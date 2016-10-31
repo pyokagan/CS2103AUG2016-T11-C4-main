@@ -23,6 +23,7 @@ public class MarkFloatingTaskFinishedCommand implements Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        assert model != null;
         FloatingTask oldFloatingTask;
         try {
             oldFloatingTask = model.getFloatingTask(targetIndex);

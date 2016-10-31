@@ -162,7 +162,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized int addDeadlineTask(DeadlineTask deadlineTask) {
-        assert deadlineTask.isFinished() == false;
         final int workingIndex = workingTaskBook.addDeadlineTask(deadlineTask);
         indicateTaskBookChanged();
         setTaskSelect(Optional.of(new TaskSelect(TaskType.DEADLINE, workingIndex)));
