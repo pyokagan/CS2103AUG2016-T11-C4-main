@@ -39,6 +39,7 @@ public class DateParser implements Parser<LocalDate> {
 
     @Override
     public LocalDate parse(String str) throws ParseException {
+        assert str != null;
         final Optional<LocalDate> nameDate = parseAsName(str.trim());
         if (nameDate.isPresent()) {
             return nameDate.get();
