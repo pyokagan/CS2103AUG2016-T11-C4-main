@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
 
-public class ShowAllFloatingTaskCommand extends Command {
+public class ShowAllFloatingTaskCommand implements Command {
 
     public static final String COMMAND_WORD = "view";
 

@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.Name;
 
-public class EditEventCommand extends Command {
+public class EditEventCommand implements Command {
 
     public static final String COMMAND_WORD = "edit-event";
 

@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.model.Model;
 import seedu.address.model.filter.DeadlineTaskFinishedPredicate;
 
-public class HideFinishedDeadlineCommand extends Command {
+public class HideFinishedDeadlineCommand implements Command {
 
     public static final String COMMAND_WORD = "hide-finished";
 

@@ -6,7 +6,7 @@ import seedu.address.model.TaskBook;
 /**
  * Clears the task book.
  */
-public class ClearCommand extends Command {
+public class ClearCommand implements Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Task book has been cleared!";

@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
 
-public class DeleteFloatingTaskCommand extends Command {
+public class DeleteFloatingTaskCommand implements Command {
 
     public static final String COMMAND_WORD = "del-float";
 

@@ -8,7 +8,7 @@ import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 
-public class EditFloatingTaskCommand extends Command {
+public class EditFloatingTaskCommand implements Command {
 
     public static final String COMMAND_WORD = "edit-float";
 

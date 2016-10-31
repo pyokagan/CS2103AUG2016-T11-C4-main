@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
 
-public class MarkDeadlineFinishedCommand extends Command {
+public class MarkDeadlineFinishedCommand implements Command {
 
     public static final String COMMAND_WORD = "fin-deadline";
 

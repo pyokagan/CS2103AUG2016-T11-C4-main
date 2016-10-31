@@ -4,8 +4,10 @@ import seedu.address.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
+ *
+ * This is a functional interface whose functional method is {@link #execute(Model)}
  */
-public abstract class Command {
+public interface Command {
 
     /**
      * Executes the command and returns the result message.
@@ -15,6 +17,6 @@ public abstract class Command {
      *          an unknown state -- the caller should call {@link Model#undo()} to revert the model back
      *          to a known state if necessary.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    CommandResult execute(Model model) throws CommandException;
 
 }

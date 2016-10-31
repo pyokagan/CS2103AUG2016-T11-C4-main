@@ -9,7 +9,7 @@ import seedu.address.model.task.Priority;
 /**
  * Adds an event task to the task book.
  */
-public class AddFloatingTaskCommand extends AddTaskCommand {
+public class AddFloatingTaskCommand implements AddTaskCommand {
 
     public static final String MESSAGE_USAGE = "Parameters for adding floating task: \"NAME\" [p-Priority] \n"
             + "Example: " + COMMAND_WORD + " \"Floating Task Name\" p-3 \n";

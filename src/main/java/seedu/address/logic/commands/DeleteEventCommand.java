@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
 
-public class DeleteEventCommand extends Command {
+public class DeleteEventCommand implements Command {
 
     public static final String COMMAND_WORD = "del-event";
 

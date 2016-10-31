@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
 
-public class DeleteDeadlineCommand extends Command {
+public class DeleteDeadlineCommand implements Command {
 
     public static final String COMMAND_WORD = "del-deadline";
 

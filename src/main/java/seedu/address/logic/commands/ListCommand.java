@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.model.Model;
 import seedu.address.model.WorkingTaskBook;
 
-public class ListCommand extends Command {
+public class ListCommand implements Command {
 
     @Override
     public CommandResult execute(Model model) {

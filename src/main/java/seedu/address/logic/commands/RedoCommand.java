@@ -4,7 +4,7 @@ import seedu.address.model.Model;
 import seedu.address.model.Model.Commit;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
 
-public class RedoCommand extends Command {
+public class RedoCommand implements Command {
 
     public static final String COMMAND_WORD = "redo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Redo the previous undo.\n\t" + "Example: " + COMMAND_WORD;

@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
 
-public class MarkFloatingTaskFinishedCommand extends Command {
+public class MarkFloatingTaskFinishedCommand implements Command {
 
     public static final String COMMAND_WORD = "fin-float";
 

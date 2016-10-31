@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Name;
 
-public class EditDeadlineCommand extends Command {
+public class EditDeadlineCommand implements Command {
 
     public static final String COMMAND_WORD = "edit-deadline";
 

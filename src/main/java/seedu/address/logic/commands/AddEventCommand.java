@@ -9,7 +9,7 @@ import seedu.address.model.task.EventTask;
 /**
  * Adds an event task to the task book.
  */
-public class AddEventCommand extends AddTaskCommand {
+public class AddEventCommand implements AddTaskCommand {
 
     public static final String MESSAGE_USAGE = "Parameters for adding event: \"NAME\" <STARTING_DATE> <STARTING_TIME> to <ENDING_DATE> <ENDING_TIME>\n"
             + "Example: " + COMMAND_WORD + " \"Event Name\" 12/12/2016 12pm to 2pm \n";

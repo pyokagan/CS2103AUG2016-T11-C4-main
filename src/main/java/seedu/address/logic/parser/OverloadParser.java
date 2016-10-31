@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class OverloadParser<T> implements Parser<T> {
 
-    private final List<Candidate<T>> candidates = new ArrayList<>();
+    private final List<Candidate<? extends T>> candidates = new ArrayList<>();
 
     public OverloadParser<T> addParser(String name, Parser<? extends T> parser) {
         candidates.add(new Candidate<T>(name, parser));
@@ -21,7 +21,7 @@ public class OverloadParser<T> implements Parser<T> {
         List<CandidateException> candidateExceptions = new ArrayList<>();
 
         // Try all parsers, while collecting their exceptions
-        for (Candidate<T> candidate : candidates) {
+        for (Candidate<? extends T> candidate : candidates) {
             try {
                 return candidate.parser.parse(str);
             } catch (ParseException e) {

@@ -5,7 +5,7 @@ import seedu.address.model.Model;
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
  */
-public class IncorrectCommand extends Command {
+public class IncorrectCommand implements Command {
 
     public final String feedbackToUser;
 

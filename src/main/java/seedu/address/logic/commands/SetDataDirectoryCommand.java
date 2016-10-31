@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 /**
  * Command that changes the directory where application data is stored.
  */
-public class SetDataDirectoryCommand extends Command {
+public class SetDataDirectoryCommand implements Command {
 
     private static final String MESSAGE_CHANGE = "Data directory changed to: %s";
 
