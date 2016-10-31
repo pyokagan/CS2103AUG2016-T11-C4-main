@@ -41,20 +41,22 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws ParseException, CommandException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+    public CommandResult execute(Command command) throws CommandException {
         final TaskBookChangeListener taskBookListener = new TaskBookChangeListener(model.getTaskBook());
         final Config oldConfig = new Config(model.getConfig());
-        Command command = parser.parse(commandText);
         final CommandResult result = command.execute(model);
         updateConfigStorage(oldConfig);
         updateTaskBookStorage(taskBookListener);
-
         if (model.hasUncommittedChanges()) {
             model.recordState(command.toString());
         }
         return result;
+    }
 
+    @Override
+    public CommandResult execute(String commandText) throws ParseException, CommandException {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        return execute(parser.parse(commandText));
     }
 
     private void updateTaskBookStorage(TaskBookChangeListener listener) {
