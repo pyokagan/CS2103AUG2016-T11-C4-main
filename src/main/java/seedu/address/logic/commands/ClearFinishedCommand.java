@@ -3,12 +3,10 @@ package seedu.address.logic.commands;
 import java.time.LocalDateTime;
 
 import seedu.address.model.Model;
-
 import seedu.address.model.filter.TaskFinishedPredicate;
 
 public class ClearFinishedCommand implements Command {
 
-    public static final String COMMAND_WORD = "clear";
     public static final String COMMAND_PARAMETER = "fin";
     public static final String MESSAGE_SUCCESS = "All finished task in Task Tracker have been cleared!";
 
