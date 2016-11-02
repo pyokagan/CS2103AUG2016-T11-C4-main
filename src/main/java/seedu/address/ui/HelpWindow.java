@@ -37,10 +37,12 @@ public class HelpWindow extends UiPart<Stage> {
         //add icon
         Stage stage = (Stage) helpBox.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(ICON));
+
+        //set contents
         helpBox.setTitle("HELP");
         helpBox.setHeaderText(null);
         helpBox.setContentText("");
-        
+
         //press escape to close
         stage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
