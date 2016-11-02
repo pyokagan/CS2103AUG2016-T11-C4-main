@@ -32,8 +32,8 @@ public class EventTaskListCard extends UiPart<Pane> {
         if (eventTask != null) {
             indexLabel.setText(IndexPrefix.EVENT.getPrefixString() + index + ". ");
             nameLabel.setText(eventTask.getName().toString());
-            startLabel.setText(eventTask.getStart().toString());
-            endLabel.setText(eventTask.getEnd().toString());
+            startLabel.setText(eventTask.localDateTimeToPrettyString(eventTask.getStart()));
+            endLabel.setText(eventTask.localDateTimeToPrettyString(eventTask.getEnd()));
             if (eventTask.getEnd().isBefore(LocalDateTime.now())) {
                 getRoot().getStyleClass().add("finished");
             } else if (eventTask.getStart().isBefore(LocalDateTime.now())) {
