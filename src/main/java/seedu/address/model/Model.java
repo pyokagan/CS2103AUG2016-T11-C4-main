@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -42,6 +43,7 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task);
 
+    void updateFilteredTaskList(Set<String> keywords);
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Task> getFilteredTaskList();
 
