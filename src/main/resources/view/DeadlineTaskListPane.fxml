@@ -2,8 +2,12 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
-    <Label styleClass="header">Deadlines</Label>
-    <ListView fx:id="deadlineTaskListView" VBox.vgrow="ALWAYS" />
+    <Label styleClass="header">
+        <graphic><FontAwesomeIconView glyphName="CLOCK_ALT" /></graphic>
+        <text>Deadlines</text>
+    </Label>
+    <ListView fx:id="deadlineTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>

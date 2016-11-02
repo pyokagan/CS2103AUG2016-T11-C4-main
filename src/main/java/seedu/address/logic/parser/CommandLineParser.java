@@ -107,6 +107,9 @@ public class CommandLineParser {
         void parse(CommandLineScanner scanner) throws ParseException;
     }
 
+    /**
+     * An command line argument parser for a single argument of type T.
+     */
     public static class Argument<T> implements ArgumentParser {
         private final String name;
         private Parser<? extends T> parser;
@@ -141,6 +144,7 @@ public class CommandLineParser {
             present = true;
         }
 
+        @Override
         public void reset() {
             present = false;
             value = null;
@@ -190,6 +194,9 @@ public class CommandLineParser {
         }
     }
 
+    /**
+     * A command line argument parser for parsing a rest argument of type T.
+     */
     public static class RestArgument<T> extends Argument<T> {
         public RestArgument(String name, Parser<? extends T> parser) {
             super(name, parser);
@@ -198,6 +205,60 @@ public class CommandLineParser {
         @Override
         public void parse(CommandLineScanner scanner) throws ParseException {
             parse(scanner.nextRestArgument());
+        }
+    }
+
+    /**
+     * A command line argument parser for parsing a variable number of arguments of type T.
+     */
+    public static class ListArgument<T> implements ArgumentParser {
+        private final String name;
+        private Parser<? extends T> parser;
+        private final ArrayList<Argument<T>> arguments = new ArrayList<>();
+        private SubstringRange range;
+
+        public ListArgument(String name, Parser<? extends T> parser) {
+            assert !CollectionUtil.isAnyNull(name, parser);
+            this.name = name;
+            this.parser = parser;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        public void setParser(Parser<? extends T> parser) {
+            assert parser != null;
+            this.parser = parser;
+        }
+
+        @Override
+        public void reset() {
+            arguments.clear();
+            range = null;
+        }
+
+        public List<T> getValues() {
+            return arguments.stream()
+                            .map(arg -> arg.getValue())
+                            .collect(Collectors.toList());
+        }
+
+        public SubstringRange getRange() {
+            assert range != null;
+            return range;
+        }
+
+        @Override
+        public void parse(CommandLineScanner scanner) throws ParseException {
+            range = new SubstringRange(scanner.getInputPosition(), scanner.getInput().length());
+            while (scanner.peekNextArgument().isPresent()) {
+                final Argument<T> argument = new Argument<>(name + "[" + arguments.size() + "]", parser);
+                argument.parse(scanner);
+                arguments.add(argument);
+                range = new SubstringRange(range.getStart(), scanner.getInputPosition());
+            }
         }
     }
 

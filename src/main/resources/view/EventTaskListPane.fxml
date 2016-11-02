@@ -2,9 +2,13 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
-    <Label styleClass="header">Events</Label>
-    <ListView fx:id="eventTaskListView" VBox.vgrow="ALWAYS" />
+<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css" minHeight="0">
+    <Label styleClass="header">
+        <graphic><FontAwesomeIconView glyphName="CALENDAR" /></graphic>
+        <text>Events</text>
+    </Label>
+    <ListView fx:id="eventTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>
 

@@ -39,6 +39,7 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.4'
     compile 'com.google.guava:guava:19.0'
     compile 'de.jensd:fontawesomefx-commons:8.12'
+    compile 'de.jensd:fontawesomefx-fontawesome:4.6.3'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.testfx:testfx-core:4.0.+'

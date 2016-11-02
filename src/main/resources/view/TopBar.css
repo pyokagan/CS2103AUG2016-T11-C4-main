@@ -1,0 +1,28 @@
+#topBar {
+    -fx-alignment: center-left;
+}
+
+#filterLabel {
+    visibility: collapse;
+}
+
+.box.with-filter {
+    -fx-background-color: blue;
+}
+
+.box.with-filter #filterLabel {
+    visibility: visible;
+}
+
+.box {
+    -fx-alignment: center-left;
+}
+
+#statusBox {
+    -fx-padding: 0 0.4em 0 0.8em;
+}
+
+
+#topBar > .separator {
+    -fx-padding: 0;
+}

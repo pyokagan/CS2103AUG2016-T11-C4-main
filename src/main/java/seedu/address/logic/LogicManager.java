@@ -1,10 +1,8 @@
 package seedu.address.logic;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -13,15 +11,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.ParseException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.TaskTrackerParser;
-import seedu.address.model.IndexedItem;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyModel;
 import seedu.address.model.TaskBookChangeListener;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
-import seedu.address.model.task.DeadlineTask;
-import seedu.address.model.task.EventTask;
-import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.TaskSelect;
 import seedu.address.storage.Storage;
 
 /**
@@ -84,23 +78,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public Optional<TaskSelect> getTaskSelect() {
-        return model.getTaskSelect();
-    }
-
-    @Override
-    public ObservableList<IndexedItem<FloatingTask>> getFloatingTaskList() {
-        return model.getFloatingTaskList();
-    }
-
-    @Override
-    public ObservableList<IndexedItem<DeadlineTask>> getDeadlineTaskList() {
-        return model.getDeadlineTaskList();
-    }
-
-    @Override
-    public ObservableList<IndexedItem<EventTask>> getEventTaskList() {
-        return model.getEventTaskList();
+    public ReadOnlyModel getModel() {
+        return model;
     }
 
 }

@@ -3,8 +3,6 @@ package seedu.address.ui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -18,8 +16,7 @@ import seedu.address.model.config.Config;
 import seedu.address.model.task.TaskType;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout.
  */
 public class MainWindow extends UiPart<Scene> {
 
@@ -39,9 +36,6 @@ public class MainWindow extends UiPart<Scene> {
 
     @FXML
     private UiRegion commandBoxPlaceholder;
-
-    @FXML
-    private MenuItem helpMenuItem;
 
     @FXML
     private UiRegion taskListPanelPlaceholder;
@@ -67,6 +61,10 @@ public class MainWindow extends UiPart<Scene> {
     @FXML
     private UiRegion statusbarPlaceholder;
 
+    @FXML
+    private UiRegion topBarRegion;
+    private TopBar topBar;
+
     private final Stage primaryStage;
     private final Logic logic;
 
@@ -80,20 +78,17 @@ public class MainWindow extends UiPart<Scene> {
         setIcon(ICON);
         setWindowMinSize();
         fillInnerParts(config, logic);
-        setAccelerators();
         primaryStage.setOnShown(this::onShown);
     }
 
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
-
     void fillInnerParts(Config config, Logic logic) {
-        floatingTaskListPane = new FloatingTaskListPane(logic.getFloatingTaskList());
+        topBar = new TopBar(logic.getModel().taskPredicateProperty());
+        topBarRegion.setNode(topBar.getRoot());
+        floatingTaskListPane = new FloatingTaskListPane(logic.getModel().getFloatingTaskList());
         floatingTaskListRegion.setNode(floatingTaskListPane.getRoot());
-        eventTaskListPane = new EventTaskListPane(logic.getEventTaskList());
+        eventTaskListPane = new EventTaskListPane(logic.getModel().getEventTaskList());
         eventTaskListRegion.setNode(eventTaskListPane.getRoot());
-        deadlineTaskListPane = new DeadlineTaskListPane(logic.getDeadlineTaskList());
+        deadlineTaskListPane = new DeadlineTaskListPane(logic.getModel().getDeadlineTaskList());
         deadlineTaskListRegion.setNode(deadlineTaskListPane.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.setNode(resultDisplay.getRoot());
@@ -113,7 +108,6 @@ public class MainWindow extends UiPart<Scene> {
         primaryStage.setMinWidth(MIN_WIDTH);
     }
 
-    @FXML
     private void handleHelp() {
         final HelpWindow helpWindow = new HelpWindow();
         helpWindow.getRoot().showAndWait();
@@ -122,7 +116,6 @@ public class MainWindow extends UiPart<Scene> {
     /**
      * Closes the application.
      */
-    @FXML
     private void handleExit() {
         Platform.exit();
     }
@@ -151,11 +144,11 @@ public class MainWindow extends UiPart<Scene> {
      * Update task selection in UI.
      */
     private void updateTaskSelection() {
-        if (!logic.getTaskSelect().isPresent()) {
+        if (!logic.getModel().getTaskSelect().isPresent()) {
             return;
         }
-        final TaskType taskType = logic.getTaskSelect().get().getTaskType();
-        final int workingIndex = logic.getTaskSelect().get().getWorkingIndex();
+        final TaskType taskType = logic.getModel().getTaskSelect().get().getTaskType();
+        final int workingIndex = logic.getModel().getTaskSelect().get().getWorkingIndex();
 
         // Floating task list pane
         if (taskType == TaskType.FLOAT) {

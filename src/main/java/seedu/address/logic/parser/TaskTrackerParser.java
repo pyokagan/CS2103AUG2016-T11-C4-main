@@ -12,8 +12,6 @@ public class TaskTrackerParser implements Parser<Command> {
             .putSubcommand("del", new DeleteCommandParser())
             .putSubcommand("fin", new MarkFinishedCommandParser())
             .putSubcommand("unfin", new MarkTaskUnfinishedCommandParser())
-            .putSubcommand("hide-finished", new HideFinishedTaskParser())
-            .putSubcommand("view", new ShowAllTaskParser())
             .putSubcommand("clear", new ClearCommandParser())
             .putSubcommand("exit", new ExitCommandParser())
             .putSubcommand("help", new HelpCommandParser())
@@ -21,6 +19,7 @@ public class TaskTrackerParser implements Parser<Command> {
             .putSubcommand("list", new ListCommandParser())
             .putSubcommand("undo", new UndoCommandParser())
             .putSubcommand("redo", new RedoCommandParser())
+            .putSubcommand("find", new FindCommandParser())
             ;
 
     @Override
