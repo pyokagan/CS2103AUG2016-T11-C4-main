@@ -19,6 +19,7 @@ public class TaskTrackerParser implements Parser<Command> {
             .putSubcommand("list", new ListCommandParser())
             .putSubcommand("undo", new UndoCommandParser())
             .putSubcommand("redo", new RedoCommandParser())
+            .putSubcommand("find", new FindCommandParser())
             ;
 
     @Override
