@@ -17,6 +17,7 @@ import seedu.address.commons.util.MappedList;
 import seedu.address.model.compare.DeadlineTaskDueComparator;
 import seedu.address.model.compare.EventTaskStartEndComparator;
 import seedu.address.model.compare.FloatingTaskPriorityComparator;
+import seedu.address.model.filter.TaskPredicate;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -38,6 +39,7 @@ public class WorkingTaskBook {
     private final WorkingItemList<FloatingTask> workingFloatingTasks;
     private final WorkingItemList<DeadlineTask> workingDeadlineTasks;
     private final WorkingItemList<EventTask> workingEventTasks;
+    private TaskPredicate taskPredicate;
 
     public WorkingTaskBook(ReadOnlyTaskBook taskBook) {
         this.taskBook = new TaskBook(taskBook);
@@ -72,6 +74,24 @@ public class WorkingTaskBook {
         workingEventTasks.resetData(toBeCopied.workingEventTasks);
     }
 
+    /**
+     * Returns the {@link TaskPredicate} used to filter tasks in the working lists.
+     */
+    public TaskPredicate getTaskPredicate() {
+        return taskPredicate;
+    }
+
+    /**
+     * Sets the {@link TaskPredicate} used to filter tasks in the working lists.
+     * If the filter is null, no filter is applied.
+     */
+    public void setTaskPredicate(TaskPredicate taskPredicate) {
+        this.taskPredicate = taskPredicate;
+        workingFloatingTasks.setPredicate(taskPredicate != null ? taskPredicate::test : null);
+        workingDeadlineTasks.setPredicate(taskPredicate != null ? taskPredicate::test : null);
+        workingEventTasks.setPredicate(taskPredicate != null ? taskPredicate::test : null);
+    }
+
     /// Floating tasks
 
     public int addFloatingTask(FloatingTask floatingTask) {
@@ -98,14 +118,6 @@ public class WorkingTaskBook {
 
     public ObservableList<IndexedItem<FloatingTask>> getFloatingTaskList() {
         return workingFloatingTasks.getWorkingItemList();
-    }
-
-    /**
-     * Sets the predicate used to filter floating tasks in the working list.
-     * If the predicate is null, no filter is applied.
-     */
-    public void setFloatingTaskPredicate(Predicate<? super FloatingTask> predicate) {
-        workingFloatingTasks.setPredicate(predicate);
     }
 
     /**
@@ -152,14 +164,6 @@ public class WorkingTaskBook {
     }
 
     /**
-     * Sets the predicate used to filter deadline tasks in the working list.
-     * If the predicate is null, no filter is applied.
-     */
-    public void setDeadlineTaskPredicate(Predicate<? super DeadlineTask> predicate) {
-        workingDeadlineTasks.setPredicate(predicate);
-    }
-
-    /**
      * Returns the comparator used to sort deadline tasks in the deadline task working list.
      */
     public Comparator<? super DeadlineTask> getDeadlineTaskComparator() {
@@ -200,14 +204,6 @@ public class WorkingTaskBook {
 
     public ObservableList<IndexedItem<EventTask>> getEventTaskList() {
         return workingEventTasks.getWorkingItemList();
-    }
-
-    /**
-     * Sets the predicate used to filter event tasks in the working list.
-     * If the predicate is null, no filter is applied.
-     */
-    public void setEventTaskPredicate(Predicate<? super EventTask> predicate) {
-        workingEventTasks.setPredicate(predicate);
     }
 
     /**

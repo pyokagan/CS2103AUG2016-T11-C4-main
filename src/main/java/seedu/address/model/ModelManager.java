@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,6 +13,7 @@ import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
+import seedu.address.model.filter.TaskPredicate;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -103,6 +103,19 @@ public class ModelManager extends ComponentManager implements Model {
         this.taskSelect = taskSelect;
     }
 
+    //// Task filtering
+
+    @Override
+    public TaskPredicate getTaskPredicate() {
+        return workingTaskBook.getTaskPredicate();
+    }
+
+    @Override
+    public void setTaskPredicate(TaskPredicate taskFilter) {
+        workingTaskBook.setTaskPredicate(taskFilter);
+        setTaskSelect(Optional.empty());
+    }
+
     //// Floating tasks
 
     @Override
@@ -139,12 +152,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<IndexedItem<FloatingTask>> getFloatingTaskList() {
         return workingTaskBook.getFloatingTaskList();
-    }
-
-    @Override
-    public void setFloatingTaskPredicate(Predicate<? super FloatingTask> predicate) {
-        workingTaskBook.setFloatingTaskPredicate(predicate);
-        setTaskSelect(Optional.empty());
     }
 
     @Override
@@ -197,12 +204,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setDeadlineTaskPredicate(Predicate<? super DeadlineTask> predicate) {
-        workingTaskBook.setDeadlineTaskPredicate(predicate);
-        setTaskSelect(Optional.empty());
-    }
-
-    @Override
     public Comparator<? super DeadlineTask> getDeadlineTaskComparator() {
         return workingTaskBook.getDeadlineTaskComparator();
     }
@@ -249,12 +250,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<IndexedItem<EventTask>> getEventTaskList() {
         return workingTaskBook.getEventTaskList();
-    }
-
-    @Override
-    public void setEventTaskPredicate(Predicate<? super EventTask> predicate) {
-        workingTaskBook.setEventTaskPredicate(predicate);
-        setTaskSelect(Optional.empty());
     }
 
     @Override

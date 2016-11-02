@@ -2,12 +2,12 @@ package seedu.address.model;
 
 import java.util.Comparator;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
 import seedu.address.model.config.ReadOnlyConfig;
+import seedu.address.model.filter.TaskPredicate;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -45,6 +45,14 @@ public interface Model {
     /** Sets the task being selected. */
     void setTaskSelect(Optional<TaskSelect> taskSelect);
 
+    //// Task Filtering
+
+    /** Returns the {@link TaskPredicate} used to filter tasks. */
+    TaskPredicate getTaskPredicate();
+
+    /** Sets the {@link TaskPredicate} used to filter tasks. If the filter is null, no filter is applied. */
+    void setTaskPredicate(TaskPredicate taskPredicate);
+
     //// Floating Tasks
 
     /* Adds the given floating task and returns its working index. */
@@ -61,13 +69,6 @@ public interface Model {
 
     /** Returns the filtered Floating task list as an unmodifiable ObservableList */
     ObservableList<IndexedItem<FloatingTask>> getFloatingTaskList();
-
-    /**
-     * Updates the filter of the filtered Floating task list to filter by the given predicate.
-     *
-     * If predicate is null, the filtered Floating task list will be populated with all Floating tasks.
-     */
-    void setFloatingTaskPredicate(Predicate<? super FloatingTask> predicate);
 
     /** Returns the comparator used to sort the floating task list. */
     Comparator<? super FloatingTask> getFloatingTaskComparator();
@@ -92,13 +93,6 @@ public interface Model {
     /** Returns the filtered deadline task list as an unmodifiable ObservableList */
     ObservableList<IndexedItem<DeadlineTask>> getDeadlineTaskList();
 
-    /**
-     * Updates the filter of the filtered deadline task list to filter by the given predicate.
-     *
-     * If predicate is null, the filtered deadline task list will be populated with all deadline tasks.
-     */
-    void setDeadlineTaskPredicate(Predicate<? super DeadlineTask> predicate);
-
     /** Returns the comparator used to sort the deadline task list. */
     Comparator<? super DeadlineTask> getDeadlineTaskComparator();
 
@@ -121,13 +115,6 @@ public interface Model {
 
     /** Returns the filtered event task list as an unmodifiable ObservableList */
     ObservableList<IndexedItem<EventTask>> getEventTaskList();
-
-    /**
-     * Updates the filter of the filtered event task list to filter by the given predicate.
-     *
-     * If predicate is null, the filtered event task list will be populated with all event tasks.
-     */
-    void setEventTaskPredicate(Predicate<? super EventTask> predicate);
 
     /** Returns the comparator used to sort the event task list. */
     Comparator<? super EventTask> getEventTaskComparator();

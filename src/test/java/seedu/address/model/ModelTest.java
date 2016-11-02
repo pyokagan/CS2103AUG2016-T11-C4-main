@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.junit.Before;
@@ -21,6 +22,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandException;
 import seedu.address.model.Model.Commit;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
+import seedu.address.model.filter.FalseTaskPredicate;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -89,9 +91,9 @@ public class ModelTest {
     public void removeFloatingTask_emptiesIndexInFilteredList() throws Exception {
         assertEquals(1, model.addFloatingTask(tpflt.readABook));
         assertEquals(2, model.addFloatingTask(tpflt.buyAHelicopter));
-        model.setFloatingTaskPredicate(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
+        setFloatingTaskPredicate(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
         assertEquals(tpflt.buyAHelicopter, model.removeFloatingTask(1));
-        model.setFloatingTaskPredicate(null);
+        model.setTaskPredicate(null);
         assertEquals(Arrays.asList(tpflt.readABook), unindexList(model.getFloatingTaskList()));
     }
 
@@ -129,9 +131,9 @@ public class ModelTest {
     public void setFloatingTask_replacesIndexInFilteredList() throws Exception {
         assertEquals(1, model.addFloatingTask(tpflt.readABook));
         assertEquals(2, model.addFloatingTask(tpflt.buyAHelicopter));
-        model.setFloatingTaskPredicate(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
+        setFloatingTaskPredicate(floatingTask -> floatingTask.equals(tpflt.buyAHelicopter));
         model.setFloatingTask(1, tpflt.readABook);
-        model.setFloatingTaskPredicate(null);
+        model.setTaskPredicate(null);
         assertEquals(Arrays.asList(tpflt.readABook, tpflt.readABook), unindexList(model.getFloatingTaskList()));
     }
 
@@ -169,9 +171,9 @@ public class ModelTest {
     public void removeEventTask_removesIndexInFilteredList() throws Exception {
         model.addEventTask(tpent.lunchWithBillGates);
         model.addEventTask(tpent.launchNuclearWeapons);
-        model.setEventTaskPredicate(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
+        setEventTaskPredicate(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
         assertEquals(tpent.launchNuclearWeapons, model.removeEventTask(1));
-        model.setEventTaskPredicate(null);
+        model.setTaskPredicate(null);
         assertEquals(Arrays.asList(tpent.lunchWithBillGates), unindexList(model.getEventTaskList()));
     }
 
@@ -209,9 +211,9 @@ public class ModelTest {
     public void setEventTask_replacesIndexInFilteredList() throws Exception {
         assertEquals(1, model.addEventTask(tpent.lunchWithBillGates));
         assertEquals(2, model.addEventTask(tpent.launchNuclearWeapons));
-        model.setEventTaskPredicate(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
+        setEventTaskPredicate(eventTask -> eventTask.equals(tpent.launchNuclearWeapons));
         model.setEventTask(1, tpent.lunchWithBillGates);
-        model.setEventTaskPredicate(null);
+        model.setTaskPredicate(null);
         assertEquals(Arrays.asList(tpent.lunchWithBillGates, tpent.lunchWithBillGates),
                     unindexList(model.getEventTaskList()));
     }
@@ -248,9 +250,9 @@ public class ModelTest {
     public void removeDeadlineTask_removesIndexInFilteredList() throws Exception {
         assertEquals(1, model.addDeadlineTask(tpdue.speechTranscript));
         assertEquals(2, model.addDeadlineTask(tpdue.assembleTheMissiles));
-        model.setDeadlineTaskPredicate(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
+        setDeadlineTaskPredicate(task -> task.equals(tpdue.assembleTheMissiles));
         assertEquals(tpdue.assembleTheMissiles, model.removeDeadlineTask(1));
-        model.setDeadlineTaskPredicate(null);
+        model.setTaskPredicate(null);
         assertEquals(Arrays.asList(tpdue.speechTranscript), unindexList(model.getDeadlineTaskList()));
     }
 
@@ -288,9 +290,9 @@ public class ModelTest {
     public void setDeadlineTask_replacesIndexInFilteredList() throws Exception {
         assertEquals(1, model.addDeadlineTask(tpdue.speechTranscript));
         assertEquals(2, model.addDeadlineTask(tpdue.assembleTheMissiles));
-        model.setDeadlineTaskPredicate(deadlineTask -> deadlineTask.equals(tpdue.assembleTheMissiles));
+        setDeadlineTaskPredicate(task -> task.equals(tpdue.assembleTheMissiles));
         model.setDeadlineTask(1, tpdue.speechTranscript);
-        model.setDeadlineTaskPredicate(null);
+        model.setTaskPredicate(null);
         assertEquals(Arrays.asList(tpdue.speechTranscript, tpdue.speechTranscript),
                 unindexList(model.getDeadlineTaskList()));
     }
@@ -534,5 +536,32 @@ public class ModelTest {
 
     private <E> List<E> unindexList(List<IndexedItem<E>> list) {
         return list.stream().map(x -> x.getItem()).collect(Collectors.toList());
+    }
+
+    private void setFloatingTaskPredicate(final Predicate<FloatingTask> predicate) {
+        model.setTaskPredicate(new FalseTaskPredicate() {
+            @Override
+            public boolean test(FloatingTask floatingTask) {
+                return predicate.test(floatingTask);
+            }
+        });
+    }
+
+    private void setDeadlineTaskPredicate(final Predicate<DeadlineTask> predicate) {
+        model.setTaskPredicate(new FalseTaskPredicate() {
+            @Override
+            public boolean test(DeadlineTask deadlineTask) {
+                return predicate.test(deadlineTask);
+            }
+        });
+    }
+
+    private void setEventTaskPredicate(final Predicate<EventTask> predicate) {
+        model.setTaskPredicate(new FalseTaskPredicate() {
+            @Override
+            public boolean test(EventTask eventTask) {
+                return predicate.test(eventTask);
+            }
+        });
     }
 }
