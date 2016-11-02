@@ -40,7 +40,7 @@ public class HelpWindow {
 
         //set contents
         helpBox.setTitle("HELP");
-        helpBox.setHeaderText(null);
+        helpBox.setHeaderText("Press <ESC> to close");
         helpBox.setContentText("");
 
         //press escape to close
