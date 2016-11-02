@@ -30,7 +30,7 @@ public class DeadlineTaskListCard extends UiPart<Pane> {
             indexLabel.setWrapText(true);
             indexLabel.setText(IndexPrefix.DEADLINE.getPrefixString() + index + ". ");
             nameLabel.setText(deadlineTask.getName().toString());
-            dueLabel.setText(deadlineTask.getDue().toString());
+            dueLabel.setText(deadlineTask.localDateTimeToPrettyString(deadlineTask.getDue()));
             if (deadlineTask.isFinished()) {
                 getRoot().getStyleClass().add("finished");
             } else if (deadlineTask.getDue().isBefore(LocalDateTime.now())) {
