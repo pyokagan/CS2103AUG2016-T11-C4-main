@@ -10,12 +10,11 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import seedu.address.commons.util.FxViewUtil;
 
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart<Stage> {
+public class HelpWindow {
 
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "/view/HelpWindow.fxml";
@@ -26,16 +25,17 @@ public class HelpWindow extends UiPart<Stage> {
     private WebView webView;
 
     public HelpWindow() {
-        super(FXML);
-        getRoot().initModality(Modality.WINDOW_MODAL);
-        FxViewUtil.setStageIcon(getRoot(), ICON);
-        webView.getEngine().load(USERGUIDE_URL);
 
-        Alert helpBox = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+        Alert helpBox = new Alert(javafx.scene.control.Alert.AlertType.NONE);
+        helpBox.initModality(Modality.NONE);
 
         //add icon
         Stage stage = (Stage) helpBox.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(ICON));
+
+        //set help box to be on top even when command tray is in focus
+        stage.setAlwaysOnTop(true);
+        helpBox.initModality(Modality.NONE);
 
         //set contents
         helpBox.setTitle("HELP");
