@@ -3,11 +3,8 @@ package seedu.address.model;
 import java.util.Comparator;
 import java.util.Optional;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
-import seedu.address.model.config.ReadOnlyConfig;
 import seedu.address.model.filter.TaskPredicate;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
@@ -17,15 +14,9 @@ import seedu.address.model.task.TaskSelect;
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface Model extends ReadOnlyModel {
 
     //// Config
-
-    /** Returns current config as a read-only view */
-    ReadOnlyConfig getConfig();
-
-    /** Returns configured task book file path. */
-    String getTaskBookFilePath();
 
     /** Sets configured task book file path */
     void setTaskBookFilePath(String taskBookFilePath);
@@ -35,24 +26,12 @@ public interface Model {
     /** Clears existing backing task book and replaces with the provided new task book data. */
     void resetTaskBook(ReadOnlyTaskBook newTaskBook);
 
-    /** Returns the TaskBook */
-    ReadOnlyTaskBook getTaskBook();
-
     //// Task Select
-
-    /** Returns the task being selected, if any. */
-    Optional<TaskSelect> getTaskSelect();
 
     /** Sets the task being selected. */
     void setTaskSelect(Optional<TaskSelect> taskSelect);
 
     //// Task Filtering
-
-    /** Returns the {@link TaskPredicate} used to filter tasks as a read-only property. */
-    ReadOnlyProperty<TaskPredicate> taskPredicateProperty();
-
-    /** Returns the {@link TaskPredicate} used to filter tasks. */
-    TaskPredicate getTaskPredicate();
 
     /** Sets the {@link TaskPredicate} used to filter tasks. If the filter is null, no filter is applied. */
     void setTaskPredicate(TaskPredicate taskPredicate);
@@ -62,20 +41,11 @@ public interface Model {
     /* Adds the given floating task and returns its working index. */
     int addFloatingTask(FloatingTask floatingTask);
 
-    /** Retrieves the given floating task given its working index. */
-    FloatingTask getFloatingTask(int workingIndex) throws IllegalValueException;
-
     /** Removes the given Floating task and returns it. */
     FloatingTask removeFloatingTask(int workingIndex) throws IllegalValueException;
 
     /** Replaces the given Floating task with a new Floating task */
     void setFloatingTask(int workingIndex, FloatingTask newFloatingTask) throws IllegalValueException;
-
-    /** Returns the filtered Floating task list as an unmodifiable ObservableList */
-    ObservableList<IndexedItem<FloatingTask>> getFloatingTaskList();
-
-    /** Returns the comparator used to sort the floating task list. */
-    Comparator<? super FloatingTask> getFloatingTaskComparator();
 
     /** Sets the comparator used to sort the floating task list. */
     void setFloatingTaskComparator(Comparator<? super FloatingTask> comparator);
@@ -85,20 +55,11 @@ public interface Model {
     /** Adds the given deadline task and returns its working index. */
     int addDeadlineTask(DeadlineTask deadlineTask);
 
-    /** Retrieves the given deadline task from the specified index in the filtered deadline task list */
-    DeadlineTask getDeadlineTask(int workingIndex) throws IllegalValueException;
-
     /** Removes the given deadline task and returns it. */
     DeadlineTask removeDeadlineTask(int workingIndex) throws IllegalValueException;
 
     /** Replaces the given deadline task with a new deadline task */
     void setDeadlineTask(int workingIndex, DeadlineTask newDeadlineTask) throws IllegalValueException;
-
-    /** Returns the filtered deadline task list as an unmodifiable ObservableList */
-    ObservableList<IndexedItem<DeadlineTask>> getDeadlineTaskList();
-
-    /** Returns the comparator used to sort the deadline task list. */
-    Comparator<? super DeadlineTask> getDeadlineTaskComparator();
 
     /** Sets the comparator used to sort the deadline task list. */
     void setDeadlineTaskComparator(Comparator<? super DeadlineTask> comparator);
@@ -108,20 +69,11 @@ public interface Model {
     /** Adds the given event task and returns its working index */
     int addEventTask(EventTask eventTask);
 
-    /** Retrieves the given event task with the specified working index */
-    EventTask getEventTask(int workingIndex) throws IllegalValueException;
-
     /** Removes the given event task and returns it. */
     EventTask removeEventTask(int workingIndex) throws IllegalValueException;
 
     /** Replaces the given event task with a new event task */
     void setEventTask(int workingIndex, EventTask newEventTask) throws IllegalValueException;
-
-    /** Returns the filtered event task list as an unmodifiable ObservableList */
-    ObservableList<IndexedItem<EventTask>> getEventTaskList();
-
-    /** Returns the comparator used to sort the event task list. */
-    Comparator<? super EventTask> getEventTaskComparator();
 
     /** Sets the comparator used to sort the event task list. */
     void setEventTaskComparator(Comparator<? super EventTask> comparator);
@@ -148,11 +100,6 @@ public interface Model {
      * @throws HeadAtBoundaryException
      */
     Commit undo() throws HeadAtBoundaryException;
-
-    /**
-     * Returns true if the model differs from the current commit's recorded model.
-     */
-    boolean hasUncommittedChanges();
 
     public interface Commit {
         /** The name of the commit */
