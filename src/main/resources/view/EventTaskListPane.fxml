@@ -3,8 +3,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
+<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css" minHeight="0">
     <Label styleClass="header">Events</Label>
-    <ListView fx:id="eventTaskListView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="eventTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>
 

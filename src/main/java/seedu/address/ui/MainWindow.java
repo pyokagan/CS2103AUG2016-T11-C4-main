@@ -61,6 +61,10 @@ public class MainWindow extends UiPart<Scene> {
     @FXML
     private UiRegion statusbarPlaceholder;
 
+    @FXML
+    private UiRegion topBarRegion;
+    private TopBar topBar;
+
     private final Stage primaryStage;
     private final Logic logic;
 
@@ -78,6 +82,8 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     void fillInnerParts(Config config, Logic logic) {
+        topBar = new TopBar(logic.getModel().taskPredicateProperty());
+        topBarRegion.setNode(topBar.getRoot());
         floatingTaskListPane = new FloatingTaskListPane(logic.getModel().getFloatingTaskList());
         floatingTaskListRegion.setNode(floatingTaskListPane.getRoot());
         eventTaskListPane = new EventTaskListPane(logic.getModel().getEventTaskList());

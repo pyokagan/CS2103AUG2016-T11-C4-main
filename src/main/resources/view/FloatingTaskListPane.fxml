@@ -5,6 +5,6 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
     <Label styleClass="header">Floating Task</Label>
-    <ListView fx:id="floatingTaskListView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="floatingTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>
 

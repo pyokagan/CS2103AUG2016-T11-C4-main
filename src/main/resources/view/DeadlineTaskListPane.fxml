@@ -5,5 +5,5 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
     <Label styleClass="header">Deadlines</Label>
-    <ListView fx:id="deadlineTaskListView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="deadlineTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>

@@ -10,6 +10,16 @@
     -fx-background-color: inherit;
 }
 
+/* Borders */
+.separator:vertical .line {
+    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-border-width: 0 1 0 1;
+}
+
+.label .glyph-icon {
+    -fx-fill: -fx-text-fill;
+}
+
 .label {
     -fx-font-family: 'Open Sans';
     -fx-font-size: 11pt;
