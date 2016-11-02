@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import java.awt.event.KeyEvent;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,6 +28,11 @@ public class HelpWindow extends UiPart<Stage> {
         getRoot().initModality(Modality.WINDOW_MODAL);
         FxViewUtil.setStageIcon(getRoot(), ICON);
         webView.getEngine().load(USERGUIDE_URL);
-    }
 
+        Alert helpBox = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        helpBox.setTitle("Information Dialog");
+        helpBox.setHeaderText(null);
+        helpBox.setContentText("I have a great message for you!");
+        helpBox.showAndWait();
+    }
 }
