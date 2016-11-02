@@ -164,11 +164,6 @@ The sections below give more details of each component.
 
 ### Model component
 
-<figure>
-<img src="images/devguide/comp-model.png">
-<figcaption><div align="center">Figure 2.2: Model component class diagram</div></figcaption>
-</figure>
-
 The `Model` component:
 
 * holds the task book data in memory. In particular, it stores the list of
@@ -181,11 +176,6 @@ The `Model` component:
 
 ### Storage component
 
-<figure>
-<img src="images/devguide/comp-storage.png">
-<figcaption><div align="center">Figure 2.3: Storage component class diagram</div></figcaption>
-</figure>
-
 The `Storage` component:
 
 * can save `TaskBook` objects to the hard disk and read it back.
@@ -193,11 +183,6 @@ The `Storage` component:
 * can save `Config` objects to the hard disk and read it back.
 
 ### Logic component
-
-<figure>
-<img src="images/devguide/comp-logic.png">
-<figcaption><div align="center">Figure 2.4: Logic component class diagram</div></figcaption>
-</figure>
 
 The `Logic` component:
 
@@ -232,11 +217,6 @@ Given in Figure 2.5 below is the sequence diagram for interactions within the
 </figure>
 
 ### Ui component
-
-<figure>
-<img src="images/devguide/comp-ui.png">
-<figcaption><div align="center">Figure 2.6: Ui component class diagram</div></figcaption>
-</figure>
 
 The `Ui` component,
 
@@ -286,6 +266,11 @@ used to manage the logging levels and logging destinations.
 
 ### Model implementation
 
+<figure>
+<img src="images/devguide/comp-model.png">
+<figcaption><div align="center">Figure 2.2: Model component class diagram</div></figcaption>
+</figure>
+
 The model component internally uses various classes to model the data of the
 application.
 
@@ -331,6 +316,11 @@ to the model data while hiding the internal complexity of its various classes.
 All external components can only interact with the model data via this class.
 
 ### Storage implementation
+
+<figure>
+<img src="images/devguide/comp-storage.png">
+<figcaption><div align="center">Figure 2.3: Storage component class diagram</div></figcaption>
+</figure>
 
 The storage component uses [Jackson](https://github.com/FasterXML/jackson) to
 serialize/deserialize model data to/from JSON files.
@@ -407,7 +397,19 @@ interface and saves/loads `ReadOnlyTaskBook`s.
 The `StorageManager` class wraps a `ConfigStorage` and `TaskBookStorage` and
 provides a single unified interface to them.
 
+### Logic component implementation
+
+<figure>
+<img src="images/devguide/comp-logic.png">
+<figcaption><div align="center">Figure 2.4: Logic component class diagram</div></figcaption>
+</figure>
+
 ### UI implementation
+
+<figure>
+<img src="images/devguide/comp-ui.png">
+<figcaption><div align="center">Figure 2.6: Ui component class diagram</div></figcaption>
+</figure>
 
 As mentioned in the [UI component architecture overview](#ui-component), the UI
 component is made up of "UI Parts". Each UI Part inherits from the abstract
