@@ -34,7 +34,7 @@ public abstract class Task {
         String dd = parts[0];
         String time = parts[1];
 
-        String pretty = dd + " " + mm + " " + yyyy + " " + "Time: " + time;
+        String pretty = dd + "/" + mm + "/" + yyyy + " " + "Time: " + time;
 
         return pretty;
     }
