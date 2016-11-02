@@ -1,15 +1,26 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.ClearCommand;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
-public class ClearCommandParser implements Parser<ClearCommand> {
+import seedu.address.logic.commands.Command;
 
-    private final CommandLineParser cmdParser = new CommandLineParser();
+public class ClearCommandParser implements Parser<Command> {
 
-    @Override
-    public ClearCommand parse(String str) throws ParseException {
-        cmdParser.parse(str);
-        return new ClearCommand();
+    private final OverloadParser<Command> overloadParser;
+
+    public ClearCommandParser(Optional<LocalDateTime> referenceDateTime) {
+        overloadParser = new OverloadParser<Command>()
+                         .addParser("Clear all the tasks in Task Tracker", new ClearAllParser())
+                         .addParser("Clear all the finished tasks in Task Tracker", new ClearFinishedParser(referenceDateTime));
     }
 
+    public ClearCommandParser() {
+        this(Optional.empty());
+    }
+
+    @Override
+    public Command parse(String str) throws ParseException {
+        return overloadParser.parse(str);
+    }
 }
