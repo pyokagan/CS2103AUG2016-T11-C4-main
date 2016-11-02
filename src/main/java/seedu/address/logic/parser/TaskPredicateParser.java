@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import seedu.address.commons.util.SubstringRange;
 import seedu.address.model.filter.TaskFinishedPredicate;
 import seedu.address.model.filter.TaskPredicate;
+import seedu.address.model.filter.TaskUnfinishedPredicate;
 
 /**
  * Parses a task predicate name, and returns the corresponding task predicate.
@@ -25,6 +26,8 @@ public class TaskPredicateParser implements Parser<TaskPredicate> {
             return null;
         case "fin":
             return new TaskFinishedPredicate(referenceDateTime);
+        case "unfin":
+            return new TaskUnfinishedPredicate(referenceDateTime);
         default:
             throw new ParseException("unknown predicate: " + str, SubstringRange.of(str));
         }
