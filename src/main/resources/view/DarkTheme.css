@@ -19,6 +19,7 @@
 .label .glyph-icon {
     -fx-fill: -fx-text-fill;
     -fx-font-size: large;
+    -fx-font-family: FontAwesome;
 }
 
 .label {
