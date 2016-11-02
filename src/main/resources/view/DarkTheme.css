@@ -1,8 +1,13 @@
 @import "fonts/OpenSans.css";
 @import 'fonts/Roboto.css';
 
-.background {
+.root {
     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+/* Backgrounds */
+.split-pane, .split-pane-divider, .grid-pane, .status-bar, .anchor-pane, .menu-bar {
+    -fx-background-color: inherit;
 }
 
 .label {
@@ -23,13 +28,15 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+}
+
+.split-pane:vertical .split-pane-divider {
+    -fx-border-color: #1d1d1d transparent #1d1d1d transparent;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-cell {
@@ -52,53 +59,8 @@
     -fx-text-fill: #010504;
 }
 
-.status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-text-fill: black;
-}
-
-.result-display {
-    -fx-background-color: #ffffff;
-}
-
-.result-display .label {
-    -fx-text-fill: black !important;
-}
-
-.status-bar .label {
-    -fx-text-fill: white;
-}
-
-.status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: white;
-}
-
-.grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane .anchor-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-}
-
 .context-menu {
     -fx-background-color: derive(#1d1d1d, 50%);
-}
-
-.menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.menu .left-container {
-    -fx-background-color: black;
 }
 
 /*
