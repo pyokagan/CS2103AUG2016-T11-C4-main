@@ -23,7 +23,6 @@ import seedu.address.logic.commands.EditDeadlineCommand;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditFloatingTaskCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -244,7 +243,7 @@ public class Parser {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+                    SearchCommand.MESSAGE_USAGE));
         }
 
         // keywords delimited by whitespace
