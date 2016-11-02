@@ -8,6 +8,8 @@ import java.util.function.Predicate;
 
 import com.google.common.base.MoreObjects;
 
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -39,7 +41,7 @@ public class WorkingTaskBook {
     private final WorkingItemList<FloatingTask> workingFloatingTasks;
     private final WorkingItemList<DeadlineTask> workingDeadlineTasks;
     private final WorkingItemList<EventTask> workingEventTasks;
-    private TaskPredicate taskPredicate;
+    private final SimpleObjectProperty<TaskPredicate> taskPredicate = new SimpleObjectProperty<>();
 
     public WorkingTaskBook(ReadOnlyTaskBook taskBook) {
         this.taskBook = new TaskBook(taskBook);
@@ -75,10 +77,17 @@ public class WorkingTaskBook {
     }
 
     /**
+     * Returns the {@link TaskPredicate} used to filter tasks in the working lists as a read-only property.
+     */
+    public ReadOnlyProperty<TaskPredicate> taskPredicateProperty() {
+        return taskPredicate;
+    }
+
+    /**
      * Returns the {@link TaskPredicate} used to filter tasks in the working lists.
      */
     public TaskPredicate getTaskPredicate() {
-        return taskPredicate;
+        return taskPredicate.get();
     }
 
     /**
@@ -86,10 +95,10 @@ public class WorkingTaskBook {
      * If the filter is null, no filter is applied.
      */
     public void setTaskPredicate(TaskPredicate taskPredicate) {
-        this.taskPredicate = taskPredicate;
         workingFloatingTasks.setPredicate(taskPredicate != null ? taskPredicate::test : null);
         workingDeadlineTasks.setPredicate(taskPredicate != null ? taskPredicate::test : null);
         workingEventTasks.setPredicate(taskPredicate != null ? taskPredicate::test : null);
+        this.taskPredicate.set(taskPredicate);
     }
 
     /// Floating tasks

@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
@@ -104,6 +105,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //// Task filtering
+
+    @Override
+    public ReadOnlyProperty<TaskPredicate> taskPredicateProperty() {
+        return workingTaskBook.taskPredicateProperty();
+    }
 
     @Override
     public TaskPredicate getTaskPredicate() {

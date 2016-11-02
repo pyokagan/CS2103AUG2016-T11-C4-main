@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.Comparator;
 import java.util.Optional;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ModelManager.HeadAtBoundaryException;
@@ -46,6 +47,9 @@ public interface Model {
     void setTaskSelect(Optional<TaskSelect> taskSelect);
 
     //// Task Filtering
+
+    /** Returns the {@link TaskPredicate} used to filter tasks as a read-only property. */
+    ReadOnlyProperty<TaskPredicate> taskPredicateProperty();
 
     /** Returns the {@link TaskPredicate} used to filter tasks. */
     TaskPredicate getTaskPredicate();
