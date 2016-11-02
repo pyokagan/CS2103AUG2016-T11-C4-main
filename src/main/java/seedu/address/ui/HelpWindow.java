@@ -17,20 +17,20 @@ import javafx.stage.Stage;
 public class HelpWindow {
 
     private static final String HELPBOX_CONTENT =
-              "Add Floating Task         | add \"FLOATING_TASK_NAME\"  [p-PRIORITY]\n"
-            + "Add Deadline Task         | add \"DEADLINE_NAME\" <DATE> <TIME>\n"
-            + "Add Events                | add \"EVENT_NAME\" <STARTING_DATE> <STARTING_TIME> to <ENDING_DATE> <ENDING_TIME>\n"
-            + "Delete                    | del <INDEX>\n"
-            + "Edit Floating Tasks       | edit <INDEX> [n-NEW_NAME] [p-PRIORITY]\n"
-            + "Edit Deadline             | edit <INDEX> [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]\n"
-            + "Mark task as finished     | fin <INDEX>\n"
+              "Add Floating Task             | add \"FLOATING_TASK_NAME\"  [p-PRIORITY]\n"
+            + "Add Deadline Task             | add \"DEADLINE_NAME\" <DATE> <TIME>\n"
+            + "Add Events                    | add \"EVENT_NAME\" <STARTING_DATE> <STARTING_TIME> to <ENDING_DATE> <ENDING_TIME>\n"
+            + "Delete                          | del <INDEX>\n"
+            + "Edit Floating Tasks           | edit <INDEX> [n-NEW_NAME] [p-PRIORITY]\n"
+            + "Edit Deadline                | edit <INDEX> [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]\n"
+            + "Mark task as finished      | fin <INDEX>\n"
             + "Mark a task as unfinished | unfin <INDEX>\n"
-            + "Search for keywords       | search KEYWORD\n"
-            + "Undo                      | undo\n"
-            + "Redo                      | redo\n"
-            + "Clear                     | clear\n"
-            + "Exit                      | exit\n"
-            + "Hide and show Task Tracker| Ctrl + SPACE\n";
+            + "Search for keywords         | search KEYWORD\n"
+            + "Undo                             | undo\n"
+            + "Redo                              | redo\n"
+            + "Clear                              | clear\n"
+            + "Exit                                 | exit\n"
+            + "Hide and show Task Tracker  | Ctrl + SPACE\n";
 
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "/view/HelpWindow.fxml";
@@ -54,9 +54,8 @@ public class HelpWindow {
         stage.setAlwaysOnTop(true);
         helpBox.initModality(Modality.NONE);
         helpBox.setResizable(true);
-        helpBox.setWidth(500.0);
-        helpBox.setHeight(500.0);
-        //helpBox.getDialogPane().getScene().getWindow().sizeToScene();
+        helpBox.getDialogPane().setPrefWidth(700.0);
+        helpBox.getDialogPane().setPrefHeight(320.0);
 
         //set contents
         helpBox.setTitle("HELP");
