@@ -1,9 +1,10 @@
 package seedu.address.logic.commands;
 
+import java.time.LocalDateTime;
+
 import seedu.address.model.Model;
-import seedu.address.model.filter.DeadlineTaskFinishedPredicate;
-import seedu.address.model.filter.EventTaskFinishedPredicate;
-import seedu.address.model.filter.FloatingTaskFinishedPredicate;
+
+import seedu.address.model.filter.TaskFinishedPredicate;
 
 public class ClearFinishedCommand implements Command {
 
@@ -11,14 +12,22 @@ public class ClearFinishedCommand implements Command {
     public static final String COMMAND_PARAMETER = "fin";
     public static final String MESSAGE_SUCCESS = "All finished task in Task Tracker have been cleared!";
 
-    public ClearFinishedCommand() {}
+    private final TaskFinishedPredicate predicate;
+
+    public ClearFinishedCommand(TaskFinishedPredicate predicate) {
+        this.predicate = predicate;
+    }
+
+    public ClearFinishedCommand() {
+        this(new TaskFinishedPredicate(LocalDateTime.now()));
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         assert model != null;
-        model.removeFloatingTasks(new FloatingTaskFinishedPredicate());
-        model.removeDeadlineTasks(new DeadlineTaskFinishedPredicate());
-        model.removeEventTasks(new EventTaskFinishedPredicate());
+        model.removeFloatingTasks(predicate);
+        model.removeDeadlineTasks(predicate);
+        model.removeEventTasks(predicate);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
