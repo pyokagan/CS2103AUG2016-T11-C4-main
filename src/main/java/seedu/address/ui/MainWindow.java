@@ -78,11 +78,11 @@ public class MainWindow extends UiPart<Scene> {
     }
 
     void fillInnerParts(Config config, Logic logic) {
-        floatingTaskListPane = new FloatingTaskListPane(logic.getFloatingTaskList());
+        floatingTaskListPane = new FloatingTaskListPane(logic.getModel().getFloatingTaskList());
         floatingTaskListRegion.setNode(floatingTaskListPane.getRoot());
-        eventTaskListPane = new EventTaskListPane(logic.getEventTaskList());
+        eventTaskListPane = new EventTaskListPane(logic.getModel().getEventTaskList());
         eventTaskListRegion.setNode(eventTaskListPane.getRoot());
-        deadlineTaskListPane = new DeadlineTaskListPane(logic.getDeadlineTaskList());
+        deadlineTaskListPane = new DeadlineTaskListPane(logic.getModel().getDeadlineTaskList());
         deadlineTaskListRegion.setNode(deadlineTaskListPane.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.setNode(resultDisplay.getRoot());
@@ -138,11 +138,11 @@ public class MainWindow extends UiPart<Scene> {
      * Update task selection in UI.
      */
     private void updateTaskSelection() {
-        if (!logic.getTaskSelect().isPresent()) {
+        if (!logic.getModel().getTaskSelect().isPresent()) {
             return;
         }
-        final TaskType taskType = logic.getTaskSelect().get().getTaskType();
-        final int workingIndex = logic.getTaskSelect().get().getWorkingIndex();
+        final TaskType taskType = logic.getModel().getTaskSelect().get().getTaskType();
+        final int workingIndex = logic.getModel().getTaskSelect().get().getWorkingIndex();
 
         // Floating task list pane
         if (taskType == TaskType.FLOAT) {

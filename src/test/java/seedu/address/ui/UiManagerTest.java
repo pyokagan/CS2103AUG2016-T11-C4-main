@@ -16,15 +16,10 @@ import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.address.logic.Logic;
-import seedu.address.model.IndexedItem;
+import seedu.address.model.ModelManager;
 import seedu.address.model.config.Config;
-import seedu.address.model.task.DeadlineTask;
-import seedu.address.model.task.EventTask;
-import seedu.address.model.task.FloatingTask;
 import seedu.address.testutil.GuiTests;
 
 @Category({GuiTests.class})
@@ -32,11 +27,7 @@ public class UiManagerTest extends FxRobot {
 
     private Config config;
 
-    private ObservableList<IndexedItem<FloatingTask>> floatingTaskList;
-
-    private ObservableList<IndexedItem<EventTask>> eventTaskList;
-
-    private ObservableList<IndexedItem<DeadlineTask>> deadlineTaskList;
+    private ModelManager model = new ModelManager();
 
     @Mock
     private Logic logic;
@@ -53,15 +44,8 @@ public class UiManagerTest extends FxRobot {
     @Before
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
-        floatingTaskList = FXCollections.observableArrayList();
-        eventTaskList = FXCollections.observableArrayList();
-        deadlineTaskList = FXCollections.observableArrayList();
-        Mockito.when(logic.getFloatingTaskList())
-               .thenReturn(FXCollections.unmodifiableObservableList(floatingTaskList));
-        Mockito.when(logic.getDeadlineTaskList())
-               .thenReturn(FXCollections.unmodifiableObservableList(deadlineTaskList));
-        Mockito.when(logic.getEventTaskList())
-               .thenReturn(FXCollections.unmodifiableObservableList(eventTaskList));
+        Mockito.when(logic.getModel())
+                .thenReturn(model);
         config = new Config();
         uiManager = new UiManager(logic, config);
         FxToolkit.setupStage(stage -> {
