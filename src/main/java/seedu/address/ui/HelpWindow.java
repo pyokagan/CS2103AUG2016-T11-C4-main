@@ -1,12 +1,15 @@
 package seedu.address.ui;
 
-import java.awt.event.KeyEvent;
-
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import seedu.address.commons.util.FxViewUtil;
 
 /**
@@ -28,10 +31,26 @@ public class HelpWindow extends UiPart<Stage> {
         FxViewUtil.setStageIcon(getRoot(), ICON);
         webView.getEngine().load(USERGUIDE_URL);
 
-        Alert helpBox = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        helpBox.setTitle("Information Dialog");
+        Alert helpBox = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+
+        //add icon
+        Stage stage = (Stage) helpBox.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(ICON));
+        helpBox.setTitle("HELP");
         helpBox.setHeaderText(null);
-        helpBox.setContentText("I have a great message for you!");
+        helpBox.setContentText("");
+        
+        //press escape to close
+        stage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+                    stage.close();
+                    keyEvent.consume();
+                }
+            }
+        });
+
         helpBox.showAndWait();
     }
 }
