@@ -54,4 +54,19 @@ public class TimeParser implements Parser<LocalTime> {
         return LocalTime.of(hour + (isPM ? 12 : 0), minute);
     }
 
+    /**
+     * Returns the string representation of a LocalTime. This string can be parsed by {@link #parse} to
+     * get back a LocalTime with the same hour and minute.
+     */
+    public String format(LocalTime time) {
+        final StringBuilder sb = new StringBuilder();
+        int hour = time.getHour() % 12 == 0 ? 12 : (time.getHour() % 12);
+        sb.append(hour);
+        if (time.getMinute() != 0) {
+            sb.append(":").append(String.format("%02d", time.getMinute()));
+        }
+        sb.append(time.getHour() >= 12 ? "pm" : "am");
+        return sb.toString();
+    }
+
 }

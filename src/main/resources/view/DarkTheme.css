@@ -223,3 +223,8 @@
 .card.priority5 {
     -fx-border-color: #ff0000;
 }
+
+#commandTextField {
+    -fx-font-size: 20pt;
+    -fx-padding: 1em;
+}

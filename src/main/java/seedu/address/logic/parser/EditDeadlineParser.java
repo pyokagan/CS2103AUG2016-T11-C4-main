@@ -3,20 +3,30 @@ package seedu.address.logic.parser;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import seedu.address.commons.core.IndexPrefix;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditDeadlineCommand;
 import seedu.address.logic.parser.CommandLineParser.Argument;
 import seedu.address.logic.parser.CommandLineParser.OptionalFlag;
+import seedu.address.model.ReadOnlyModel;
+import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Name;
 
 public class EditDeadlineParser implements Parser<EditDeadlineCommand> {
 
     private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(IndexPrefix.DEADLINE));
-    private final OptionalFlag<LocalDate> newDateFlag = new OptionalFlag<>("dd-", "NEW_DUE_DATE", new DateParser());
-    private final OptionalFlag<LocalTime> newTimeFlag = new OptionalFlag<>("dt-", "NEW_DUE_TIME", new TimeParser());
-    private final OptionalFlag<Name> newNameFlag = new OptionalFlag<>("n-", "NEW_NAME", new NameParser());
+    private final OptionalFlag<LocalDate> newDateFlag = new OptionalFlag<>("dd-", "NEW_DUE_DATE",
+            new DateParser().withAutocomplete(this::autocompleteDueDate));
+    private final OptionalFlag<LocalTime> newTimeFlag = new OptionalFlag<>("dt-", "NEW_DUE_TIME",
+            new TimeParser().withAutocomplete(this::autocompleteDueTime));
+    private final OptionalFlag<Name> newNameFlag = new OptionalFlag<>("n-", "NEW_NAME",
+            new NameParser().withAutocomplete(this::autocompleteName));
     private final CommandLineParser cmdParser = new CommandLineParser()
                                                         .addArgument(indexArg)
                                                         .putFlag(newDateFlag)
@@ -48,6 +58,39 @@ public class EditDeadlineParser implements Parser<EditDeadlineCommand> {
 
         return new EditDeadlineCommand(indexArg.getValue(), newNameFlag.getValue(), newDateFlag.getValue(),
                                        newTimeFlag.getValue());
+    }
+
+    @Override
+    public List<String> autocomplete(ReadOnlyModel model, String input, int pos) {
+        return cmdParser.autocomplete(model, input, pos);
+    }
+
+    private List<String> autocompleteField(ReadOnlyModel model, String input, int pos,
+                                           Function<DeadlineTask, String> mapper) {
+        if (!indexArg.isPresent() || !input.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+        final DeadlineTask deadlineTask;
+        try {
+            deadlineTask = model.getDeadlineTask(indexArg.getValue());
+        } catch (IllegalValueException e) {
+            return Collections.emptyList(); // Invalid index, so no autocompletions
+        }
+        return Arrays.asList(mapper.apply(deadlineTask));
+    }
+
+    private List<String> autocompleteName(ReadOnlyModel model, String input, int pos) {
+        return autocompleteField(model, input, pos, deadlineTask -> deadlineTask.getName().toString());
+    }
+
+    private List<String> autocompleteDueDate(ReadOnlyModel model, String input, int pos) {
+        return autocompleteField(model, input, pos,
+            deadlineTask -> new DateParser().format(deadlineTask.getDue().toLocalDate()));
+    }
+
+    private List<String> autocompleteDueTime(ReadOnlyModel model, String input, int pos) {
+        return autocompleteField(model, input, pos,
+            deadlineTask -> new TimeParser().format(deadlineTask.getDue().toLocalTime()));
     }
 
 }

@@ -3,10 +3,13 @@ package seedu.address.logic.parser;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.util.SubstringRange;
 import seedu.address.logic.parser.CommandLineParser.Argument;
+import seedu.address.model.ReadOnlyModel;
 
 public class DateTimeArgument implements CommandLineParser.ArgumentParser {
 
@@ -64,6 +67,22 @@ public class DateTimeArgument implements CommandLineParser.ArgumentParser {
                 throw e;
             }
         }
+    }
+
+    @Override
+    public List<String> autocomplete(ReadOnlyModel model, CommandLineScanner scanner, int pos) {
+        // We simply just advance the scanner if we are able to parse as date/time
+        try {
+            dateArg.parse(scanner);
+        } catch (ParseException e) {
+            // Do nothing, we are just advancing the scanner if possible.
+        }
+        try {
+            timeArg.parse(scanner);
+        } catch (ParseException e) {
+            // Do nothing, we are just advancing the scanner if possible
+        }
+        return Collections.emptyList();
     }
 
 }

@@ -1,9 +1,11 @@
 package seedu.address.logic.parser;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.model.ReadOnlyModel;
 
 public class EditCommandParser implements Parser<Command> {
 
@@ -27,6 +29,11 @@ public class EditCommandParser implements Parser<Command> {
     @Override
     public Command parse(String str) throws ParseException {
         return overloadParser.parse(str);
+    }
+
+    @Override
+    public List<String> autocomplete(ReadOnlyModel model, String input, int pos) {
+        return overloadParser.autocomplete(model, input, pos);
     }
 
 }
