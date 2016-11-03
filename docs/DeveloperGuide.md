@@ -193,29 +193,6 @@ The `Logic` component:
 * writes the `Model` to the `Storage` if the `Model` has been modified by
   command execution, so that changes will be persisted to disk.
 
-It accomplishes its parsing and execution of user commands in a few steps:
-
-1. `Logic` uses its own internal `Parser` to parse the user command.
-
-2. This results in a `Command` object which is executed by the `LogicManager`.
-
-3. The command execution can affect the `Model` (e.g. adding a task, or
-   changing a config setting.)
-
-4. The result of the command execution is encapsulated as a `CommandResult`
-   object which is passed back to the `Ui`.
-
-5. If the `Model` has been modified as a result of the command, `Logic` will
-   then write the updated `Model` back to disk using the `Storage` component.
-
-Given in Figure 2.5 below is the sequence diagram for interactions within the
-`Logic` component for the `execute("delete 1")` API call.
-
-<figure>
-<img src="images/devguide/seq-deleteevent.png">
-<figcaption><div align="center">Figure 2.5: Sequence diagram for event deletion</div></figcaption>
-</figure>
-
 ### Ui component
 
 The `Ui` component,
@@ -402,6 +379,29 @@ provides a single unified interface to them.
 <figure>
 <img src="images/devguide/comp-logic.png">
 <figcaption><div align="center">Figure 2.4: Logic component class diagram</div></figcaption>
+</figure>
+
+The `Logic` component accomplishes its parsing and execution of user commands in a few steps:
+
+1. `Logic` uses its own internal `Parser` to parse the user command.
+
+2. This results in a `Command` object which is executed by the `LogicManager`.
+
+3. The command execution can affect the `Model` (e.g. adding a task, or
+   changing a config setting.)
+
+4. The result of the command execution is encapsulated as a `CommandResult`
+   object which is passed back to the `Ui`.
+
+5. If the `Model` has been modified as a result of the command, `Logic` will
+   then write the updated `Model` back to disk using the `Storage` component.
+
+Given in Figure 2.5 below is the sequence diagram for interactions within the
+`Logic` component for the `execute("delete 1")` API call.
+
+<figure>
+<img src="images/devguide/seq-deleteevent.png">
+<figcaption><div align="center">Figure 2.5: Sequence diagram for event deletion</div></figcaption>
 </figure>
 
 ### UI implementation
