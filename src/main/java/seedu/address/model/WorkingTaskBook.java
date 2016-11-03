@@ -426,10 +426,6 @@ public class WorkingTaskBook {
             workingItemList.setAll(newWorkingList);
         }
 
-        Predicate<WorkingItem<E>> changeWorkingToItemPredicate (Predicate<? super E> predicate) {
-            return p -> predicate.test(sourceList.get(p.sourceIndex));
-        }
-
         int size () {
             return workingItemList.size();
         }

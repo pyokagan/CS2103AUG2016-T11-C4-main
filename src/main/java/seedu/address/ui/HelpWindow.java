@@ -13,7 +13,6 @@ public class HelpWindow extends UiPart<Stage> {
 
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "/view/HelpWindow.fxml";
-    private static final String TITLE = "Help";
     private static final String USERGUIDE_URL =
             "https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md";
 
