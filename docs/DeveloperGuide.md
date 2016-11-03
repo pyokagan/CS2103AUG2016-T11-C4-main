@@ -383,7 +383,7 @@ provides a single unified interface to them.
 
 The `Logic` component accomplishes its parsing and execution of user commands in a few steps:
 
-1. `Logic` uses its own internal `Parser` to parse the user command.
+1. `Logic` uses its own internal `TaskTrackerParser` to parse the user command.
 
 2. This results in a `Command` object which is executed by the `LogicManager`.
 
@@ -403,6 +403,108 @@ Given in Figure 2.5 below is the sequence diagram for interactions within the
 <img src="images/devguide/seq-deleteevent.png">
 <figcaption><div align="center">Figure 2.5: Sequence diagram for event deletion</div></figcaption>
 </figure>
+
+#### The `Parser` hierarchy
+
+<figure>
+<img src="images/devguide/classdiag-logic-parser.png">
+<figcaption><div align="center">Figure 2.X:</div></figcaption>
+</figure>
+
+While from the perspective of the top level `LogicManager` class, the
+`TaskTrackerParser::parse()` method just needs to be called to parse a command
+string into a `Command`, internally the `TaskTrackerParser` actually consists
+of a hierarchy of parsers, each handling a specific part of the parsing
+process (Single Responsibility Principle). Figure 2.X shows a part of this hierarchy.
+
+The first level of parsers (e.g. `AddTaskCommandParser`, `ListCommandParser`
+etc.) each handle the parsing of a specific subcommand (e.g. `add`, `list`,
+etc.). Subsequent levels further break down the parsing process. For example,
+the `AddTaskCommandParser` internally consists of
+`AddFloatingTaskCommandParser`, `AddDeadlineTaskCommandParser` and
+`AddEventTaskCommandParser` subparsers. Each of these subparsers handle a
+variation of the `add` command -- the command format variation for adding
+floating tasks, deadline tasks and event tasks respectively. Also, the parsers
+`EditFloatingTaskCommandParser`, `DeleteEventTaskCommandParser` etc. call upon
+the `IndexParser` for parsing task indexes (e.g. `e1`, `d1`, `f1` etc.)
+
+All parsers implement the `Parser<T>` interface, which represents an object
+which can take a string and return an object of type `T`:
+
+```java
+public interface Parser<T> {
+
+    /**
+     * Parses an input string and returns the parsed result as an object with type T.
+     * @throws ParseException if the input string could not be parsed. The ranges of the ParseException will
+     * contain the substring ranges of the input string which caused the parsing to fail.
+     */
+    T parse(String str) throws ParseException;
+
+}
+```
+
+One major advantage of this approach is that it is extremely easy to mix and
+match parsers to generate create new command formats, since each piece of
+parsing logic is neatly encapsulated into individual classes. It is also
+extremely easy to unit test each individual parser. Another major advantage of
+this approach is that it is very DRY -- each piece of parsing logic has a
+single definitive source. For example, if we wanted to modify the task index
+format such that instead of `e1`, `d1`, `f1`, users have to type `Banana1`,
+`Apple1`, `Papaya1`, all we need to do is to modify the `IndexParser`, and all
+commands will immediately recognise the new format.
+
+#### Mixing and matching: the `CommandLineParser` utility class
+
+The `seedu.address.logic.parser` package provides a few classes to mix and
+match `Parser<T>` objects. Of these, the `CommandLineParser` class is probably
+the most important, as it helps to piece together individual `Parser<T>`
+parsers to parse a command line input.
+
+Let's take a look at the `AddEventCommandParser` for example. The `AddEventCommandParser` has to parse an input string like:
+
+```
+    "Eat Lunch" tmr 4am to 6pm
+```
+
+From this input string, `AddEventCommandParser` has to somehow split them into
+their individual arguments, while also parsing them with their correct parsers.
+`"Eat Lunch"` has to be parsed as a task `Name`, `tmr 4am` has to be parsed as
+a `LocalDateTime`, `to` has to be recognized as a required keyword, while `6pm`
+has to be parsed as a `LocalDateTime`.
+
+Thanks to `CommandLineParser`, the code to parse such as input string is simply:
+```java
+    private final Argument<Name> nameArg = new Argument<>("NAME", new NameParser());
+    private final DateTimeArgument startArg = new DateTimeArgument("START_DATE", "END_DATE");
+    private final DateTimeArgument endArg = new DateTimeArgument("END_DATE", "END_TIME");
+    private final CommandLineParser cmdParser = new CommandLineParser()
+                                                        .addArgument(nameArg)
+                                                        .addArgument(startArg)
+                                                        .addArgument("to")
+                                                        .addArgument(endArg);
+```
+
+The `CommandLineParser::parse()` method will then parse the string into its
+individual arguments, and the values of these arguments can then simply be
+retrieved from their `Argument` objects:
+
+```java
+    @Override
+    public AddEventCommand parse(String str) throws ParseException {
+        // Tell date/time parsers the current time
+        final LocalDateTime now = referenceDateTime.orElse(LocalDateTime.now());
+        startArg.setReferenceDateTime(now);
+        endArg.setReferenceDateTime(now);
+
+        // Parse command
+        cmdParser.parse(str);
+
+        final LocalDateTimeDuration duration = makeDuration(now);
+        final EventTask toAdd = new EventTask(nameArg.getValue(), duration);
+        return new AddEventCommand(toAdd);
+    }
+```
 
 ### UI implementation
 
