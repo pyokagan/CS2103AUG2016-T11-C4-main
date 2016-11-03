@@ -6,7 +6,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -16,6 +15,7 @@ import javafx.stage.Stage;
  */
 public class HelpWindow {
 
+    private static final String USERGUIDE_URL = "https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/UserGuide.md";
     private static final String HELPBOX_CONTENT =
               "Add Floating Task             | add \"FLOATING_TASK_NAME\"  [p-PRIORITY]\n"
             + "Add Deadline Task             | add \"DEADLINE_NAME\" <DATE> <TIME>\n"
@@ -30,20 +30,19 @@ public class HelpWindow {
             + "Redo                              | redo\n"
             + "Clear                              | clear\n"
             + "Exit                                 | exit\n"
-            + "Hide and show Task Tracker  | Ctrl + SPACE\n";
+            + "Hide and show Task Tracker  | Ctrl + SPACE\n"
+            + "For full guide:" + USERGUIDE_URL;
 
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "/view/HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md";
 
     @FXML
-    private WebView webView;
+    private Alert helpBox;
 
     public HelpWindow() {
 
-        Alert helpBox = new Alert(javafx.scene.control.Alert.AlertType.NONE);
+        this.helpBox = new Alert(javafx.scene.control.Alert.AlertType.NONE);
         helpBox.initModality(Modality.NONE);
 
         //add icon
@@ -75,4 +74,9 @@ public class HelpWindow {
 
         helpBox.showAndWait();
     }
+
+    public Stage getStage() {
+        return (Stage) helpBox.getDialogPane().getScene().getWindow();
+    }
+
 }
