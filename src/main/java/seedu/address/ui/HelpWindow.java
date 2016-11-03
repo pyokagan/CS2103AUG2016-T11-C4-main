@@ -30,8 +30,8 @@ public class HelpWindow {
             + "Redo                              | redo\n"
             + "Clear                              | clear\n"
             + "Exit                                 | exit\n"
-            + "Hide and show Task Tracker  | Ctrl + SPACE\n"
-            + "For full guide:" + USERGUIDE_URL;
+            + "Hide and show Task Tracker  | Ctrl + SPACE\n\n"
+            + "For full guide: " + USERGUIDE_URL;
 
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "/view/HelpWindow.fxml";
@@ -54,7 +54,7 @@ public class HelpWindow {
         helpBox.initModality(Modality.NONE);
         helpBox.setResizable(true);
         helpBox.getDialogPane().setPrefWidth(700.0);
-        helpBox.getDialogPane().setPrefHeight(320.0);
+        helpBox.getDialogPane().setPrefHeight(340.0);
 
         //set contents
         helpBox.setTitle("HELP");
