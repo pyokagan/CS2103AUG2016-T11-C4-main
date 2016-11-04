@@ -55,8 +55,7 @@ public class HelpWindow {
         helpBox.setResizable(true);
         helpBox.getDialogPane().setPrefWidth(700.0);
         helpBox.getDialogPane().setPrefHeight(340.0);
-        helpBox.getDialogPane().getStylesheets().add(getClass().getResource("view/DarkTheme.css").toExternalForm());
-        helpBox.getDialogPane().getStyleClass().add("helpBox");
+        helpBox.getDialogPane().setStyle("-fx-font-family: 'Courier New';" + "-fx-font-weight: 700;" + "font-style: normal;" + "-fx-background-color: white;" + "-fx-color: black;");
 
         //set contents
         helpBox.setTitle("HELP");
