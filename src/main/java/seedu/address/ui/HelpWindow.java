@@ -61,12 +61,12 @@ public class HelpWindow extends UiPart<Stage> {
         helpBox.initModality(Modality.NONE);
         helpBox.setResizable(true);
         helpBox.getDialogPane().setPrefWidth(700.0);
-        helpBox.getDialogPane().setPrefHeight(340.0);
+        helpBox.getDialogPane().setPrefHeight(360.0);
         helpBox.getDialogPane().setStyle("-fx-font-family: 'Courier New';" + "-fx-font-weight: 700;" + "font-style: normal;" + "-fx-background-color: white;" + "-fx-color: black;");
 
         //set contents
         helpBox.setTitle("HELP");
-        helpBox.setHeaderText("Press <ESC> to close");
+        helpBox.setHeaderText("Press <ESC> to close \n<ENTER> for full User Guide");
         helpBox.setContentText(HELPBOX_CONTENT);
 
         //press escape to close and press enter to launch user guide
@@ -79,10 +79,11 @@ public class HelpWindow extends UiPart<Stage> {
                 }
 
                 if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-                    getRoot().initModality(Modality.WINDOW_MODAL);
                     FxViewUtil.setStageIcon(getRoot(), ICON);
                     webView.getEngine().load(USERGUIDE_URL);
+                    getRoot().setAlwaysOnTop(true);
                     getRoot().showAndWait();
+                    keyEvent.consume();
                 }
             }
         });
