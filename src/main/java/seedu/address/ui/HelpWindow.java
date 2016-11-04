@@ -49,10 +49,6 @@ public class HelpWindow extends UiPart<Stage> {
 
         super(FXML);
 
-        getRoot().initModality(Modality.WINDOW_MODAL);
-        FxViewUtil.setStageIcon(getRoot(), ICON);
-        webView.getEngine().load(USERGUIDE_URL);
-
         this.helpBox = new Alert(javafx.scene.control.Alert.AlertType.NONE);
         helpBox.initModality(Modality.NONE);
 
@@ -86,6 +82,7 @@ public class HelpWindow extends UiPart<Stage> {
                     getRoot().initModality(Modality.WINDOW_MODAL);
                     FxViewUtil.setStageIcon(getRoot(), ICON);
                     webView.getEngine().load(USERGUIDE_URL);
+                    getRoot().showAndWait();
                 }
             }
         });
