@@ -6,14 +6,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.address.commons.util.FxViewUtil;
 
 
 /**
  * Controller for a help page
  */
-public class HelpWindow {
+public class HelpWindow extends UiPart<Stage> {
 
     private static final String USERGUIDE_URL = "https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/UserGuide.md";
     private static final String HELPBOX_CONTENT =
@@ -40,7 +42,16 @@ public class HelpWindow {
     @FXML
     private Alert helpBox;
 
+    @FXML
+    private WebView webView;
+
     public HelpWindow() {
+
+        super(FXML);
+
+        getRoot().initModality(Modality.WINDOW_MODAL);
+        FxViewUtil.setStageIcon(getRoot(), ICON);
+        webView.getEngine().load(USERGUIDE_URL);
 
         this.helpBox = new Alert(javafx.scene.control.Alert.AlertType.NONE);
         helpBox.initModality(Modality.NONE);
@@ -62,13 +73,19 @@ public class HelpWindow {
         helpBox.setHeaderText("Press <ESC> to close");
         helpBox.setContentText(HELPBOX_CONTENT);
 
-        //press escape to close
+        //press escape to close and press enter to launch user guide
         stage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
                     stage.close();
                     keyEvent.consume();
+                }
+
+                if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+                    getRoot().initModality(Modality.WINDOW_MODAL);
+                    FxViewUtil.setStageIcon(getRoot(), ICON);
+                    webView.getEngine().load(USERGUIDE_URL);
                 }
             }
         });
