@@ -1,5 +1,6 @@
 @import "fonts/OpenSans.css";
 @import 'fonts/Roboto.css';
+@import "fonts/CourierNew.css"
 
 .root {
     -fx-background-color: derive(#1d1d1d, 20%);
