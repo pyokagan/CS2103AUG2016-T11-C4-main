@@ -223,3 +223,7 @@
 .card.priority5 {
     -fx-border-color: #ff0000;
 }
+
+.helpBox {
+	-fx-font-family: 'Courier New';
+}
