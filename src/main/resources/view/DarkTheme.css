@@ -228,3 +228,7 @@
     -fx-font-size: 20pt;
     -fx-padding: 1em;
 }
+
+.helpBox {
+	-fx-font-family: 'Courier New';
+}
