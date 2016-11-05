@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.SubstringRange;
@@ -46,13 +45,6 @@ public class ParseException extends IllegalValueException {
 
     public List<SubstringRange> getRanges() {
         return Collections.unmodifiableList(ranges);
-    }
-
-    public ParseException indentRanges(int x) {
-        List<SubstringRange> newRanges = ranges.stream()
-                                                .map(range -> range.indent(x))
-                                                .collect(Collectors.toList());
-        return new ParseException(getMessage(), this, newRanges);
     }
 
 }
