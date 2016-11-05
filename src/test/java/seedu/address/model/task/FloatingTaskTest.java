@@ -33,15 +33,19 @@ public class FloatingTaskTest {
 
     @Test
     public void equals_notEqual_returnsFalse() throws Exception {
-        final FloatingTask other = new FloatingTask(new Name("Floating Task Name"), new Priority("1"));
-        assertFalse(floatingTask.equals(other));
-        assertFalse(floatingTask.hashCode() == other.hashCode());
+        final FloatingTask other1 = new FloatingTask(new Name("Floating Task Name"), new Priority("1"), false);
+        final FloatingTask other2 = new FloatingTask(new Name("Floating Task Name"), new Priority("3"), true);
+        assertFalse(floatingTask.equals(other1));
+        assertFalse(floatingTask.hashCode() == other1.hashCode());
+        assertFalse(floatingTask.equals(other2));
+        assertFalse(floatingTask.hashCode() == other2.hashCode());
     }
 
     @Test
     public void toString_returnsCorrectFormat() {
         final String expected = "FloatingTask[name=Floating Task Name, "
-                                + "priority=3]";
+                                + "priority=3, "
+                                + "finished=false]";
         final String actual = floatingTask.toString();
         assertEquals(expected, actual);
     }

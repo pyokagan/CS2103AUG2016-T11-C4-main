@@ -1,7 +1,8 @@
 package seedu.address.ui;
 
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,19 +14,12 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
-import org.testfx.util.WaitForAsyncUtils;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.stage.Window;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import javafx.stage.Stage;
 import seedu.address.logic.Logic;
+import seedu.address.model.ModelManager;
 import seedu.address.model.config.Config;
-import seedu.address.model.task.DeadlineTask;
-import seedu.address.model.task.EventTask;
-import seedu.address.model.task.FloatingTask;
 import seedu.address.testutil.GuiTests;
 
 @Category({GuiTests.class})
@@ -33,16 +27,14 @@ public class UiManagerTest extends FxRobot {
 
     private Config config;
 
-    private ObservableList<FloatingTask> floatingTaskList;
-
-    private ObservableList<EventTask> eventTaskList;
-
-    private ObservableList<DeadlineTask> deadlineTaskList;
+    private ModelManager model = new ModelManager();
 
     @Mock
     private Logic logic;
 
     private UiManager uiManager;
+
+    private Stage primaryStage;
 
     @BeforeClass
     public static void setupFxToolkit() throws Exception {
@@ -52,18 +44,12 @@ public class UiManagerTest extends FxRobot {
     @Before
     public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
-        floatingTaskList = FXCollections.observableArrayList();
-        eventTaskList = FXCollections.observableArrayList();
-        deadlineTaskList = FXCollections.observableArrayList();
-        Mockito.when(logic.getFilteredFloatingTaskList())
-               .thenReturn(FXCollections.unmodifiableObservableList(floatingTaskList));
-        Mockito.when(logic.getFilteredDeadlineTaskList())
-               .thenReturn(FXCollections.unmodifiableObservableList(deadlineTaskList));
-        Mockito.when(logic.getFilteredEventTaskList())
-               .thenReturn(FXCollections.unmodifiableObservableList(eventTaskList));
+        Mockito.when(logic.getModel())
+                .thenReturn(model);
         config = new Config();
         uiManager = new UiManager(logic, config);
         FxToolkit.setupStage(stage -> {
+            this.primaryStage = stage;
             uiManager.start(stage);
         });
         FxToolkit.showStage();
@@ -71,6 +57,7 @@ public class UiManagerTest extends FxRobot {
 
     @After
     public void teardown() throws Exception {
+        Platform.setImplicitExit(false);
         interact(() -> uiManager.stop());
         FxToolkit.cleanupStages();
     }
@@ -80,17 +67,39 @@ public class UiManagerTest extends FxRobot {
     }
 
     @Test
-    public void onShowHelpRequestEvent_showsHelp() throws Exception {
-        Platform.runLater((() -> EventsCenter.getInstance().post(new ShowHelpRequestEvent())));
-        WaitForAsyncUtils.waitFor(3, TimeUnit.SECONDS, () -> {
-            try {
-                Window w = window(window -> from(rootNode(window)).lookup("#webView").tryQuery().isPresent());
-                interact(() -> w.hide());
-                return true;
-            } catch (NoSuchElementException e) {
-                return false;
-            }
-        });
+    public void hide_hidesThePrimaryStage() {
+        interact(() -> uiManager.hide());
+        assertFalse(primaryStage.isShowing());
+    }
+
+    @Test
+    public void show_showsThePrimaryStage() {
+        interact(() -> uiManager.show());
+        assertTrue(primaryStage.isShowing());
+    }
+
+    @Test
+    public void hideShow_restoresWindowDimensions() {
+        final double expectedWidth = primaryStage.getWidth();
+        final double expectedHeight = primaryStage.getHeight();
+        interact(() -> uiManager.hide());
+        interact(() -> uiManager.show());
+        assertEquals(expectedWidth, primaryStage.getWidth(), 0.0);
+        assertEquals(expectedHeight, primaryStage.getHeight(), 0.0);
+    }
+
+    @Test
+    public void toggleHide_whenPrimaryStageIsShowing_hidesPrimaryStage() {
+        interact(() -> uiManager.toggleHide());
+        assertFalse(primaryStage.isShowing());
+    }
+
+    @Test
+    public void toggleHide_whenPrimaryStageIsNotShowing_showsPrimaryStage() {
+        interact(() -> primaryStage.hide());
+        assertFalse(primaryStage.isShowing());
+        interact(() -> uiManager.toggleHide());
+        assertTrue(primaryStage.isShowing());
     }
 
 }

@@ -1,20 +1,28 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.Model;
+import seedu.address.model.filter.TaskPredicate;
 
 /**
- * Lists all tasks in the task book to the user.
+ * Lists all tasks that matches a certain {@link TaskPredicate}
  */
-public class ListCommand extends Command {
+public class ListCommand implements Command {
 
-    public static final String COMMAND_WORD = "list";
+    private static final String MSG_LIST_ALL = "Listing all tasks.";
+    private static final String MSG_LIST_FILTER = "Listing all tasks matching filter: %s";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    private final TaskPredicate taskPredicate;
 
-    public ListCommand() {}
+    public ListCommand(TaskPredicate taskPredicate) {
+        this.taskPredicate = taskPredicate;
+    }
 
     @Override
-    public CommandResult execute() {
-        model.setFilter(null);
-        return new CommandResult(MESSAGE_SUCCESS);
+    public CommandResult execute(Model model) {
+        assert model != null;
+        model.setTaskPredicate(taskPredicate);
+        return new CommandResult(taskPredicate != null ? String.format(MSG_LIST_FILTER, taskPredicate.toHumanReadableString())
+                                                         : MSG_LIST_ALL);
     }
+
 }

@@ -1,12 +1,14 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
+import java.util.Optional;
+
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 
-public class EditFloatingTaskCommand extends Command {
+public class EditFloatingTaskCommand implements Command {
 
     public static final String COMMAND_WORD = "edit-float";
 
@@ -17,49 +19,46 @@ public class EditFloatingTaskCommand extends Command {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Floting task edited: %1$s";
 
-    public final int targetIndex;
+    private final int targetIndex;
+    private final Optional<Name> newName;
+    private final Optional<Priority> newPriority;
 
-    public final Name newName;
-
-    public final Priority newPriority;
-
-    public EditFloatingTaskCommand(int targetIndex, String newName, String newPriority) throws IllegalValueException {
+    public EditFloatingTaskCommand(int targetIndex, Optional<Name> newName, Optional<Priority> newPriority) {
         this.targetIndex = targetIndex;
-        this.newName = newName != null ? new Name(newName) : null;
-        this.newPriority = newPriority != null ? new Priority(newPriority) : null;
+        this.newName = newName;
+        this.newPriority = newPriority;
     }
 
     public int getTargetIndex() {
         return targetIndex;
     }
 
-    public Name getNewName() {
-        return this.newName;
+    public Optional<Name> getNewName() {
+        return newName;
     }
 
-    public Priority getNewPriority() {
-        return this.newPriority;
+    public Optional<Priority> getNewPriority() {
+        return newPriority;
     }
 
     @Override
-    public CommandResult execute() {
-        FloatingTask oldFloatingTask;
+    public CommandResult execute(Model model) throws CommandException {
+        final FloatingTask oldFloatingTask;
         try {
-            oldFloatingTask = model.getFloatingTask(targetIndex - 1);
+            oldFloatingTask = model.getFloatingTask(targetIndex);
         } catch (IllegalValueException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(e);
         }
 
-        FloatingTask newFloatingTask;
+        final FloatingTask newFloatingTask;
 
         newFloatingTask = new FloatingTask(
-                newName != null ? newName : oldFloatingTask.name,
-                newPriority != null ? newPriority : oldFloatingTask.getPriority()
+                newName.orElse(oldFloatingTask.getName()),
+                newPriority.orElse(oldFloatingTask.getPriority())
         );
 
         try {
-            model.setFloatingTask(targetIndex - 1, newFloatingTask);
+            model.setFloatingTask(targetIndex, newFloatingTask);
         } catch (IllegalValueException e) {
             throw new AssertionError("The target floating task cannot be missing", e);
         }

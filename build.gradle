@@ -4,6 +4,7 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
  */
+import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     id 'java'
@@ -15,10 +16,10 @@ plugins {
 }
 
 repositories {
-    jcenter()
     mavenCentral()
-    maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven {
+        url 'https://dl.bintray.com/jerady/maven'
+    }
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -37,6 +38,8 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.+'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.4'
     compile 'com.google.guava:guava:19.0'
+    compile 'de.jensd:fontawesomefx-commons:8.12'
+    compile 'de.jensd:fontawesomefx-fontawesome:4.6.3'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.testfx:testfx-core:4.0.+'
@@ -67,13 +70,14 @@ test {
             excludeCategories 'seedu.address.testutil.GuiTests'
     }
 
-    beforeTest { descriptor ->
-        if (headless == 'true') {
-            systemProperty 'java.awt.robot', 'true'
-            systemProperty 'testfx.robot', 'glass'
+    if (headless == 'true') {
+        systemProperty 'java.awt.headless', 'true'
+        systemProperty 'java.awt.robot', 'true'
+        systemProperty 'testfx.robot', 'glass'
+        systemProperty 'prism.order', 'sw'
+        systemProperty 'prism.text', 't2k'
+        if (!Os.isFamily(Os.FAMILY_UNIX)) {
             systemProperty 'testfx.headless', 'true'
-            systemProperty 'prism.order', 'sw'
-            systemProperty 'prism.text', 't2k'
         }
     }
 }
@@ -83,6 +87,12 @@ jacocoTestReport {
         html.enabled true
         xml.enabled true
         csv.enabled false
+    }
+
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: 'com/melloware/jintellitype/**')
+        })
     }
 }
 

@@ -7,12 +7,13 @@ import java.util.logging.Level;
  * Config values used by the app
  */
 public class Config implements ReadOnlyConfig {
-
     public static final String DEFAULT_CONFIG_FILE = "config.json";
+    public static final Level DEFAULT_LOG_LEVEL = Level.INFO;
+    public static final String DEFAULT_TASK_BOOK_FILE_PATH = "data/taskbook.json";
 
     // Config values customizable through config file
-    private Level logLevel = Level.INFO;
-    private String taskBookFilePath = "data/taskbook.json";
+    private Level logLevel = DEFAULT_LOG_LEVEL;
+    private String taskBookFilePath = DEFAULT_TASK_BOOK_FILE_PATH;
 
     public Config() {
     }

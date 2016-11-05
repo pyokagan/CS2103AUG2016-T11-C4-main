@@ -17,13 +17,19 @@ public class JsonFloatingTaskMixinTest {
 
     private static ObjectMapper objectMapper;
 
-    public static final FloatingTask TEST_EVENT;
-    public static final String TEST_EVENT_JSON = "{\"name\":\"event name\","
-                                                 + "\"priority\":\"3\"}";
+    public static final FloatingTask TEST_FLOATING_TASK1;
+    public static final String TEST_FLOATING_TASK1_JSON = "{\"name\":\"task name 1\","
+                                                         + "\"priority\":\"3\","
+                                                         + "\"finished\":false}";
+    public static final FloatingTask TEST_FLOATING_TASK2;
+    public static final String TEST_FLOATING_TASK2_JSON = "{\"name\":\"task name 2\","
+                                                         + "\"priority\":\"4\","
+                                                         + "\"finished\":true}";
 
     static {
         try {
-            TEST_EVENT = new FloatingTask(new Name("event name"), new Priority("3"));
+            TEST_FLOATING_TASK1 = new FloatingTask(new Name("task name 1"), new Priority("3"));
+            TEST_FLOATING_TASK2 = new FloatingTask(new Name("task name 2"), new Priority("4"), true);
         } catch (IllegalValueException e) {
             throw new RuntimeException(e);
         }
@@ -41,16 +47,22 @@ public class JsonFloatingTaskMixinTest {
 
     @Test
     public void serialize() throws Exception {
-        final String expected = TEST_EVENT_JSON;
-        final String actual = objectMapper.writeValueAsString(TEST_EVENT);
-        assertEquals(expected, actual);
+        final String expected1 = TEST_FLOATING_TASK1_JSON;
+        final String expected2 = TEST_FLOATING_TASK2_JSON;
+        final String actual1 = objectMapper.writeValueAsString(TEST_FLOATING_TASK1);
+        final String actual2 = objectMapper.writeValueAsString(TEST_FLOATING_TASK2);
+        assertEquals(expected1, actual1);
+        assertEquals(expected2, actual2);
     }
 
     @Test
     public void deserialize() throws Exception {
-        final FloatingTask expected = TEST_EVENT;
-        final FloatingTask actual = objectMapper.readValue(TEST_EVENT_JSON, FloatingTask.class);
-        assertEquals(expected, actual);
+        final FloatingTask expected1 = TEST_FLOATING_TASK1;
+        final FloatingTask expected2 = TEST_FLOATING_TASK2;
+        final FloatingTask actual1 = objectMapper.readValue(TEST_FLOATING_TASK1_JSON, FloatingTask.class);
+        final FloatingTask actual2 = objectMapper.readValue(TEST_FLOATING_TASK2_JSON, FloatingTask.class);
+        assertEquals(expected1, actual1);
+        assertEquals(expected2, actual2);
     }
 
 }

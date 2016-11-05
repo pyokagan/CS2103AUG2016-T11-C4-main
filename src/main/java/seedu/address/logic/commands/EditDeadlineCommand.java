@@ -3,13 +3,14 @@ package seedu.address.logic.commands;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Name;
 
-public class EditDeadlineCommand extends Command {
+public class EditDeadlineCommand implements Command {
 
     public static final String COMMAND_WORD = "edit-deadline";
 
@@ -21,16 +22,14 @@ public class EditDeadlineCommand extends Command {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Deadline edited: %1$s";
 
     private final int targetIndex;
+    private final Optional<Name> newName;
+    private final Optional<LocalDate> newDate;
+    private final Optional<LocalTime> newTime;
 
-    private final Name newName;
-
-    private final LocalDate newDate;
-
-    private final LocalTime newTime;
-
-    public EditDeadlineCommand(int targetIndex, String newName, LocalDate newDate, LocalTime newTime) throws IllegalValueException {
+    public EditDeadlineCommand(int targetIndex, Optional<Name> newName, Optional<LocalDate> newDate,
+                               Optional<LocalTime> newTime) {
         this.targetIndex = targetIndex;
-        this.newName = newName != null ? new Name(newName) : null;
+        this.newName = newName;
         this.newDate = newDate;
         this.newTime = newTime;
     }
@@ -39,35 +38,34 @@ public class EditDeadlineCommand extends Command {
         return targetIndex;
     }
 
-    public LocalDate getNewDate() {
+    public Optional<LocalDate> getNewDate() {
         return newDate;
     }
 
-    public LocalTime getNewTime() {
+    public Optional<LocalTime> getNewTime() {
         return newTime;
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) throws CommandException {
         DeadlineTask oldDeadlineTask;
         try {
-            oldDeadlineTask = model.getDeadlineTask(targetIndex - 1);
+            oldDeadlineTask = model.getDeadlineTask(targetIndex);
         } catch (IllegalValueException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(e);
         }
 
         DeadlineTask newDeadlineTask;
         newDeadlineTask = new DeadlineTask(
-                newName != null ? newName : oldDeadlineTask.name,
+                newName.orElse(oldDeadlineTask.getName()),
                 LocalDateTime.of(
-                        newDate != null ? newDate : oldDeadlineTask.getDue().toLocalDate(),
-                        newTime != null ? newTime : oldDeadlineTask.getDue().toLocalTime()
+                        newDate.orElse(oldDeadlineTask.getDue().toLocalDate()),
+                        newTime.orElse(oldDeadlineTask.getDue().toLocalTime())
                 )
         );
 
         try {
-            model.setDeadlineTask(targetIndex - 1, newDeadlineTask);
+            model.setDeadlineTask(targetIndex, newDeadlineTask);
         } catch (IllegalValueException e) {
             throw new AssertionError("The target deadline cannot be missing", e);
         }

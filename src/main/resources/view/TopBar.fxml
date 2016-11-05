@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+
+<HBox fx:id="topBar" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@TopBar.css">
+    <!--  The status box -->
+    <HBox fx:id="statusBox" HBox.hgrow="ALWAYS" styleClass="box">
+        <!--  Label shown when we are filtering stuff -->
+        <Label fx:id="filterLabel">
+            <graphic><FontAwesomeIconView glyphName="FILTER" /></graphic>
+        </Label>
+        <!--  This is to fill up any remaining space so the application logo gets pushed to the right -->
+        <Region HBox.hgrow="ALWAYS" />
+    </HBox>
+    <!--  Application logo and version -->
+    <Separator orientation="VERTICAL" />
+    <Label styleClass="header">TaskTracker</Label>
+</HBox>
+

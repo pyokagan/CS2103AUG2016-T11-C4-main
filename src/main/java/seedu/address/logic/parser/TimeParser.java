@@ -4,12 +4,12 @@ import java.time.LocalTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.SubstringRange;
 
 /**
  * A parser for 12-hour clock times.
  */
-public class TimeParser {
+public class TimeParser implements Parser<LocalTime> {
 
     private static final Pattern PATTERN_TIME = Pattern.compile("(?<hour>\\d{1,2})"
             + "(?:[.:](?<minute>\\d{2}))?(?<ampm>am|pm)");
@@ -20,26 +20,34 @@ public class TimeParser {
         this.referenceTime = referenceTime;
     }
 
+    public TimeParser() {
+        this(LocalTime.now());
+    }
+
     public LocalTime getReferenceTime() {
         return referenceTime;
     }
 
-    public LocalTime parse(String str) throws IllegalValueException {
+    @Override
+    public LocalTime parse(String str) throws ParseException {
         final Matcher matcher = PATTERN_TIME.matcher(str.trim());
         if (!matcher.matches()) {
-            throw new IllegalValueException("invalid time format");
+            throw new ParseException("invalid time format", SubstringRange.of(str));
         }
 
         int hour = Integer.parseInt(matcher.group("hour"));
         if (hour > 12) {
-            throw new IllegalValueException("invalid hour: " + hour);
+            throw new ParseException("invalid hour: " + hour,
+                                     new SubstringRange(matcher.start("hour"), matcher.end("hour")));
         } else if (hour == 12) {
             hour = 0;
         }
 
         final int minute = matcher.group("minute") != null ? Integer.parseInt(matcher.group("minute")) : 0;
         if (minute >= 60) {
-            throw new IllegalValueException("invalid minute: " + minute);
+            assert matcher.group("minute") != null;
+            throw new ParseException("invalid minute: " + minute,
+                                     new SubstringRange(matcher.start("minute"), matcher.end("minute")));
         }
 
         final boolean isPM = matcher.group("ampm").equals("pm");

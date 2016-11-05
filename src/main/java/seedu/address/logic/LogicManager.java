@@ -3,21 +3,19 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandException;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.parser.ParseException;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.TaskTrackerParser;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyModel;
 import seedu.address.model.TaskBookChangeListener;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
-import seedu.address.model.task.DeadlineTask;
-import seedu.address.model.task.EventTask;
-import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
 /**
@@ -28,73 +26,60 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final Parser parser;
+    private final Parser<? extends Command> parser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, Parser<? extends Command> parser) {
         this.model = model;
         this.storage = storage;
-        this.parser = new Parser();
+        this.parser = parser;
+    }
+
+    public LogicManager(Model model, Storage storage) {
+        this(model, storage, new TaskTrackerParser());
     }
 
     @Override
-    public CommandResult execute(String commandText) {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-        final TaskBookChangeListener taskBookListener = new TaskBookChangeListener(model.getAddressBook());
+    public CommandResult execute(Command command) throws CommandException, IOException {
+        final TaskBookChangeListener taskBookListener = new TaskBookChangeListener(model.getTaskBook());
         final Config oldConfig = new Config(model.getConfig());
-        Command command = parser.parseCommand(commandText);
-        command.setData(model);
-        final CommandResult result = command.execute();
+        final CommandResult result = command.execute(model);
         updateConfigStorage(oldConfig);
         updateTaskBookStorage(taskBookListener);
+        if (model.hasUncommittedChanges()) {
+            model.recordState(command.toString());
+        }
         return result;
     }
 
-    private void updateTaskBookStorage(TaskBookChangeListener listener) {
-        try {
-            if (listener.getHasChanged()) {
-                logger.info("Task book data changed, saving to file");
-                storage.saveTaskBook(model.getAddressBook());
-            }
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
+    @Override
+    public CommandResult execute(String commandText) throws ParseException, CommandException, IOException {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        return execute(parser.parse(commandText));
+    }
+
+    private void updateTaskBookStorage(TaskBookChangeListener listener) throws IOException {
+        if (listener.getHasChanged()) {
+            logger.info("Task book data changed, saving to file");
+            storage.saveTaskBook(model.getTaskBook());
         }
     }
 
-    private void updateConfigStorage(Config oldConfig) {
+    private void updateConfigStorage(Config oldConfig) throws IOException {
         final ReadOnlyConfig newConfig = model.getConfig();
-        try {
-            if (!oldConfig.equals(newConfig)) {
-                logger.info("Config changed, saving to file");
-                storage.saveConfig(newConfig);
-            }
+        if (!oldConfig.equals(newConfig)) {
+            logger.info("Config changed, saving to file");
+            storage.saveConfig(newConfig);
+        }
 
-            if (!oldConfig.getTaskBookFilePath().equals(newConfig.getTaskBookFilePath())) {
-                logger.info("Task book file path changed, moving task book");
-                storage.moveTaskBook(newConfig.getTaskBookFilePath());
-            }
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
+        if (!oldConfig.getTaskBookFilePath().equals(newConfig.getTaskBookFilePath())) {
+            logger.info("Task book file path changed, moving task book");
+            storage.moveTaskBook(newConfig.getTaskBookFilePath());
         }
     }
 
     @Override
-    public ObservableList<Task> getFilteredTaskList() {
-        return model.getFilteredTaskList();
-    }
-
-    @Override
-    public ObservableList<FloatingTask> getFilteredFloatingTaskList() {
-        return model.getFilteredFloatingTaskList();
-    }
-
-    @Override
-    public ObservableList<EventTask> getFilteredEventTaskList() {
-        return model.getFilteredEventTaskList();
-    }
-
-    @Override
-    public ObservableList<DeadlineTask> getFilteredDeadlineTaskList() {
-        return model.getFilteredDeadlineTaskList();
+    public ReadOnlyModel getModel() {
+        return model;
     }
 
 }

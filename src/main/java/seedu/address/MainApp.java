@@ -5,14 +5,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -36,7 +33,7 @@ import seedu.address.ui.UiManager;
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    public static final Version VERSION = new Version(0, 3, 0, true);
+    public static final Version VERSION = new Version(0, 4, 0, true);
 
     /** Name of the application */
     public static final String NAME = "Task Tracker";
@@ -154,13 +151,10 @@ public class MainApp extends Application {
         ui.stop();
     }
 
-    @Subscribe
-    public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        this.stop();
-    }
-
     public static void main(String[] args) {
         launch(args);
+        // The application uses AWT components, but sometimes they do not clean up their threads properly
+        // (operating-system dependent). Ensure the process actually terminates by calling System.exit()
+        System.exit(0);
     }
 }

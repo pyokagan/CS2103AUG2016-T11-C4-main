@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.model.task.FloatingTask;
 
 public class FloatingTaskListCard extends UiPart<Pane> {
@@ -24,9 +25,14 @@ public class FloatingTaskListCard extends UiPart<Pane> {
     public FloatingTaskListCard(FloatingTask floatingTask, int index) {
         super(FXML);
         if (floatingTask != null) {
-            indexLabel.setText(index + ". ");
-            nameLabel.setText(floatingTask.name.toString());
+            indexLabel.setText(IndexPrefix.FLOAT.getPrefixString() + index + ". ");
+            nameLabel.setText(floatingTask.getName().toString());
             priorityLabel.setText(floatingTask.getPriority().toString());
+            if (floatingTask.isFinished()) {
+                getRoot().getStyleClass().add("finished");
+            } else {
+                getRoot().getStyleClass().add("priority" + floatingTask.getPriority().toString());
+            }
         } else {
             getRoot().setVisible(false);
         }

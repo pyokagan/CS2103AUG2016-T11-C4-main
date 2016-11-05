@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.SearchCommand;
@@ -26,12 +25,12 @@ public class SearchParser {
     	final String keyword = matcher.group("keyword").trim();
 
     	final Set<String> SearchKey = new HashSet<String>(Arrays.asList(keyword));
-    	try{
-    		return new SearchCommand(SearchKey);
-    	}
-    	catch (IllegalValueException e){
-    		return new IncorrectCommand(e.getMessage());
-    	}
+    	//try{
+    		//return new SearchCommand(SearchKey);
+    	//}
+    	//catch (IllegalValueException e){
+    		//return new IncorrectCommand(e.getMessage());
+    	//}
     }
 
 

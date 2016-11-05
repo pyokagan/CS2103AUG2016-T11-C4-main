@@ -1,80 +1,60 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Optional;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.Command;
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.logic.commands.EditEventCommand;
-import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.parser.CommandLineParser.Argument;
+import seedu.address.logic.parser.CommandLineParser.OptionalFlag;
+import seedu.address.model.task.Name;
 
-public class EditEventParser {
-    private static final Pattern CMD_PATTERN = Pattern.compile("^(?<index>\\d+)"
-                                                               + "(\\s+sd-(?<newStartDate>[^\\s]+))?"
-                                                               + "(\\s+st-(?<newStartTime>[^\\s]+))?"
-                                                               + "(\\s+ed-(?<newEndDate>[^\\s]+))?"
-                                                               + "(\\s+et-(?<newEndTime>[^\\s]+))?"
-                                                               + "(\\s+n-(?<newName>.+))?"
-                                                               + "$");
+public class EditEventParser implements Parser<EditEventCommand> {
 
-    private final LocalDateTime referenceDateTime;
+    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(IndexPrefix.EVENT));
+    private final OptionalFlag<LocalDate> newStartDateFlag = new OptionalFlag<>("sd-", "NEW_START_DATE", new DateParser());
+    private final OptionalFlag<LocalTime> newStartTimeFlag = new OptionalFlag<>("st-", "NEW_START_TIME", new TimeParser());
+    private final OptionalFlag<LocalDate> newEndDateFlag = new OptionalFlag<>("ed-", "NEW_END_DATE", new DateParser());
+    private final OptionalFlag<LocalTime> newEndTimeFlag = new OptionalFlag<>("et-", "NEW_END_TIME", new TimeParser());
+    private final OptionalFlag<Name> newNameFlag = new OptionalFlag<>("n-", "NEW_NAME", new NameParser());
+    private final CommandLineParser cmdParser = new CommandLineParser()
+                                                        .addArgument(indexArg)
+                                                        .putFlag(newStartDateFlag)
+                                                        .putFlag(newStartTimeFlag)
+                                                        .putFlag(newEndDateFlag)
+                                                        .putFlag(newEndTimeFlag)
+                                                        .putFlag(newNameFlag);
+
+    private final Optional<LocalDateTime> referenceDateTime;
 
     public EditEventParser() {
-        this(null);
+        this(Optional.empty());
     }
 
     public EditEventParser(LocalDateTime referenceDateTime) {
+        this(Optional.of(referenceDateTime));
+    }
+
+    public EditEventParser(Optional<LocalDateTime> referenceDateTime) {
         this.referenceDateTime = referenceDateTime;
     }
 
-    public Command parse(String args) {
-        final Matcher matcher = CMD_PATTERN.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditEventCommand.MESSAGE_USAGE));
-        }
+    @Override
+    public EditEventCommand parse(String str) throws ParseException {
+        // Tell date/time parsers the current time
+        final LocalDateTime now = referenceDateTime.orElse(LocalDateTime.now());
+        newStartDateFlag.setParser(new DateParser(now.toLocalDate()));
+        newStartTimeFlag.setParser(new TimeParser(now.toLocalTime()));
+        newEndDateFlag.setParser(new DateParser(now.toLocalDate()));
+        newEndTimeFlag.setParser(new TimeParser(now.toLocalTime()));
 
-        final String indexString = matcher.group("index").trim();
-        if (!StringUtil.isUnsignedInteger(indexString)) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditEventCommand.MESSAGE_USAGE));
-        }
-        final int index = Integer.parseInt(indexString);
+        cmdParser.parse(str);
 
-        final DateTimeParser parser = referenceDateTime != null ? new DateTimeParser(referenceDateTime)
-                                                                : new DateTimeParser();
-        LocalDate newStartDate = null;
-        LocalTime newStartTime = null;
-        LocalDate newEndDate = null;
-        LocalTime newEndTime = null;
-        String newName = matcher.group("newName");
-        try {
-            if (matcher.group("newStartDate") != null) {
-                newStartDate = parser.parseDate(matcher.group("newStartDate"));
-            }
-            if (matcher.group("newStartTime") != null) {
-                newStartTime = parser.parseTime(matcher.group("newStartTime"));
-            }
-            if (matcher.group("newEndDate") != null) {
-                newEndDate = parser.parseDate(matcher.group("newEndDate"));
-            }
-            if (matcher.group("newEndTime") != null) {
-                newEndTime = parser.parseTime(matcher.group("newEndTime"));
-            }
-        } catch (IllegalValueException e) {
-            return new IncorrectCommand(e.getMessage());
-        }
-
-        try {
-            return new EditEventCommand(index, newName, newStartDate, newStartTime, newEndDate, newEndTime);
-        } catch (IllegalValueException e) {
-            return new IncorrectCommand(e.getMessage());
-        }
+        return new EditEventCommand(indexArg.getValue(), newNameFlag.getValue(), newStartDateFlag.getValue(),
+                                    newStartTimeFlag.getValue(), newEndDateFlag.getValue(),
+                                    newEndTimeFlag.getValue());
     }
 
 }

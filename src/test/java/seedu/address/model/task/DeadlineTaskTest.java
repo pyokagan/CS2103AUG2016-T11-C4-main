@@ -43,9 +43,12 @@ public class DeadlineTaskTest {
 
     @Test
     public void equals_notEqual_returnsFalse() throws Exception {
-        final DeadlineTask other = new DeadlineTask(new Name("Deadline Task Name"), UNIX_EPOCH.plusDays(2));
-        assertFalse(deadlineTask.equals(other));
-        assertFalse(deadlineTask.hashCode() == other.hashCode());
+        final DeadlineTask other1 = new DeadlineTask(new Name("Deadline Task Name"), UNIX_EPOCH.plusDays(2), false);
+        final DeadlineTask other2 = new DeadlineTask(new Name("Deadline Task Name"), UNIX_EPOCH.plusDays(1), true);
+        assertFalse(deadlineTask.equals(other1));
+        assertFalse(deadlineTask.hashCode() == other1.hashCode());
+        assertFalse(deadlineTask.equals(other2));
+        assertFalse(deadlineTask.hashCode() == other2.hashCode());
     }
 
     @Test

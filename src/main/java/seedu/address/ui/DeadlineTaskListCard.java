@@ -1,8 +1,11 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.model.task.DeadlineTask;
 
 public class DeadlineTaskListCard extends UiPart<Pane> {
@@ -18,19 +21,21 @@ public class DeadlineTaskListCard extends UiPart<Pane> {
     @FXML
     private Label dueLabel;
 
-    @FXML
-    private Label finishedLabel;
-
     /**
      * @param deadlineTask The deadline task to display. Can be null to not display anything.
      */
     public DeadlineTaskListCard(DeadlineTask deadlineTask, int index) {
         super(FXML);
         if (deadlineTask != null) {
-            indexLabel.setText(index + ". ");
-            nameLabel.setText(deadlineTask.name.toString());
+            indexLabel.setWrapText(true);
+            indexLabel.setText(IndexPrefix.DEADLINE.getPrefixString() + index + ". ");
+            nameLabel.setText(deadlineTask.getName().toString());
             dueLabel.setText(deadlineTask.getDue().toString());
-            finishedLabel.setText(String.valueOf(deadlineTask.isFinished()));
+            if (deadlineTask.isFinished()) {
+                getRoot().getStyleClass().add("finished");
+            } else if (deadlineTask.getDue().isBefore(LocalDateTime.now())) {
+                getRoot().getStyleClass().add("overdue");
+            }
         } else {
             getRoot().setVisible(false);
         }

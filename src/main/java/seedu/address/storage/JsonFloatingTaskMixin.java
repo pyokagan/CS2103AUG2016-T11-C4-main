@@ -6,11 +6,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 
-@JsonPropertyOrder({"name", "priority"})
+@JsonPropertyOrder({"name", "priority", "finished"})
 public abstract class JsonFloatingTaskMixin {
 
     JsonFloatingTaskMixin(@JsonProperty("name") Name name,
-            @JsonProperty("priority") Priority priority) {
+            @JsonProperty("priority") Priority priority,
+            @JsonProperty("finished") boolean finished) {
     }
 
 }

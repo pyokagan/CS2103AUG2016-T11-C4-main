@@ -3,13 +3,14 @@ package seedu.address.logic.commands;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.Name;
 
-public class EditEventCommand extends Command {
+public class EditEventCommand implements Command {
 
     public static final String COMMAND_WORD = "edit-event";
 
@@ -21,21 +22,17 @@ public class EditEventCommand extends Command {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Event edited: %1$s";
 
     public final int targetIndex;
+    public final Optional<Name> newName;
+    public final Optional<LocalDate> newStartDate;
+    public final Optional<LocalTime> newStartTime;
+    public final Optional<LocalDate> newEndDate;
+    public final Optional<LocalTime> newEndTime;
 
-    public final Name newName;
-
-    public final LocalDate newStartDate;
-
-    public final LocalTime newStartTime;
-
-    public final LocalDate newEndDate;
-
-    public final LocalTime newEndTime;
-
-    public EditEventCommand(int targetIndex, String newName, LocalDate newStartDate, LocalTime newStartTime,
-                            LocalDate newEndDate, LocalTime newEndTime) throws IllegalValueException {
+    public EditEventCommand(int targetIndex, Optional<Name> newName, Optional<LocalDate> newStartDate,
+                            Optional<LocalTime> newStartTime, Optional<LocalDate> newEndDate,
+                            Optional<LocalTime> newEndTime) {
         this.targetIndex = targetIndex;
-        this.newName = newName != null ? new Name(newName) : null;
+        this.newName = newName;
         this.newStartDate = newStartDate;
         this.newStartTime = newStartTime;
         this.newEndDate = newEndDate;
@@ -46,52 +43,50 @@ public class EditEventCommand extends Command {
         return targetIndex;
     }
 
-    public LocalDate getNewStartDate() {
+    public Optional<LocalDate> getNewStartDate() {
         return newStartDate;
     }
 
-    public LocalTime getNewStartTime() {
+    public Optional<LocalTime> getNewStartTime() {
         return newStartTime;
     }
 
-    public LocalDate getNewEndDate() {
+    public Optional<LocalDate> getNewEndDate() {
         return newEndDate;
     }
 
-    public LocalTime getNewEndTime() {
+    public Optional<LocalTime> getNewEndTime() {
         return newEndTime;
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(Model model) throws CommandException {
         EventTask oldEventTask;
         try {
-            oldEventTask = model.getEventTask(targetIndex - 1);
+            oldEventTask = model.getEventTask(targetIndex);
         } catch (IllegalValueException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(e);
         }
 
         EventTask newEventTask;
         try {
             newEventTask = new EventTask(
-                    newName != null ? newName : oldEventTask.name,
+                    newName.orElse(oldEventTask.getName()),
                     LocalDateTime.of(
-                            newStartDate != null ? newStartDate : oldEventTask.getStart().toLocalDate(),
-                            newStartTime != null ? newStartTime : oldEventTask.getStart().toLocalTime()
+                            newStartDate.orElse(oldEventTask.getStart().toLocalDate()),
+                            newStartTime.orElse(oldEventTask.getStart().toLocalTime())
                     ),
                     LocalDateTime.of(
-                            newEndDate != null ? newEndDate : oldEventTask.getEnd().toLocalDate(),
-                            newEndTime != null ? newEndTime : oldEventTask.getEnd().toLocalTime()
+                            newEndDate.orElse(oldEventTask.getEnd().toLocalDate()),
+                            newEndTime.orElse(oldEventTask.getEnd().toLocalTime())
                     )
             );
         } catch (IllegalValueException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(e.getMessage());
+            throw new CommandException(e);
         }
 
         try {
-            model.setEventTask(targetIndex - 1, newEventTask);
+            model.setEventTask(targetIndex, newEventTask);
         } catch (IllegalValueException e) {
             throw new AssertionError("The target event cannot be missing", e);
         }

@@ -1,5 +1,7 @@
 package seedu.address.commons.events.model;
 
+import com.google.common.base.MoreObjects;
+
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyTaskBook;
 
@@ -14,6 +16,10 @@ public class TaskBookChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of persons " + data.getTasks().size();
+        return MoreObjects.toStringHelper(this)
+                .add("floatingTasks", data.getFloatingTasks().size())
+                .add("deadlineTasks", data.getDeadlineTasks().size())
+                .add("eventTasks", data.getEventTasks().size())
+                .toString();
     }
 }
