@@ -74,6 +74,7 @@ public class SubcommandParser implements Parser<Command> {
         return parsers.keySet().stream()
                 .filter(commandWord -> commandWord.startsWith(input))
                 .map(commandWord -> commandWord.substring(input.length()))
+                .sorted()
                 .collect(Collectors.toList());
     }
 
