@@ -5,7 +5,6 @@ import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
 import seedu.address.MainApp;
-import seedu.address.commons.core.EventsCenter;
 
 /**
  * Base class for UI parts.
@@ -24,7 +23,6 @@ public class UiPart<T> {
         } catch (IOException e) {
             throw new RuntimeException("Unexpected exception occurred while loading " + url + ": " + e);
         }
-        EventsCenter.getInstance().registerHandler(this);
     }
 
     public UiPart(String name) {

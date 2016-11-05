@@ -10,7 +10,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.config.Config;
 import seedu.address.model.config.ReadOnlyConfig;
@@ -78,17 +77,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetTaskBook(ReadOnlyTaskBook newData) {
         workingTaskBook.resetData(newData);
         setTaskSelect(Optional.empty());
-        indicateTaskBookChanged();
     }
 
     @Override
     public ReadOnlyTaskBook getTaskBook() {
         return workingTaskBook.getTaskBook();
-    }
-
-    /** Raises an event to indicate the model has changed */
-    private void indicateTaskBookChanged() {
-        raise(new TaskBookChangedEvent(workingTaskBook.getTaskBook()));
     }
 
     //// Task select
@@ -127,7 +120,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized int addFloatingTask(FloatingTask floatingTask) {
         final int workingIndex = workingTaskBook.addFloatingTask(floatingTask);
-        indicateTaskBookChanged();
         setTaskSelect(Optional.of(new TaskSelect(TaskType.FLOAT, workingIndex)));
         return workingIndex;
     }
@@ -140,7 +132,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized FloatingTask removeFloatingTask(int workingIndex) throws IllegalValueException {
         final FloatingTask removedFloating = workingTaskBook.removeFloatingTask(workingIndex);
-        indicateTaskBookChanged();
         if (getTaskSelect().equals(Optional.of(new TaskSelect(TaskType.FLOAT, workingIndex)))) {
             setTaskSelect(Optional.empty());
         }
@@ -156,7 +147,6 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void setFloatingTask(int workingIndex, FloatingTask newFloatingTask)
             throws IllegalValueException {
         workingTaskBook.setFloatingTask(workingIndex, newFloatingTask);
-        indicateTaskBookChanged();
         setTaskSelect(Optional.of(new TaskSelect(TaskType.FLOAT, workingIndex)));
     }
 
@@ -181,7 +171,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized int addDeadlineTask(DeadlineTask deadlineTask) {
         final int workingIndex = workingTaskBook.addDeadlineTask(deadlineTask);
-        indicateTaskBookChanged();
         setTaskSelect(Optional.of(new TaskSelect(TaskType.DEADLINE, workingIndex)));
         return workingIndex;
     }
@@ -194,7 +183,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized DeadlineTask removeDeadlineTask(int workingIndex) throws IllegalValueException {
         final DeadlineTask removedDeadline = workingTaskBook.removeDeadlineTask(workingIndex);
-        indicateTaskBookChanged();
         if (getTaskSelect().equals(Optional.of(new TaskSelect(TaskType.DEADLINE, workingIndex)))) {
             setTaskSelect(Optional.empty());
         }
@@ -210,7 +198,6 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void setDeadlineTask(int workingIndex, DeadlineTask newDeadlineTask)
             throws IllegalValueException {
         workingTaskBook.setDeadlineTask(workingIndex, newDeadlineTask);
-        indicateTaskBookChanged();
         setTaskSelect(Optional.of(new TaskSelect(TaskType.DEADLINE, workingIndex)));
     }
 
@@ -235,7 +222,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized int addEventTask(EventTask eventTask) {
         final int workingIndex = workingTaskBook.addEventTask(eventTask);
-        indicateTaskBookChanged();
         setTaskSelect(Optional.of(new TaskSelect(TaskType.EVENT, workingIndex)));
         return workingIndex;
     }
@@ -248,7 +234,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized EventTask removeEventTask(int workingIndex) throws IllegalValueException {
         final EventTask removedEvent = workingTaskBook.removeEventTask(workingIndex);
-        indicateTaskBookChanged();
         if (getTaskSelect().equals(Optional.of(new TaskSelect(TaskType.EVENT, workingIndex)))) {
             setTaskSelect(Optional.empty());
         }
@@ -264,7 +249,6 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void setEventTask(int workingIndex, EventTask newEventTask)
             throws IllegalValueException {
         workingTaskBook.setEventTask(workingIndex, newEventTask);
-        indicateTaskBookChanged();
         setTaskSelect(Optional.of(new TaskSelect(TaskType.EVENT, workingIndex)));
     }
 
