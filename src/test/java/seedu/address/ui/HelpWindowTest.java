@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
 
 //import org.junit.After;
 //import org.junit.Before;
@@ -11,7 +14,7 @@ import org.junit.experimental.categories.Category;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 
-import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import seedu.address.testutil.GuiTests;
 
 @Category({GuiTests.class})
@@ -19,32 +22,28 @@ public class HelpWindowTest extends FxRobot {
 
     private HelpWindow helpWindow;
 
-    private WebView webView;
-
     @BeforeClass
     public static void setupFxToolkit() throws Exception {
         FxToolkit.registerPrimaryStage();
     }
 
-    /*@Before
+    @Before
     public void setupHelpWindow() throws Exception {
         FxToolkit.registerStage(() -> {
-            return helpWindow = new HelpWindow();
-            //return helpWindow.getRoot();
+            helpWindow = new HelpWindow();
+            return helpWindow.getStage();
         });
         FxToolkit.showStage();
-        webView = lookup("#webView").query();
     }
 
     @After
     public void teardownHelpWindow() throws Exception {
         FxToolkit.cleanupStages();
-    }**/
+    }
 
     @Test
     public void constructor() {
-        assertEquals("https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md",
-                     webView.getEngine().getLocation());
+        assertTrue(helpWindow.getStage() instanceof Stage);
     }
 
 }
