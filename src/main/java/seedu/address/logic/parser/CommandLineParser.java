@@ -347,6 +347,7 @@ public class CommandLineParser {
 
         @Override
         public void parse(CommandLineScanner scanner) throws ParseException {
+            scanner.skipWhitespace();
             range = new SubstringRange(scanner.getInputPosition(), scanner.getInputPosition());
             while (scanner.peekNextArgument().isPresent()) {
                 final Argument<T> argument = new Argument<>(name + "[" + arguments.size() + "]", parser);
