@@ -60,7 +60,7 @@ public class HelpWindow extends UiPart<Stage> {
         stage.setAlwaysOnTop(true);
         helpBox.initModality(Modality.NONE);
         helpBox.setResizable(true);
-        helpBox.getDialogPane().setPrefWidth(700.0);
+        helpBox.getDialogPane().setPrefWidth(800.0);
         helpBox.getDialogPane().setPrefHeight(360.0);
         helpBox.getDialogPane().setStyle("-fx-font-family: 'Courier New';" + "-fx-font-weight: 700;" + "font-style: normal;" + "-fx-background-color: white;" + "-fx-color: black;");
 
