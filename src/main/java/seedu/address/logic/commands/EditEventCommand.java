@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
@@ -12,14 +13,7 @@ import seedu.address.model.task.Name;
 
 public class EditEventCommand implements Command {
 
-    public static final String COMMAND_WORD = "edit-event";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the event identified by the index number used in the filtered event listing.\n"
-            + "Parameters: INDEX [sd-NEW_START_TIME | st-NEW_START_DATE | ed-NEW_END_DATE | et-NEW_END_TIME | n-NEW_NAME]"
-            + "Example: " + COMMAND_WORD + " 1 st-4pm et-8pm";
-
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Event edited: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited event " + IndexPrefix.EVENT.getPrefixString() + "%d.";
 
     public final int targetIndex;
     public final Optional<Name> newName;
@@ -91,7 +85,7 @@ public class EditEventCommand implements Command {
             throw new AssertionError("The target event cannot be missing", e);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, newEventTask));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, targetIndex));
     }
 
 }
