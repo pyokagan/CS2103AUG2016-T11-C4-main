@@ -7,6 +7,8 @@ import static seedu.address.testutil.TestUtil.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -14,14 +16,20 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditDeadlineCommand;
+import seedu.address.model.ModelManager;
+import seedu.address.model.task.TypicalDeadlineTasks;
 
 public class EditDeadlineParserTest {
 
-    private EditDeadlineParser parser;
+    private final TypicalDeadlineTasks tdt = new TypicalDeadlineTasks();
+
+    private final ModelManager model = new ModelManager();
+
+    private EditDeadlineParser parser = new EditDeadlineParser(UNIX_EPOCH);
 
     @Before
     public void setupParser() {
-        parser = new EditDeadlineParser(UNIX_EPOCH);
+        assertEquals(1, model.addDeadlineTask(tdt.assembleTheMissiles));
     }
 
     @Test
@@ -58,6 +66,30 @@ public class EditDeadlineParserTest {
 
     private void assertIncorrect(String args) {
         assertThrows(ParseException.class, () -> parser.parse(args));
+    }
+
+    @Test
+    public void autocompleteName_returnsDeadlineTaskName() {
+        assertEquals(Arrays.asList("Assemble The Missiles"), parser.autocomplete(model, "d1 n- ", 5));
+        assertEquals(Collections.emptyList(), parser.autocomplete(model, "d2 n- ", 5));
+        assertEquals(Collections.emptyList(), parser.autocomplete(model, "d1 n-a", 5));
+        assertEquals(Collections.emptyList(), parser.autocomplete(model, "1 n-", 4));
+    }
+
+    @Test
+    public void autocompleteDueDate_returnsDeadlineDueDate() {
+        assertEquals(Arrays.asList("1/1/1970"), parser.autocomplete(model, "d1 dd- ", 6));
+        assertEquals(Collections.emptyList(), parser.autocomplete(model, "d2 dd- ", 6));
+        assertEquals(Collections.emptyList(), parser.autocomplete(model, "d1 dd-4/5", 6));
+        assertEquals(Collections.emptyList(), parser.autocomplete(model, "1 dd-", 5));
+    }
+
+    @Test
+    public void autocompleteDueTime_returnsDeadlineDueTime() {
+        assertEquals(Arrays.asList("2am"), parser.autocomplete(model, "d1 dt- ", 6));
+        assertEquals(Collections.emptyList(), parser.autocomplete(model, "d2 dt- ", 6));
+        assertEquals(Collections.emptyList(), parser.autocomplete(model, "d1 dt-6am", 6));
+        assertEquals(Collections.emptyList(), parser.autocomplete(model, "1 dt-", 5));
     }
 
 }
