@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.common.base.CharMatcher;
+
 import seedu.address.commons.util.SubstringRange;
 import seedu.address.model.ReadOnlyModel;
 import seedu.address.model.filter.TaskFinishedPredicate;
@@ -37,19 +39,20 @@ public class TaskPredicateParser implements Parser<TaskPredicate> {
         case "unfin":
             return new TaskUnfinishedPredicate(referenceDateTime);
         default:
-            throw new ParseException("unknown predicate: " + str, SubstringRange.of(str));
+            throw new ParseException("unknown predicate: " + str.trim(), SubstringRange.of(str));
         }
     }
 
     @Override
     public List<String> autocomplete(ReadOnlyModel model, String input, int pos) {
-        final String trimInput = input.trim();
-        if (pos != trimInput.length()) {
+        if (!input.trim().isEmpty() && pos != CharMatcher.WHITESPACE.trimTrailingFrom(input).length()) {
             return Collections.emptyList();
         }
+        final String trimInput = input.trim();
         return KEYWORDS.stream()
                         .filter(keyword -> keyword.startsWith(trimInput))
                         .map(keyword -> keyword.substring(trimInput.length()))
+                        .sorted()
                         .collect(Collectors.toList());
     }
 
