@@ -13,11 +13,11 @@ public class FileParser implements Parser<File> {
 
     @Override
     public File parse(String str) throws ParseException {
-        if (str.trim().isEmpty()) {
+        if (str.isEmpty()) {
             throw new ParseException("path cannot be empty", SubstringRange.of(str));
         }
         try {
-            return Paths.get(str.trim()).toFile();
+            return Paths.get(str).toFile();
         } catch (InvalidPathException e) {
             throw new ParseException(e.getMessage(), e, SubstringRange.of(str));
         }
