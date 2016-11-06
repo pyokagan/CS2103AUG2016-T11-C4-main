@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
@@ -12,14 +13,8 @@ import seedu.address.model.task.Name;
 
 public class EditDeadlineCommand implements Command {
 
-    public static final String COMMAND_WORD = "edit-deadline";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the deadline identified by the index number used in the filtered deadline listing.\n"
-            + "Parameters: INDEX [dd-NEW_DUE_DATE] [dt-NEW_DUE_TIME] [n-NEW_NAME]"
-            + "Example: " + COMMAND_WORD + " 1 dd-12/12/2017 dt-8pm";
-
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Deadline edited: %1$s";
+    private static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited deadline task "
+                                                            + IndexPrefix.DEADLINE.getPrefixString() + "%d.";
 
     private final int targetIndex;
     private final Optional<Name> newName;
@@ -61,7 +56,8 @@ public class EditDeadlineCommand implements Command {
                 LocalDateTime.of(
                         newDate.orElse(oldDeadlineTask.getDue().toLocalDate()),
                         newTime.orElse(oldDeadlineTask.getDue().toLocalTime())
-                )
+                ),
+                oldDeadlineTask.isFinished()
         );
 
         try {
@@ -70,7 +66,7 @@ public class EditDeadlineCommand implements Command {
             throw new AssertionError("The target deadline cannot be missing", e);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, newDeadlineTask));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, targetIndex));
     }
 
 }
