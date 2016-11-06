@@ -498,6 +498,8 @@ These first level command parsers include:
 * `RedoCommandParser` (`redo`)
 * `FindCommandParser` (`find`)
 
+A full list of these command parsers can be found in `TaskTrackerParser.java`.
+
 The second level of parsers are usually for overloaded command parsing. For
 example, the `AddTaskCommandParser` internally consists of
 `AddFloatingTaskCommandParser`, `AddDeadlineTaskCommandParser` and
@@ -566,8 +568,9 @@ string which caused the parse to fail.
 
 Parsers can also optionally implement an autocomplete method, to allow the
 parser to complete an input string given a `ReadOnlyModel` and an integer caret
-position. It should then return a list of possible candidates. The default
-implementation returns an empty list (no candidates).
+position. It should then return a list of possible candidates, with are strings
+that could possibly be inserted at the caret's position in the string. The
+default implementation returns an empty list (no candidates).
 
 As such, a simple parser that returns a command could be implemented as follows:
 
@@ -613,7 +616,7 @@ that. They include: the `CommandLineParser`, the `SubcommandParser` and the
 `OverloadParser`. With this utility classes, it is extremely easy to implement
 your own `Parser` with minimal effort.
 
-#### Mixing and matching: the `CommandLineParser` utility class
+#### The `CommandLineParser` utility class
 
 <figure>
 <img src="images/devguide/classdiag-logic-commandlineparser.png">
@@ -707,7 +710,14 @@ System.out.println(nameArg.getValue()); // Learn Task Tracker
 System.out.println(priorityFlag.getValue()); // Optional[4]
 ```
 
+#### The `SubcommandParser` utility class
+
+#### The `OverloadParser` utility class
+
 #### The `Command` interface
+
+Other than parsing, the logic component also executes "commands". Commands are
+mainly pieces of logic that can be executed (the command pattern).
 
 ### UI implementation
 
