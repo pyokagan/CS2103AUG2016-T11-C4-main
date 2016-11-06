@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -18,6 +19,9 @@ public class FloatingTaskListPane extends UiPart<Pane> {
 
     private static final String FXML = "/view/FloatingTaskListPane.fxml";
 
+    private final ObservableList<IndexedItem<FloatingTask>> listedFloatingTasks;
+    private ObservableList<FloatingTask> unfinishedFloatingTasks;
+
     @FXML
     private ListView<IndexedItem<FloatingTask>> floatingTaskListView;
 
@@ -29,11 +33,19 @@ public class FloatingTaskListPane extends UiPart<Pane> {
 
     public FloatingTaskListPane(ReadOnlyModel model) {
         super(FXML);
+
+        // Initialize task lists
+        this.listedFloatingTasks = model.getFloatingTaskList();
+        this.unfinishedFloatingTasks = model.getFloatingTaskList(new TaskUnfinishedPredicate(LocalDateTime.now()));
+
+        // Initialize Floating Task List View
         floatingTaskListView.setItems(model.getFloatingTaskList());
         floatingTaskListView.setCellFactory(listView -> new FloatingTaskListCell());
-        listedFloatingTaskCounter.textProperty().bind(Bindings.size(model.getFloatingTaskList())
-                                                        .asString("The number of floating task listed: %d"));
-        unfinishedFloatingTaskCounter.textProperty().bind(Bindings.size(model.getFloatingTaskList(new TaskUnfinishedPredicate(LocalDateTime.now())))
+
+        // Initialize Task Counter
+        listedFloatingTaskCounter.textProperty().bind(Bindings.size(this.listedFloatingTasks)
+                                                        .asString("Number of Floating Task listed: %d"));
+        unfinishedFloatingTaskCounter.textProperty().bind(Bindings.size(this.unfinishedFloatingTasks)
                                                             .asString("Total unfinished: %d"));
     }
 
