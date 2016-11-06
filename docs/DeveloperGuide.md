@@ -454,6 +454,9 @@ The `Logic` component accomplishes its parsing and execution of user commands in
 5. If the `Model` has been modified as a result of the command, `Logic` will
    then write the updated `Model` back to disk using the `Storage` component.
 
+6. If the `Model` has been modified as a result of the command, `Logic` will
+   call `model.recordState()` to record the state of the model for undo/redo.
+
 Given in Figure 2.5 below is the sequence diagram for interactions within the
 `Logic` component for the `execute("delete 1")` API call.
 
