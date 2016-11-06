@@ -71,15 +71,15 @@ TaskTracker makes time-management smart and simple for you!
     > Note: Having any Java 8 version is not enough.
     > This app will not work with earlier versions of Java 8.
 
-2. Download the latest `TaskTracker.jar` from the 'releases' tab.
+2. Download the latest `TaskTracker.jar` from the 'releases' tab of https://github.com/CS2103AUG2016-T11-C4/main
+ ![alt text](./images/userguide/release.png "release")
+ ![alt text](./images/userguide/download.png "download")
 
 3. Copy the file to the folder you want to use as the home folder for your task database.
 
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
 
-5. Set up: enter your name and verify the current date and time.
-
-6. You're good to go! Try adding your first Task. Press Enter to enter a
+5. You're good to go! Try adding your first Task. Press Enter to enter a
    command. For adding a floating task, try:
 
 	* `add "Learn Task Tracker"`.
@@ -703,19 +703,18 @@ exit
 
 Command | Format
 ------------ | :---------------------------------------------------------------
-Add Floating Task | `add "FLOATING_TASK_NAME" [p-PRIORITY]`
-Add Event |`add “EVENT_NAME” <STARTING_DATE> <STARTING_TIME>  to <ENDING_DATE> <ENDING_TIME>`
-Add Deadline |`add “DEADLINE_NAME” <DATE> <TIME>`
-Delete a task | `del-float|-deadline|-event] <INDEX>`
-Edit Floating Tasks | `edit-float <INDEX> [n-NEW_NAME] [p-PRIORITY]`
-Edit Event |`edit-event <INDEX> [sd-NEW_START_DATE] [st-NEW_START_TIME] [ed-NEW_END_DATE] [et-NEW_END_TIME] [n-NEW_NAME]`
-Edit Deadline |`edit-deadline <INDEX> [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]`
-Generate recommended time slots | `slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>`
-Mark a task as finished | `fin-float|-deadline|-event <INDEX>`
-View a date in calendar | `view [DATE]`
-Search for keywords | `search KEY_WORDS`
-Help | `help`
+Add Floating Task | `add FLOATING_TASK_NAME  [p-PRIORITY]`
+Add Deadline Task | `add DEADLINE_NAME <DATE> <TIME>`
+Add Events | `add EVENT_NAME <STARTING_DATE> <STARTING_TIME> to <ENDING_DATE> <ENDING_TIME>`
+Delete | `del INDEX`
+Edit Floating Tasks | `edit INDEX [n-NEW_NAME] [p-PRIORITY]`
+Edit Deadline | `edit INDEX [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]`
+Mark task as finished | `fin INDEX`
+Mark a task as unfinished | `unfin INDEX`
+Search for keywords | `search KEYWORD`
 Undo | `undo`
 Redo | `redo`
 Clear | `clear`
 Exit | `exit`
+Hide and show Task Tracker | `Ctrl + SPACE`
+setdatadir |`setdatadir FILE_PATH`
