@@ -14,6 +14,7 @@
     	<Label styleClass="headerLabel" fx:id="listedEventCounter" wrapText="true" />
     </HBox>
     <HBox spacing="30" alignment="CENTER_LEFT">
+    	<Label styleClass="label" fx:id="todayUnfinishedEventCounter" wrapText="true" />
     	<Label fx:id="unfinishedEventCounter" wrapText="true" />
    	</HBox>
     <ListView fx:id="eventTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />

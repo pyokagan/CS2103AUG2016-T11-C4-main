@@ -13,6 +13,7 @@ import seedu.address.model.IndexedItem;
 import seedu.address.model.ReadOnlyModel;
 import seedu.address.model.filter.TaskOverduePredicate;
 import seedu.address.model.filter.TaskUnfinishedPredicate;
+import seedu.address.model.filter.TaskWillHappenTodayPredicate;
 import seedu.address.model.task.DeadlineTask;
 
 public class DeadlineTaskListPane extends UiPart<Pane> {
@@ -24,23 +25,25 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
 
     @FXML
     private Label listedDeadlineCounter;
-
     @FXML
-    private Label unfinishedDeadlineCounter;
-
+    private Label todayUnfinishedDeadlineCounter;
     @FXML
     private Label overdueDeadlineCounter;
+    @FXML
+    private Label unfinishedDeadlineCounter;
 
     public DeadlineTaskListPane(ReadOnlyModel model) {
         super(FXML);
         deadlineTaskListView.setItems(model.getDeadlineTaskList());
         deadlineTaskListView.setCellFactory(listView -> new DeadlineTaskListCell());
         listedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList())
-                                                    .asString("Number of Deadlines listed: %d"));
-        unfinishedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskUnfinishedPredicate(LocalDateTime.now())))
-                                                        .asString("Unfinished: %d"));
+                                                  .asString("Number of Deadlines listed: %d"));
+        todayUnfinishedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now())))
+                                                           .asString("Today remaining: %d"));
         overdueDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskOverduePredicate(LocalDateTime.now())))
-                                                        .asString("Overdue: %d"));
+                                                   .asString("Overdue: %d"));
+        unfinishedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskUnfinishedPredicate(LocalDateTime.now())))
+                                                      .asString("Total unfinished: %d"));
     }
 
     /**
