@@ -131,14 +131,9 @@ for:
 [mainapp-src]: ../src/main/java/seedu/address/MainApp.java
 
 **`Commons`** represents a collection of classes used by multiple other
-components. Of these classes, two of them play important roles in the
-application architecture:
-
-* `EventsCentre`: This singleton class is used by components to communicate
-  with other components using events.
-
-* `LogsCenter`: This singleton class is used by classes to write log messages
-  to the application log file.
+components. Of these classes, the `LogsCenter` plays an important role in the
+application architecture. It is a singleton class used by classes to write log
+messages to the application log file.
 
 The rest of the App consists of four components:
 
