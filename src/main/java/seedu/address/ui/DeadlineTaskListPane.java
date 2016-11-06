@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import seedu.address.model.IndexedItem;
 import seedu.address.model.ReadOnlyModel;
+import seedu.address.model.filter.TaskOverduePredicate;
 import seedu.address.model.filter.TaskUnfinishedPredicate;
 import seedu.address.model.task.DeadlineTask;
 
@@ -27,6 +28,9 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
     @FXML
     private Label unfinishedDeadlineCounter;
 
+    @FXML
+    private Label overdueDeadlineCounter;
+
     public DeadlineTaskListPane(ReadOnlyModel model) {
         super(FXML);
         deadlineTaskListView.setItems(model.getDeadlineTaskList());
@@ -35,6 +39,8 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
                                                     .asString("Number of Deadlines listed: %d"));
         unfinishedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskUnfinishedPredicate(LocalDateTime.now())))
                                                         .asString("Unfinished: %d"));
+        overdueDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskOverduePredicate(LocalDateTime.now())))
+                                                        .asString("Overdue: %d"));
     }
 
     /**
