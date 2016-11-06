@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.filter.TaskPredicate;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -14,6 +15,11 @@ public interface ReadOnlyTaskBook {
      * Returns an unmodifiable view of the FloatingTasks list.
      */
     ObservableList<FloatingTask> getFloatingTasks();
+
+    /**
+     * Returns an unmodifiable view of a filtered FloatingTasks list filtered by given predicate.
+     */
+    ObservableList<FloatingTask> getFloatingTasks(TaskPredicate predicate);
 
     /**
      * Returns an unmodifiable view of the DeadlineTasks list.
