@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
 <?import de.jensd.fx.glyphs.fontawesome.*?>
@@ -9,7 +10,10 @@
         <graphic><FontAwesomeIconView glyphName="CALENDAR" /></graphic>
         <text>Events</text>
     </Label>
-    <Label fx:id="listedEventCounter" wrapText="true" />
+    <HBox spacing="30" alignment="CENTER_LEFT">
+    	<Label fx:id="listedEventCounter" wrapText="true" />
+    	<Label fx:id="unfinishedEventCounter" wrapText="true" />
+   	</HBox>
     <ListView fx:id="eventTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>
 

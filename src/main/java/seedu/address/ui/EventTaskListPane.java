@@ -1,15 +1,17 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import seedu.address.model.IndexedItem;
+import seedu.address.model.ReadOnlyModel;
+import seedu.address.model.filter.TaskUnfinishedPredicate;
 import seedu.address.model.task.EventTask;
 
 public class EventTaskListPane extends UiPart<Pane> {
@@ -22,12 +24,17 @@ public class EventTaskListPane extends UiPart<Pane> {
     @FXML
     private Label listedEventCounter;
 
-    public EventTaskListPane(ObservableList<IndexedItem<EventTask>> eventTaskList) {
+    @FXML
+    private Label unfinishedEventCounter;
+
+    public EventTaskListPane(ReadOnlyModel model) {
         super(FXML);
-        eventTaskListView.setItems(eventTaskList);
+        eventTaskListView.setItems(model.getEventTaskList());
         eventTaskListView.setCellFactory(listView -> new EventTaskListCell());
-        listedEventCounter.textProperty().bind(Bindings.size(eventTaskList)
+        listedEventCounter.textProperty().bind(Bindings.size(model.getEventTaskList())
                 .asString("Number of Events listed: %d"));
+        unfinishedEventCounter.textProperty().bind(Bindings.size(model.getEventTaskList(new TaskUnfinishedPredicate(LocalDateTime.now())))
+                                                   .asString("Upcoming: %d"));
     }
 
     /**

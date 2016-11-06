@@ -119,6 +119,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         return FXCollections.unmodifiableObservableList(eventTasks);
     }
 
+    @Override
+    public ObservableList<EventTask> getEventTasks(TaskPredicate predicate) {
+        assert predicate != null;
+        ObservableList<EventTask> result = FXCollections.unmodifiableObservableList(eventTasks);
+        return result.filtered(p -> predicate.test(p));
+    }
+
     public void setEventTasks(Collection<EventTask> eventTasks) {
         this.eventTasks.setAll(eventTasks);
     }
