@@ -150,13 +150,13 @@ public class WorkingTaskBook {
         return workingFloatingTasks.getWorkingItemList();
     }
 
-
-    // Return a filtered floating task list filtered by given predicate
+    /**
+     * Return a filtered floating task list filtered by given predicate
+     */
     public ObservableList<FloatingTask> getFloatingTaskList(TaskPredicate taskPredicate) {
         assert taskPredicate != null;
         return taskBook.getFloatingTasks(taskPredicate);
     }
-
 
     /**
      * Returns the comparator used to sort floating tasks in the floating task working list.
@@ -220,6 +220,14 @@ public class WorkingTaskBook {
 
     public ObservableList<IndexedItem<DeadlineTask>> getDeadlineTaskList() {
         return workingDeadlineTasks.getWorkingItemList();
+    }
+
+    /**
+     * Return a filtered deadline task list filtered by given predicate
+     */
+    public ObservableList<DeadlineTask> getDeadlineTaskList(TaskPredicate taskPredicate) {
+        assert taskPredicate != null;
+        return taskBook.getDeadlineTasks(taskPredicate);
     }
 
     /**

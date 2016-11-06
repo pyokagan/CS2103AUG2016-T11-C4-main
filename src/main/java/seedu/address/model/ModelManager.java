@@ -212,6 +212,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<DeadlineTask> getDeadlineTaskList(TaskPredicate predicate) {
+        return workingTaskBook.getDeadlineTaskList(predicate);
+    }
+
+    @Override
     public Comparator<? super DeadlineTask> getDeadlineTaskComparator() {
         return workingTaskBook.getDeadlineTaskComparator();
     }

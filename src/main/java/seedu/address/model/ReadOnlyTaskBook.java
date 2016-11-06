@@ -17,7 +17,7 @@ public interface ReadOnlyTaskBook {
     ObservableList<FloatingTask> getFloatingTasks();
 
     /**
-     * Returns an unmodifiable view of a filtered FloatingTasks list filtered by given predicate.
+     * Returns an unmodifiable view of a filtered Floating Tasks list filtered by given predicate.
      */
     ObservableList<FloatingTask> getFloatingTasks(TaskPredicate predicate);
 
@@ -25,6 +25,11 @@ public interface ReadOnlyTaskBook {
      * Returns an unmodifiable view of the DeadlineTasks list.
      */
     ObservableList<DeadlineTask> getDeadlineTasks();
+
+    /**
+     * Returns an unmodifiable view of a filtered Deadline Tasks list filtered by given predicate.
+     */
+    ObservableList<DeadlineTask> getDeadlineTasks(TaskPredicate predicate);
 
     /**
      * Returns an unmodifiable view of the EventTasks list.
