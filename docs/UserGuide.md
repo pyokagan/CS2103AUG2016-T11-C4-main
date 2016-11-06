@@ -132,36 +132,30 @@ Your phone bleeps. Wow, an invitation to attend the Avengers meetup organised by
 * Next up, events. An event is a task with a start date, start time, end date
 and end time. The word `to` is used to seperate the start date and time from the end date and time. It is also how you tell Task Tracker that the task is an event. When you don't inform Task Tracker of the end date, Task Tracker will assume that the event ends on the same day which it starts.
 
- You recieved an urgent call from boss! There is a VIP meeting today, 4pm to 6pm.
-   * `add "VIP meeting" 4pm to 6pm`
+You recieved an urgent call from boss! There is a VIP meeting today, 4pm to 6pm.
+   
+    add "VIP meeting" 4pm to 6pm
 
-	As with deadlines, Task tracker will take an unspecified start date to be today.
+* As with deadlines, Task tracker will take an unspecified start date to be today.
+
+* Task Tracker will keep track of Events that has already passed, strike them out for you, and highlight ongoing events green. 
+
+* Events are automatically arranged in order of start date and time, so that you busy human can know which event to zipp to next with a quick glance at the top of the events pane.  
 
     ![alttext](./images/userguide/4.png "")
 
-9. To delete a task, try:
+## Delete Task
+Given the amount of work you have to do, you decide not to go to the Avengers meetup. Let's delete that from Task Tracker.
 
-    ```
-    del-float 2
-    ```
+    
+    del e1
+    
+ ![alttext](./images/userguide/5.png "")
 
-    Delete floating task `bake potatoes`.
+* Can you guess the pattern? Same thing applies for deleting Deadline and Floating Task! It is always `del` followed by the index of the Task, which can be seen situated to the left of the Task. Index for Events, Floating task and Deadline tasks have prefix `e`, `f`, and `d` respectively.  
 
-    ```
-    del-deadline 1
-    ```
-
-    Delete deadline task `bake cookies`.
-
-    ```
-    del-event 4
-    ```
-
-    Delete Event `Trick or treat`.
-
-    ![alttext](./images/userguide/5.png "")
-
-10. To edit a deadline, try:
+##Edit a Deadline
+To edit a deadline, try:
 
 	* `edit-deadline 1 dd-29/12 dt-2pm`
 
@@ -173,7 +167,9 @@ and end time. The word `to` is used to seperate the start date and time from the
 
     ![alttext](./images/userguide/6.png "")
 
-11. To edit an event, try:
+
+##Edit an Event
+To edit an event, try:
 
 	* `edit-event 2 loc-NUS`
 
@@ -192,7 +188,9 @@ and end time. The word `to` is used to seperate the start date and time from the
 
         ![alttext](./images/userguide/8.png "")
 
-12. To edit a floating task, try:
+
+## Edit a Floating Task
+To edit a floating task, try:
 
 	* `edit-float 1 p-1`
 
