@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import java.util.Optional;
 
+import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
@@ -10,14 +11,8 @@ import seedu.address.model.task.Priority;
 
 public class EditFloatingTaskCommand implements Command {
 
-    public static final String COMMAND_WORD = "edit-float";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the floating task identified by the index number used in the filtered floating task listing.\n"
-            + "Parameters: INDEX [n-NAME] [p-PRIORITY]"
-            + "Example: " + COMMAND_WORD + " 1 p-2";
-
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Floting task edited: %1$s";
+    private static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited floating task "
+                                                           + IndexPrefix.FLOAT.getPrefixString() + "%d.";
 
     private final int targetIndex;
     private final Optional<Name> newName;
@@ -54,7 +49,8 @@ public class EditFloatingTaskCommand implements Command {
 
         newFloatingTask = new FloatingTask(
                 newName.orElse(oldFloatingTask.getName()),
-                newPriority.orElse(oldFloatingTask.getPriority())
+                newPriority.orElse(oldFloatingTask.getPriority()),
+                oldFloatingTask.isFinished()
         );
 
         try {
@@ -63,7 +59,7 @@ public class EditFloatingTaskCommand implements Command {
             throw new AssertionError("The target floating task cannot be missing", e);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, newFloatingTask));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, targetIndex));
     }
 
 }
