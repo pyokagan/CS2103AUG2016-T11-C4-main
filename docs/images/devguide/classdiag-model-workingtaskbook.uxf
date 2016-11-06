@@ -4,7 +4,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>864</x>
+      <x>855</x>
       <y>450</y>
       <w>189</w>
       <h>72</h>
@@ -20,7 +20,7 @@ IndexedItem
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>126</x>
+      <x>117</x>
       <y>261</y>
       <w>423</w>
       <h>477</h>
@@ -64,7 +64,7 @@ IndexedItem
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>918</x>
+      <x>909</x>
       <y>315</y>
       <w>153</w>
       <h>108</h>
@@ -82,7 +82,7 @@ IndexedItem
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
+      <x>612</x>
       <y>315</y>
       <w>189</w>
       <h>27</h>
@@ -93,7 +93,7 @@ IndexedItem
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
+      <x>612</x>
       <y>351</y>
       <w>189</w>
       <h>27</h>
@@ -104,7 +104,7 @@ IndexedItem
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
+      <x>612</x>
       <y>387</y>
       <w>189</w>
       <h>27</h>
@@ -115,7 +115,7 @@ IndexedItem
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1035</x>
+      <x>1026</x>
       <y>297</y>
       <w>72</w>
       <h>27</h>
@@ -131,43 +131,43 @@ bg=white
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
+      <x>531</x>
       <y>297</y>
       <w>99</w>
       <h>45</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-m2=0..n</panel_attributes>
+m2=*</panel_attributes>
     <additional_attributes>10.0;10.0;90.0;30.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
+      <x>531</x>
       <y>315</y>
       <w>99</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-m2=0..n</panel_attributes>
+m2=*</panel_attributes>
     <additional_attributes>10.0;10.0;90.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
+      <x>531</x>
       <y>333</y>
       <w>99</w>
       <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-m2=0..n</panel_attributes>
+m2=*</panel_attributes>
     <additional_attributes>10.0;10.0;90.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
+      <x>612</x>
       <y>279</y>
       <w>90</w>
       <h>27</h>
@@ -178,7 +178,7 @@ m2=0..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
+      <x>531</x>
       <y>279</y>
       <w>99</w>
       <h>27</h>
@@ -189,7 +189,7 @@ m2=0..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1044</x>
+      <x>1035</x>
       <y>324</y>
       <w>63</w>
       <h>162</h>
@@ -200,7 +200,7 @@ m2=0..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>999</x>
+      <x>990</x>
       <y>432</y>
       <w>72</w>
       <h>27</h>
@@ -216,7 +216,7 @@ bg=white
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
+      <x>612</x>
       <y>423</y>
       <w>216</w>
       <h>108</h>
@@ -234,7 +234,7 @@ TaskPredicate
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
+      <x>531</x>
       <y>342</y>
       <w>108</w>
       <h>117</h>
@@ -246,7 +246,7 @@ m2=0..1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>801</x>
+      <x>792</x>
       <y>306</y>
       <w>135</w>
       <h>45</h>
@@ -259,7 +259,7 @@ E -&gt; FloatingTask</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>801</x>
+      <x>792</x>
       <y>342</y>
       <w>135</w>
       <h>45</h>
@@ -272,7 +272,7 @@ E -&gt; DeadlineTask</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>801</x>
+      <x>792</x>
       <y>378</y>
       <w>135</w>
       <h>45</h>
@@ -285,7 +285,7 @@ E -&gt; EventTask</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
+      <x>612</x>
       <y>540</y>
       <w>189</w>
       <h>36</h>
@@ -297,7 +297,7 @@ Comparator&lt;FloatingTask&gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
+      <x>612</x>
       <y>585</y>
       <w>189</w>
       <h>36</h>
@@ -309,7 +309,7 @@ Comparator&lt;DeadlineTask&gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
+      <x>612</x>
       <y>630</y>
       <w>189</w>
       <h>36</h>
@@ -321,7 +321,7 @@ Comparator&lt;EventTask&gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
+      <x>531</x>
       <y>351</y>
       <w>99</w>
       <h>234</h>
@@ -333,7 +333,7 @@ m2=0..1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
+      <x>531</x>
       <y>351</y>
       <w>99</w>
       <h>279</h>
@@ -345,7 +345,7 @@ m2=0..1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
+      <x>531</x>
       <y>351</y>
       <w>99</w>
       <h>315</h>
