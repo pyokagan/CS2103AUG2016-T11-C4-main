@@ -482,6 +482,22 @@ The first level of parsers are for parsing the subcommands. For example,
 `AddTaskParser` will handle the `add` command, `ListCommandParser` will handle
 the `list` command, etc.
 
+These first level command parsers include:
+
+* `AddTaskParser` (`add`)
+* `EditCommandParser` (`edit`)
+* `DeleteCommandParser` (`del`)
+* `MarkFinishedCommandParser` (`fin`)
+* `MarkTaskUnfinishedCommandParser` (`unfin`)
+* `ClearCommandParser` (`clear`)
+* `ExitCommandParser` (`exit`)
+* `HelpCommandParser` (`help`)
+* `SetDataDirectoryParser` (`setdatadir`)
+* `ListCommandParser` (`list`)
+* `UndoCommandParser` (`undo`)
+* `RedoCommandParser` (`redo`)
+* `FindCommandParser` (`find`)
+
 The second level of parsers are usually for overloaded command parsing. For
 example, the `AddTaskCommandParser` internally consists of
 `AddFloatingTaskCommandParser`, `AddDeadlineTaskCommandParser` and
@@ -491,18 +507,38 @@ floating tasks, deadline tasks and event tasks respectively. Some commands,
 such as the `list` command, do not have any variations in their command format
 and thus bypass the second level.
 
-The third (and lower) levels of parsers are for parsers that parse the
+These second level command parsers include:
+
+* `AddEventParser` (Add an event)
+* `AddDeadlineParser` (Add a deadline)
+* `AddFloatingTaskParser` (Add a floating task)
+* `EditEventParser` (Edit an event)
+* `EditDeadlineParser` (Edit a deadline)
+* `EditFloatingTaskParser` (Edit a floating task)
+* `DeleteEventParser` (Delete an event)
+* `DeleteDeadlineParser` (Delete a deadline)
+* `DeleteFloatingTaskParser` (Delete a floating task)
+* `MarkDeadlineFinishedParser` (Mark a deadline as finished)
+* `MarkFloatingTaskFinishedParser` (Mark a floating task as finished)
+* `MarkDeadlineUnfinishedCommandParser` (Mark a deadline task as unfinished)
+* `MarkFloatingTaskUnfinishedCommandParser` (Mark a floating task as unfinished)
+
+The third level of parsers are for parsers that parse the
 individual arguments and flags. For instance, `IndexParser` implements the
 parsing of test indexes (e.g. `e1`, `d1`, `f1` etc.) As such, it is logical
 that `EditFloatingTaskParser`, `EditDeadlineParser`, `DeleteFloatingTaskParser`
 etc. depends on them as the `edit` and `del` command formats include task
 indexes to tell the command which task to edit or delete.
 
-Likewise, the `TaskPredicateParser` parses task predicate names (e.g. `fin`,
-`unfin`, etc.) and returns their associated `TaskPredicates`
-(`TaskFinishedPredicate`, `TaskUnfinishedPredicate`). It should thus be
-expected that `ListCommandParser` depends on it, as the `list` command takes a
-task predicate name to set the task filter as.
+These third level parsers include:
+
+* `DateParser` (parses a date and returns a `LocalDate`)
+* `TimeParser` (parses a time and returns a `LocalTime`)
+* `FileParser` (parses a file path and returns a `File`)
+* `NameParser` (parses a task name and returns a `Name`)
+* `PriorityParser` (parses a task priority and returns a `Priority`)
+* `TaskPredicateParser` (parses a task predicate name and returns a `TaskPredicate`)
+* `IndexParser` (parses a task index and returns an `Integer`)
 
 The application of the Single Responsibility Principle in the parsing component
 brings several benefits. Firstly, it is extremely easy to unit test each
@@ -670,6 +706,8 @@ And then the values of the argument and flag will be available in `nameArg` and
 System.out.println(nameArg.getValue()); // Learn Task Tracker
 System.out.println(priorityFlag.getValue()); // Optional[4]
 ```
+
+#### The `Command` interface
 
 ### UI implementation
 
