@@ -31,9 +31,9 @@ public class StatusBarFooter extends UiPart<Pane> {
     }
 
     private void connectTaskCounter(ReadOnlyModel model) {
-        ObservableValue<String> totalTasks = Bindings.size(model.getFloatingTaskList())
-                                                .add(Bindings.size(model.getDeadlineTaskList()))
-                                                .add(Bindings.size(model.getEventTaskList()))
+        ObservableValue<String> totalTasks = Bindings.size(model.getTaskBook().getFloatingTasks())
+                                                .add(Bindings.size(model.getTaskBook().getDeadlineTasks()))
+                                                .add(Bindings.size(model.getTaskBook().getEventTasks()))
                                                 .asString("Total number of tasks in Task Tracker: %d");
         taskCounter.textProperty().bind(totalTasks);
     }
