@@ -14,8 +14,9 @@
    	 	<Label styleClass="headerLabel" fx:id="listedDeadlineCounter" wrapText="true" />
     </HBox>
     <HBox spacing="30" alignment="CENTER_LEFT">
-   	 	<Label fx:id="unfinishedDeadlineCounter" wrapText="true" />
+  		<Label fx:id="todayUnfinishedDeadlineCounter" wrapText="true" />
    	 	<Label fx:id="overdueDeadlineCounter" wrapText="true" />
+   	 	<Label fx:id="unfinishedDeadlineCounter" wrapText="true" />
     </HBox>
     <ListView fx:id="deadlineTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>

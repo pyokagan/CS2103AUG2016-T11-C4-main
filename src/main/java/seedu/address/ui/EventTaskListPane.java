@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import seedu.address.model.IndexedItem;
 import seedu.address.model.ReadOnlyModel;
 import seedu.address.model.filter.TaskUnfinishedPredicate;
+import seedu.address.model.filter.TaskWillHappenTodayPredicate;
 import seedu.address.model.task.EventTask;
 
 public class EventTaskListPane extends UiPart<Pane> {
@@ -25,6 +26,9 @@ public class EventTaskListPane extends UiPart<Pane> {
     private Label listedEventCounter;
 
     @FXML
+    private Label todayUnfinishedEventCounter;
+
+    @FXML
     private Label unfinishedEventCounter;
 
     public EventTaskListPane(ReadOnlyModel model) {
@@ -32,9 +36,11 @@ public class EventTaskListPane extends UiPart<Pane> {
         eventTaskListView.setItems(model.getEventTaskList());
         eventTaskListView.setCellFactory(listView -> new EventTaskListCell());
         listedEventCounter.textProperty().bind(Bindings.size(model.getEventTaskList())
-                .asString("Number of Events listed: %d"));
+                                               .asString("Number of Events listed: %d"));
         unfinishedEventCounter.textProperty().bind(Bindings.size(model.getEventTaskList(new TaskUnfinishedPredicate(LocalDateTime.now())))
-                                                   .asString("Upcoming: %d"));
+                                                   .asString("Total upcoming: %d"));
+        todayUnfinishedEventCounter.textProperty().bind(Bindings.size(model.getEventTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now())))
+                                                        .asString("Today upcoming: %d"));
     }
 
     /**
