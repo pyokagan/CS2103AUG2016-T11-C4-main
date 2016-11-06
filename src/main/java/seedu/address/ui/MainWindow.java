@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Optional;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -13,6 +15,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
 import seedu.address.logic.commands.HelpCommandResult;
 import seedu.address.model.config.Config;
+import seedu.address.model.task.TaskSelect;
 import seedu.address.model.task.TaskType;
 
 /**
@@ -143,11 +146,9 @@ public class MainWindow extends UiPart<Scene> {
      * Update task selection in UI.
      */
     private void updateTaskSelection() {
-        if (!logic.getModel().getTaskSelect().isPresent()) {
-            return;
-        }
-        final TaskType taskType = logic.getModel().getTaskSelect().get().getTaskType();
-        final int workingIndex = logic.getModel().getTaskSelect().get().getWorkingIndex();
+        final Optional<TaskSelect> taskSelect = logic.getModel().getTaskSelect();
+        final TaskType taskType = taskSelect.map(x -> x.getTaskType()).orElse(null);
+        final int workingIndex = taskSelect.map(x -> x.getWorkingIndex()).orElse(0);
 
         // Floating task list pane
         if (taskType == TaskType.FLOAT) {
