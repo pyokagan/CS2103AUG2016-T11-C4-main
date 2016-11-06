@@ -284,6 +284,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<EventTask> getEventTaskList(TaskPredicate predicate) {
+        return workingTaskBook.getEventTaskList(predicate);
+    }
+
+    @Override
     public Comparator<? super EventTask> getEventTaskComparator() {
         return workingTaskBook.getEventTaskComparator();
     }

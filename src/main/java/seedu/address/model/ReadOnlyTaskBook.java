@@ -36,4 +36,9 @@ public interface ReadOnlyTaskBook {
      */
     ObservableList<EventTask> getEventTasks();
 
+    /**
+     * Returns an unmodifiable view of a filtered Event Tasks list filtered by given predicate.
+     */
+    ObservableList<EventTask> getEventTasks(TaskPredicate predicate);
+
 }

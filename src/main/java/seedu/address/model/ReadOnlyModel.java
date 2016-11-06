@@ -81,7 +81,7 @@ public interface ReadOnlyModel {
     ObservableList<IndexedItem<EventTask>> getEventTaskList();
 
     /** Return a filtered Event task list filter by given task predicate. */
-    //ObservableList<EventTask> getEventTaskList(TaskPredicate taskFilter);
+    ObservableList<EventTask> getEventTaskList(TaskPredicate taskFilter);
 
     /** Returns the comparator used to sort the event task list. */
     Comparator<? super EventTask> getEventTaskComparator();

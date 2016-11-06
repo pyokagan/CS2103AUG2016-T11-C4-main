@@ -295,6 +295,14 @@ public class WorkingTaskBook {
     }
 
     /**
+     * Return a filtered event task list filtered by given predicate
+     */
+    public ObservableList<EventTask> getEventTaskList(TaskPredicate taskPredicate) {
+        assert taskPredicate != null;
+        return taskBook.getEventTasks(taskPredicate);
+    }
+
+    /**
      * Returns the comparator used to stort event tasks in the event task working list.
      */
     public Comparator<? super EventTask> getEventTaskComparator() {
