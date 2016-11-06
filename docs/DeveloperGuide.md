@@ -716,6 +716,11 @@ System.out.println(priorityFlag.getValue()); // Optional[4]
 
 #### The `Command` interface
 
+<figure>
+<img src="images/devguide/classdiag-logic-commandinterface.png">
+<figcaption><div align="center">Figure 2.X: The command interface</div></figcaption>
+</figure>
+
 Other than parsing, the logic component also executes "commands". Commands are
 mainly pieces of logic that can be executed (the command pattern).
 
