@@ -14,8 +14,9 @@ import seedu.address.model.task.Task;
  * <li> Floating tasks all happens today if {@link FloatingTask#isFinished()} returns false.
  * <li> Deadline tasks happens today when {@link DeadlineTask#getDue()} is in reference date
  *      and when {@link DeadlineTask#isFinished()} returns false.
- * <li> Event tasks happens today when their end time is before the end time of the reference date
- *      and after the reference datetime.
+ * <li> Event tasks happens today when their start/end time is before the end time of the reference date
+ *      and after the reference datetime or the start time is before the reference datetime and the end
+ *      time is after the reference datetime.
  * </ul>
  */
 public class TaskWillHappenTodayPredicate implements TaskPredicate {
@@ -45,7 +46,11 @@ public class TaskWillHappenTodayPredicate implements TaskPredicate {
     @Override
     public boolean test(EventTask eventTask) {
         return eventTask.getEnd().isAfter(referenceDateTime)
-               && eventTask.getEnd().isBefore(tomorrow.atStartOfDay());
+                  && eventTask.getEnd().isBefore(tomorrow.atStartOfDay())
+               || eventTask.getStart().isAfter(referenceDateTime)
+                  && eventTask.getStart().isBefore(tomorrow.atStartOfDay())
+               || eventTask.getEnd().isAfter(referenceDateTime)
+                  && eventTask.getStart().isBefore(referenceDateTime);
     }
 
     @Override
