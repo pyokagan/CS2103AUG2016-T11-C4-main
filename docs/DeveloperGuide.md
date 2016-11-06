@@ -276,6 +276,82 @@ components can only access its data via the `ReadOnlyTaskBook` or `Model` interf
 The `ReadOnlyTaskBook` interface provides a read-only view to a `TaskBook`
 object.
 
+#### Task item indexing, sorting and filtering (`IndexedItem`, `WorkingTaskBook`)
+
+The `TaskBook` class only stores the raw task data. However, the application
+user cases dictates the following additional requirements on top:
+
+1. We must be able to filter the lists of tasks, to view a subset of each list.
+   However, this filtering must not affect the actual `TaskBook` itself.
+
+2. We must be able to specify a sort ordering on the lists of
+   floating/deadline/event tasks. This sorting must be automatic -- if the
+   field's of a task changes, it's position in the sorted list should change as
+   required as well.
+
+3. We must be able to attach a unique index number to any task. This index
+   number should be stick to the task, no matter if its fields changes or its
+   position in the sorted list changes. Furthermore, this index number must be
+   separate from the `TaskBook` -- For instance even if a task is in position
+   `100` in the underlying `TaskBook` list, it should still be possible to
+   refer to it as index `1` via a combination of filters and/or sort
+   comparators.
+
+These requirements are implemented using the following architecture:
+
+Firstly, we have the `IndexedItem<T>` interface, which represents an item of
+type `T` which has an index, which we call a "working index", attached to it.
+
+```java
+public interface IndexedItem<E> {
+    /**
+     * Returns the item's working index. This index will remain the same as long
+     * as the list is not repopulated.
+     */
+    int getWorkingIndex();
+
+    /** Returns the item value. */
+    E getItem();
+}
+```
+
+Secondly, we have a `TaskPredicate`, which represents a predicate which can be
+used to filter `FloatingTasks`, `DeadlineTasks` and `EventTasks`.
+
+```java
+public interface TaskPredicate {
+
+    /**
+     * Evaluates the predicate on the given {@link FloatingTask}.
+     * @returns true if the input floating task matches the predicate,
+     * otherwise false.
+     */
+    boolean test(FloatingTask floatingTask);
+
+    /**
+     * Evaluates the predicate on the given {@link DeadlineTask}
+     * @returns true if the input deadline task matches the predicate,
+     * otherwise false.
+     */
+    boolean test(DeadlineTask deadlineTask);
+
+    /**
+     * Evaluates the predicate on the given {@link EventTask}
+     * @returns true if the input event task matches the predicate, otherwise
+     * false.
+     */
+    boolean test(EventTask eventTask);
+
+    /**
+     * Returns a human-readable explanation of the predicate. This explanation
+     * must read correctly when
+     * used as follows: "Filtering by: XX", where "XX" is the return value of this method.
+     */
+    String toHumanReadableString();
+
+}
+```
+
 #### The `Config` class
 
 The `Config` class stores various configuration settings. It is an internal
