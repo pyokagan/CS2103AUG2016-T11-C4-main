@@ -40,6 +40,13 @@ public class SubstringRange implements Comparable<SubstringRange> {
         return new SubstringRange(start + x, end + x);
     }
 
+    /**
+     * Returns true if x is within this substring range from start (inclusive) to end (inclusive).
+     */
+    public boolean contains(int x) {
+        return x >= start && x <= end;
+    }
+
     @Override
     public int compareTo(SubstringRange other) {
         return ComparisonChain.start()

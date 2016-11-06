@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import seedu.address.model.ReadOnlyModel;
 
 /**
  * A parser that tries to parse the input string with multiple parsers, and returns the first successful
@@ -9,7 +12,7 @@ import java.util.List;
  */
 public class OverloadParser<T> implements Parser<T> {
 
-    private final List<Candidate<? extends T>> candidates = new ArrayList<>();
+    private final List<Candidate<T>> candidates = new ArrayList<>();
 
     public OverloadParser<T> addParser(String name, Parser<? extends T> parser) {
         candidates.add(new Candidate<T>(name, parser));
@@ -21,7 +24,7 @@ public class OverloadParser<T> implements Parser<T> {
         List<CandidateException> candidateExceptions = new ArrayList<>();
 
         // Try all parsers, while collecting their exceptions
-        for (Candidate<? extends T> candidate : candidates) {
+        for (Candidate<T> candidate : candidates) {
             try {
                 return candidate.parser.parse(str);
             } catch (ParseException e) {
@@ -30,6 +33,15 @@ public class OverloadParser<T> implements Parser<T> {
         }
 
         throw makeParseException(candidateExceptions);
+    }
+
+    @Override
+    public List<String> autocomplete(ReadOnlyModel model, String input, int pos) {
+        // Try all parsers, collecting their autocompletions
+        return candidates.stream()
+                        .map(candidate -> candidate.parser.autocomplete(model, input, pos))
+                        .flatMap(x -> x.stream())
+                        .collect(Collectors.toList());
     }
 
     private ParseException makeParseException(List<CandidateException> candidateExceptions) {

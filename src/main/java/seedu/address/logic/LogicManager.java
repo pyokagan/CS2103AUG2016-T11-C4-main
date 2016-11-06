@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.ComponentManager;
@@ -75,6 +76,11 @@ public class LogicManager extends ComponentManager implements Logic {
             logger.info("Task book file path changed, moving task book");
             storage.moveTaskBook(newConfig.getTaskBookFilePath());
         }
+    }
+
+    @Override
+    public List<String> autocomplete(String input, int pos) {
+        return parser.autocomplete(model, input, pos);
     }
 
     @Override

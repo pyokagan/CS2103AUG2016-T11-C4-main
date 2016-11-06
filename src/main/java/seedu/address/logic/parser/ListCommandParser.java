@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.CommandLineParser.RestArgument;
+import seedu.address.model.ReadOnlyModel;
 import seedu.address.model.filter.TaskPredicate;
 
 /**
@@ -35,6 +37,11 @@ public class ListCommandParser implements Parser<ListCommand> {
         cmdParser.parse(str);
 
         return new ListCommand(taskPredicateArg.getValue());
+    }
+
+    @Override
+    public List<String> autocomplete(ReadOnlyModel model, String input, int pos) {
+        return cmdParser.autocomplete(model, input, pos);
     }
 
 }

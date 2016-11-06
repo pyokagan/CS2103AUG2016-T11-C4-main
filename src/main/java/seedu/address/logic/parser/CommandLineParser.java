@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.SubstringRange;
+import seedu.address.model.ReadOnlyModel;
 
 /**
  * A utility class that uses a {@link CommandLineScanner} to parse a string, breaking it down into its
@@ -53,9 +55,7 @@ public class CommandLineParser {
         return flags.values().stream().map(flag -> flag.getPrefix()).collect(Collectors.toList());
     }
 
-    public void parse(String str) throws ParseException {
-        CommandLineScanner scanner = new CommandLineScanner(str, getPrefixesForFlags());
-
+    private void reset() {
         // Reset all argument parsers
         for (ArgumentParser argument : arguments) {
             argument.reset();
@@ -65,6 +65,12 @@ public class CommandLineParser {
         for (FlagParser flag : flags.values()) {
             flag.reset();
         }
+    }
+
+    public void parse(String str) throws ParseException {
+        reset();
+
+        final CommandLineScanner scanner = new CommandLineScanner(str, getPrefixesForFlags());
 
         // Parse arguments
         for (ArgumentParser argument : arguments) {
@@ -96,6 +102,37 @@ public class CommandLineParser {
         }
     }
 
+    public List<String> autocomplete(ReadOnlyModel model, String str, int pos) {
+        reset();
+
+        final CommandLineScanner scanner = new CommandLineScanner(str, getPrefixesForFlags());
+
+        // Autocomplete arguments
+        for (ArgumentParser argument : arguments) {
+            final List<String> candidates = argument.autocomplete(model, scanner, pos);
+            if (scanner.getInputPosition() >= pos) {
+                return candidates;
+            }
+        }
+
+        // Autocomplete flags
+        try {
+            Optional<CommandLineScanner.Flag> scannerFlag;
+            while ((scannerFlag = scanner.nextFlag()).isPresent()) {
+                final FlagParser flag = flags.get(scannerFlag.get().prefix);
+                final List<String> candidates = flag.autocomplete(model, scannerFlag.get(), pos);
+                if (scanner.getInputPosition() >= pos) {
+                    return candidates;
+                }
+            }
+        } catch (ParseException e) {
+            // The CommandLineScanner found an unrecognized flag prefix and so can't continue any more.
+            return Collections.emptyList();
+        }
+
+        return Collections.emptyList();
+    }
+
     public interface ArgumentParser {
         /** Name of the argument. */
         String getName();
@@ -103,8 +140,20 @@ public class CommandLineParser {
         /** Resets the parser */
         default void reset() {}
 
-        /** Scans and parses in input from the provided {@link CommandLineScanner}. */
+        /**
+         * Scans and parses in input from the provided {@link CommandLineScanner}.
+         * @throws ParseException of there was an error parsing the input. The input position of the
+         * CommandLineScanner must NOT be modified in this case.
+         */
         void parse(CommandLineScanner scanner) throws ParseException;
+
+        /**
+         * Autocompletes the input from the provided {@link CommandLineScanner}, with the "caret position"
+         * at <code>pos</code>.
+         * @return the list of autocomplete suggestions if pos is within the range of the input handled by
+         * this argument.
+         */
+        List<String> autocomplete(ReadOnlyModel model, CommandLineScanner scanner, int pos);
     }
 
     /**
@@ -192,6 +241,45 @@ public class CommandLineParser {
             parse(arg.get());
             scanner.nextArgument();
         }
+
+        /**
+         * Autocompletes the input from the provided {@link CommandLineScanner.Argument}, with the
+         * "caret position" at <code>pos</code>.
+         */
+        public List<String> autocomplete(ReadOnlyModel model, CommandLineScanner.Argument arg, int pos) {
+            if (arg.quoted) {
+                // TODO: we don't support quoted arguments yet because autocompleting them will be tricky
+                // (e.g. need to requote the arguments)
+                return Collections.emptyList();
+            } else if (arg.range.contains(pos)) {
+                return parser.autocomplete(model, arg.value, pos - arg.range.getStart());
+            } else if (pos > arg.range.getEnd()) {
+                // Attempt to parse this argument, in case other arguments/flags need this argument as
+                // context for autocompletion
+                try {
+                    parse(arg);
+                } catch (ParseException e) {
+                    // This is okay as the validity of this argument may not be required for a successful
+                    // autocomplete.
+                }
+            }
+            return Collections.emptyList();
+        }
+
+        @Override
+        public List<String> autocomplete(ReadOnlyModel model, CommandLineScanner scanner, int pos) {
+            Optional<CommandLineScanner.Argument> arg = scanner.nextArgument();
+            if (!arg.isPresent() && pos <= scanner.getInputPosition()) {
+                // Caret position is within the blank space between the arguments and the flags sections
+                return parser.autocomplete(model, "", 0);
+            } else if (arg.isPresent()) {
+                // Caret position is within the argument
+                return autocomplete(model, arg.get(), pos);
+            } else {
+                // Caret is within the "flags" section
+                return Collections.emptyList();
+            }
+        }
     }
 
     /**
@@ -204,7 +292,14 @@ public class CommandLineParser {
 
         @Override
         public void parse(CommandLineScanner scanner) throws ParseException {
-            parse(scanner.nextRestArgument());
+            final CommandLineScanner.Argument restArgument = scanner.peekNextRestArgument();
+            parse(restArgument);
+            scanner.nextRestArgument();
+        }
+
+        @Override
+        public List<String> autocomplete(ReadOnlyModel model, CommandLineScanner scanner, int pos) {
+            return autocomplete(model, scanner.nextRestArgument(), pos);
         }
     }
 
@@ -252,7 +347,8 @@ public class CommandLineParser {
 
         @Override
         public void parse(CommandLineScanner scanner) throws ParseException {
-            range = new SubstringRange(scanner.getInputPosition(), scanner.getInput().length());
+            scanner.skipWhitespace();
+            range = new SubstringRange(scanner.getInputPosition(), scanner.getInputPosition());
             while (scanner.peekNextArgument().isPresent()) {
                 final Argument<T> argument = new Argument<>(name + "[" + arguments.size() + "]", parser);
                 argument.parse(scanner);
@@ -260,6 +356,19 @@ public class CommandLineParser {
                 range = new SubstringRange(range.getStart(), scanner.getInputPosition());
             }
         }
+
+        @Override
+        public List<String> autocomplete(ReadOnlyModel model, CommandLineScanner scanner, int pos) {
+            while (scanner.nextArgument().isPresent()) {
+                final Argument<T> argument = new Argument<>(name + "[" + arguments.size() + "]", parser);
+                final List<String> candidates = argument.autocomplete(model, scanner, pos);
+                if (scanner.getInputPosition() >= pos) {
+                    return candidates;
+                }
+            }
+            return Collections.emptyList();
+        }
+
     }
 
     public interface FlagParser {
@@ -280,6 +389,12 @@ public class CommandLineParser {
 
         /** Parses the {@link CommandLineScanner.Flag} */
         void parseFlag(CommandLineScanner.Flag flag) throws ParseException;
+
+        /**
+         * Autocompletes the {@link CommandLineScanner.Flag}, with the "caret position" at <code>pos</code>.
+         * <code>pos</code> is guaranteed to be within the range of the flag.
+         */
+        List<String> autocomplete(ReadOnlyModel model, CommandLineScanner.Flag flag, int pos);
     }
 
     private abstract static class BaseFlag<T> implements FlagParser {
@@ -332,16 +447,28 @@ public class CommandLineParser {
             try {
                 value = parser.parse(flag.value);
             } catch (ParseException e) {
+                final ParseExceptionBuilder builder = new ParseExceptionBuilder(e);
+                builder.prependMessage(getName() + ": ");
                 if (flag.quoted) {
-                    throw new ParseException(e.getMessage(), e, flag.range);
+                    builder.clearRanges().addRange(flag.range);
                 } else {
-                    throw e.indentRanges(flag.range.getStart());
+                    builder.indentRanges(flag.range.getStart());
                 }
+                throw builder.build();
             }
             present = true;
             range = flag.range;
         }
 
+        @Override
+        public List<String> autocomplete(ReadOnlyModel model, CommandLineScanner.Flag flag, int pos) {
+            if (flag.quoted) {
+                // TODO: we don't support quoted arguments yet because autocompleting them will be tricky
+                // (e.g. need to requote the arguments)
+                return Collections.emptyList();
+            }
+            return parser.autocomplete(model, flag.value, pos - flag.range.getStart());
+        }
     }
 
     public static class Flag<T> extends BaseFlag<T> {

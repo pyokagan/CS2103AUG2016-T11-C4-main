@@ -1,11 +1,15 @@
 package seedu.address.logic.parser;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.SubstringRange;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.ReadOnlyModel;
 
 /**
  * A parser that implements subcommands (selection of parser based on first word of input)
@@ -43,6 +47,35 @@ public class SubcommandParser implements Parser<Command> {
                         .indentRanges(scanner.getInputPosition())
                         .build();
         }
+    }
+
+    @Override
+    public List<String> autocomplete(ReadOnlyModel model, String input, int pos) {
+        final CommandLineScanner scanner = new CommandLineScanner(input);
+        Optional<CommandLineScanner.Argument> subcommandArg = scanner.nextArgument();
+        if (!subcommandArg.isPresent()) {
+            return autocompleteCommand(model, "");
+        } else if (pos - scanner.getInputPosition() <= 0) {
+            // Cursor must be at the end of the command word and word must not be quoted
+            if (pos != subcommandArg.get().range.getEnd() || subcommandArg.get().quoted) {
+                return Collections.emptyList();
+            } else {
+                return autocompleteCommand(model, subcommandArg.get().value);
+            }
+        } else if (parsers.containsKey(subcommandArg.get().value)) {
+            final Parser<? extends Command> parser = parsers.get(subcommandArg.get().value);
+            return parser.autocomplete(model, scanner.getRemainingInput(), pos - scanner.getInputPosition());
+        } else {
+            return Collections.emptyList(); // invalid command
+        }
+    }
+
+    private List<String> autocompleteCommand(ReadOnlyModel model, String input) {
+        return parsers.keySet().stream()
+                .filter(commandWord -> commandWord.startsWith(input))
+                .map(commandWord -> commandWord.substring(input.length()))
+                .sorted()
+                .collect(Collectors.toList());
     }
 
 }

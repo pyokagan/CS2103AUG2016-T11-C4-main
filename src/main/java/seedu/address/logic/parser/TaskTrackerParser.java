@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
+import java.util.List;
+
 import seedu.address.logic.commands.Command;
+import seedu.address.model.ReadOnlyModel;
 
 /**
  * Top level task tracker command-line parser.
@@ -26,4 +29,10 @@ public class TaskTrackerParser implements Parser<Command> {
     public Command parse(String userInput) throws ParseException {
         return parser.parse(userInput);
     }
+
+    @Override
+    public List<String> autocomplete(ReadOnlyModel model, String input, int pos) {
+        return parser.autocomplete(model, input, pos);
+    }
+
 }

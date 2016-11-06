@@ -23,6 +23,10 @@ public class TaskFinishedPredicate implements TaskPredicate {
         this.referenceDateTime = referenceDateTime;
     }
 
+    public LocalDateTime getReferenceDateTime() {
+        return referenceDateTime;
+    }
+
     @Override
     public boolean test(FloatingTask floatingTask) {
         return floatingTask.isFinished();
@@ -47,7 +51,7 @@ public class TaskFinishedPredicate implements TaskPredicate {
     public boolean equals(Object other) {
         return other == this
                || (other instanceof TaskFinishedPredicate
-               && referenceDateTime.equals(((TaskFinishedPredicate)other).referenceDateTime));
+               && referenceDateTime.equals(((TaskFinishedPredicate)other).getReferenceDateTime()));
     }
 
 }

@@ -196,6 +196,13 @@ public class CommandLineScanner {
     }
 
     /**
+     * Returns the "rest argument", but does not advance the input position.
+     */
+    public Argument peekNextRestArgument() {
+        return new CommandLineScanner(this).nextRestArgument();
+    }
+
+    /**
      * Returns the next flag (if any).
      * @throws ParseException if the input cannot be parsed as a flag
      */

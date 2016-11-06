@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.io.IOException;
+import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandException;
@@ -30,6 +31,8 @@ public interface Logic {
      * @see #execute(Command)
      */
     CommandResult execute(String commandText) throws ParseException, CommandException, IOException;
+
+    List<String> autocomplete(String input, int pos);
 
     /** Returns the logic's component associated model. */
     ReadOnlyModel getModel();

@@ -40,6 +40,7 @@ dependencies {
     compile 'com.google.guava:guava:19.0'
     compile 'de.jensd:fontawesomefx-commons:8.12'
     compile 'de.jensd:fontawesomefx-fontawesome:4.6.3'
+    compile 'org.fxmisc.richtext:richtextfx:0.6.10'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.testfx:testfx-core:4.0.+'

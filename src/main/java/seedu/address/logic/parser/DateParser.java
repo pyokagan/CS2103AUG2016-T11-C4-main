@@ -64,4 +64,13 @@ public class DateParser implements Parser<LocalDate> {
         }
     }
 
+    /**
+     * Returns the string representation of a LocalDate. This string can be parsed by {@link #parse} to
+     * get back the same LocalDate.
+     * @see #parse
+     */
+    public String format(LocalDate date) {
+        return dateFormatter.format(date);
+    }
+
 }

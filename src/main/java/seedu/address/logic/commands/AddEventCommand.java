@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
-import java.time.LocalDateTime;
-
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
 
@@ -11,17 +9,12 @@ import seedu.address.model.task.EventTask;
  */
 public class AddEventCommand implements AddTaskCommand {
 
-    public static final String MESSAGE_USAGE = "Parameters for adding event: \"NAME\" <STARTING_DATE> <STARTING_TIME> to <ENDING_DATE> <ENDING_TIME>\n"
-            + "Example: " + COMMAND_WORD + " \"Event Name\" 12/12/2016 12pm to 2pm \n";
+    private static final String MESSAGE_SUCCESS = "Added new event task \"%s\", from \"%s\" to \"%s\".";
 
     private final EventTask eventTask;
 
     public AddEventCommand(EventTask eventTask) {
         this.eventTask = eventTask;
-    }
-
-    public AddEventCommand(String name, LocalDateTime start, LocalDateTime end) throws IllegalValueException {
-        this(new EventTask(name, start, end));
     }
 
     @Override
@@ -33,7 +26,9 @@ public class AddEventCommand implements AddTaskCommand {
     public CommandResult execute(Model model) {
         assert model != null;
         model.addEventTask(eventTask);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, eventTask));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, eventTask.getName(),
+                                               StringUtil.localDateTimeToPrettyString(eventTask.getStart()),
+                                               StringUtil.localDateTimeToPrettyString(eventTask.getEnd())));
     }
 
 }

@@ -2,9 +2,9 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.TextField?>
+<?import org.fxmisc.richtext.InlineCssTextArea?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" styleClass="anchor-pane" stylesheets="@DarkTheme.css">
-    <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged"
-            promptText="Enter command here..." VBox.vgrow="ALWAYS" />
+    <InlineCssTextArea fx:id="commandTextField" onKeyPressed="#handleKeyPressed" VBox.vgrow="ALWAYS" />
 </VBox>
 
