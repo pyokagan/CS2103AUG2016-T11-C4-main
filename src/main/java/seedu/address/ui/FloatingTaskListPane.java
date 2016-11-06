@@ -32,7 +32,7 @@ public class FloatingTaskListPane extends UiPart<Pane> {
         floatingTaskListView.setItems(model.getFloatingTaskList());
         floatingTaskListView.setCellFactory(listView -> new FloatingTaskListCell());
         listedFloatingTaskCounter.textProperty().bind(Bindings.size(model.getFloatingTaskList())
-                                                        .asString("The number of listed floating task: %d"));
+                                                        .asString("The number of floating task listed: %d"));
         unfinishedFloatingTaskCounter.textProperty().bind(Bindings.size(model.getFloatingTaskList(new TaskUnfinishedPredicate(LocalDateTime.now())))
                                                             .asString("Unfinished: %d"));
     }

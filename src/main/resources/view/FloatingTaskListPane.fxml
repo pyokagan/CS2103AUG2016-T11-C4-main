@@ -6,15 +6,15 @@
 <?import de.jensd.fx.glyphs.fontawesome.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
-    <Label styleClass="header">
-        <graphic><FontAwesomeIconView glyphName="LIST_OL" /></graphic>
-        <text>Floating Tasks</text>
-    </Label>
-    
+	<HBox>
+	   <Label styleClass="header">
+	       <graphic><FontAwesomeIconView glyphName="LIST_OL" /></graphic>
+	       <text>Floating Tasks</text>
+	   </Label>
+	   <Label styleClass="headerLabel" fx:id="listedFloatingTaskCounter" wrapText="true" />
+    </HBox>
     <HBox spacing="30" alignment="CENTER_LEFT">
-    	<Label fx:id="listedFloatingTaskCounter" wrapText="true" />
     	<Label fx:id="unfinishedFloatingTaskCounter" wrapText="true" text="test" />
     </HBox>
-    
     <ListView fx:id="floatingTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>
