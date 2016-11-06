@@ -22,17 +22,18 @@ public class HelpWindow extends UiPart<Stage> {
               "Add Floating Task         | add \"FLOATING_TASK_NAME\"  [p-PRIORITY]\n"
             + "Add Deadline Task         | add \"DEADLINE_NAME\" <DATE> <TIME>\n"
             + "Add Events                | add \"EVENT_NAME\" <STARTING_DATE> <STARTING_TIME> to <ENDING_DATE> <ENDING_TIME>\n"
-            + "Delete                    | del <INDEX>\n"
-            + "Edit Floating Tasks       | edit <INDEX> [n-NEW_NAME] [p-PRIORITY]\n"
-            + "Edit Deadline             | edit <INDEX> [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]\n"
-            + "Mark task as finished     | fin <INDEX>\n"
-            + "Mark a task as unfinished | unfin <INDEX>\n"
+            + "Delete                    | del INDEX\n"
+            + "Edit Floating Tasks       | edit INDEX [n-NEW_NAME] [p-PRIORITY]\n"
+            + "Edit Deadline             | edit INDEX [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]\n"
+            + "Mark task as finished     | fin INDEX\n"
+            + "Mark a task as unfinished | unfin INDEX\n"
             + "Search for keywords       | search KEYWORD\n"
             + "Undo                      | undo\n"
             + "Redo                      | redo\n"
             + "Clear                     | clear\n"
             + "Exit                      | exit\n"
             + "Hide and show Task Tracker| Ctrl + SPACE\n\n"
+            + "setdatadir                |setdatadir FILE_PATH"
             + "For full guide: " + USERGUIDE_URL;
 
     private static final String ICON = "/images/help_icon.png";
