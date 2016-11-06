@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -69,8 +68,6 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, config);
-
-        initEventsCenter();
     }
 
     private String getApplicationParameter(String parameterName) {
@@ -133,10 +130,6 @@ public class MainApp extends Application {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
         return config;
-    }
-
-    private void initEventsCenter() {
-        EventsCenter.getInstance().registerHandler(this);
     }
 
     @Override
