@@ -464,106 +464,211 @@ Given in Figure 2.5 below is the sequence diagram for interactions within the
 <figcaption><div align="center">Figure 2.5: Sequence diagram for event deletion</div></figcaption>
 </figure>
 
-#### The `Parser` hierarchy
+
+#### The parser hierarchy
 
 <figure>
 <img src="images/devguide/classdiag-logic-parser.png">
 <figcaption><div align="center">Figure 2.X:</div></figcaption>
 </figure>
 
-While from the perspective of the top level `LogicManager` class, the
-`TaskTrackerParser::parse()` method just needs to be called to parse a command
-string into a `Command`, internally the `TaskTrackerParser` actually consists
-of a hierarchy of parsers, each handling a specific part of the parsing
-process (Single Responsibility Principle). Figure 2.X shows a part of this hierarchy.
+As shown in Figure 2.X, from the perspective of the top level `LogicManager`
+class, the `TaskTrackerParser::parse()` method just needs to be called to parse
+a command string into a `Command`. However, internally the `TaskTrackerParser`
+actually consists of a hierarchy of parsers, each handling a specific part of
+the parsing process (Single Responsibility Principle).
 
-The first level of parsers (e.g. `AddTaskCommandParser`, `ListCommandParser`
-etc.) each handle the parsing of a specific subcommand (e.g. `add`, `list`,
-etc.). Subsequent levels further break down the parsing process. For example,
-the `AddTaskCommandParser` internally consists of
+The first level of parsers are for parsing the subcommands. For example,
+`AddTaskParser` will handle the `add` command, `ListCommandParser` will handle
+the `list` command, etc.
+
+The second level of parsers are usually for overloaded command parsing. For
+example, the `AddTaskCommandParser` internally consists of
 `AddFloatingTaskCommandParser`, `AddDeadlineTaskCommandParser` and
 `AddEventTaskCommandParser` subparsers. Each of these subparsers handle a
 variation of the `add` command -- the command format variation for adding
-floating tasks, deadline tasks and event tasks respectively. Also, the parsers
-`EditFloatingTaskCommandParser`, `DeleteEventTaskCommandParser` etc. call upon
-the `IndexParser` for parsing task indexes (e.g. `e1`, `d1`, `f1` etc.)
+floating tasks, deadline tasks and event tasks respectively. Some commands,
+such as the `list` command, do not have any variations in their command format
+and thus bypass the second level.
 
-All parsers implement the `Parser<T>` interface, which represents an object
-which can take a string and return an object of type `T`:
+The third (and lower) levels of parsers are for parsers that parse the
+individual arguments and flags. For instance, `IndexParser` implements the
+parsing of test indexes (e.g. `e1`, `d1`, `f1` etc.) As such, it is logical
+that `EditFloatingTaskParser`, `EditDeadlineParser`, `DeleteFloatingTaskParser`
+etc. depends on them as the `edit` and `del` command formats include task
+indexes to tell the command which task to edit or delete.
+
+Likewise, the `TaskPredicateParser` parses task predicate names (e.g. `fin`,
+`unfin`, etc.) and returns their associated `TaskPredicates`
+(`TaskFinishedPredicate`, `TaskUnfinishedPredicate`). It should thus be
+expected that `ListCommandParser` depends on it, as the `list` command takes a
+task predicate name to set the task filter as.
+
+The application of the Single Responsibility Principle in the parsing component
+brings several benefits. Firstly, it is extremely easy to unit test each
+individual parser. Secondly, this approach is also very DRY (Don't repeat
+yourself) -- each piece of parsing logic has a single definitive source. For
+example, if we wanted to add a new kind of `TaskPredicate`, all we need to do
+is to modify `TaskPredicateParser` and all parsers will immediately recognize
+the task predicate name.
+
+#### The `Parser` interface
+
+<figure>
+<img src="images/devguide/classdiag-model-parser-interface.png">
+<figcaption><div align="center">Figure 2.X:</div></figcaption>
+</figure>
+
+The whole parsing architecture makes use of the command pattern. All parsers
+implement the `Parser<T>` interface, which is a functional interface whose
+functional method is `parse(String)`. This method should take a string, parse
+it, and return its result of type `T`.
+
+If a parse error occurs, the `parse(String)` method should throw a
+`ParseException`, with `ranges` denoting the `SubstringRange(s)` of the input
+string which caused the parse to fail.
+
+Parsers can also optionally implement an autocomplete method, to allow the
+parser to complete an input string given a `ReadOnlyModel` and an integer caret
+position. It should then return a list of possible candidates. The default
+implementation returns an empty list (no candidates).
+
+As such, a simple parser that returns a command could be implemented as follows:
 
 ```java
-public interface Parser<T> {
+package seedu.address.logic.parser;
 
-    /**
-     * Parses an input string and returns the parsed result as an object with type T.
-     * @throws ParseException if the input string could not be parsed. The ranges of the ParseException will
-     * contain the substring ranges of the input string which caused the parsing to fail.
-     */
-    T parse(String str) throws ParseException;
+import seedu.address.commons.util.SubstringRange;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 
+/**
+ * A parser that returns a command that says "hello world!" if the input is "hello",
+ * otherwise throws a ParseException.
+ */
+public class HelloWorldParser implements Parser<Command> {
+    @Override
+    public Command parse(String str) throws ParseException {
+        if (str.equals("hello")) {
+            return model -> new CommandResult("hello world!");
+        } else {
+            throw new ParseException("must say hello", SubstringRange.of(str));
+        }
+    }
 }
 ```
 
-One major advantage of this approach is that it is extremely easy to mix and
-match parsers to generate create new command formats, since each piece of
-parsing logic is neatly encapsulated into individual classes. It is also
-extremely easy to unit test each individual parser. Another major advantage of
-this approach is that it is very DRY -- each piece of parsing logic has a
-single definitive source. For example, if we wanted to modify the task index
-format such that instead of `e1`, `d1`, `f1`, users have to type `Banana1`,
-`Apple1`, `Papaya1`, all we need to do is to modify the `IndexParser`, and all
-commands will immediately recognise the new format.
+This parser can now actually be used with `LogicManager` by constructing it
+with:
+```java
+new LogicManager(model, storage, new HelloWorldParser());
+```
+where `model` and `storage` are instances of `ModelManager` and `StorageManager`.
+
+However, a useful command-line parser requires much more effort and code than
+that. This is because the parser also needs to keep track of things like
+subcommands, overloaded commands, and arguments, flags, quoting etc.
+
+This is where the command pattern used here truly shines as the `Parser`
+interface allows us to easily mix and match parsers through the use of OCP
+(open-closed principle) to generate new command formats. The
+`seedu.address.logic.parser` package provides a few utility classes to do just
+that. They include: the `CommandLineParser`, the `SubcommandParser` and the
+`OverloadParser`. With this utility classes, it is extremely easy to implement
+your own `Parser` with minimal effort.
 
 #### Mixing and matching: the `CommandLineParser` utility class
 
-The `seedu.address.logic.parser` package provides a few classes to mix and
-match `Parser<T>` objects. Of these, the `CommandLineParser` class is probably
-the most important, as it helps to piece together individual `Parser<T>`
+<figure>
+<img src="images/devguide/classdiag-logic-commandlineparser.png">
+<figcaption><div align="center">Figure 2.X:</div></figcaption>
+</figure>
+
+The `CommandLineParser` class helps to piece together individual `Parser<T>`
 parsers to parse a command line input.
 
-Let's take a look at the `AddEventCommandParser` for example. The `AddEventCommandParser` has to parse an input string like:
+For consistency, all commands in Task Tracker follow a standard command format
+which consists of the following three parts in order:
 
+* Arguments, which are single fields identified by their position on the
+  command line. Arguments are separated by whitespace. If an argument value
+  needs to contain whitespace, it can be `"quoted"` with quotes.
+
+* An optional "rest argument", which extends from the last argument all the way
+  to the start of the first flag.
+
+* Flags, which are fields identified by starting with their "flag prefixes".
+
+The `CommandLineParser`, along with its `ArgumentParsers` and `FlagParsers`
+helps to parse such a command line input and break the arguments and flags into
+their individual components for easy processing. In addition, it will help to
+detect problems like missing arguments or repeated flags.
+
+* `CommandLineParser.Argument<T>` will parse a single argument.
+
+* `CommandLineParser.RestArgument<T>` will parse a "rest argument".
+
+* `CommandLineParser.ListArgument<T>` will parse a "rest argument" as a list of
+  arguments.
+
+* `CommandLineParser.Flag<T>` will parse a flag. The `CommandLineParser` will
+  error out (throw a `ParseException`) if the flag was not specified or was
+  specified multiple times.
+
+* `CommandLineParser.OptionalFlag<T>` will parse a flag. The
+  `CommandLineParser` will *not* complain if the flag was not specified, but
+  will still error out if the flag was specified multiple times.
+
+Note that these classes all take a `Parser<? extends T>` in their constructors
+-- these classes will call the specified parser to parse the argument/flag into
+the type of object that you want.
+
+For instance, let's say we want to parse the input format of the form:
 ```
-    "Eat Lunch" tmr 4am to 6pm
+NAME_ARG [p-PRIORITY]
 ```
 
-From this input string, `AddEventCommandParser` has to somehow split them into
-their individual arguments, while also parsing them with their correct parsers.
-`"Eat Lunch"` has to be parsed as a task `Name`, `tmr 4am` has to be parsed as
-a `LocalDateTime`, `to` has to be recognized as a required keyword, while `6pm`
-has to be parsed as a `LocalDateTime`.
+An example input would be:
+```
+"Learn Task Tracker" p-4
+```
 
-Thanks to `CommandLineParser`, the code to parse such as input string is simply:
+We first break down the arguments and flags into their individual types:
+
+* `NAME_ARG` is an argument that must be a valid task name. We can parse that
+  with `NameParser` which will return a `Name`.
+
+* `p-PRIORITY` is an optional flag, but if provided, it must be a valid
+  priority. We can parse that with `PriorityParser` which will return a
+  `Priority`.
+
+We can thus piece together the `CommandLineParser.Argument<T>` and
+`CommandLineParser.OptionalFlag<T>` like this:
+
 ```java
-    private final Argument<Name> nameArg = new Argument<>("NAME", new NameParser());
-    private final DateTimeArgument startArg = new DateTimeArgument("START_DATE", "END_DATE");
-    private final DateTimeArgument endArg = new DateTimeArgument("END_DATE", "END_TIME");
-    private final CommandLineParser cmdParser = new CommandLineParser()
-                                                        .addArgument(nameArg)
-                                                        .addArgument(startArg)
-                                                        .addArgument("to")
-                                                        .addArgument(endArg);
+private final CommandLineParser.Argument<Name> nameArg =
+        new CommandLineParser.Argument<>("NAME", new NameParser());
+private final CommandLineParser.OptionalFlag<Priority> priorityFlag =
+        new CommandLineParser.OptionalFlag<>("p-", "PRIORITY", new PriorityParser());
 ```
 
-The `CommandLineParser::parse()` method will then parse the string into its
-individual arguments, and the values of these arguments can then simply be
-retrieved from their `Argument` objects:
-
+And then we can build our `CommandLineParser` like this:
 ```java
-    @Override
-    public AddEventCommand parse(String str) throws ParseException {
-        // Tell date/time parsers the current time
-        final LocalDateTime now = referenceDateTime.orElse(LocalDateTime.now());
-        startArg.setReferenceDateTime(now);
-        endArg.setReferenceDateTime(now);
+private final CommandLineParser cmdParser = new CommandLineParser()
+                                                .addArgument(nameArg)
+                                                .putFlag(priorityFlag);
+```
 
-        // Parse command
-        cmdParser.parse(str);
+Now, with the input string, all we need to do is to call:
+```java
+cmdParser.parse("\"Learn Task Tracker\" p-4");
+```
 
-        final LocalDateTimeDuration duration = makeDuration(now);
-        final EventTask toAdd = new EventTask(nameArg.getValue(), duration);
-        return new AddEventCommand(toAdd);
-    }
+And then the values of the argument and flag will be available in `nameArg` and
+`priorityFlag`. You can get them by calling `getValue()`:
+```java
+System.out.println(nameArg.getValue()); // Learn Task Tracker
+System.out.println(priorityFlag.getValue()); // Optional[4]
 ```
 
 ### UI implementation
