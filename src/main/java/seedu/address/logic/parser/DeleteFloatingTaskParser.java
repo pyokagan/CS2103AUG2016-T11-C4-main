@@ -1,15 +1,15 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.logic.commands.DeleteFloatingTaskCommand;
 import seedu.address.logic.parser.CommandLineParser.Argument;
+import seedu.address.model.task.TaskType;
 
 /**
  * Parser for "del-float" command.
  */
 public class DeleteFloatingTaskParser implements Parser<DeleteFloatingTaskCommand> {
 
-    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(IndexPrefix.FLOAT));
+    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(TaskType.FLOAT));
     private final CommandLineParser cmdParser = new CommandLineParser()
                                                     .addArgument(indexArg);
 

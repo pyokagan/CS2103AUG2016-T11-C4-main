@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
+import seedu.address.model.task.TaskType;
 
 public class DeleteEventCommand implements Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted event "
-                                                             + IndexPrefix.EVENT.getPrefixString()
+                                                             + TaskType.EVENT.getPrefixString()
                                                              + "%d. %s";
 
     private final int targetIndex;

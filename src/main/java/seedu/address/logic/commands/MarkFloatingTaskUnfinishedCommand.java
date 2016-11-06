@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.FloatingTaskBuilder;
+import seedu.address.model.task.TaskType;
 
 public class MarkFloatingTaskUnfinishedCommand implements Command {
 
-    private static final String MSG_SUCCESS = "Floating task " + IndexPrefix.FLOAT.getPrefixString()
+    private static final String MSG_SUCCESS = "Floating task " + TaskType.FLOAT.getPrefixString()
                                                 + "%s unfinished.";
 
     private final int targetIndex;

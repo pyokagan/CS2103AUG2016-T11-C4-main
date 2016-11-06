@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.EventTask;
+import seedu.address.model.task.TaskType;
 
 public class EventTaskListCard extends UiPart<Pane> {
 
@@ -31,7 +31,7 @@ public class EventTaskListCard extends UiPart<Pane> {
     public EventTaskListCard(EventTask eventTask, int index) {
         super(FXML);
         if (eventTask != null) {
-            indexLabel.setText(IndexPrefix.EVENT.getPrefixString() + index + ". ");
+            indexLabel.setText(TaskType.EVENT.getPrefixString() + index + ". ");
             nameLabel.setText(eventTask.getName().toString());
             startLabel.setText(StringUtil.localDateTimeToPrettyString(eventTask.getStart()));
             endLabel.setText(StringUtil.localDateTimeToPrettyString(eventTask.getEnd()));

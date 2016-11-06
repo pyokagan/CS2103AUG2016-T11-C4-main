@@ -1,12 +1,12 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.logic.commands.MarkFloatingTaskFinishedCommand;
 import seedu.address.logic.parser.CommandLineParser.Argument;
+import seedu.address.model.task.TaskType;
 
 public class MarkFloatingTaskFinishedParser implements Parser<MarkFloatingTaskFinishedCommand> {
 
-    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(IndexPrefix.FLOAT));
+    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(TaskType.FLOAT));
     private final CommandLineParser cmdParser = new CommandLineParser()
                                                     .addArgument(indexArg);
 
