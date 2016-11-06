@@ -175,6 +175,10 @@
     -fx-text-fill: white;
 }
 
+.list-view .cell:selected {
+    -fx-background-color: derive(yellow, 20%);
+}
+
 .card {
     -fx-padding: 5px 5px 5px 15px;
     -fx-border-color: #d6d6d6;
