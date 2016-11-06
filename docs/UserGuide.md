@@ -79,54 +79,63 @@ TaskTracker makes time-management smart and simple for you!
 
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
 
-5. You're good to go! Try adding your first Task. Press Enter to enter a
-   command. For adding a floating task, try:
+## Add Floating Task
+You're good to go! Try adding your first Task. Press Enter to enter a command. For adding a floating task, try:
+   
+   ```
+   add "Learn Task Tracker"
+   ```
+[alt text](./images/userguide/1.png "command bar")
+    
+You're at work and you crave baked potatoes. Let's do another one:
 
-	* `add "Learn Task Tracker"`.
+	
+    add "bake potatoes" p-2
+    
+    
+ ![alt text](./images/userguide/2.png "")
 
-    ![alt text](./images/userguide/1.png "command bar")
+* Notice how `bake potatoes` is above `Learn Task Tracker`. That's because
+`bake potatoes` is of number 2 priority, while `Learn Task Tracker` with an
+undefined priority takes the default lowest priority number of 0.
+    
+* Task Tracker supports your love for all things short and sweet. For one worded task names, quotation marks need not be used.
 
-    Let's do another one:
+## Add Deadline Task
+You receive an email from your boss, requesting for the project proposal to be in by 31 dec of this year, 3pm. Let's add a deadline tasks with due date and time.
+  	
+    add "submit project proposal" 31/12 3pm
 
-	* `add "bake potatoes" p-2`
+* Undeclared year in date field will be taken as the current year.
+         
+You decide to set a deadline for the first milestone of your project to be completed by today, 5pm.
 
-    ![alt text](./images/userguide/2.png "")
-
-    Notice how `bake potatoes` is below `Learn Task Tracker`. That's because
-    `bake potatoes` is of number 2 priority, while `Learn Task Tracker` with an
-    undefined priority takes the default highest priority number of 0.
-
-7. Let's add deadline tasks with due date and time.
-
-	* `add "bake cookies" 31/12 3pm`
-
-        `bake cookies` by 31 December of this year, 3pm. Undeclared year in date
-        field will be taken as the current year.
-
-	* `add "bake cookies" tdy 3pm`
-
-        `bake cookies` by today, 3pm.
+ 	add "finish project milestone 1" 5pm
+    
+ While working so hard and staring at the computer screen continuously, your eyes start to feel tried. The eyebreak you took just now was really good. You should take an eye break tommorrow too.
+ 	
+    add "take eye break" tmr
+ 
+* Task Tracker understands the importance of tackling the tasks which are due soon, first. Therefore, deadline task are automatically arranged according to their due dates and times. Those with encroaching deadlines are placed at the top of the list. 
+ 
+* Typing additional words when you don't actually need to can be a chore. Task Tracker cuts your fingers some slack by taking an undeclared date as today, and an undeclared time as the end of the date specified. However, at least either one date or time has to be specified for deadline task, or task tracker will mistake it for a floating task!
+ 
+* In the unfortunate event of an overdued deadline task, Task Tracker will highlight the deadline task with a glaring red.
 
     ![alt text](./images/userguide/3.png "")
 
-8. Next up, events. An event is a task with a start date, start time, end date
-   and end time. Example commands are:
+## Add Events
+Your phone bleeps. Wow, an invitation to attend the Avengers meetup organised by Dr Strange! It happens tommorow, 10pm to 11 pm.
+   
+    add "avangers meetup" tmr 10pm to 11pm
+  
+* Next up, events. An event is a task with a start date, start time, end date
+and end time. The word `to` is used to seperate the start date and time from the end date and time. It is also how you tell Task Tracker that the task is an event. When you don't inform Task Tracker of the end date, Task Tracker will assume that the event ends on the same day which it starts.
 
-	* `add "CS2103t programming camp" 30/8 1pm to 3/1/2017 6pm`
+ You recieved an urgent call from boss! There is a VIP meeting today, 4pm to 6pm.
+   * `add "VIP meeting" 4pm to 6pm`
 
-        Event `CS2103t programming camp` starts from 1pm of the 30th August 2016, and ends at 6pm of the 3rd January 2017.
-
-	* `add "potato peeling" tdy 3pm to 7pm`
-
-        Event `potato peeling` starts from today's 3pm and ends at today's 7pm.
-
-	* `add "cupcake festival" tdy 8pm tmr 12pm`
-
-        Event `cupcake festival` starts from today's 8pm and ends at tomorrow's 12 pm.
-
-	* `add "Trick or treat" 31/10 8pm to 9pm`
-
-        Event `Trick or treat` starts from 8pm of 31st October this year and ends on the same day's 9pm.
+	As with deadlines, Task tracker will take an unspecified start date to be today.
 
     ![alttext](./images/userguide/4.png "")
 
@@ -716,5 +725,5 @@ Undo | `undo`
 Redo | `redo`
 Clear | `clear`
 Exit | `exit`
-Hide and show Task Tracker | `Ctrl + SPACE`
+Hide and show Task Tracker | Ctrl + SPACE
 setdatadir |`setdatadir FILE_PATH`
