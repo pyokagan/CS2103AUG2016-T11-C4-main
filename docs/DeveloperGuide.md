@@ -340,11 +340,9 @@ other tasks in the task book are deleted.
 <figcaption><div align="center">Figure 2.X: Config</div></figcaption>
 </figure>
 
-The `Config` class stores various configuration settings. It is an internal
-class of the Model component -- external components can only access its data
-via the `ReadOnlyConfig` or `Model` interface.
-
-The `ReadOnlyConfig` interface provides a read-only view to a `Config` object.
+The `Config` class stores the various configuration settings as listed in the
+[configuration](#configuration) section. It implements the `ReadOnlyConfig`
+interface, which provides a read-only view to a `Config` object.
 
 #### The `ModelManager` class
 
