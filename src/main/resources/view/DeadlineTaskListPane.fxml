@@ -13,6 +13,7 @@
     <HBox spacing="30" alignment="CENTER_LEFT">
    	 	<Label fx:id="listedDeadlineCounter" wrapText="true" />
    	 	<Label fx:id="unfinishedDeadlineCounter" wrapText="true" />
+   	 	<Label fx:id="overdueDeadlineCounter" wrapText="true" />
     </HBox>
     <ListView fx:id="deadlineTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>
