@@ -270,16 +270,22 @@ their common fields.
 
 The task classes are all guranteed to be immutable POJOs.
 
-#### The `TaskBook` class
+#### The `TaskBook` class and `ReadOnlyTaskBook` interface
+
+<figure>
+<img src="images/devguide/classdiag-model-taskbook.png">
+<figcaption><div align="center">Figure 2.X: Taskbook classes</div></figcaption>
+</figure>
 
 The `TaskBook` class stores the lists of floating tasks, deadline tasks and
 event tasks. It is an internal class of the Model component -- external
 components can only access its data via the `ReadOnlyTaskBook` or `Model` interface.
 
-#### The `ReadOnlyTaskBook` interface
+Since `Tasks` are immutable, it only needs to implement the basic operations of
+adding, removing and setting tasks.
 
-The `ReadOnlyTaskBook` interface provides a read-only view to a `TaskBook`
-object.
+The `TaskBook` class implements the `ReadOnlyTaskBook` interface, which
+provides a read-only view of its data.
 
 #### Task item indexing, sorting and filtering (`IndexedItem`, `WorkingTaskBook`)
 
