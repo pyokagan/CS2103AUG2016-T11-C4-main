@@ -31,6 +31,12 @@
     -fx-padding: 6pt;
 }
 
+.headerLabel.label {
+    -fx-font-weight: 800;
+    -fx-font-size: 10pt;
+    -fx-padding: 10pt;
+}
+
 .text-field {
     -fx-font-size: 12pt;
 }
