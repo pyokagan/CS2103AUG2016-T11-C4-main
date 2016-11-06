@@ -338,13 +338,16 @@ of the internal `TaskBook`. By decoupling the source item index from the
 working index, we can ensure that the working index remains the same even if
 other tasks in the task book are deleted.
 
-#### The `Config` class
+#### The `Config` class and `ReadOnlyConfig` interface
+
+<figure>
+<img src="images/devguide/classdiag-model-config.png">
+<figcaption><div align="center">Figure 2.X: Config</div></figcaption>
+</figure>
 
 The `Config` class stores various configuration settings. It is an internal
 class of the Model component -- external components can only access its data
 via the `ReadOnlyConfig` or `Model` interface.
-
-#### The `ReadOnlyConfig` interface
 
 The `ReadOnlyConfig` interface provides a read-only view to a `Config` object.
 
