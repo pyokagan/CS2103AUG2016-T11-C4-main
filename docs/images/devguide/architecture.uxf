@@ -140,24 +140,13 @@ fontsize=20</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>368</x>
+      <x>472</x>
       <y>584</y>
-      <w>288</w>
+      <w>184</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>Commons
 --</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>456</x>
-      <y>624</y>
-      <w>80</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>EventsCenter</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -192,39 +181,6 @@ fontsize=20</panel_attributes>
     </coordinates>
     <panel_attributes>lt=..&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>464</x>
-      <y>568</y>
-      <w>24</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;..</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>488</x>
-      <y>568</y>
-      <w>24</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;..</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>512</x>
-      <y>568</y>
-      <w>24</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;..</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>

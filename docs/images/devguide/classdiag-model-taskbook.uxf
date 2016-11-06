@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>310</y>
+      <w>390</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>TaskBook
+--
+- floatingTasks: ObservableList&lt;FloatingTask&gt;
+- deadlineTasks: ObservableList&lt;DeadlineTask&gt;
+- eventTasks: ObservableList&lt;EventTask&gt;
+--
++ resetData(newData: ReadOnlyTaskBook)
+
++ getFloatingTasks(): ObservableList&lt;FloatingTask&gt;
++ setFloatingTasks(toBeCopied: Collection&lt;FloatingTask&gt;)
++ addFloatingTask(task: FloatingTask)
++ removeFloatingTask(index: int)
++ setFloatingTask(index: int, newTask: FloatingTask)
+
++ getDeadlineTasks(): ObservableList&lt;DeadlineTask&gt;
++ setDeadlineTasks(toBeCopied: Collection&lt;DeadlineTask&gt;)
++ addDeadlineTask(task: DeadlineTask)
++ removeDeadlineTask(index: int)
++ setDeadlineTask(index: int, newTask: DeadlineTask)
+
++ getEventTasks(): ObservableList&lt;EventTask&gt;
++ setEventTasks(toBeCopied: Collection&lt;EventTask&gt;)
++ addEventTask(task: EventTask)
++ removeEventTask(index: int)
++ setEventTask(index: int, newTask: EventTask)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>970</x>
+      <y>310</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>FloatingTask</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>970</x>
+      <y>350</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>DeadlineTask</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>970</x>
+      <y>390</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>EventTask</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>310</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=*</panel_attributes>
+    <additional_attributes>10.0;30.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>350</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>370</y>
+      <w>120</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>310</y>
+      <w>340</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ReadOnlyTaskBook
+--
+--
++ getFloatingTasks(): ObservableList&lt;FloatingTask&gt;
++ getDeadlineTasks(): ObservableList&lt;DeadlineTask&gt;
++ getEventTasks(): ObservableList&lt;EventTask&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>310</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+</diagram>

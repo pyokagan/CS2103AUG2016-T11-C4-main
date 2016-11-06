@@ -131,14 +131,9 @@ for:
 [mainapp-src]: ../src/main/java/seedu/address/MainApp.java
 
 **`Commons`** represents a collection of classes used by multiple other
-components. Of these classes, two of them play important roles in the
-application architecture:
-
-* `EventsCentre`: This singleton class is used by components to communicate
-  with other components using events.
-
-* `LogsCenter`: This singleton class is used by classes to write log messages
-  to the application log file.
+components. Of these classes, the `LogsCenter` plays an important role in the
+application architecture. It is a singleton class used by classes to write log
+messages to the application log file.
 
 The rest of the App consists of four components:
 
@@ -164,11 +159,6 @@ The sections below give more details of each component.
 
 ### Model component
 
-<figure>
-<img src="images/devguide/comp-model.png">
-<figcaption><div align="center">Figure 2.2: Model component class diagram</div></figcaption>
-</figure>
-
 The `Model` component:
 
 * holds the task book data in memory. In particular, it stores the list of
@@ -181,11 +171,6 @@ The `Model` component:
 
 ### Storage component
 
-<figure>
-<img src="images/devguide/comp-storage.png">
-<figcaption><div align="center">Figure 2.3: Storage component class diagram</div></figcaption>
-</figure>
-
 The `Storage` component:
 
 * can save `TaskBook` objects to the hard disk and read it back.
@@ -193,11 +178,6 @@ The `Storage` component:
 * can save `Config` objects to the hard disk and read it back.
 
 ### Logic component
-
-<figure>
-<img src="images/devguide/comp-logic.png">
-<figcaption><div align="center">Figure 2.4: Logic component class diagram</div></figcaption>
-</figure>
 
 The `Logic` component:
 
@@ -208,35 +188,7 @@ The `Logic` component:
 * writes the `Model` to the `Storage` if the `Model` has been modified by
   command execution, so that changes will be persisted to disk.
 
-It accomplishes its parsing and execution of user commands in a few steps:
-
-1. `Logic` uses its own internal `Parser` to parse the user command.
-
-2. This results in a `Command` object which is executed by the `LogicManager`.
-
-3. The command execution can affect the `Model` (e.g. adding a task, or
-   changing a config setting.)
-
-4. The result of the command execution is encapsulated as a `CommandResult`
-   object which is passed back to the `Ui`.
-
-5. If the `Model` has been modified as a result of the command, `Logic` will
-   then write the updated `Model` back to disk using the `Storage` component.
-
-Given in Figure 2.5 below is the sequence diagram for interactions within the
-`Logic` component for the `execute("delete 1")` API call.
-
-<figure>
-<img src="images/devguide/seq-deleteevent.png">
-<figcaption><div align="center">Figure 2.5: Sequence diagram for event deletion</div></figcaption>
-</figure>
-
 ### Ui component
-
-<figure>
-<img src="images/devguide/comp-ui.png">
-<figcaption><div align="center">Figure 2.6: Ui component class diagram</div></figcaption>
-</figure>
 
 The `Ui` component,
 
@@ -286,10 +238,20 @@ used to manage the logging levels and logging destinations.
 
 ### Model implementation
 
+<figure>
+<img src="images/devguide/comp-model.png">
+<figcaption><div align="center">Figure 2.2: Model component class diagram</div></figcaption>
+</figure>
+
 The model component internally uses various classes to model the data of the
 application.
 
 #### The task classes
+
+<figure>
+<img src="images/devguide/classdiag-model-task.png">
+<figcaption><div align="center">Figure 2.X: Task classes</div></figcaption>
+</figure>
 
 Task Tracker is able to store floating tasks, deadline tasks and event tasks.
 These are modeled as separate `FloatingTask`, `DeadlineTask` and `EventTask`
@@ -303,26 +265,84 @@ their common fields.
 
 The task classes are all guranteed to be immutable POJOs.
 
-#### The `TaskBook` class
+#### The `TaskBook` class and `ReadOnlyTaskBook` interface
+
+<figure>
+<img src="images/devguide/classdiag-model-taskbook.png">
+<figcaption><div align="center">Figure 2.X: Taskbook classes</div></figcaption>
+</figure>
 
 The `TaskBook` class stores the lists of floating tasks, deadline tasks and
 event tasks. It is an internal class of the Model component -- external
 components can only access its data via the `ReadOnlyTaskBook` or `Model` interface.
 
-#### The `ReadOnlyTaskBook` interface
+Since `Tasks` are immutable, it only needs to implement the basic operations of
+adding, removing and setting tasks.
 
-The `ReadOnlyTaskBook` interface provides a read-only view to a `TaskBook`
-object.
+The `TaskBook` class implements the `ReadOnlyTaskBook` interface, which
+provides a read-only view of its data.
 
-#### The `Config` class
+#### Task item indexing, sorting and filtering (`WorkingTaskBook`)
 
-The `Config` class stores various configuration settings. It is an internal
-class of the Model component -- external components can only access its data
-via the `ReadOnlyConfig` or `Model` interface.
+<figure>
+<img src="images/devguide/classdiag-model-workingtaskbook.png">
+<figcaption><div align="center">Figure 2.X: WorkingTaskBook</div></figcaption>
+</figure>
 
-#### The `ReadOnlyConfig` interface
+The `TaskBook` class only stores the raw task data. However, the application
+user cases dictates the following additional requirements on top:
 
-The `ReadOnlyConfig` interface provides a read-only view to a `Config` object.
+1. We must be able to filter the lists of tasks, to view a subset of each list.
+   However, this filtering must not affect the actual `TaskBook` itself.
+
+2. We must be able to specify a sort ordering on the lists of
+   floating/deadline/event tasks. This sorting must be automatic -- if the
+   field's of a task changes, it's position in the sorted list should change as
+   required as well.
+
+3. We must be able to attach a unique index number to any task. This index
+   number should be stick to the task, no matter if its fields changes or its
+   position in the sorted list changes. Furthermore, this index number must be
+   separate from the `TaskBook` -- For instance even if a task is in position
+   `100` in the underlying `TaskBook` list, it should still be possible to
+   refer to it as index `1` via a combination of filters and/or sort
+   comparators.
+
+These requirements are all implemented with the `WorkingTaskBook` class. The
+prefix `Working` comes from the idea that it is some kind of "workspace" for
+working with tasks. This workspace is a wrapper around a `TaskBook` and manages
+its data.
+
+For the 1st requirement, `WorkingTaskBook` keeps its own internal copy of a
+`TaskBook`. It then uses a `TaskPredicate` to filter the lists of
+floating/deadline/event tasks, which it then exposes through the
+`workingFloatingTasks`, `workingDeadlineTasks` and `workingEventTasks` lists.
+
+For the 2nd requirement, `WorkingTaskBook` also uses comparators to sort the
+working floating/deadline/event tasks lists. This sorting is automatic -- if
+the contents of the floating/deadline/event tasks lists change, they will
+automatically be re-sorted as required. (Internally, we use a JavaFX
+`SortedList`).
+
+For the 3rd requirement, we have the `IndexedItem<E>` interface, which
+represents an item of the type `E` which has an index which we call the
+"working index", attached to it. The `WorkingItem<E>` class implements this
+interface, and, in addition to storing the `workingIndex` and `item`, also
+stores the `sourceIndex`, which maps the `IndexedItem` back to the source item
+of the internal `TaskBook`. By decoupling the source item index from the
+working index, we can ensure that the working index remains the same even if
+other tasks in the task book are deleted.
+
+#### The `Config` class and `ReadOnlyConfig` interface
+
+<figure>
+<img src="images/devguide/classdiag-model-config.png">
+<figcaption><div align="center">Figure 2.X: Config</div></figcaption>
+</figure>
+
+The `Config` class stores the various configuration settings as listed in the
+[configuration](#configuration) section. It implements the `ReadOnlyConfig`
+interface, which provides a read-only view to a `Config` object.
 
 #### The `ModelManager` class
 
@@ -331,6 +351,11 @@ to the model data while hiding the internal complexity of its various classes.
 All external components can only interact with the model data via this class.
 
 ### Storage implementation
+
+<figure>
+<img src="images/devguide/comp-storage.png">
+<figcaption><div align="center">Figure 2.3: Storage component class diagram</div></figcaption>
+</figure>
 
 The storage component uses [Jackson](https://github.com/FasterXML/jackson) to
 serialize/deserialize model data to/from JSON files.
@@ -407,7 +432,325 @@ interface and saves/loads `ReadOnlyTaskBook`s.
 The `StorageManager` class wraps a `ConfigStorage` and `TaskBookStorage` and
 provides a single unified interface to them.
 
+### Logic component implementation
+
+<figure>
+<img src="images/devguide/comp-logic.png">
+<figcaption><div align="center">Figure 2.4: Logic component class diagram</div></figcaption>
+</figure>
+
+The `Logic` component accomplishes its parsing and execution of user commands in a few steps:
+
+1. `Logic` uses its own internal `TaskTrackerParser` to parse the user command.
+
+2. This results in a `Command` object which is executed by the `LogicManager`.
+
+3. The command execution can affect the `Model` (e.g. adding a task, or
+   changing a config setting.)
+
+4. The result of the command execution is encapsulated as a `CommandResult`
+   object which is passed back to the `Ui`.
+
+5. If the `Model` has been modified as a result of the command, `Logic` will
+   then write the updated `Model` back to disk using the `Storage` component.
+
+6. If the `Model` has been modified as a result of the command, `Logic` will
+   call `model.recordState()` to record the state of the model for undo/redo.
+
+Given in Figure 2.5 below is the sequence diagram for interactions within the
+`Logic` component for the `execute("delete 1")` API call.
+
+<figure>
+<img src="images/devguide/seq-deleteevent.png">
+<figcaption><div align="center">Figure 2.5: Sequence diagram for event deletion</div></figcaption>
+</figure>
+
+
+#### The parser hierarchy
+
+<figure>
+<img src="images/devguide/classdiag-logic-parser.png">
+<figcaption><div align="center">Figure 2.X:</div></figcaption>
+</figure>
+
+As shown in Figure 2.X, from the perspective of the top level `LogicManager`
+class, the `TaskTrackerParser::parse()` method just needs to be called to parse
+a command string into a `Command`. However, internally the `TaskTrackerParser`
+actually consists of a hierarchy of parsers, each handling a specific part of
+the parsing process (Single Responsibility Principle).
+
+The first level of parsers are for parsing the subcommands. For example,
+`AddTaskParser` will handle the `add` command, `ListCommandParser` will handle
+the `list` command, etc.
+
+These first level command parsers include:
+
+* `AddTaskParser` (`add`)
+* `EditCommandParser` (`edit`)
+* `DeleteCommandParser` (`del`)
+* `MarkFinishedCommandParser` (`fin`)
+* `MarkTaskUnfinishedCommandParser` (`unfin`)
+* `ClearCommandParser` (`clear`)
+* `ExitCommandParser` (`exit`)
+* `HelpCommandParser` (`help`)
+* `SetDataDirectoryParser` (`setdatadir`)
+* `ListCommandParser` (`list`)
+* `UndoCommandParser` (`undo`)
+* `RedoCommandParser` (`redo`)
+* `FindCommandParser` (`find`)
+
+A full list of these command parsers can be found in `TaskTrackerParser.java`.
+
+The second level of parsers are usually for overloaded command parsing. For
+example, the `AddTaskCommandParser` internally consists of
+`AddFloatingTaskCommandParser`, `AddDeadlineTaskCommandParser` and
+`AddEventTaskCommandParser` subparsers. Each of these subparsers handle a
+variation of the `add` command -- the command format variation for adding
+floating tasks, deadline tasks and event tasks respectively. Some commands,
+such as the `list` command, do not have any variations in their command format
+and thus bypass the second level.
+
+These second level command parsers include:
+
+* `AddEventParser` (Add an event)
+* `AddDeadlineParser` (Add a deadline)
+* `AddFloatingTaskParser` (Add a floating task)
+* `EditEventParser` (Edit an event)
+* `EditDeadlineParser` (Edit a deadline)
+* `EditFloatingTaskParser` (Edit a floating task)
+* `DeleteEventParser` (Delete an event)
+* `DeleteDeadlineParser` (Delete a deadline)
+* `DeleteFloatingTaskParser` (Delete a floating task)
+* `MarkDeadlineFinishedParser` (Mark a deadline as finished)
+* `MarkFloatingTaskFinishedParser` (Mark a floating task as finished)
+* `MarkDeadlineUnfinishedCommandParser` (Mark a deadline task as unfinished)
+* `MarkFloatingTaskUnfinishedCommandParser` (Mark a floating task as unfinished)
+
+The third level of parsers are for parsers that parse the
+individual arguments and flags. For instance, `IndexParser` implements the
+parsing of test indexes (e.g. `e1`, `d1`, `f1` etc.) As such, it is logical
+that `EditFloatingTaskParser`, `EditDeadlineParser`, `DeleteFloatingTaskParser`
+etc. depends on them as the `edit` and `del` command formats include task
+indexes to tell the command which task to edit or delete.
+
+These third level parsers include:
+
+* `DateParser` (parses a date and returns a `LocalDate`)
+* `TimeParser` (parses a time and returns a `LocalTime`)
+* `FileParser` (parses a file path and returns a `File`)
+* `NameParser` (parses a task name and returns a `Name`)
+* `PriorityParser` (parses a task priority and returns a `Priority`)
+* `TaskPredicateParser` (parses a task predicate name and returns a `TaskPredicate`)
+* `IndexParser` (parses a task index and returns an `Integer`)
+
+The application of the Single Responsibility Principle in the parsing component
+brings several benefits. Firstly, it is extremely easy to unit test each
+individual parser. Secondly, this approach is also very DRY (Don't repeat
+yourself) -- each piece of parsing logic has a single definitive source. For
+example, if we wanted to add a new kind of `TaskPredicate`, all we need to do
+is to modify `TaskPredicateParser` and all parsers will immediately recognize
+the task predicate name.
+
+#### The `Parser` interface
+
+<figure>
+<img src="images/devguide/classdiag-model-parser-interface.png">
+<figcaption><div align="center">Figure 2.X:</div></figcaption>
+</figure>
+
+The whole parsing architecture makes use of the command pattern. All parsers
+implement the `Parser<T>` interface, which is a functional interface whose
+functional method is `parse(String)`. This method should take a string, parse
+it, and return its result of type `T`.
+
+If a parse error occurs, the `parse(String)` method should throw a
+`ParseException`, with `ranges` denoting the `SubstringRange(s)` of the input
+string which caused the parse to fail.
+
+Parsers can also optionally implement an autocomplete method, to allow the
+parser to complete an input string given a `ReadOnlyModel` and an integer caret
+position. It should then return a list of possible candidates, with are strings
+that could possibly be inserted at the caret's position in the string. The
+default implementation returns an empty list (no candidates).
+
+As such, a simple parser that returns a command could be implemented as follows:
+
+```java
+package seedu.address.logic.parser;
+
+import seedu.address.commons.util.SubstringRange;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+
+/**
+ * A parser that returns a command that says "hello world!" if the input is "hello",
+ * otherwise throws a ParseException.
+ */
+public class HelloWorldParser implements Parser<Command> {
+    @Override
+    public Command parse(String str) throws ParseException {
+        if (str.equals("hello")) {
+            return model -> new CommandResult("hello world!");
+        } else {
+            throw new ParseException("must say hello", SubstringRange.of(str));
+        }
+    }
+}
+```
+
+This parser can now actually be used with `LogicManager` by constructing it
+with:
+```java
+new LogicManager(model, storage, new HelloWorldParser());
+```
+where `model` and `storage` are instances of `ModelManager` and `StorageManager`.
+
+However, a useful command-line parser requires much more effort and code than
+that. This is because the parser also needs to keep track of things like
+subcommands, overloaded commands, and arguments, flags, quoting etc.
+
+This is where the command pattern used here truly shines as the `Parser`
+interface allows us to easily mix and match parsers through the use of OCP
+(open-closed principle) to generate new command formats. The
+`seedu.address.logic.parser` package provides a few utility classes to do just
+that. They include: the `CommandLineParser`, the `SubcommandParser` and the
+`OverloadParser`. With this utility classes, it is extremely easy to implement
+your own `Parser` with minimal effort.
+
+#### The `CommandLineParser` utility class
+
+<figure>
+<img src="images/devguide/classdiag-logic-commandlineparser.png">
+<figcaption><div align="center">Figure 2.X:</div></figcaption>
+</figure>
+
+The `CommandLineParser` class helps to piece together individual `Parser<T>`
+parsers to parse a command line input.
+
+For consistency, all commands in Task Tracker follow a standard command format
+which consists of the following three parts in order:
+
+* Arguments, which are single fields identified by their position on the
+  command line. Arguments are separated by whitespace. If an argument value
+  needs to contain whitespace, it can be `"quoted"` with quotes.
+
+* An optional "rest argument", which extends from the last argument all the way
+  to the start of the first flag.
+
+* Flags, which are fields identified by starting with their "flag prefixes".
+
+The `CommandLineParser`, along with its `ArgumentParsers` and `FlagParsers`
+helps to parse such a command line input and break the arguments and flags into
+their individual components for easy processing. In addition, it will help to
+detect problems like missing arguments or repeated flags.
+
+* `CommandLineParser.Argument<T>` will parse a single argument.
+
+* `CommandLineParser.RestArgument<T>` will parse a "rest argument".
+
+* `CommandLineParser.ListArgument<T>` will parse a "rest argument" as a list of
+  arguments.
+
+* `CommandLineParser.Flag<T>` will parse a flag. The `CommandLineParser` will
+  error out (throw a `ParseException`) if the flag was not specified or was
+  specified multiple times.
+
+* `CommandLineParser.OptionalFlag<T>` will parse a flag. The
+  `CommandLineParser` will *not* complain if the flag was not specified, but
+  will still error out if the flag was specified multiple times.
+
+Note that these classes all take a `Parser<? extends T>` in their constructors
+-- these classes will call the specified parser to parse the argument/flag into
+the type of object that you want.
+
+For instance, let's say we want to parse the input format of the form:
+```
+NAME_ARG [p-PRIORITY]
+```
+
+An example input would be:
+```
+"Learn Task Tracker" p-4
+```
+
+We first break down the arguments and flags into their individual types:
+
+* `NAME_ARG` is an argument that must be a valid task name. We can parse that
+  with `NameParser` which will return a `Name`.
+
+* `p-PRIORITY` is an optional flag, but if provided, it must be a valid
+  priority. We can parse that with `PriorityParser` which will return a
+  `Priority`.
+
+We can thus piece together the `CommandLineParser.Argument<T>` and
+`CommandLineParser.OptionalFlag<T>` like this:
+
+```java
+private final CommandLineParser.Argument<Name> nameArg =
+        new CommandLineParser.Argument<>("NAME", new NameParser());
+private final CommandLineParser.OptionalFlag<Priority> priorityFlag =
+        new CommandLineParser.OptionalFlag<>("p-", "PRIORITY", new PriorityParser());
+```
+
+And then we can build our `CommandLineParser` like this:
+```java
+private final CommandLineParser cmdParser = new CommandLineParser()
+                                                .addArgument(nameArg)
+                                                .putFlag(priorityFlag);
+```
+
+Now, with the input string, all we need to do is to call:
+```java
+cmdParser.parse("\"Learn Task Tracker\" p-4");
+```
+
+And then the values of the argument and flag will be available in `nameArg` and
+`priorityFlag`. You can get them by calling `getValue()`:
+```java
+System.out.println(nameArg.getValue()); // Learn Task Tracker
+System.out.println(priorityFlag.getValue()); // Optional[4]
+```
+
+#### The `SubcommandParser` utility class
+
+<figure>
+<img src="images/devguide/classdiag-logic-subcommandparser.png">
+<figcaption><div align="center">Figure 2.X: SubcommandParser class diagram</div></figcaption>
+</figure>
+
+#### The `OverloadParser` utility class
+
+<figure>
+<img src="images/devguide/classdiag-logic-overloadparser.png">
+<figcaption><div align="center">Figure 2.X: OverloadParser class diagram</div></figcaption>
+</figure>
+
+#### The `Command` interface
+
+<figure>
+<img src="images/devguide/classdiag-logic-commandinterface.png">
+<figcaption><div align="center">Figure 2.X: The command interface</div></figcaption>
+</figure>
+
+Other than parsing, the logic component also executes commands, represented by
+the `Command` interface. Commands have hidden internal logic and the ability to
+be executed. The `Command` interface is a functional interface whose functional
+method is `execute(Model)`.
+
+If an error occurs during execution, the command can throw a
+`CommandException`. The caller (e.g. the `LogicManager`) is then expected to
+handle the exception gracefully, such as reporting the error to the user and
+rolling back any changes to the model.
+
+All commands in the `seedu.address.logic.commands` package implement the
+`Command` interface to allow them to be executed by the `LogicManager`.
+
 ### UI implementation
+
+<figure>
+<img src="images/devguide/comp-ui.png">
+<figcaption><div align="center">Figure 2.6: Ui component class diagram</div></figcaption>
+</figure>
 
 As mentioned in the [UI component architecture overview](#ui-component), the UI
 component is made up of "UI Parts". Each UI Part inherits from the abstract

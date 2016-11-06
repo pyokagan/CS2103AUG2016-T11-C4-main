@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>855</x>
+      <y>450</y>
+      <w>189</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+IndexedItem
+--
+--
++ getWorkingIndex(): int
++ getItem(): E</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>117</x>
+      <y>261</y>
+      <w>423</w>
+      <h>477</h>
+    </coordinates>
+    <panel_attributes>WorkingTaskBook
+--
+- taskBook: TaskBook
+- workingFloatingTasks: WorkingItemList&lt;FloatingTask&gt;
+- workingDeadlineTasks: WorkingItemList&lt;DeadlineTask&gt;
+- workingEventTasks: WorkingItemList&lt;EventTask&gt;
+- taskPredicate: TaskPredicate
+--
++ getTaskPredicate(): TaskPredicate
++ setTaskPredicate(predicate: TaskPredicate)
+
++ addFloatingTask(task: FloatingTask): int
++ getFloatingTask(workingIndex: int): FloatingTask
++ removeFloatingTask(workingIndex: int): FloatingTask
++ setFloatingTask(workingIndex: int, newTask: FloatingTask)
++ getFloatingTaskList(): ObservableList&lt; IndexedItem&lt;FloatingTask&gt; &gt;
++ getFloatingTaskComparator(): Comparator&lt;FloatingTask&gt;
++ setFloatingTaskComparator(comparator: Comparator&lt;FloatingTask&gt;)
+
++ addDeadlineTask(task: DeadlineTask): int
++ getDeadlineTask(workingIndex: int): DeadlineTask
++ removeDeadlineTask(workingIndex: int): DeadlineTask
++ setDeadlineTask(workingIndex: int, newTask: DeadlineTask)
++ getDeadlineTaskList(): ObservableList&lt; IndexedItem&lt;DeadlineTask&gt; &gt;
++ getDeadlineTaskComparator(): Comparator&lt;DeadlineTask&gt;
++ setDeadlineTaskComparator(comparator: Comparator&lt;DeadlineTask&gt;)
+
++ addEventTask(task: EventTask): int
++ getEventTask(workingIndex: int): EventTask
++ removeEventTask(workingIndex: int): EventTask
++ setEventTask(workingIndex: int, newTask: EventTask)
++ getEventTaskList(): ObservableList&lt; IndexedItem&lt;EventTask&gt; &gt;
++ getEventTaskComparator(): Comparator&lt;EventTask&gt;
++ setEventTaskComparator(comparator: Comparator&lt;EventTask&gt;)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>909</x>
+      <y>315</y>
+      <w>153</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>WorkingItem
+--
+- workingIndex: int
+- sourceIndex: int
+- item: Optional&lt;E&gt;
+--
++ getWorkingIndex(): int
++ getItem(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>315</y>
+      <w>189</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>WorkingItem&lt;FloatingTask&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>351</y>
+      <w>189</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>WorkingItem&lt;DeadlineTask&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>387</y>
+      <w>189</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>WorkingItem&lt;EventTask&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1026</x>
+      <y>297</y>
+      <w>72</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>E: Class
+lt=.
+transparency=0
+layer=10
+bg=white
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>297</y>
+      <w>99</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>315</y>
+      <w>99</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>333</y>
+      <w>99</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>279</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>TaskBook</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>279</y>
+      <w>99</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1035</x>
+      <y>324</y>
+      <w>63</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;160.0;50.0;160.0;50.0;10.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>990</x>
+      <y>432</y>
+      <w>72</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>E: Class
+lt=.
+transparency=0
+layer=10
+bg=white
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>423</y>
+      <w>216</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+TaskPredicate
+--
+--
++ test(task: FloatingTask): boolean
++ test(task: DeadlineTask): boolean
++ test(task: EventTask): boolean
++ toHumanReadableString(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>342</y>
+      <w>108</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;80.0;90.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>306</y>
+      <w>135</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;bind&gt;&gt;
+E -&gt; FloatingTask</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>342</y>
+      <w>135</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;bind&gt;&gt;
+E -&gt; DeadlineTask</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>378</y>
+      <w>135</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;bind&gt;&gt;
+E -&gt; EventTask</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>540</y>
+      <w>189</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Comparator&lt;FloatingTask&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>585</y>
+      <w>189</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Comparator&lt;DeadlineTask&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>630</y>
+      <w>189</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Comparator&lt;EventTask&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>351</y>
+      <w>99</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;100.0;50.0;230.0;90.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>351</y>
+      <w>99</w>
+      <h>279</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;100.0;50.0;280.0;90.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>351</y>
+      <w>99</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;100.0;50.0;320.0;90.0;320.0</additional_attributes>
+  </element>
+</diagram>
