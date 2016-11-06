@@ -712,7 +712,17 @@ System.out.println(priorityFlag.getValue()); // Optional[4]
 
 #### The `SubcommandParser` utility class
 
+<figure>
+<img src="images/devguide/classdiag-logic-subcommandparser.png">
+<figcaption><div align="center">Figure 2.X: SubcommandParser class diagram</div></figcaption>
+</figure>
+
 #### The `OverloadParser` utility class
+
+<figure>
+<img src="images/devguide/classdiag-logic-overloadparser.png">
+<figcaption><div align="center">Figure 2.X: OverloadParser class diagram</div></figcaption>
+</figure>
 
 #### The `Command` interface
 
@@ -721,8 +731,18 @@ System.out.println(priorityFlag.getValue()); // Optional[4]
 <figcaption><div align="center">Figure 2.X: The command interface</div></figcaption>
 </figure>
 
-Other than parsing, the logic component also executes "commands". Commands are
-mainly pieces of logic that can be executed (the command pattern).
+Other than parsing, the logic component also executes commands, represented by
+the `Command` interface. Commands have hidden internal logic and the ability to
+be executed. The `Command` interface is a functional interface whose functional
+method is `execute(Model)`.
+
+If an error occurs during execution, the command can throw a
+`CommandException`. The caller (e.g. the `LogicManager`) is then expected to
+handle the exception gracefully, such as reporting the error to the user and
+rolling back any changes to the model.
+
+All commands in the `seedu.address.logic.commands` package implement the
+`Command` interface to allow them to be executed by the `LogicManager`.
 
 ### UI implementation
 
