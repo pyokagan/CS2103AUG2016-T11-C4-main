@@ -156,6 +156,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<FloatingTask> getFloatingTaskList(TaskPredicate predicate) {
+        return workingTaskBook.getFloatingTaskList(predicate);
+    }
+
+    @Override
     public Comparator<? super FloatingTask> getFloatingTaskComparator() {
         return workingTaskBook.getFloatingTaskComparator();
     }

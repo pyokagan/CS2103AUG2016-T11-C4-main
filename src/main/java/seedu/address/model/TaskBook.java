@@ -7,6 +7,7 @@ import com.google.common.base.MoreObjects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.filter.TaskPredicate;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -50,6 +51,13 @@ public class TaskBook implements ReadOnlyTaskBook {
     @Override
     public ObservableList<FloatingTask> getFloatingTasks() {
         return FXCollections.unmodifiableObservableList(floatingTasks);
+    }
+
+    @Override
+    public ObservableList<FloatingTask> getFloatingTasks(TaskPredicate predicate) {
+        assert predicate != null;
+        ObservableList<FloatingTask> result = FXCollections.unmodifiableObservableList(floatingTasks);
+        return result.filtered(p -> predicate.test(p));
     }
 
     public void setFloatingTasks(Collection<FloatingTask> floatingTasks) {
