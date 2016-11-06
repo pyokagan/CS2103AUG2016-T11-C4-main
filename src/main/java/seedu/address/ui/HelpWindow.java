@@ -62,7 +62,9 @@ public class HelpWindow extends UiPart<Stage> {
         helpBox.setResizable(true);
         helpBox.getDialogPane().setPrefWidth(800.0);
         helpBox.getDialogPane().setPrefHeight(330.0);
-        helpBox.getDialogPane().setStyle("-fx-font-family: 'Courier New';" + "-fx-font-weight: 700;" + "font-style: normal;" + "-fx-background-color: white;" + "-fx-color: black;");
+        //helpBox.getDialogPane().getStylesheets().add("src/main/resources/view/DarkTheme.css");
+        //helpBox.getDialogPane().getStyleClass().add("helpBox");
+        helpBox.getDialogPane().setStyle("-fx-font-family: \"Courier New\";" + "-fx-font-weight: 700;" + "font-style: normal;" + "-fx-background-color: white;" + "-fx-color: black;");
 
         //set contents
         helpBox.setTitle("HELP");
@@ -88,7 +90,7 @@ public class HelpWindow extends UiPart<Stage> {
             }
         });
 
-        helpBox.showAndWait();
+        helpBox.show();
     }
 
     public Stage getStage() {
