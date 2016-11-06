@@ -17,11 +17,8 @@ import org.mockito.MockitoAnnotations;
 import seedu.address.model.Model;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.TypicalEventTasks;
 
 public class EditEventCommandTest {
-
-    private final TypicalEventTasks tet = new TypicalEventTasks();
 
     @Mock
     private Model model;
@@ -40,7 +37,7 @@ public class EditEventCommandTest {
                                                           Optional.empty(), Optional.empty(),
                                                           Optional.empty(), Optional.empty());
         final CommandResult result = cmd.execute(model);
-        assertEquals("Edited event e1.", result.feedbackToUser);
+        assertEquals("Edited event task e1.", result.feedbackToUser);
         Mockito.verify(model).setEventTask(1, expected);
     }
 
@@ -54,7 +51,7 @@ public class EditEventCommandTest {
                                                           Optional.empty(), Optional.empty(),
                                                           Optional.empty());
         final CommandResult result = cmd.execute(model);
-        assertEquals("Edited event e1.", result.feedbackToUser);
+        assertEquals("Edited event task e1.", result.feedbackToUser);
         Mockito.verify(model).setEventTask(1, expected);
     }
 
@@ -66,7 +63,7 @@ public class EditEventCommandTest {
                                                           Optional.of(LocalTime.of(0, 1)), Optional.empty(),
                                                           Optional.empty());
         final CommandResult result = cmd.execute(model);
-        assertEquals("Edited event e1.", result.feedbackToUser);
+        assertEquals("Edited event task e1.", result.feedbackToUser);
         Mockito.verify(model).setEventTask(1, expected);
     }
 
@@ -79,7 +76,7 @@ public class EditEventCommandTest {
                                                           Optional.of(LocalDate.of(2653, 9, 15)),
                                                           Optional.empty());
         final CommandResult result = cmd.execute(model);
-        assertEquals("Edited event e1.", result.feedbackToUser);
+        assertEquals("Edited event task e1.", result.feedbackToUser);
         Mockito.verify(model).setEventTask(1, expected);
     }
 
@@ -91,7 +88,7 @@ public class EditEventCommandTest {
                                                           Optional.empty(), Optional.empty(),
                                                           Optional.of(LocalTime.of(12, 34)));
         final CommandResult result = cmd.execute(model);
-        assertEquals("Edited event e1.", result.feedbackToUser);
+        assertEquals("Edited event task e1.", result.feedbackToUser);
         Mockito.verify(model).setEventTask(1, expected);
     }
 

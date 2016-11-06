@@ -13,14 +13,15 @@ import seedu.address.model.task.Name;
 
 public class EditEventCommand implements Command {
 
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited event " + IndexPrefix.EVENT.getPrefixString() + "%d.";
+    private static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited event task "
+                                                        + IndexPrefix.EVENT.getPrefixString() + "%d.";
 
-    public final int targetIndex;
-    public final Optional<Name> newName;
-    public final Optional<LocalDate> newStartDate;
-    public final Optional<LocalTime> newStartTime;
-    public final Optional<LocalDate> newEndDate;
-    public final Optional<LocalTime> newEndTime;
+    private final int targetIndex;
+    private final Optional<Name> newName;
+    private final Optional<LocalDate> newStartDate;
+    private final Optional<LocalTime> newStartTime;
+    private final Optional<LocalDate> newEndDate;
+    private final Optional<LocalTime> newEndTime;
 
     public EditEventCommand(int targetIndex, Optional<Name> newName, Optional<LocalDate> newStartDate,
                             Optional<LocalTime> newStartTime, Optional<LocalDate> newEndDate,
