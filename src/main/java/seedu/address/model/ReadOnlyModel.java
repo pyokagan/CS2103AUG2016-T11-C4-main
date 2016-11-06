@@ -67,7 +67,7 @@ public interface ReadOnlyModel {
     ObservableList<IndexedItem<DeadlineTask>> getDeadlineTaskList();
 
     /** Return a filtered Deadline task list filter by given task predicate. */
-    //ObservableList<DeadlineTask> getDeadlineTaskList(TaskPredicate taskFilter);
+    ObservableList<DeadlineTask> getDeadlineTaskList(TaskPredicate taskFilter);
 
     /** Returns the comparator used to sort the deadline task list. */
     Comparator<? super DeadlineTask> getDeadlineTaskComparator();

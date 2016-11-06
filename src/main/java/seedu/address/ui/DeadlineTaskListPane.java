@@ -1,15 +1,17 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import seedu.address.model.IndexedItem;
+import seedu.address.model.ReadOnlyModel;
+import seedu.address.model.filter.TaskUnfinishedPredicate;
 import seedu.address.model.task.DeadlineTask;
 
 public class DeadlineTaskListPane extends UiPart<Pane> {
@@ -22,12 +24,17 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
     @FXML
     private Label listedDeadlineCounter;
 
-    public DeadlineTaskListPane(ObservableList<IndexedItem<DeadlineTask>> deadlineTaskList) {
+    @FXML
+    private Label unfinishedDeadlineCounter;
+
+    public DeadlineTaskListPane(ReadOnlyModel model) {
         super(FXML);
-        deadlineTaskListView.setItems(deadlineTaskList);
+        deadlineTaskListView.setItems(model.getDeadlineTaskList());
         deadlineTaskListView.setCellFactory(listView -> new DeadlineTaskListCell());
-        listedDeadlineCounter.textProperty().bind(Bindings.size(deadlineTaskList)
+        listedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList())
                                                     .asString("Number of Deadlines listed: %d"));
+        unfinishedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskUnfinishedPredicate(LocalDateTime.now())))
+                                                        .asString("Unfinished: %d"));
     }
 
     /**
