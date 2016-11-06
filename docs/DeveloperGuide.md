@@ -253,6 +253,11 @@ application.
 
 #### The task classes
 
+<figure>
+<img src="images/devguide/classdiag-model-task.png">
+<figcaption><div align="center">Figure 2.X: Task classes</div></figcaption>
+</figure>
+
 Task Tracker is able to store floating tasks, deadline tasks and event tasks.
 These are modeled as separate `FloatingTask`, `DeadlineTask` and `EventTask`
 classes respectively. Each class contains the fields specific to each type of
