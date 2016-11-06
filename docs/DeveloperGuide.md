@@ -287,7 +287,12 @@ adding, removing and setting tasks.
 The `TaskBook` class implements the `ReadOnlyTaskBook` interface, which
 provides a read-only view of its data.
 
-#### Task item indexing, sorting and filtering (`IndexedItem`, `WorkingTaskBook`)
+#### Task item indexing, sorting and filtering (`WorkingTaskBook`)
+
+<figure>
+<img src="images/devguide/classdiag-model-workingtaskbook.png">
+<figcaption><div align="center">Figure 2.X: WorkingTaskBook</div></figcaption>
+</figure>
 
 The `TaskBook` class only stores the raw task data. However, the application
 user cases dictates the following additional requirements on top:
@@ -308,60 +313,30 @@ user cases dictates the following additional requirements on top:
    refer to it as index `1` via a combination of filters and/or sort
    comparators.
 
-These requirements are implemented using the following architecture:
+These requirements are all implemented with the `WorkingTaskBook` class. The
+prefix `Working` comes from the idea that it is some kind of "workspace" for
+working with tasks. This workspace is a wrapper around a `TaskBook` and manages
+its data.
 
-Firstly, we have the `IndexedItem<T>` interface, which represents an item of
-type `T` which has an index, which we call a "working index", attached to it.
+For the 1st requirement, `WorkingTaskBook` keeps its own internal copy of a
+`TaskBook`. It then uses a `TaskPredicate` to filter the lists of
+floating/deadline/event tasks, which it then exposes through the
+`workingFloatingTasks`, `workingDeadlineTasks` and `workingEventTasks` lists.
 
-```java
-public interface IndexedItem<E> {
-    /**
-     * Returns the item's working index. This index will remain the same as long
-     * as the list is not repopulated.
-     */
-    int getWorkingIndex();
+For the 2nd requirement, `WorkingTaskBook` also uses comparators to sort the
+working floating/deadline/event tasks lists. This sorting is automatic -- if
+the contents of the floating/deadline/event tasks lists change, they will
+automatically be re-sorted as required. (Internally, we use a JavaFX
+`SortedList`).
 
-    /** Returns the item value. */
-    E getItem();
-}
-```
-
-Secondly, we have a `TaskPredicate`, which represents a predicate which can be
-used to filter `FloatingTasks`, `DeadlineTasks` and `EventTasks`.
-
-```java
-public interface TaskPredicate {
-
-    /**
-     * Evaluates the predicate on the given {@link FloatingTask}.
-     * @returns true if the input floating task matches the predicate,
-     * otherwise false.
-     */
-    boolean test(FloatingTask floatingTask);
-
-    /**
-     * Evaluates the predicate on the given {@link DeadlineTask}
-     * @returns true if the input deadline task matches the predicate,
-     * otherwise false.
-     */
-    boolean test(DeadlineTask deadlineTask);
-
-    /**
-     * Evaluates the predicate on the given {@link EventTask}
-     * @returns true if the input event task matches the predicate, otherwise
-     * false.
-     */
-    boolean test(EventTask eventTask);
-
-    /**
-     * Returns a human-readable explanation of the predicate. This explanation
-     * must read correctly when
-     * used as follows: "Filtering by: XX", where "XX" is the return value of this method.
-     */
-    String toHumanReadableString();
-
-}
-```
+For the 3rd requirement, we have the `IndexedItem<E>` interface, which
+represents an item of the type `E` which has an index which we call the
+"working index", attached to it. The `WorkingItem<E>` class implements this
+interface, and, in addition to storing the `workingIndex` and `item`, also
+stores the `sourceIndex`, which maps the `IndexedItem` back to the source item
+of the internal `TaskBook`. By decoupling the source item index from the
+working index, we can ensure that the working index remains the same even if
+other tasks in the task book are deleted.
 
 #### The `Config` class
 
