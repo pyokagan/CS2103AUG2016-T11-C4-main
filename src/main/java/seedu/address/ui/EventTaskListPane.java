@@ -91,12 +91,17 @@ public class EventTaskListPane extends UiPart<Pane> {
         this.listedEventTasks.addListener(new ListChangeListener() {
             @Override
             public void onChanged(Change c) {
+                // update the different with updated filters created at current time point
                 todayEventTasks = model.getEventTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now()));
                 unfinishedEventTasks = model.getEventTaskList(new TaskUnfinishedPredicate(LocalDateTime.now()));
+
+                // update the task counter with updated task lists
                 unfinishedEventCounter.textProperty().bind(Bindings.size(unfinishedEventTasks)
                         .asString("Total upcoming: %d"));
                 todayUnfinishedEventCounter.textProperty().bind(Bindings.size(todayEventTasks)
                              .asString("Today upcoming: %d"));
+
+                // logging information
                 logger.info("EventTask counter updated with current time.");
             }
         });
