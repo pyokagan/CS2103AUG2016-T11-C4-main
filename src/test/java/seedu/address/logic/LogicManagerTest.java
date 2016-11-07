@@ -97,7 +97,7 @@ public class LogicManagerTest {
             return new CommandResult("task book modified");
         };
         logic.execute(command);
-        Mockito.verify(model).recordState(command.toString());
+        Mockito.verify(model).recordState("task book modified");
     }
 
     @Test
@@ -116,7 +116,7 @@ public class LogicManagerTest {
             return new CommandResult("modified config");
         };
         logic.execute(command);
-        Mockito.verify(model).recordState(command.toString());
+        Mockito.verify(model).recordState("modified config");
     }
 
     @Test
