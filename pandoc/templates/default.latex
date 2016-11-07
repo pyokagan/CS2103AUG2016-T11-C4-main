@@ -242,7 +242,7 @@ $endfor$
     \vspace{4cm}
 	{\huge\bfseries Task Tracker\par}
 	\vspace{1cm}
-	\includegraphics[width=16cm,height=14cm,keepaspectratio]{example-image-1x1}\par
+	\includegraphics[width=16cm,height=14cm,keepaspectratio]{images/TaskTrackerScreenshot.png}\par
 	\vspace{0.1cm}
 	{\scshape\large Supervisor: Chua Ka Yi Ong\par}
 	\vspace{0.2cm}
