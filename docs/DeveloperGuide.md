@@ -120,6 +120,9 @@ Our central development repository lives on
 
 ## Design
 
+Before diving into the implementation details of our code base, let's first take a brief look at
+the overall design of our code.
+
 ### Architecture
 
 <figure>
