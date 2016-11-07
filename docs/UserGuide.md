@@ -158,11 +158,11 @@ add "bake potatoes" p-2
 
 * Most recently added task will be highlighted yellow. 
 
-* Tell Task Tracker the priority of your task, by typing p-PRIORITY, where PRIORITY is a number from 0 to 5.
+* Tell Task Tracker the priority of your task, by typing `p-PRIORITY`, where `PRIORITY` is a number from 0 to 5.
 
 * Notice how `bake potatoes` is above `Learn Task Tracker`. That's because `bake potatoes` is of number 2 priority, while `Learn Task Tracker` with an undefined priority takes the default lowest priority number of 0.
 
-* If you create two floating tasks with the same PRIORITY, they will be shown in order of the time they were created.
+* If you create two floating tasks with the same `PRIORITY`, they will be shown in order of the time they were created.
     
 * Task Tracker supports your love for all things short and sweet. For one worded task names, quotation marks need not be used.
 
