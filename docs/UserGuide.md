@@ -191,7 +191,7 @@ TaskTracker makes time-management smart and simple for you!
 
         ![alttext](./images/userguide/9.png "")
 
-13. If you've finished a task. Congradulations! Let's mark that task as finshed.
+13. If you've finished a task. Congratulations! Let's mark that task as finshed.
 
      * `fin-float 1`
 
