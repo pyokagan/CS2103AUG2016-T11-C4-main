@@ -4,38 +4,124 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-### [Chua Ka Yi Ong](https://github.com/kychua)
+### [Chua Ka Yi Ong @kychua](https://github.com/kychua)
 
 ![Chua Ka Yi Ong](images/team/ChuaKaYiOng.jpg)
 
 Role: Project Advisor
 
-### [Paul Tan](https://github.com/pyokagan)
+### [Paul Tan @pyokagan](https://github.com/pyokagan)
 
 ![Paul Tan](images/team/PaulTan.jpg)
 
-Role: Team lead <br>
-Responsibilities: Integration
+* Role: Team lead
 
-### [Sun Mingyang](https://github.com/nightism)
+* Responsibilities: Integration
+
+* Component in charge of: Logic
+
+* Features implemented:
+
+    * [Implement CRUD for Event Tasks](https://github.com/CS2103AUG2016-T11-C4/main/pull/37)
+    * [Implement date and time parsers](https://github.com/CS2103AUG2016-T11-C4/main/pull/47)
+    * [Implement `setdatadir` command](https://github.com/CS2103AUG2016-T11-C4/main/pull/91)
+    * [Implement new command line parser](https://github.com/CS2103AUG2016-T11-C4/main/pull/128)
+    * [Sticky indexes and list autosorting](https://github.com/CS2103AUG2016-T11-C4/main/pull/154)
+    * [Implement find by keywords](https://github.com/CS2103AUG2016-T11-C4/main/pull/162)
+    * [Implement tab completion](https://github.com/CS2103AUG2016-T11-C4/main/pull/175)
+
+* Code written:
+  [[functional code](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/main/A0140145W.md)]
+  [[test code](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/test/A0140145W.md)]
+  [[docs](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/docs/A0140145W.md)]
+
+* Other major contributions:
+
+    * [Fix code style violations and use checkstyle plugin](https://github.com/CS2103AUG2016-T11-C4/main/pull/2)
+    * [build.gradle cleanups](https://github.com/CS2103AUG2016-T11-C4/main/pull/3)
+    * [Simplified the UiPart system](https://github.com/CS2103AUG2016-T11-C4/main/pull/4)
+    * [Rename classes from Addressbook-Level4 (Part 1)](https://github.com/CS2103AUG2016-T11-C4/main/pull/5)
+    * [Rename classes from Addressbook-Level4 (Part 2)](https://github.com/CS2103AUG2016-T11-C4/main/pull/6)
+    * [Switch TaskBook storage format from XML to JSON](https://github.com/CS2103AUG2016-T11-C4/main/pull/19)
+    * [Simplify the UI component](https://github.com/CS2103AUG2016-T11-C4/main/pull/38)
+    * [Setup markdown to pdf conversion for UserGuide/DeveloperGuide](https://github.com/CS2103AUG2016-T11-C4/main/pull/71)
+    * [Rework UI tests](https://github.com/CS2103AUG2016-T11-C4/main/pull/88)
+    * [Make Task abstract](https://github.com/CS2103AUG2016-T11-C4/main/pull/120)
+    * [Make `Command` an interface](https://github.com/CS2103AUG2016-T11-C4/main/pull/157)
+    * [Overload `edit`, `del` and `fin` commands](https://github.com/CS2103AUG2016-T11-C4/main/pull/133)
+
+### [Sun Mingyang @nightism](https://github.com/nightism)
 
 ![Sun Mingyang](images/team/SunMingyang.jpg)
 
-Role: Developer <br>
-Responsibilities: Code Quality
+* Role: Developer
 
-### [Sneha Santha Prabakar](https://github.com/snehasp13)
+* Responsibilities: Code Quality
+
+* Component in charge of: Model
+
+* Features implemented:
+
+    * [Implement CRUD for Floating Tasks](https://github.com/CS2103AUG2016-T11-C4/main/pull/53)
+    * [Implement CRUD for Deadline Tasks](https://github.com/CS2103AUG2016-T11-C4/main/pull/57)
+    * [Mark a deadline task as finished](https://github.com/CS2103AUG2016-T11-C4/main/pull/93)
+    * [Mark a floating task as finished](https://github.com/CS2103AUG2016-T11-C4/main/pull/122)
+    * [Implement `clear fin` command](https://github.com/CS2103AUG2016-T11-C4/main/pull/167)
+    * [Add UI counters for tasks](https://github.com/CS2103AUG2016-T11-C4/main/pull/181)
+
+* Code written:
+  [[functional code](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/main/A0147999Y.md)]
+  [[test code](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/test/A0147999Y.md)]
+  [[docs](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/docs/A0147999Y.md)]
+
+* Other major contributions:
+
+    * [Overload `add` command](https://github.com/CS2103AUG2016-T11-C4/main/pull/85)
+    * [Command designs and format](https://github.com/CS2103AUG2016-T11-C4/main/pull/39)
+
+### [Sneha Santha Prabakar @snehasp13](https://github.com/snehasp13)
 ![Sneha Santha Prabakar](images/team/Sneha.jpg)
 
-Role: Developer <br>
-Responsibilities: Testing
+* Role: Developer
 
-### [Sherry Wong Wen Qi](https://github.com/potatowagon)
+* Responsibilities: Testing
+
+* Component in charge of: Storage
+
+* Features implemented: -
+
+* Code written:
+  [[functional code](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/main/A0147919N.md)]
+  [[test code](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/test/A0147919N.md)]
+  [[docs](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/docs/A0147919N.md)]
+
+* Other major contributions: -
+
+### [Sherry Wong Wen Qi @potatowagon](https://github.com/potatowagon)
 
 ![Sherry Wong Wen Qi](images/team/Sherry.jpg)
 
-Role: Developer <br>
-Responsibilities: Documentation
+* Role: Developer
+
+* Responsibilities: Documentation
+
+* Component in charge of: UI
+
+* Features implemented:
+
+    * [Undo/Redo command](https://github.com/CS2103AUG2016-T11-C4/main/pull/135)
+    * [UI Pretty-print dates and times](https://github.com/CS2103AUG2016-T11-C4/main/pull/169)
+    * [Help Window](https://github.com/CS2103AUG2016-T11-C4/main/pull/170)
+
+* Code written:
+  [[functional code](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/main/A0143637A.md)]
+  [[test code](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/test/A0143637A.md)]
+  [[docs](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/collated/docs/A0143637A.md)]
+
+* Other major contributions:
+
+    * [User Guide 1](https://github.com/CS2103AUG2016-T11-C4/main/pull/46)
+    * [User Guide 2](https://github.com/CS2103AUG2016-T11-C4/main/pull/49)
 
 # Original Authors
 
