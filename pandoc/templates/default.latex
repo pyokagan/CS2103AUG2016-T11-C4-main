@@ -235,25 +235,33 @@ $for(header-includes)$
 $header-includes$
 $endfor$
 
-$if(title)$
-\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
-$endif$
-$if(subtitle)$
-\providecommand{\subtitle}[1]{}
-\subtitle{$subtitle$}
-$endif$
-$if(author)$
-\author{$for(author)$$author$$sep$ \and $endfor$}
-$endif$
-$if(institute)$
-\institute{$for(institute)$$institute$$sep$ \and $endfor$}
-$endif$
-\date{$date$}
-
 \begin{document}
-$if(title)$
-\maketitle
-$endif$
+\begin{titlepage}
+    \thispagestyle{plain}
+	\centering
+    \vspace{4cm}
+	{\huge\bfseries Task Tracker\par}
+	\vspace{1cm}
+	\includegraphics[width=16cm,height=14cm,keepaspectratio]{example-image-1x1}\par
+	\vspace{0.1cm}
+	{\scshape\large Supervisor: Chua Ka Yi Ong\par}
+	\vspace{0.2cm}
+
+    % Authors
+    \begin{tabular}{ | c | c | c | c | }
+    \hline
+        & & & \\
+         \includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/PaulTan.jpg} &
+         \includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/SunMingyang.jpg} &
+         \includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/Sneha.jpg} &
+         \includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/Sherry.jpg} \\
+        Paul Tan &
+        Sun Mingyang &
+        Sneha Santha Prabakar &
+        Sherry Wong Wen Qi \\ \hline
+    \end{tabular}
+\end{titlepage}
+
 $if(abstract)$
 \begin{abstract}
 $abstract$
