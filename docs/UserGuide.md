@@ -93,8 +93,8 @@ TaskTracker makes time-management smart and simple for you!
     ![alt text](./images/userguide/2.png "")
 
     Notice how `bake potatoes` is below `Learn Task Tracker`. That's because
-    `bake potatoes` is of number 2 priority, while `Learn Task Tracker` with an
-    undefined priority takes the default highest priority number of 0.
+    `bake potatoes` is of priority number 2, while `Learn Task Tracker` with an
+    undefined priority takes the default highest priority number of 5.
 
 7. Let's add deadline tasks with due date and time.
 
@@ -191,7 +191,7 @@ TaskTracker makes time-management smart and simple for you!
 
         ![alttext](./images/userguide/9.png "")
 
-13. If you've finished a task. Congrations! Let's mark that task as finshed.
+13. If you've finished a task. Congradulations! Let's mark that task as finshed.
 
      * `fin-float 1`
 
@@ -208,7 +208,7 @@ TaskTracker makes time-management smart and simple for you!
         Close the Task-tracker.
 
 15. For more details of each
-     command.
+     command,
 please refer to the [Features](#features) section below.
 
 
@@ -216,7 +216,7 @@ please refer to the [Features](#features) section below.
 
 ### <a name="dm">Data models</a>
 
-All tasks stored in TaskTracker will be automatically categorized into three different types: `floating task`, `deadline task`, and `event`, depending on the types and number of parameters entered when created.
+All tasks stored in TaskTracker will be automatically categorized into three different types: `floating task`, `deadline task`, and `event`, depending on the types and number of parameters entered when they are created.
 
 |A/An... | has...|
 |----| :-------------------------------------|
@@ -230,11 +230,11 @@ All tasks stored in TaskTracker will be automatically categorized into three dif
 
 * Words in `lower_case` are the reserved keywords. All keywords can not be changed in each command line.
 
-* Items in `[SQUARE_BRACKETS]` are optional parameters. All paramters in square backets can be omitted.
+* Items in `[SQUARE_BRACKETS]` are optional parameters. All parameters in square backets can be omitted.
 
 * Items in `<ANGLE_BRACKETS>` are optional parameters. However, a certain number of these kind of parameters will be required in different commands.
 
-* All square brackets and angle brackets should not be included in the real commands.
+* All square brackets and angle brackets should not be included in the while typing the real commands.
 
 * Items separated by `|` are in parallel relation, only one of them should be
   use in each command.
@@ -267,7 +267,7 @@ Valid input examples:
     3/12
     ```
 
-    If the year is not given, the default year will be the current year as logged by the local machine.
+    If the year is not defined, the default year will be the current year as logged by the local machine.
 
 * dd
 
@@ -275,7 +275,7 @@ Valid input examples:
     31
     ```
 
-    If the month is not defined, the default month will be the current as logged by the local machine.
+    If the month is not defined, the default month will be the current month as logged by the local machine.
 
 * Today
 
@@ -337,11 +337,11 @@ add "FLOATING_TASK_NAME" [p-PRIORITY]
 
 * Task name should be in a pair of quotation marks. However, quotations marks are not allowed in task name.
 
-* Task name can be a single word or a phrase, white space are allowed.
+* Task name can be a single word or a phrase, and white space are also allowed.
 
 * All floating tasks will be shown according to their `PRIORITY`s.
 
-* Two floating tasks with the same `PRIORITY` will be shown according to the order of the time they are created.
+* Two floating tasks with the same `PRIORITY` will be shown according to the order of the time they were created.
 
 * The `PRIORITY` attribute is an integer which ranges from `0` to `5`, with `0` being the lowest pririoty and `5` the higest.
 
@@ -366,7 +366,7 @@ Format:
 add "DEADLINE_NAME" <DATE> <TIME>
 ```
 
-* Deadline name should be in a pair of quotation marks. And quotations marks are not allowed in deadline name.
+* Deadline name should be in a pair of quotation marks. However, quotations marks are not allowed within the deadline name.
 
 * Keywords like `tdy`, `tmr`, `yst`, can be used in the `DATE` field.
 
@@ -392,7 +392,7 @@ add "DEADLINE_NAME" <DATE> <TIME>
 
 ### <a name="adde">Adding an event: `add`</a>
 
-Adds an event with specific starting date, starting time and ending date, ending time to TaskTracker.
+Adds an event with specific starting date, starting time, and ending date, ending time to TaskTracker.
 
 Format:
 ```
@@ -409,7 +409,7 @@ add "EVENT_NAME" <START_DATE> <START_TIME> to <END_DATE> <END_TIME>
 
 * <a name="to">`add "CS2103 week8 lecture" 7/10 2pm to 4pm`</a>
 
-    To create an event `CS2103 week8 lecture` with starting date 7 October 2016, starting time 2pm, ending date 7 Oct 2016, ending time 4pm.
+    To create an event `CS2103 week8 lecture` with starting date 7 October 2016, starting time 2pm, ending date 7 Oct 2016 and ending time 4pm.
 
 * `add "programming workshop" tdy 10am to 5pm`
 
@@ -463,7 +463,7 @@ edit-float <INDEX> [n-NEW_NAME] [p-PRIORITY]
 
 * Quotation marks are not required for `NEW_NAME`.
 
-* `PRIORITY` should only be the integer ranges from `0` to `5`.
+* `PRIORITY` should only be an integer within the range `0` to `5`.
 
 ##### Examples
 
@@ -529,7 +529,7 @@ edit-event <INDEX> [ n-NEW_NAME] [sd-NEW_START_TIME] [st-NEW_START_DATE] [ed-NEW
 
 * Quotation marks are not required for `NEW_NAME`.
 
-* Formates of `[sd-NEW_START_TIME]` `[st-NEW_START_DATE]` `[ed-NEW_END_DATE]` `[ed-NEW_END_DATE]` should follow those stated above in this user guide. See [Date Format](#DateFormat) and [Time Format](#TimeFormat).
+* Formats of `[sd-NEW_START_TIME]` `[st-NEW_START_DATE]` `[ed-NEW_END_DATE]` `[ed-NEW_END_DATE]` should follow those stated above in this user guide. See [Date Format](#DateFormat) and [Time Format](#TimeFormat).
 
 ##### Examples
 
@@ -552,9 +552,9 @@ Format:
 fin-float|-deadline|-event <INDEX>
 ```
 
-* Events that have already passed it `DUE_TIME` will be marked as done automatically.
+* Events that have already passed, their `DUE_TIME` will be marked as done automatically.
 
-* Deadlines that have already passed it `DUE_TIME` will not be marked as done, but will be marked as "overdue" automatically.
+* Deadlines that have already passed, their `DUE_TIME` will not be marked as done, but will be marked as "overdue" automatically.
 
 #### Examples
 
@@ -562,39 +562,6 @@ fin-float|-deadline|-event <INDEX>
 
     Marked floating task `1` as finished.
 
-### <a name="slot">Show empty time slots: `slot`</a>
-
-Show all empty time slots in a given time period with a given duration.
-
-Format: 
-```
-slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>
-```
-
-* At least one of `<STARTING_DATE> <STARTING_TIME>` is required.
-
-* At least one of `<ENDING_DATE> <ENDING_TIME>` is required.
-
-* At least one of `<h-HOUR> <m-MINUTE>` is required.
-
-#### Examples
-
-* `slot 1/11/2016 3/11/2016 h-4`
-
-    The TaskTracker will generate all empty time slots that are equal or
-    greater than 4 hours between 2016 1st November 12am to 3rd 11:59pm.
-
-* `slot 5/11/2016 2pm 11pm m-45`
-
-    The TaskTracker will generate all empty time slots that are equal or
-    greater than 45 minutes between 2016 5st November 2pm to 3rd 11:00pm.
-
-* `slot 5/11/2016 2pm m-45`
-
-    The TaskTracker will generate all empty time slots that are equal or
-    greater than 45 minutes between 2016 5st November 12am to 2pm.
-
-### <a name="view">Toggle views: `view`</a>
 
 #### View all events that start on and all deadline tasks due on a specific date.
 
@@ -620,7 +587,7 @@ view
 
 * `view 1/12`
 
-  View all the tasks that are of the date of 1st December of the current year.
+  View all the tasks that are on the date of 1st December of the current year.
 
 ### <a name="search">Search by keywords: `search`</a>
 
@@ -651,7 +618,7 @@ search KEY_WORDS
 
 ### <a name="undo">Undo an action: `undo`</a>
 
-Undo the previous action that modifies data. Undo can be performed many times until the first action since the app was launched has been undone.
+Undo the previous action that modifies data. Undo can be performed to retrieve actions that were done since the time the Task Tracker was first launched during the current session. 
 
 Format: 
 ```
@@ -710,7 +677,6 @@ Delete a task | `del-float|-deadline|-event] <INDEX>`
 Edit Floating Tasks | `edit-float <INDEX> [n-NEW_NAME] [p-PRIORITY]`
 Edit Event |`edit-event <INDEX> [sd-NEW_START_DATE] [st-NEW_START_TIME] [ed-NEW_END_DATE] [et-NEW_END_TIME] [n-NEW_NAME]`
 Edit Deadline |`edit-deadline <INDEX> [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]`
-Generate recommended time slots | `slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>`
 Mark a task as finished | `fin-float|-deadline|-event <INDEX>`
 View a date in calendar | `view [DATE]`
 Search for keywords | `search KEY_WORDS`
