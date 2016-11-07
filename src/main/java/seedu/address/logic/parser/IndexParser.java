@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.SubstringRange;
+import seedu.address.model.task.TaskType;
 
 /**
  * Parses a task index of format <code>&lt;PREFIX&gt;&lt;INDEX&gt;</code>, where
@@ -24,8 +24,8 @@ public class IndexParser implements Parser<Integer> {
         this.name = name;
     }
 
-    public IndexParser(IndexPrefix prefix) {
-        this(prefix.getPrefixString(), prefix.getName());
+    public IndexParser(TaskType taskType) {
+        this(taskType.getPrefixString(), taskType.getName() + " index");
     }
 
     @Override

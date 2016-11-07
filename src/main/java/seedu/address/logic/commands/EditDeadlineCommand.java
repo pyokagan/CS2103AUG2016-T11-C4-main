@@ -5,16 +5,16 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.TaskType;
 
 public class EditDeadlineCommand implements Command {
 
     private static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited deadline task "
-                                                            + IndexPrefix.DEADLINE.getPrefixString() + "%d.";
+                                                            + TaskType.DEADLINE.getPrefixString() + "%d.";
 
     private final int targetIndex;
     private final Optional<Name> newName;

@@ -175,6 +175,10 @@
     -fx-text-fill: white;
 }
 
+.list-view .cell:selected {
+    -fx-background-color: derive(yellow, 20%);
+}
+
 .card {
     -fx-padding: 5px 5px 5px 15px;
     -fx-border-color: #d6d6d6;
@@ -223,7 +227,8 @@
 
 #commandTextField {
     -fx-font-size: 20pt;
-    -fx-padding: 1em;
+    -fx-padding: 4pt;
+    -fx-max-height: 42pt;
 }
 
 .helpBox .label {

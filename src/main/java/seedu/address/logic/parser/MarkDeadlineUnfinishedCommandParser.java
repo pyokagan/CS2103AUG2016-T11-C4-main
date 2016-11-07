@@ -1,12 +1,12 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.logic.commands.MarkDeadlineUnfinishedCommand;
 import seedu.address.logic.parser.CommandLineParser.Argument;
+import seedu.address.model.task.TaskType;
 
 public class MarkDeadlineUnfinishedCommandParser implements Parser<MarkDeadlineUnfinishedCommand> {
 
-    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(IndexPrefix.DEADLINE));
+    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(TaskType.DEADLINE));
     private final CommandLineParser cmdParser = new CommandLineParser()
                                                     .addArgument(indexArg);
 

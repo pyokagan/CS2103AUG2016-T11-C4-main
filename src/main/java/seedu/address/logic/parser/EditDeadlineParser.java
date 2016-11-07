@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditDeadlineCommand;
 import seedu.address.logic.parser.CommandLineParser.Argument;
@@ -17,10 +16,11 @@ import seedu.address.logic.parser.CommandLineParser.OptionalFlag;
 import seedu.address.model.ReadOnlyModel;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.TaskType;
 
 public class EditDeadlineParser implements Parser<EditDeadlineCommand> {
 
-    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(IndexPrefix.DEADLINE));
+    private final Argument<Integer> indexArg = new Argument<>("INDEX", new IndexParser(TaskType.DEADLINE));
     private final OptionalFlag<LocalDate> newDateFlag = new OptionalFlag<>("dd-", "NEW_DUE_DATE",
             new DateParser().withAutocomplete(this::autocompleteDueDate));
     private final OptionalFlag<LocalTime> newTimeFlag = new OptionalFlag<>("dt-", "NEW_DUE_TIME",

@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.DeadlineTask;
+import seedu.address.model.task.TaskType;
 
 public class DeadlineTaskListCard extends UiPart<Pane> {
 
@@ -29,7 +29,7 @@ public class DeadlineTaskListCard extends UiPart<Pane> {
         super(FXML);
         if (deadlineTask != null) {
             indexLabel.setWrapText(true);
-            indexLabel.setText(IndexPrefix.DEADLINE.getPrefixString() + index + ". ");
+            indexLabel.setText(TaskType.DEADLINE.getPrefixString() + index + ". ");
             nameLabel.setText(deadlineTask.getName().toString());
             dueLabel.setText(StringUtil.localDateTimeToPrettyString(deadlineTask.getDue()));
             if (deadlineTask.isFinished()) {

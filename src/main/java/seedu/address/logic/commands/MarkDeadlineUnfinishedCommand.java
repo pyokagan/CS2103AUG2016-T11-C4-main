@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.IndexPrefix;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.DeadlineTaskBuilder;
+import seedu.address.model.task.TaskType;
 
 public class MarkDeadlineUnfinishedCommand implements Command {
 
-    private static final String MSG_SUCCESS = "Deadline task " + IndexPrefix.DEADLINE.getPrefixString()
+    private static final String MSG_SUCCESS = "Deadline task " + TaskType.DEADLINE.getPrefixString()
                                                 + "%s unfinished.";
 
     private final int targetIndex;
