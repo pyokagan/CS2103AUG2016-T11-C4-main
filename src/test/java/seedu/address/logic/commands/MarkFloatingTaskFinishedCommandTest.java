@@ -12,7 +12,8 @@ import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.FloatingTaskBuilder;
 import seedu.address.model.task.TypicalFloatingTasks;
 
-public class MarkFloatingTaskUnfinishedCommandTest {
+public class MarkFloatingTaskFinishedCommandTest {
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -21,15 +22,14 @@ public class MarkFloatingTaskUnfinishedCommandTest {
 
     @Test
     public void execute_withValidTargetIndex_marksUnfinished() throws Exception {
-        final FloatingTask readABook = new FloatingTaskBuilder(tft.readABook)
-                                            .setFinished(true).build();
-        final FloatingTask eatAnApple = new FloatingTaskBuilder(tft.eatAnApple)
-                                            .setFinished(true).build();
+        final FloatingTask readABook = tft.readABook;
+        final FloatingTask eatAnApple = tft.eatAnApple;
         assertEquals(1, model.addFloatingTask(readABook));
         assertEquals(2, model.addFloatingTask(eatAnApple));
-        final CommandResult result = new MarkFloatingTaskUnfinishedCommand(1).execute(model);
-        assertEquals("Floating task f1 unfinished.", result.feedbackToUser);
-        assertEquals(tft.readABook, model.getFloatingTask(1));
+        final CommandResult result = new MarkFloatingTaskFinishedCommand(1).execute(model);
+        assertEquals("Floating task f1 finished.", result.feedbackToUser);
+        assertEquals(new FloatingTaskBuilder(tft.readABook).setFinished(true).build(),
+                     model.getFloatingTask(1));
         assertEquals(eatAnApple, model.getFloatingTask(2));
     }
 
@@ -37,13 +37,13 @@ public class MarkFloatingTaskUnfinishedCommandTest {
     public void execute_invalidTargetIndex_throwsCommandException() throws Exception {
         thrown.expect(CommandException.class);
         thrown.expectMessage("index does not exist");
-        new MarkFloatingTaskUnfinishedCommand(1).execute(model);
+        new MarkFloatingTaskFinishedCommand(1).execute(model);
     }
 
     @Test
     public void execute_nullModel_throwsAssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        new MarkFloatingTaskUnfinishedCommand(1).execute(null);
+        new MarkFloatingTaskFinishedCommand(1).execute(null);
     }
 
 }
