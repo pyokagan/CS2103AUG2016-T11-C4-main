@@ -1,3 +1,5 @@
+Formatting inspired by Group F10-C2
+
 TestCase ID: TC000 <br>
 Title : Loading Sample test data <br>
 Description : Tester should be able to load the sample data successfully <br>
