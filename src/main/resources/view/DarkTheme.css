@@ -183,6 +183,7 @@
 
 .list-view .cell:selected {
     -fx-background-color: derive(yellow, 20%);
+    -fx-text-fill: black;
 }
 
 .card {
