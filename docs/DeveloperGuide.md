@@ -56,18 +56,7 @@ The first thing to do is to set up a copy of our code on your development machin
 6. A [**Git**](https://git-scm.com/) client such as
    [SourceTree](https://www.sourcetreeapp.com/) or
    [Github Desktop](https://desktop.github.com/)
-   
-### Running the application
-
-If all you want to do is to run the application, a simple
-
-```
-gradlew.bat run
-```
-
-will do the trick.
-
-> Note: Linux and MacOS users will have to use `./gradlew` instead of `gradlew.bat`.
+  
 
 ### Importing the project into Eclipse
 
@@ -75,8 +64,7 @@ Our central development repository lives on
 [Github](https://github.com/CS2103AUG2016-T11-C4/main).
 
 1. Start by
-   [forking our central development repository](https://help.github.com/articles/fork-a-repo/)
-   on [Github](https://github.com/CS2103AUG2016-T11-C4/main)
+   [forking our central development repository](https://help.github.com/articles/fork-a-repo/)   on [Github](https://github.com/CS2103AUG2016-T11-C4/main)
 
 2. [Clone](https://help.github.com/articles/cloning-a-repository/) your
    personal fork to your computer.
@@ -119,6 +107,18 @@ Our central development repository lives on
 
     * Solution: [Run tests using Gradle](#testing-with-gradle) once to download all
       required libraries.
+      
+### Running the application from the command line
+
+If all you want to do is to run the application from the command line, a simple
+
+```
+gradlew.bat run
+```
+
+will do the trick.
+
+> Note: Linux and MacOS users will have to use `./gradlew` instead of `gradlew.bat`.
 
 ## Design
 
