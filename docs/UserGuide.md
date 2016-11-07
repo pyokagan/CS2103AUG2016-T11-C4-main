@@ -1,44 +1,5 @@
 # User Guide
 
-<!-- BEGIN GITHUB -->
-
-**Table of Contents**  
-- [User Guide](#)
-	- [About](#)
-	- [Quick Start](#)
-		- [Installing](#)
-		- [Launch](#)
-		- [Using the Interface](#)
-	- [Some points to note](#)
-		- [Special Time Representation](#)
-		- [Date Format](#)
-		- [Time Format](#)
-- [How to...](#)
-	- [Basic Features](#)
-		- [Add Floating Task](#)
-		- [Add Deadline Task](#)
-		- [Add Events](#)
-		- [Delete Task](#)
-		- [Edit a Floating Task](#)
-		- [Edit a Deadline](#)
-		- [Edit an Event](#)
-		- [List](#)
-		- [Mark Task as Finished](#)
-		- [Mark Tasks as Unfinished](#)
-		- [Help](#)
-	- [Special Features](#Special Features)
-		- [Clear](#)
-		- [Undo](#)
-		- [Redo](#)
-		- [Quick Pop Up](#)
-		- [Find by keywords](#)
-		- [Auto Complete](#)
-		- [Set data storage directory](#)
-		- [END](#)
-	- [Command Summary](#)
-
-<!-- END GITHUB -->
-
 ## About
 
 Unable to keep track of all your deadlines and other commitments?  Finding it
@@ -78,12 +39,12 @@ TaskTracker makes time-management smart and simple for you!
 
 3. Copy the file to the folder you want to use as the home folder for your task database.
 
-###Launch
+### Launch
 Double-click the file to start the app. The GUI should appear in a few seconds.
 
 ![alt text](./images/userguide/0.png "")
 
-###Using the Interface
+### Using the Interface
 You're good to go! Type your command in the command box and press `ENTER` to launch it.
 
 Get a feel of the interface by trying these sample commands:
@@ -94,7 +55,7 @@ Get a feel of the interface by trying these sample commands:
   * Ctrl + SPACE again to bring Task Tracker back to the foreground
   * `exit` : exits the application
 
-##Some points to note
+## Some points to note
 
 All tasks stored in TaskTracker will be automatically categorized into three different types: floating task, deadline task, and event, depending on the types and number of parameters entered when created.
 
@@ -112,7 +73,7 @@ All tasks stored in TaskTracker will be automatically categorized into three dif
 |`tmr` | tommorow|
 |`yst` | yesteday|
 
-###Date Format
+### Date Format
 
 Valid input examples:
 
@@ -175,11 +136,9 @@ Valid input examples:
 
 If the minute field is `00`, it may be ommitted from the command.
 
-##How to...
-
 ## Basic Features
 
-### Add Floating Task
+### Add a Floating Task
 Try adding your first Task. Press Enter to enter a command. For adding a floating task, try:
    
    add "Learn Task Tracker"
@@ -205,7 +164,7 @@ undefined priority takes the default lowest priority number of 0.
     
 * Task Tracker supports your love for all things short and sweet. For one worded task names, quotation marks need not be used.
 
-### Add Deadline Task
+### Add a Deadline Task
 You receive an email from your boss, requesting for the project proposal to be in by 31 dec of this year, 3pm. Let's add a deadline tasks with due date and time.
   	
     add "submit project proposal" 31/12 3pm
@@ -232,9 +191,8 @@ You decide to set a deadline for the first milestone of your project to be compl
  
 * In the unfortunate event of an overdued deadline task, Task Tracker will highlight the deadline task with a glaring red.
 
+### Add an Event Task
 
-
-### Add Events
 Your phone bleeps. Wow, an invitation to attend the Avengers meetup organised by Dr Strange! It happens tommorow, 10pm to 11 pm.
    
     add "avangers meetup" tmr 10pm to 11pm
@@ -254,7 +212,8 @@ You recieved an urgent call from boss! There is a VIP meeting today, 4pm to 6pm.
 
 * Events are automatically arranged in order of start date and time, so that you know which event to zipp to next with a quick glance at the top of the events pane.  
 
-### Delete Task
+### Delete a Task
+
 Given the amount of work you have to do, you decide not to go to the Avengers meetup. Let's delete that from Task Tracker.
 
     
@@ -290,7 +249,7 @@ As with editing any type of Task, you may add on, in any order after `edit INDEX
 * `PRIORITY` is an integer ranges that from `0` to `5`.
 
 
-### Edit a Deadline
+### Edit a Deadline Task
 You decide to give your project milestone a specific name. Also, with Task Tracker to improve your efficiency, you estimate that you can finish your first milestone faster and hence you shift forward your deadline.
 
 	edit d1 n-source for supliers dt-2pm
@@ -311,7 +270,7 @@ As with editing any type of Task, add on, in any order after `edit INDEX`, the f
 
 * Quotation marks are not required for `NEW_NAME`.
 
-###Edit an Event
+### Edit an Event Task
 You recieve an email saying that the VIP meeting's start time has been brought forward to 10am. You take note of that by editing the start time of VIP meeting in Task Tracker
 
 	edit e2 st-10am
@@ -332,14 +291,14 @@ As with editing any type of Task, add on, in any order after `edit INDEX`, the f
 
 * Quotation marks are not required for `NEW_NAME`.
 
-###List
+### List all Tasks
 After all the adding, editing and deleting, you may notice that the indexes are out of order. If that irks you, simply enter `list` into the command bar. Your indexes should be reordered.
 
 	list
     
 ![alt text](./images/userguide/9.png "")
 
-### Mark Task as Finished
+### Mark a Task as Finished
 You've finished learning Task Tracker. Let's mark it as finished.
 
      fin f1
@@ -347,7 +306,8 @@ You've finished learning Task Tracker. Let's mark it as finished.
 ![alt text](./images/userguide/10.png "")
 * Mark task as finished with this format: `fin INDEX`
 
-### Mark Tasks as Unfinished
+### Mark a Task as Unfinished
+
 Hang on, you're not done! There's still more to learn about Task Tracker! Mark learn Task Tracker as unfinished.
 
 	unfin f1
@@ -355,7 +315,8 @@ Hang on, you're not done! There's still more to learn about Task Tracker! Mark l
 ![alt text](./images/userguide/11.png "")
 * Mark task as unfinished with this format: `unfin INDEX`
 
-###Help
+### Help
+
 Help goes to those who call for it! 
 
 	help
@@ -370,59 +331,64 @@ With the help box in focus,
 
 ## Special Features
 
-###Clear
-Sometimes Task Tracker gets cluttered with fisnished Task and Task you no longer need. Use clear to wipe clean all Task from Task Tracker.
+### Clear all tasks
+
+Sometimes Task Tracker gets cluttered with finished tasks and tasks you no longer need. Use clear to wipe clean all Task from Task Tracker.
 
 	clear
     
 ![alt text](./images/userguide/13.png "")
 
-###Undo
-We, as humans, tend to make mistakes. We might have cleared Task Tracker and remember later that we still have unfinished important task! Thankfully, Task Tracker has that covered. With one single word `undo`, the operation gets reversed and all of the deleted tasks appear back on screen. Crisis averted.
+### Undo
+
+We, as humans, tend to make mistakes. You may have cleared Task Tracker but remember later that you still have unfinished tasks! Thankfully, Task Tracker has that covered. With one single word `undo`, the operation gets reversed and all of the deleted tasks appear back on screen.
 
 	undo
    
-###Redo
-Task Tracker also provides the “redo” command in case you realise that you did not need to undo that command after all.
+### Redo
+
+Task Tracker also provides the "redo" command in case you realise that you did not need to undo that command after all.
 
 	redo
     
-Together, “undo” and “redo” commands together provide a comprehensive safety net for you, so that you can execute your commands at top speed without any worries, knowing that your data is safe, as no matter what happens you can always revert back if something goes wrong.
+Together, the "undo" and "redo" commands provide a comprehensive safety net for you, so that you can execute your commands at top speed without any worries, knowing that your data is safe as you can always revert back if something goes wrong.
 
-* The list of actions queued for undo and redo gets erased upon exiting Task Tracker.
+> Note: The list of actions queued for undo and redo gets erased upon exiting Task Tracker.
 
-###Quick Pop Up
+### Quick Pop Up
 Task Tracker is able to run in the background (press Ctrl+Space), hidden from view, and with a simple Ctrl-Space, Task tracker pops up, ready to accept your commands. No matter what time it is, or which application you are using, Task Tracker is always just a keyboard shortcut away.
 
 	Ctrl + SPACE
 
-* Works on Windows only.
-
+> Note: Works on Windows only.
 
 ### Find by keywords
+
 Task Tracker getting too cluttered? Need to find Task containing a specific keyword? Use the find command!
 
 	find KEYWORD
 
 ![alt text](./images/userguide/14.png "")
 
-To show all Task again, use the `list` command.
+To show all tasks again, use the `list` command.
 
-###Auto Complete
+### Auto Complete
+
 Task Tracker has an extremely useful tab-completion feature.  Let's say you love to unicycle in your spare time, and on the 31st of december, you decide to have some unicycling practice by riding a unicycle, juggling 3 balls while balancing a bat on your nose. You enter a very long event name into Task Tracker: "unicycling practice, juggle 3 balls while balancing a bat on my nose". Now, one day, you look at this event and thinks that, hmm, maybe I should increase the difficulty and juggle 10 balls instead. Well, if you used one of the conventional command-line task management applications, you would have to type out the entire name of the event just to change one single number. Extremely annoying, and a huge productivity drainer. This is where our tab-completion feature comes in to save the day. 
 
 	edit INDEX n-<TAB>
 
 Tab-completion can also help you to auto-complete things like the command names. Let’s say you forgot the name of a command. Well, just press tab on the command box, immediately a list of all available commands will appear, letting you select them(tab through the autocomplete list).
 
-###Set data storage directory
+### Set data storage directory
 To change the file path which holds Task Tracker's storage data, type
 
 	setdatadir FILE_PATH
 	
 Where `FILE_PATH` is the file path to the directory, eg. `C:\Users\Potato\Desktop`
 
-###Congratulations! You have officially finished learning task tracker. Take on this challenge: Mark learn task tracker as finished.  	
+Congratulations! You have officially finished learning task tracker. Take on this challenge: Mark learn task tracker as finished.
+
 	fin learn task tracker
 
 ## Command Summary
