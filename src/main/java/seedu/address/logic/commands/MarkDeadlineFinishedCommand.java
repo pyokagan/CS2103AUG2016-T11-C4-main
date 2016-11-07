@@ -3,17 +3,13 @@ package seedu.address.logic.commands;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 import seedu.address.model.task.DeadlineTask;
+import seedu.address.model.task.TaskType;
 
 public class MarkDeadlineFinishedCommand implements Command {
 
-    public static final String COMMAND_WORD = "fin-deadline";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Mark a deadline as finished and hide it from the deadline list view. \n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 2";
-
-    public static final String MESSAGE_MARK_TASK_FINISHED_SUCCESS = "Deadline task finished: %1$s";
+    private static final String MSG_SUCCESS = "Deadline task "
+                                              + TaskType.DEADLINE.getPrefixString()
+                                              + "%s finished.";
 
     private final int targetIndex;
 
@@ -23,6 +19,7 @@ public class MarkDeadlineFinishedCommand implements Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        assert model != null;
         DeadlineTask oldDeadlineTask;
         try {
             oldDeadlineTask = model.getDeadlineTask(targetIndex);
@@ -41,7 +38,7 @@ public class MarkDeadlineFinishedCommand implements Command {
             throw new AssertionError("The target deadline cannot be missing", e);
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_FINISHED_SUCCESS, finishedDeadlineTask));
+        return new CommandResult(String.format(MSG_SUCCESS, targetIndex));
 
     }
 }
