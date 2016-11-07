@@ -793,6 +793,24 @@ rolling back any changes to the model.
 All commands in the `seedu.address.logic.commands` package implement the
 `Command` interface to allow them to be executed by the `LogicManager`.
 
+#### Asking the user interface to do more
+
+With just a `CommandResult`, commands can only return a message for the user interface
+to display. However, sometimes you may wish for your command to do more. You may wish
+that your command, for example, exits the application, just like what `ExitCommand` does.
+Or, you may want your command to show the help window, just like how `HelpCommand` does it.
+
+`CommandResults` can implement additional interfaces to indicate to the UI
+component that they expect additional things to be done. For example, the `CommandResult`
+returned by the `ExitCommand` implements the `ExitCommandResult` interface, which tells the
+UI component to exit the application, while the `CommandResult` returned by the
+`HelpCommand` implements the `HelpCommandResult` interface, which tells the UI component to
+show the help window.
+
+If you wish to add additional interfaces, make sure you tell teach the UI component how to handle
+that additional interface. The UI component handles additional
+interfaces in the `onCommandResult` method of the `MainWindow`.
+
 ### UI implementation
 
 <figure>
