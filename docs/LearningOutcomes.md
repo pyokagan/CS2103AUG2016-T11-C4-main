@@ -1,6 +1,7 @@
 # Learning Outcomes
 After studying this code and completing the corresponding exercises, you should be able to,
 
+
 1. [Use High-Level Designs `[LO-HighLevelDesign]`](#use-high-level-designs-lo-highleveldesign)
 1. [Use Event-Driven Programming `[LO-EventDriven]`](#use-event-driven-programming-lo-eventdriven`)
 1. [Use API Design `[LO-ApiDesign]`](#use-api-design-lo-apidesign)
