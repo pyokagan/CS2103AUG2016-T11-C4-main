@@ -10,9 +10,9 @@ Steps no. | Steps | Test Data |  ExpectedResult
 1 | create a new empty folder named 'TaskTracker' (or any name you prefer) on any location |  |a folder called 'TaskTracker' (or as named) should be created
 2 | download the v0.5 jar file and place it inside 'TaskTracker' folder | 	[Project Releases](https://github.com/CS2103AUG2016-T11-C4/main/releases) |the folder should contain the downloaded jar file
 3 | Within the same folder you created, create a new folder called "data" | |A new folder named "data" should be created
-4 | Transfer the `SampleData.json` in `ManualTesting` folder and put it in the `data` folder | |The forDemoUse.json file should be inside the `data` folder
+4 | Transfer the `SampleData.json` in `ManualTesting` folder and put it in the `data` folder | |The SampleData.json file should be inside the `data` folder
 5 | Rename the `SampleData.json` to `taskbook.json` | |The `SampleData.json` is renamed to `taskbook.json`
-6 | open the jar file | |TaskTracker window should appear. config, perferences and log file should be generated in the same folder and some tasks should already be loaded into the system.
+6 | open the jar file | |TaskTracker window should appear. config, log file should be generated in the same folder and some tasks should already be loaded into the system.
 
 
 TestCase ID: TC001 <br>
@@ -34,7 +34,7 @@ Format : <br>
 `add FLOATING_TASK_NAME [p-priority]` <br> 
 `add DEADLINE_NAME MM/DD/YYYY HH:MM[am/pm]` <br>
 `add EVENT_NAME MM/DD/YYYY HH:MM[am/pm] to MM/DD/YYYY HH:MM[am/pm]` <br>
-Format expanationation: <br>
+Format explanation: <br>
 If the task name contains more than one words and spaces, please use `"name with space"`.<br>
 When indicating the time, only one of `am` and `pm` should be used.
 Pre-condition : TaskTraker Must be opened <br>
@@ -56,17 +56,17 @@ Steps no. | Steps | Test Data | ExpectedResult
 --- | :---------------- | :---------------- | :----------------
 1 | Add a floating task using the test data | add "very flexible" | the task should be added and highlighted under 'Floating Task' given a default priority of 0.
 2 | Add a deadline | add cs2103Report 10pm | the deadline should be added and highlighted under 'Deadline'
-3 | Add a event | add "picnic with professor" tdy 11pm to tmr | the event should be added and highlighted under 'Event'.
+3 | Add a event | add "picnic with professor" tdy 11pm to tmr | event should be added with today 11pm as the start date and tomorrow 23:59 as the end date, and highlighted under 'Event'.
 
 TestCase ID : TC004 <br>
 Title : Searching for task <br>
 Description : Tester should be able to search task by their names using keywords. <br>
 Format : <br>
-`find KEYWORDS [mark/true]` <br> 
+`find KEYWORDS` <br> 
 
 Steps no. | Steps | Test Data | ExpectedResult
 --- | :---------------- | :---------------- | :----------------
-1 | Enter the find by name command | find cs2103 | the list should be updated with all task that contain CS in the name
+1 | Enter the find by name command | find cs2103 | The list should be updated with all tasks that contain cs2103 in the name.
 
 
 TestCase ID : TC005 <br>
@@ -77,7 +77,7 @@ Format: <br>
 
 Steps no. | Steps | Test Data | ExpectedResult
 --- | :---------------- | :---------------- | :----------------
-1 | Default the list to show everything using find command | find type/all | the list should show everything stored in the save data
+1 | Default the list to show everything using find command | list | the list should show everything stored in the save data
 2 | Delete an event task using delete command | del e1 | the task should be gone from the list. And System should print out the index of the task that is deleted 
 3 | Delete a deadline task using delete command | del d1 | the task should be gone from the list. And System should print out the index of the task that is deleted 
 4 | Delete a floating task using delete command | del f1 | the task should be gone from the list. And System should print out the index of the task that is deleted 
@@ -94,7 +94,7 @@ Steps no. | Steps | Test Data | ExpectedResult
 1 | Use the list command to find all unfinished tasks | list unfin | the list should show all unfinished tasks
 2 | Mark the task in index d3 as done | fin d3 | the task should be strikethrough and the task is successfully marked as finished
 3 | Use the list command to see all finished tasks | list fin | the list should show all finished including the one just marked as finished
-4 | Mark the task in index d3 as unfinished | unfin d1 | the strikethrough of that task shoul be disappear and the task is successfully marked as unfinished
+4 | Mark the task in index d1 as unfinished | unfin d1 | the strikethrough of that task shoul be disappear and the task is successfully marked as unfinished
 
 
 TestCase ID : TC007 <br>
@@ -124,7 +124,7 @@ Steps no. | Steps | Test Data | ExpectedResult
 --- | :---------------- | :---------------- | :----------------
 1 | edit the first floating task and change it name | edit f1 n-clean the window and floor p-4| the edited task should be highlighted reflecting the new changes
 2 | edit the first event task | edit e1 st-12am et-11:59pm | the edited task should be highlighted reflecting the new changes
-3 | edit the first event task | edit dt-10pm | the edited task should be highlighted reflecting the new changes 
+3 | edit the first deadline task | edit d1 dt-10pm | the edited task should be highlighted reflecting the new changes 
 4 | use the list command to refresh the index | list | the list should show all tasks and the task indexes will be updated
 
 TestCase ID : TC009 <br>
@@ -169,8 +169,8 @@ This hot key will only work on windows system.
 
 Steps no. | Steps | Test Data | ExpectedResult
 --- | :---------------- | :---------------- | :----------------
-1 | hide the app in background | CTRL + SPACE | the TaskTracker will be hiden into backgound
-2 | wake up the app from background | CTRL + SPACE | the TaskTracker window will be shown again
+1 | to hide the app in background, press `CTRL + SPACE` at the same time | | the TaskTracker will be hiden into backgound
+2 | to wake up the app from background, press `CTRL + SPACE` at the same time| | the TaskTracker window will be shown again
 
 TestCase ID : TC013 <br>
 Title : Auto complete. <br>
@@ -181,12 +181,12 @@ Hot Key: <br>
 Steps no. | Steps | Test Data | ExpectedResult
 --- | :---------------- | :---------------- | :----------------
 1 | Go to the Command box on the top of the app | | User should be able to type anything here
-2 | find task whose name contains `Unicycling` keyword | find 'Unicycling' | TaskTracker will list all tasks whose name contains the keyword
-3 | show the command list in command box | TAB | the command list will shown
-4 | repeat step 2 to select the edit command | TAB | the edit command will be highlighted
-5 | select the edit command | ENTER | the edit command will be selected and typed into the command box automatically
-6 | enter the index number of the target task and then the keyword for task name field | e3 n- |
-7 | use auto-complete to load the previous name | TAB | the previous task name will be auto typed in the command box
+2 | Find task whose name contains `Unicycling` keyword | find Unicycling | TaskTracker will list all tasks whose name contains the keyword
+3 | With the command box empty but selected, press `TAB` | | A list of commands will pop up.
+4 | With the list of commands still shown, press `TAB` to cycle through the items until the `edit` command. | | the edit command will be highlighted
+5 | Press `ENTER` to select the `edit` command. | | the edit command will be selected and typed into the command box automatically
+6 | Enter the index number of the target task and then the task name field flag such that the command reads "edit e3 n-" | e3 n- | the command reads "edit e3 n-"
+7 | press `TAB` | | The task name of `e3` will be auto typed in the command box.
 8 | revise the name a little bit | revise the number `3` to `10` in the task name and press ENTER | the edited task should be highlighted reflecting the new changes 
 
 
