@@ -34,6 +34,8 @@ Ready to dive in? Let's get started!
 
 ## Setting up
 
+The first thing to do is to set up a copy of our code on your computer.
+
 ### Prerequisites
 
 1. **JDK `1.8.0_60`** or later
