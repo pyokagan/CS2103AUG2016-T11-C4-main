@@ -11,8 +11,7 @@ import seedu.address.model.task.Priority;
  */
 public class AddFloatingTaskCommand implements AddTaskCommand {
 
-    public static final String MESSAGE_USAGE = "Parameters for adding floating task: \"NAME\" [p-Priority] \n"
-            + "Example: " + COMMAND_WORD + " \"Floating Task Name\" p-3 \n";
+    private static final String MESSAGE_SUCCESS = "Added new floating task \"%s\", with priority %s.";
 
     private final FloatingTask floatingTask;
 
@@ -33,7 +32,8 @@ public class AddFloatingTaskCommand implements AddTaskCommand {
     public CommandResult execute(Model model) {
         assert model != null;
         model.addFloatingTask(floatingTask);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, floatingTask));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, floatingTask.getName(),
+                                                                floatingTask.getPriority()));
     }
 
 }

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import seedu.address.logic.commands.ClearFinishedCommand;
-import seedu.address.model.filter.TaskFinishedPredicate;
 
 public class ClearFinishedParser implements Parser<ClearFinishedCommand> {
 
@@ -25,7 +24,7 @@ public class ClearFinishedParser implements Parser<ClearFinishedCommand> {
     public ClearFinishedCommand parse(String str) throws ParseException {
         cmdParser.parse(str);
         final LocalDateTime now = referenceDateTime.orElse(LocalDateTime.now());
-        return new ClearFinishedCommand(new TaskFinishedPredicate(now));
+        return new ClearFinishedCommand(now);
     }
 
 }
