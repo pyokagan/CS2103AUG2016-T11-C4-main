@@ -140,6 +140,18 @@ $if(listings)$
     boxrule=0.4mm
 }
 $endif$
+
+% Fancy Headers
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \chead{[T11-C4][Task Tracker]}
+    \fancyfoot[R]{\thepage}%
+    \renewcommand{\headrulewidth}{0pt}% Line at the header invisible
+    \renewcommand{\footrulewidth}{0pt}% Line at the footer invisible
+}
+\pagestyle{plain}
+
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
 $endif$
