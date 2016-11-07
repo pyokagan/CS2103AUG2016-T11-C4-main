@@ -1235,7 +1235,7 @@ Priority | As a ... | I want to ...             | So that I can...
 
 > Use case ends.
 
-## Use case: mark a floating task/deadline as finished/unfinished
+## Use case: Mark a floating task/deadline as finished/unfinished
 
 **MSS**
 
@@ -1252,9 +1252,7 @@ Priority | As a ... | I want to ...             | So that I can...
 
 > Use case ends.
 
-## See the manual
-
-**Use case: see the manual**
+## Use case: See the manual
 
 **MSS**
 
@@ -1264,15 +1262,13 @@ Priority | As a ... | I want to ...             | So that I can...
 
    Use case ends.
 
-## Search the manual
-
-**Use case: Auto-complete**
+## Use case: Auto-complete task names
 
 **MSS**
 
 1. User request to auto complete the task name when editing one specific task.
 
-2. TaskTracker will complete the precious task name automatically.
+2. TaskTracker will complete the previous task name automatically.
 
    Use case ends
 
@@ -1284,9 +1280,7 @@ Priority | As a ... | I want to ...             | So that I can...
 
 > Use case ends
 
-## Undo an action
-
-**User case: Undo an action, such as restoring a deleted a task**
+## Use case: Undo an action
 
 **MSS**
 
@@ -1305,9 +1299,7 @@ Priority | As a ... | I want to ...             | So that I can...
 
 > User Case ends.
 
-## Redo an action
-
-**User case: Redo an action, such as deleting a task**
+## Use case: Redo an action
 
 **MSS**
 
