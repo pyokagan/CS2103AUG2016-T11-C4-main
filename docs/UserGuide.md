@@ -60,9 +60,9 @@ Get a feel of the interface by trying these sample commands:
   * <kbd>Ctrl</kbd> + <kbd>SPACE</kbd> again to bring Task Tracker back to the foreground
   * `exit` : exits the application
 
-##Basic Features
+##Some points to note
 
-All tasks stored in TaskTracker will be automatically categorized into three different types: `floating task`, `deadline task`, and `event`, depending on the types and number of parameters entered when created.
+All tasks stored in TaskTracker will be automatically categorized into three different types: floating task, deadline task, and event, depending on the types and number of parameters entered when created.
 
 |A/An... | has...|
 |----| :-------------------------------------|
@@ -70,7 +70,7 @@ All tasks stored in TaskTracker will be automatically categorized into three dif
 |Deadline task |  end time and date |
 |Event | start time and date,  end time and date|
 
-Keywords for Special Time Representation</a>
+###Special Time Representation
 
 |Keyword | Definition     |
 |----| :------------------|
@@ -78,7 +78,7 @@ Keywords for Special Time Representation</a>
 |`tmr` | tommorow|
 |`yst` | yesteday|
 
-### <a name="DateFormat">Date format</a>
+###Date Format
 
 Valid input examples:
 
@@ -121,7 +121,7 @@ Valid input examples:
     Means tommorow, the day after date as logged by the local machine.
 
 
-### <a name="TimeFormat">Time Format</a>
+### Time Format
 
 The 12-hour clock is used. `hh:mm` + `am/pm`
 
@@ -141,6 +141,9 @@ Valid input examples:
 
 If the minute field is `00`, it may be ommitted from the command.
 
+#How to...
+
+## Basic Features
 
 ### Add Floating Task
 Try adding your first Task. Press Enter to enter a command. For adding a floating task, try:
