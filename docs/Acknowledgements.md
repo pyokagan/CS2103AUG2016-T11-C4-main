@@ -1,4 +1,4 @@
-# Acknowledgements
+# Acknowledgments
 
 We would like to thank our project supervisor, Chua Ka Yi Ong, as well as Prof Damith C. Rajapakse and his
 teaching team for mentoring us throughout this project.
