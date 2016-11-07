@@ -2,9 +2,11 @@ package seedu.address.ui;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -12,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import seedu.address.model.IndexedItem;
 import seedu.address.model.ReadOnlyModel;
+import seedu.address.model.filter.TaskPredicate;
 import seedu.address.model.filter.TaskUnfinishedPredicate;
 import seedu.address.model.task.FloatingTask;
 
@@ -20,7 +23,7 @@ public class FloatingTaskListPane extends UiPart<Pane> {
     private static final String FXML = "/view/FloatingTaskListPane.fxml";
 
     private final ObservableList<IndexedItem<FloatingTask>> listedFloatingTasks;
-    private ObservableList<FloatingTask> unfinishedFloatingTasks;
+    private final FilteredList<IndexedItem<FloatingTask>> unfinishedFloatingTasks;
 
     @FXML
     private ListView<IndexedItem<FloatingTask>> floatingTaskListView;
@@ -35,11 +38,12 @@ public class FloatingTaskListPane extends UiPart<Pane> {
         super(FXML);
 
         // Initialize task lists
-        this.listedFloatingTasks = model.getFloatingTaskList();
-        this.unfinishedFloatingTasks = model.getFloatingTaskList(new TaskUnfinishedPredicate(LocalDateTime.now()));
+        listedFloatingTasks = model.getFloatingTaskList();
+        unfinishedFloatingTasks = new FilteredList<>(listedFloatingTasks,
+                                                     makePredicate(new TaskUnfinishedPredicate(LocalDateTime.now())));
 
         // Initialize Floating Task List View
-        floatingTaskListView.setItems(model.getFloatingTaskList());
+        floatingTaskListView.setItems(listedFloatingTasks);
         floatingTaskListView.setCellFactory(listView -> new FloatingTaskListCell());
 
         // Initialize Task Counter
@@ -68,6 +72,10 @@ public class FloatingTaskListPane extends UiPart<Pane> {
      */
     public void clearSelect() {
         floatingTaskListView.getSelectionModel().clearSelection();
+    }
+
+    private Predicate<IndexedItem<FloatingTask>> makePredicate(TaskPredicate predicate) {
+        return indexedItem -> predicate.test(indexedItem.getItem());
     }
 
     private static class FloatingTaskListCell extends ListCell<IndexedItem<FloatingTask>> {

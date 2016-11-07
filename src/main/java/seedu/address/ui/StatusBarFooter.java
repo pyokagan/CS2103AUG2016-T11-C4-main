@@ -38,10 +38,6 @@ public class StatusBarFooter extends UiPart<Pane> {
         taskCounter.textProperty().bind(totalTasks);
     }
 
-    private void setTaskCounter(String counterValue) {
-        taskCounter.setText("Total number of tasks in Task Tracker: " + counterValue);
-    }
-
     private void setSaveLocation(String location) {
         this.saveLocationStatus.setText(location);
     }

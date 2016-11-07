@@ -2,11 +2,13 @@ package seedu.address.ui;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -16,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.IndexedItem;
 import seedu.address.model.ReadOnlyModel;
 import seedu.address.model.filter.TaskOverduePredicate;
+import seedu.address.model.filter.TaskPredicate;
 import seedu.address.model.filter.TaskUnfinishedPredicate;
 import seedu.address.model.filter.TaskWillHappenTodayPredicate;
 import seedu.address.model.task.DeadlineTask;
@@ -27,9 +30,9 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
     private static final Logger logger = LogsCenter.getLogger(DeadlineTaskListPane.class);
 
     private final ObservableList<IndexedItem<DeadlineTask>> listedDeadlineTasks;
-    private ObservableList<DeadlineTask> todayDeadlineTasks;
-    private ObservableList<DeadlineTask> overdueDeadlineTasks;
-    private ObservableList<DeadlineTask> unfinishedDeadlineTasks;
+    private final FilteredList<IndexedItem<DeadlineTask>> todayDeadlineTasks;
+    private final FilteredList<IndexedItem<DeadlineTask>> overdueDeadlineTasks;
+    private final FilteredList<IndexedItem<DeadlineTask>> unfinishedDeadlineTasks;
 
     @FXML
     private ListView<IndexedItem<DeadlineTask>> deadlineTaskListView;
@@ -47,24 +50,28 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
         super(FXML);
 
         // Initialize task lists
-        this.listedDeadlineTasks = model.getDeadlineTaskList();
-        this.todayDeadlineTasks = model.getDeadlineTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now()));
-        this.overdueDeadlineTasks = model.getDeadlineTaskList(new TaskOverduePredicate(LocalDateTime.now()));
-        this.unfinishedDeadlineTasks = model.getDeadlineTaskList(new TaskUnfinishedPredicate(LocalDateTime.now()));
-        handleListedDeadlineTasksChanges(model);
+        listedDeadlineTasks = model.getDeadlineTaskList();
+        todayDeadlineTasks = new FilteredList<>(listedDeadlineTasks);
+        overdueDeadlineTasks = new FilteredList<>(listedDeadlineTasks);
+        unfinishedDeadlineTasks = new FilteredList<>(listedDeadlineTasks);
+        listedDeadlineTasks.addListener((ListChangeListener.Change<? extends IndexedItem<DeadlineTask>> c) -> {
+            updatePredicatesToCurrentTime();
+            logger.info("DeadlineTask counter updated with current time.");
+        });
+        updatePredicatesToCurrentTime();
 
         // Initialize Floating Task List View
-        deadlineTaskListView.setItems(model.getDeadlineTaskList());
+        deadlineTaskListView.setItems(listedDeadlineTasks);
         deadlineTaskListView.setCellFactory(listView -> new DeadlineTaskListCell());
 
         // Initialize Task Counter
-        listedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList())
+        listedDeadlineCounter.textProperty().bind(Bindings.size(listedDeadlineTasks)
                                                   .asString("Number of Deadlines listed: %d"));
-        todayUnfinishedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now())))
+        todayUnfinishedDeadlineCounter.textProperty().bind(Bindings.size(todayDeadlineTasks)
                                                            .asString("Today remaining: %d"));
-        overdueDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskOverduePredicate(LocalDateTime.now())))
+        overdueDeadlineCounter.textProperty().bind(Bindings.size(overdueDeadlineTasks)
                                                    .asString("Overdue: %d"));
-        unfinishedDeadlineCounter.textProperty().bind(Bindings.size(model.getDeadlineTaskList(new TaskUnfinishedPredicate(LocalDateTime.now())))
+        unfinishedDeadlineCounter.textProperty().bind(Bindings.size(unfinishedDeadlineTasks)
                                                       .asString("Total unfinished: %d"));
     }
 
@@ -89,30 +96,15 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
         deadlineTaskListView.getSelectionModel().clearSelection();
     }
 
-    /**
-     * Handle listedDeadlineTasks change
-     */
-    public void handleListedDeadlineTasksChanges(ReadOnlyModel model) {
-        this.listedDeadlineTasks.addListener(new ListChangeListener<IndexedItem<DeadlineTask>>() {
-            @Override
-            public void onChanged(Change<? extends IndexedItem<DeadlineTask>> c) {
-                // update the different with updated filters created at current time point
-                todayDeadlineTasks = model.getDeadlineTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now()));
-                overdueDeadlineTasks = model.getDeadlineTaskList(new TaskOverduePredicate(LocalDateTime.now()));
-                unfinishedDeadlineTasks = model.getDeadlineTaskList(new TaskUnfinishedPredicate(LocalDateTime.now()));
+    private void updatePredicatesToCurrentTime() {
+        final LocalDateTime now = LocalDateTime.now();
+        todayDeadlineTasks.setPredicate(makePredicate(new TaskWillHappenTodayPredicate(now)));
+        overdueDeadlineTasks.setPredicate(makePredicate(new TaskOverduePredicate(now)));
+        unfinishedDeadlineTasks.setPredicate(makePredicate(new TaskUnfinishedPredicate(now)));
+    }
 
-                // update the task counter with updated task lists
-                todayUnfinishedDeadlineCounter.textProperty().bind(Bindings.size(todayDeadlineTasks)
-                                                 .asString("Today remaining: %d"));
-                overdueDeadlineCounter.textProperty().bind(Bindings.size(overdueDeadlineTasks)
-                                         .asString("Overdue: %d"));
-                unfinishedDeadlineCounter.textProperty().bind(Bindings.size(unfinishedDeadlineTasks)
-                                            .asString("Total unfinished: %d"));
-
-                // logging information
-                logger.info("DeadlineTask counter updated with current time.");
-            }
-        });
+    private Predicate<IndexedItem<DeadlineTask>> makePredicate(TaskPredicate predicate) {
+        return indexedItem -> predicate.test(indexedItem.getItem());
     }
 
     private static class DeadlineTaskListCell extends ListCell<IndexedItem<DeadlineTask>> {

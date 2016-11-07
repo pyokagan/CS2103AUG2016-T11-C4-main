@@ -2,11 +2,13 @@ package seedu.address.ui;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -15,6 +17,7 @@ import javafx.scene.layout.Pane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.IndexedItem;
 import seedu.address.model.ReadOnlyModel;
+import seedu.address.model.filter.TaskPredicate;
 import seedu.address.model.filter.TaskUnfinishedPredicate;
 import seedu.address.model.filter.TaskWillHappenTodayPredicate;
 import seedu.address.model.task.EventTask;
@@ -26,8 +29,8 @@ public class EventTaskListPane extends UiPart<Pane> {
     private static final Logger logger = LogsCenter.getLogger(EventTaskListPane.class);
 
     private final ObservableList<IndexedItem<EventTask>> listedEventTasks;
-    private ObservableList<EventTask> todayEventTasks;
-    private ObservableList<EventTask> unfinishedEventTasks;
+    private final FilteredList<IndexedItem<EventTask>> todayEventTasks;
+    private final FilteredList<IndexedItem<EventTask>> unfinishedEventTasks;
 
     @FXML
     private ListView<IndexedItem<EventTask>> eventTaskListView;
@@ -45,13 +48,17 @@ public class EventTaskListPane extends UiPart<Pane> {
         super(FXML);
 
         // Initialize task lists
-        this.listedEventTasks = model.getEventTaskList();
-        this.todayEventTasks = model.getEventTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now()));
-        this.unfinishedEventTasks = model.getEventTaskList(new TaskUnfinishedPredicate(LocalDateTime.now()));
-        handleListedEventTasksChanges(model);
+        listedEventTasks = model.getEventTaskList();
+        todayEventTasks = new FilteredList<>(listedEventTasks);
+        unfinishedEventTasks = new FilteredList<>(listedEventTasks);
+        listedEventTasks.addListener((ListChangeListener.Change<? extends IndexedItem<EventTask>> c) -> {
+            updatePredicatesToCurrentTime();
+            logger.info("EventTask counter updated with current time.");
+        });
+        updatePredicatesToCurrentTime();
 
         // Initialize Event Task List View
-        eventTaskListView.setItems(this.listedEventTasks);
+        eventTaskListView.setItems(listedEventTasks);
         eventTaskListView.setCellFactory(listView -> new EventTaskListCell());
 
         // Initialize Task Counter
@@ -84,27 +91,14 @@ public class EventTaskListPane extends UiPart<Pane> {
         eventTaskListView.getSelectionModel().clearSelection();
     }
 
-    /**
-     * Handle listedEventTasks change
-     */
-    public void handleListedEventTasksChanges(ReadOnlyModel model) {
-        this.listedEventTasks.addListener(new ListChangeListener<IndexedItem<EventTask>>() {
-            @Override
-            public void onChanged(Change<? extends IndexedItem<EventTask>> c) {
-                // update the different with updated filters created at current time point
-                todayEventTasks = model.getEventTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now()));
-                unfinishedEventTasks = model.getEventTaskList(new TaskUnfinishedPredicate(LocalDateTime.now()));
+    private void updatePredicatesToCurrentTime() {
+        final LocalDateTime now = LocalDateTime.now();
+        todayEventTasks.setPredicate(makePredicate(new TaskWillHappenTodayPredicate(now)));
+        unfinishedEventTasks.setPredicate(makePredicate(new TaskUnfinishedPredicate(now)));
+    }
 
-                // update the task counter with updated task lists
-                unfinishedEventCounter.textProperty().bind(Bindings.size(unfinishedEventTasks)
-                        .asString("Total upcoming: %d"));
-                todayUnfinishedEventCounter.textProperty().bind(Bindings.size(todayEventTasks)
-                             .asString("Today upcoming: %d"));
-
-                // logging information
-                logger.info("EventTask counter updated with current time.");
-            }
-        });
+    private Predicate<IndexedItem<EventTask>> makePredicate(TaskPredicate predicate) {
+        return indexedItem -> predicate.test(indexedItem.getItem());
     }
 
     private static class EventTaskListCell extends ListCell<IndexedItem<EventTask>> {

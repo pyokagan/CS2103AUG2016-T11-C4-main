@@ -156,11 +156,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ObservableList<FloatingTask> getFloatingTaskList(TaskPredicate predicate) {
-        return workingTaskBook.getFloatingTaskList(predicate);
-    }
-
-    @Override
     public Comparator<? super FloatingTask> getFloatingTaskComparator() {
         return workingTaskBook.getFloatingTaskComparator();
     }
@@ -212,11 +207,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ObservableList<DeadlineTask> getDeadlineTaskList(TaskPredicate predicate) {
-        return workingTaskBook.getDeadlineTaskList(predicate);
-    }
-
-    @Override
     public Comparator<? super DeadlineTask> getDeadlineTaskComparator() {
         return workingTaskBook.getDeadlineTaskComparator();
     }
@@ -265,11 +255,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<IndexedItem<EventTask>> getEventTaskList() {
         return workingTaskBook.getEventTaskList();
-    }
-
-    @Override
-    public ObservableList<EventTask> getEventTaskList(TaskPredicate predicate) {
-        return workingTaskBook.getEventTaskList(predicate);
     }
 
     @Override
