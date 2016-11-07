@@ -93,9 +93,9 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
      * Handle listedDeadlineTasks change
      */
     public void handleListedDeadlineTasksChanges(ReadOnlyModel model) {
-        this.listedDeadlineTasks.addListener(new ListChangeListener() {
+        this.listedDeadlineTasks.addListener(new ListChangeListener<IndexedItem<DeadlineTask>>() {
             @Override
-            public void onChanged(Change c) {
+            public void onChanged(Change<? extends IndexedItem<DeadlineTask>> c) {
                 // update the different with updated filters created at current time point
                 todayDeadlineTasks = model.getDeadlineTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now()));
                 overdueDeadlineTasks = model.getDeadlineTaskList(new TaskOverduePredicate(LocalDateTime.now()));

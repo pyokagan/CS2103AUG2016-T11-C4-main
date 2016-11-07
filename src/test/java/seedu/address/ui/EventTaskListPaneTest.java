@@ -37,7 +37,7 @@ public class EventTaskListPaneTest extends FxRobot {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupSceneRoot(() -> {
-            pane = new EventTaskListPane(model.getEventTaskList());
+            pane = new EventTaskListPane(model);
             return pane.getRoot();
         });
         FxToolkit.showStage();

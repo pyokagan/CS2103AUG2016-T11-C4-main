@@ -88,9 +88,9 @@ public class EventTaskListPane extends UiPart<Pane> {
      * Handle listedEventTasks change
      */
     public void handleListedEventTasksChanges(ReadOnlyModel model) {
-        this.listedEventTasks.addListener(new ListChangeListener() {
+        this.listedEventTasks.addListener(new ListChangeListener<IndexedItem<EventTask>>() {
             @Override
-            public void onChanged(Change c) {
+            public void onChanged(Change<? extends IndexedItem<EventTask>> c) {
                 // update the different with updated filters created at current time point
                 todayEventTasks = model.getEventTaskList(new TaskWillHappenTodayPredicate(LocalDateTime.now()));
                 unfinishedEventTasks = model.getEventTaskList(new TaskUnfinishedPredicate(LocalDateTime.now()));
