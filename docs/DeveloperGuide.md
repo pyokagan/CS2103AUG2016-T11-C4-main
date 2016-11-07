@@ -882,15 +882,17 @@ We have two types of tests:
   directory:
 
     ```
-    ./gradle test
+    gradlew.bat test
     ```
 
 * To only run non-GUI tests, execute the following in the project work
   directory:
 
     ```
-    ./gradle -PguiTests=false test
+    gradlew.bat -PguiTests=false test
     ```
+    
+> Note: If you are running Linux or MacOS as your operating system, use `./gradlew` instead of `gradlew.bat`.
 
 ### Troubleshooting tests
 
