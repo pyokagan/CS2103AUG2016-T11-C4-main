@@ -85,6 +85,7 @@ public class FloatingTaskListPane extends UiPart<Pane> {
             final FloatingTaskListCard card;
             card = new FloatingTaskListCard(floatingTask != null ? floatingTask.getItem() : null,
                                             floatingTask != null ? floatingTask.getWorkingIndex() : 0);
+            setPrefWidth(10); // This will stop the cards from extending beyond the horizontal listview width
             setGraphic(card.getRoot());
         }
     }

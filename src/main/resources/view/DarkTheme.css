@@ -65,8 +65,7 @@
 }
 
 .cell_big_label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 13pt;
 }
 
 .cell_small_label {
@@ -183,10 +182,11 @@
 
 .list-view .cell:selected {
     -fx-background-color: derive(yellow, 20%);
+    -fx-text-fill: black;
 }
 
 .card {
-    -fx-padding: 5px 5px 5px 15px;
+    -fx-padding: 0.8em 1em 0.8em 1em;
     -fx-border-color: #d6d6d6;
     -fx-border-width: 1px 1px 1px 10px;
 }
