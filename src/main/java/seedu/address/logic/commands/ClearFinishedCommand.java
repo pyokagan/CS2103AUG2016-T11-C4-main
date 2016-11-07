@@ -12,12 +12,12 @@ public class ClearFinishedCommand implements Command {
 
     private final TaskFinishedPredicate predicate;
 
-    public ClearFinishedCommand(TaskFinishedPredicate predicate) {
-        this.predicate = predicate;
+    public ClearFinishedCommand(LocalDateTime now) {
+        this.predicate = new TaskFinishedPredicate(now);
     }
 
     public ClearFinishedCommand() {
-        this(new TaskFinishedPredicate(LocalDateTime.now()));
+        this(LocalDateTime.now());
     }
 
     @Override
