@@ -66,6 +66,8 @@ TaskTracker makes time-management smart and simple for you!
 
 ## Quick Start
 
+###Installing
+
 1. Ensure you have Java version `1.8.0_60` or later installed in your computer.
 
     > Note: Having any Java 8 version is not enough.
@@ -77,10 +79,21 @@ TaskTracker makes time-management smart and simple for you!
 
 3. Copy the file to the folder you want to use as the home folder for your task database.
 
-4. Double-click the file to start the app. The GUI should appear in a few seconds.
+###Launch
+Double-click the file to start the app. The GUI should appear in a few seconds.
 
-## Add Floating Task
-You're good to go! Try adding your first Task. Press Enter to enter a command. For adding a floating task, try:
+###Using the Interface
+You're good to go! Type your command in the command box and press `ENTER` to launch it.
+
+Get a feel of the interface by trying these sample commands:
+  * `add "get started"` : adds a new floating task get started
+  * `fin f1` : marks the floating task with index f1 as finished
+  * `exit` : exits the application  
+
+##Features
+
+### Add Floating Task
+Try adding your first Task. Press Enter to enter a command. For adding a floating task, try:
    
    ```
    add "Learn Task Tracker"
@@ -94,6 +107,8 @@ You're at work and you crave baked potatoes. Let's do another one:
     
     
  ![alt text](./images/userguide/2.png "")
+ 
+* Tell Task Tracker the priority of your Task, by typing p-PRIORITY, where PRIORITY is a number from 0 to 5.
 
 * Notice how `bake potatoes` is above `Learn Task Tracker`. That's because
 `bake potatoes` is of number 2 priority, while `Learn Task Tracker` with an
@@ -101,7 +116,7 @@ undefined priority takes the default lowest priority number of 0.
     
 * Task Tracker supports your love for all things short and sweet. For one worded task names, quotation marks need not be used.
 
-## Add Deadline Task
+### Add Deadline Task
 You receive an email from your boss, requesting for the project proposal to be in by 31 dec of this year, 3pm. Let's add a deadline tasks with due date and time.
   	
     add "submit project proposal" 31/12 3pm
@@ -124,7 +139,7 @@ You decide to set a deadline for the first milestone of your project to be compl
 
     ![alt text](./images/userguide/3.png "")
 
-## Add Events
+### Add Events
 Your phone bleeps. Wow, an invitation to attend the Avengers meetup organised by Dr Strange! It happens tommorow, 10pm to 11 pm.
    
     add "avangers meetup" tmr 10pm to 11pm
@@ -140,11 +155,11 @@ You recieved an urgent call from boss! There is a VIP meeting today, 4pm to 6pm.
 
 * Task Tracker will keep track of Events that has already passed, strike them out for you, and highlight ongoing events green. 
 
-* Events are automatically arranged in order of start date and time, so that you busy human can know which event to zipp to next with a quick glance at the top of the events pane.  
+* Events are automatically arranged in order of start date and time, so that you know which event to zipp to next with a quick glance at the top of the events pane.  
 
     ![alttext](./images/userguide/4.png "")
 
-## Delete Task
+### Delete Task
 Given the amount of work you have to do, you decide not to go to the Avengers meetup. Let's delete that from Task Tracker.
 
     
