@@ -139,14 +139,14 @@ If the minute field is `00`, it may be ommitted from the command.
 ## Basic Features
 
 ### Add a Floating Task
-Try adding your first Task. Press Enter to enter a command. For adding a floating task, try:
+
+Try adding your first task. Press Enter to enter a command. For adding a floating task, try:
    
    add "Learn Task Tracker"
 
 ![alt text](./images/userguide/1.png "")
     
-You're at work and you crave baked potatoes. Let's do another one:
-
+You're at work and you crave baked potatoes. Let's add another floating task:
 	
     add "bake potatoes" p-2
     
