@@ -20,7 +20,7 @@ TaskTracker is a digital assistant that keeps track of your tasks, events and
 deadlines. It allows you to manage them efficiently with a keyboard-oriented
 command line interface.
 
-Are you a newcomer to our development team? Or just interested to understand
+Are you a newcomer to our development team? Or just interested in understanding
 how our application works under the hood? Well, this guide is just for you! This
 development guide aims to quickly familiarise you with the TaskTracker
 code base. It will give you an overview of the code architecture, as well as
