@@ -220,6 +220,8 @@ The `Ui` component,
 
 ## Implementation
 
+Now that you have an overall understanding of how the different components of our application work together, we can now proceed on to the implementation details of each component.
+
 ### Logging implementation
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is
