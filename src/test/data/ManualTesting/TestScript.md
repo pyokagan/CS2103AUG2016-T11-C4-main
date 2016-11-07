@@ -1,35 +1,42 @@
-TestCase ID: TC000 <br>
-Title : Loading Sample test data <br>
-Description : Tester should be able to load the sample data successfully <br>
-Assumption : Tester has yet to open the app once <br>
+# Test Case TC000
 
-Steps no. | Steps | Test Data |  ExpectedResult
---- | :---------------- | :---------------- | :----------------
-1 | create a new empty folder named 'TaskTracker' (or any name you prefer) on any location |  |a folder called 'TaskTracker' (or as named) should be created
-2 | download the v0.5 jar file and place it inside 'TaskTracker' folder | 	[Project Releases](https://github.com/CS2103AUG2016-T11-C4/main/releases) |the folder should contain the downloaded jar file
-3 | Within the same folder you created, create a new folder called "data" | |A new folder named "data" should be created
-4 | Transfer the `SampleData.json` in `ManualTesting` folder and put it in the `data` folder | |The forDemoUse.json file should be inside the `data` folder
-5 | Rename the `SampleData.json` to `taskbook.json` | |The `SampleData.json` is renamed to `taskbook.json`
-6 | open the jar file | |TaskTracker window should appear. config, perferences and log file should be generated in the same folder and some tasks should already be loaded into the system.
+Title: Loading Sample test data <br>
+Description: Tester should be able to load the sample data successfully <br>
+Assumption: Tester has yet to open the app once <br>
 
+1. Create a new empty folder named `TaskTracker` (or any name you prefer) on any location.
 
-TestCase ID: TC001 <br>
-Title : Opening the help menu <br>
-Description : Tester should be able to open the help menu <br>
-Precondition : TaskTraker app is opened 
+2. Download the v0.5 `TaskTracker.jar` file from [Project Releases](https://github.com/CS2103AUG2016-T11-C4/main/releases)
+   and place it inside 'TaskTracker' folder
 
-Steps no. | Steps | Test Data |  ExpectedResult
---- | :---------------- | :---------------- | :----------------
-1 | Go to the Command box on the top of the app | | User should be able to type anything here
-2 | Enter the help command in the box and press enter | help | a Help window should pop up
-3 | close the help window by pressing esc | | The help window should close
+3. Within the same folder you created, create a new folder called `data`.
 
+4. Transfer the `SampleData.json` in `ManualTesting` folder and put it in the `data` folder. The `SampleData.json` file should now be inside the `data` folder.
 
-TestCase ID: TC002 <br>
+5. Rename the `SampleData.json` to `taskbook.json`.
+
+6. Run the `TaskTracker.jar` file. TaskTracker window should appear. Config
+   file (`config.json`) should be generated in the same folder and some tasks
+   should already be loaded into the system.
+
+# Test Case TC001
+
+Title: Opening the help menu <br>
+Description: Tester should be able to open the help menu <br>
+Precondition: TaskTracker app is opened
+
+1. Select the Command text box on the top of the app. User should be able to type anything here.
+
+2. Enter `help` in the command box and press enter. A Help window should pop up.
+
+3. Press `Esc`. The help window should close.
+
+# Test Case TC002
+
 Title : Adding a task, deadline, event <br>
 Description : Tester should be able to add a task event and deadline today <br>
 Format : <br>
-`add FLOATING_TASK_NAME [p-priority]` <br> 
+`add FLOATING_TASK_NAME [p-priority]` <br>
 `add DEADLINE_NAME MM/DD/YYYY HH:MM[am/pm]` <br>
 `add EVENT_NAME MM/DD/YYYY HH:MM[am/pm] to MM/DD/YYYY HH:MM[am/pm]` <br>
 Format expanationation: <br>
@@ -38,23 +45,39 @@ When indicating the time, only one of `am` and `pm` should be used.
 Pre-condition : TaskTraker Must be opened <br>
 Assumption : Tester is testing on 11-11-2016. If not, the event and deadline added will be marked as finishd and overdue respectively.
 
-Steps no. | Steps | Test Data |  ExpectedResult
---- | :---------------- | :---------------- | :----------------
-1 | Go to the Command box on the top of the app | | User should be able to type anything here
-2 | Write/ Paste the Test Data into the box And press enter|  add "testing a program now" p-3 | The added task should be added and highlighted under 'Floating Task' and given a `Priority` of 3.
-3 | Repeat step 2 but with a different set of test data |  add "this is a deadline" 11/11/2016 11:15pm | the added deadline should be added and highlighted under 'Deadline'
-4 | Repeat step 2 one more time but adding a Event this time | add "test cs2103 product" 11/11/2016 4:15pm to 8:20pm | the added event should be added and highlighted under "Event"
+1. Select the Command box on the top of the app. User should be able to type
+   anything here.
 
-TestCase ID: TC003 <br>
+2. Type `add "testing a program now" p-3"` into the command box and press
+   Enter. A floating task "testing a program now" should be added in the
+   "Floating Task" pane and given a priority of 3. The task should be
+   highlighted yellow.
+
+3. Type `add "this is a deadline" 11/11/2016 11:15pm` into the command box and
+   press Enter. A deadline task "this is a deadline" should be added and
+   highlighted under the "Deadlines" pane.
+
+4. Type `add "test cs2103 product" 11/11/2016 4:15pm to 8:20pm` into the
+   command box and press Enter. The added event should be added and highlighted
+   under "Event"
+
+# Test Case TC003
+
 Title : The Flexibility of adding a task,event ,deadline <br>
-Description : Tester should be able to add a task without following a rigid format and natural date language <br>
-Assumption : TC002 has been tested and Tester are familiar with the format of adding atask <br>
+Description : Tester should be able to add a task without following a rigid format<br>
+Assumption : TC002 has been tested and tester is familiar with the format of adding a task <br>
 
-Steps no. | Steps | Test Data | ExpectedResult
---- | :---------------- | :---------------- | :----------------
-1 | Add a floating task using the test data | add "very flexible" | the task should be added and highlighted under 'Floating Task' given a default priority of 0.
-2 | Add a deadline | add cs2103Report 10pm | the dealdine should be added and highlighted under 'Deadline'
-3 | Add a event | add "picnic with professor" tdy 11pm to tmr | the event should be added and highlighted under 'Event'.
+1. Execute the command `add "very flexible"` to add a floating task. The task should
+   be added and highlighted under 'Floating Task' given a default priority of
+   0.
+
+2. Execute the command `add cs2103Report 10pm` to add a deadline task. The deadline
+   task should be added and highlighted under 'Deadline'.
+
+3. Execute the command `add "picnic with professor" tdy 11pm to tmr` to add an event task.
+   The event task should be added and highlighted under 'Event'.
+
+# Test Case TC004
 
 TestCase ID : TC004 <br>
 Title : Searching for task <br>
