@@ -136,6 +136,7 @@ class PandocTask extends DefaultTask {
 task(pandoc, type: PandocTask) {
     workDir = project.file('docs')
     inputFiles = [  project.file('docs/PDFProperties.md'),
+                    project.file('docs/Acknowledgements.md'),
                     project.file('docs/AboutUs.md'),
                               project.file('docs/UserGuide.md'),
                                project.file('docs/DeveloperGuide.md')]
