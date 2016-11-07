@@ -50,8 +50,10 @@ TaskTracker makes time-management smart and simple for you!
     > This app will not work with earlier versions of Java 8.
 
 2. Download the latest `TaskTracker.jar` from the 'releases' tab of https://github.com/CS2103AUG2016-T11-C4/main
- ![alt text](./images/userguide/release.png "release")
- ![alt text](./images/userguide/download.png "download")
+ 
+![alt text](./images/userguide/release.png "release")
+ 
+![alt text](./images/userguide/download.png "download")
 
 3. Copy the file to the folder you want to use as the home folder for your task database.
 
