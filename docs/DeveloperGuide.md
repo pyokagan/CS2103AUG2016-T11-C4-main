@@ -16,22 +16,25 @@
 
 ## Introduction
 
-Welcome to the TaskTracker development team!
-
 TaskTracker is a digital assistant that keeps track of your tasks, events and
 deadlines. It allows you to manage them efficiently with a keyboard-oriented
 command line interface.
 
-This development guide aims to quickly familiarise you with the TaskTracker
+Are you a newcomer to our development team? Or just interested in understanding
+how our application works under the hood? Well, this guide is just for you! This
+development guide aims to quickly familiarize you with the TaskTracker
 code base. It will give you an overview of the code architecture, as well as
 its various components and how they all interact with each other. This guide
 will also show you how to accomplish common development tasks, so you can fully
-integrate with our development workflow. By the end of this document, you will
-be ready to make your first awesome change to the code.
+integrate with our development workflow. By the end of this document, even if
+you are not part of our development team, you will be ready to make your first
+awesome change to the code.
 
 Ready to dive in? Let's get started!
 
 ## Setting up
+
+The first thing to do is to set up a copy of our code on your development machine.
 
 ### Prerequisites
 
@@ -53,6 +56,7 @@ Ready to dive in? Let's get started!
 6. A [**Git**](https://git-scm.com/) client such as
    [SourceTree](https://www.sourcetreeapp.com/) or
    [Github Desktop](https://desktop.github.com/)
+  
 
 ### Importing the project into Eclipse
 
@@ -60,8 +64,7 @@ Our central development repository lives on
 [Github](https://github.com/CS2103AUG2016-T11-C4/main).
 
 1. Start by
-   [forking our central development repository](https://help.github.com/articles/fork-a-repo/)
-   on [Github](https://github.com/CS2103AUG2016-T11-C4/main)
+   [forking our central development repository](https://help.github.com/articles/fork-a-repo/)   on [Github](https://github.com/CS2103AUG2016-T11-C4/main)
 
 2. [Clone](https://help.github.com/articles/cloning-a-repository/) your
    personal fork to your computer.
@@ -104,8 +107,23 @@ Our central development repository lives on
 
     * Solution: [Run tests using Gradle](#testing-with-gradle) once to download all
       required libraries.
+      
+### Running the application from the command line
+
+If all you want to do is to run the application from the command line, a simple
+
+```
+gradlew.bat run
+```
+
+will do the trick.
+
+> Note: Linux and MacOS users will have to use `./gradlew` instead of `gradlew.bat`.
 
 ## Design
+
+Before diving into the implementation details of our code base, let's first take a brief look at
+the overall design of our code.
 
 ### Architecture
 
@@ -155,7 +173,7 @@ Each of the four components:
 For example, the `Logic` component defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.
 
-The sections below give more details of each component.
+In the next few sections, we will take a look at each component.
 
 ### Model component
 
@@ -200,29 +218,26 @@ The `Ui` component,
 * Responds to events raised from various parts of the App and updates the UI
   accordingly.
 
-The Ui consists of a `MainWindow` that is made up of parts e.g.`CommandBox`,
-`ResultDisplay`, `EventTaskListPane`, `StatusBarFooter` etc. All these,
-including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `Ui` component uses JavaFx UI framework. The layout of these UI parts are
-defined in matching `.fxml` files that are in the `src/main/resources/view`
-folder. For example, the layout of `MainWindow` is specified in
-`src/main/resources/view/MainWindow.fxml`.
-
 ## Implementation
 
-### Logging
+Now that you have an overall understanding of how the different components of our application work together, we can now proceed on to the implementation details of each component.
+
+### Logging implementation
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is
 used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the
-  configuration file (See [Configuration](#configuration))
+It is highly recommended that you use logging in the code you write because it will
+make debugging easier. If you have a class `MyClass`, you can retrieve a `Logger`
+for the class by using:
+```java
+private static final Logger logger = LogsCenter.getLogger(MyClass.class);
+```
 
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)`
-  which will log messages according to the specified logging level.
+You can then print log messages by using `logger.fine()`, `logger.info()`, `logger.warning()` etc. See the [Logger API](https://docs.oracle.com/javase/8/docs/api/java/util/logging/Logger.html) for more details.
 
-* Currently log messages are output through: `Console` and to a `.log` file.
+Currently log messages are output through the console and to a `.log` file in the current directory.
+The logging level can be controlled using the `logLevel` setting in the configuration file. See the section on [Configuration](#configuration) for more details.
 
 **Logging Levels**
 
@@ -240,7 +255,7 @@ used to manage the logging levels and logging destinations.
 
 <figure>
 <img src="images/devguide/comp-model.png">
-<figcaption><div align="center">Figure 2.2: Model component class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.2: The model component</div></figcaption>
 </figure>
 
 The model component internally uses various classes to model the data of the
@@ -250,7 +265,7 @@ application.
 
 <figure>
 <img src="images/devguide/classdiag-model-task.png">
-<figcaption><div align="center">Figure 2.X: Task classes</div></figcaption>
+<figcaption><div align="center">Figure 2.3: The model task classes</div></figcaption>
 </figure>
 
 Task Tracker is able to store floating tasks, deadline tasks and event tasks.
@@ -263,13 +278,13 @@ starting datetime and ending datetime respectively.
 These classes inherit from a common `Task` abstract base class, which contains
 their common fields.
 
-The task classes are all guranteed to be immutable POJOs.
+The task classes are all guranteed to be immutable POJOs (Plain Old Java Objects).
 
 #### The `TaskBook` class and `ReadOnlyTaskBook` interface
 
 <figure>
 <img src="images/devguide/classdiag-model-taskbook.png">
-<figcaption><div align="center">Figure 2.X: Taskbook classes</div></figcaption>
+<figcaption><div align="center">Figure 2.4: The Taskbook classes</div></figcaption>
 </figure>
 
 The `TaskBook` class stores the lists of floating tasks, deadline tasks and
@@ -286,7 +301,7 @@ provides a read-only view of its data.
 
 <figure>
 <img src="images/devguide/classdiag-model-workingtaskbook.png">
-<figcaption><div align="center">Figure 2.X: WorkingTaskBook</div></figcaption>
+<figcaption><div align="center">Figure 2.5: The WorkingTaskBook</div></figcaption>
 </figure>
 
 The `TaskBook` class only stores the raw task data. However, the application
@@ -333,11 +348,16 @@ of the internal `TaskBook`. By decoupling the source item index from the
 working index, we can ensure that the working index remains the same even if
 other tasks in the task book are deleted.
 
+As shown in the model component class diagram (Figure 2.2), the `ModelManager`
+can only access the task book data through the `WorkingTaskBook`, ensuring that
+the `IndexedItems` are
+kept in sync with the `TaskBook` contents.
+
 #### The `Config` class and `ReadOnlyConfig` interface
 
 <figure>
 <img src="images/devguide/classdiag-model-config.png">
-<figcaption><div align="center">Figure 2.X: Config</div></figcaption>
+<figcaption><div align="center">Figure 2.6: Config and ReadOnlyConfig</div></figcaption>
 </figure>
 
 The `Config` class stores the various configuration settings as listed in the
@@ -350,11 +370,14 @@ The `ModelManager` class implements the `Model` interface, and provides access
 to the model data while hiding the internal complexity of its various classes.
 All external components can only interact with the model data via this class.
 
+#### Undo/Redo implementation
+The `Commit` class nested in `ModelManager` holds the name (a String) of a `Command` and also a copy of a `WorkingTaskBook`. `ModelManager` has a list of commits. There is a head label which always point to the `Commit` containing the curent `WorkingTaskBook`. Right after `LogicManager` executes a `Command` and updates the `TaskBook` with the relevant changes, model.hasUncommittedChanges() is called to check if the `Command` recently called caused a change in `TaskBook`. If yes, a new `Commit` is created to store the current state of the `WorkingTaskBook` and the name of the recently executed `Command`. This `Commit` is then added to the list of commits. Head label is updated accordingly. When undo is executed, the head label shifts down the list to point to the previous `Commit`. The `WorkingTaskBook` of that `Commit` is then loaded as the current `WorkingTaskbook`. For redo, the head label shifts up the list to point to the forerunner `Commit`, after which the `WorkingTaskBook` in that `Commit` is loaded and set as the current `WorkingTaskBook`. Current `WorkingTaskBook` replacement caused by undo and redo will not be saved as `Commits`, since the check for uncommited changes is done by comparing the current `WorkingTaskBook` with the one at which head points to for changes. When a new `Commit` is about to be added to the list of commits and head is not at the top of the list, all the commits after head is removed and then the new `Commit` enters the list. Head is shifted to the top of the list. This is to delete all redoable actions after an action other than undo/redo which causes data changes is executed. `HeadAtBoundaryException` is thrown when there are no commits available for undoing/redoing.              
+
 ### Storage implementation
 
 <figure>
 <img src="images/devguide/comp-storage.png">
-<figcaption><div align="center">Figure 2.3: Storage component class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.7: The Storage component</div></figcaption>
 </figure>
 
 The storage component uses [Jackson](https://github.com/FasterXML/jackson) to
@@ -436,7 +459,7 @@ provides a single unified interface to them.
 
 <figure>
 <img src="images/devguide/comp-logic.png">
-<figcaption><div align="center">Figure 2.4: Logic component class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.8: The Logic component</div></figcaption>
 </figure>
 
 The `Logic` component accomplishes its parsing and execution of user commands in a few steps:
@@ -470,7 +493,7 @@ Given in Figure 2.5 below is the sequence diagram for interactions within the
 
 <figure>
 <img src="images/devguide/classdiag-logic-parser.png">
-<figcaption><div align="center">Figure 2.X:</div></figcaption>
+<figcaption><div align="center">Figure 2.9: Some of the parser classes and how they relate to each other in the hierarchy</div></figcaption>
 </figure>
 
 As shown in Figure 2.X, from the perspective of the top level `LogicManager`
@@ -547,7 +570,7 @@ The application of the Single Responsibility Principle in the parsing component
 brings several benefits. Firstly, it is extremely easy to unit test each
 individual parser. Secondly, this approach is also very DRY (Don't repeat
 yourself) -- each piece of parsing logic has a single definitive source. For
-example, if we wanted to add a new kind of `TaskPredicate`, all we need to do
+example, if you wanted to add a new kind of `TaskPredicate`, all you need to do
 is to modify `TaskPredicateParser` and all parsers will immediately recognize
 the task predicate name.
 
@@ -555,7 +578,7 @@ the task predicate name.
 
 <figure>
 <img src="images/devguide/classdiag-model-parser-interface.png">
-<figcaption><div align="center">Figure 2.X:</div></figcaption>
+<figcaption><div align="center">Figure 2.10: The Parser interface and some of the implementing classes</div></figcaption>
 </figure>
 
 The whole parsing architecture makes use of the command pattern. All parsers
@@ -598,8 +621,7 @@ public class HelloWorldParser implements Parser<Command> {
 }
 ```
 
-This parser can now actually be used with `LogicManager` by constructing it
-with:
+You can now actually use this parser with `LogicManager` by constructing it with:
 ```java
 new LogicManager(model, storage, new HelloWorldParser());
 ```
@@ -621,7 +643,7 @@ your own `Parser` with minimal effort.
 
 <figure>
 <img src="images/devguide/classdiag-logic-commandlineparser.png">
-<figcaption><div align="center">Figure 2.X:</div></figcaption>
+<figcaption><div align="center">Figure 2.11: The CommandLineParser and its associated classes</div></figcaption>
 </figure>
 
 The `CommandLineParser` class helps to piece together individual `Parser<T>`
@@ -663,7 +685,7 @@ Note that these classes all take a `Parser<? extends T>` in their constructors
 -- these classes will call the specified parser to parse the argument/flag into
 the type of object that you want.
 
-For instance, let's say we want to parse the input format of the form:
+For instance, let's say you want to parse the input format of the form:
 ```
 NAME_ARG [p-PRIORITY]
 ```
@@ -682,7 +704,7 @@ We first break down the arguments and flags into their individual types:
   priority. We can parse that with `PriorityParser` which will return a
   `Priority`.
 
-We can thus piece together the `CommandLineParser.Argument<T>` and
+You can thus piece together the `CommandLineParser.Argument<T>` and
 `CommandLineParser.OptionalFlag<T>` like this:
 
 ```java
@@ -692,14 +714,14 @@ private final CommandLineParser.OptionalFlag<Priority> priorityFlag =
         new CommandLineParser.OptionalFlag<>("p-", "PRIORITY", new PriorityParser());
 ```
 
-And then we can build our `CommandLineParser` like this:
+And then build your `CommandLineParser` like this:
 ```java
 private final CommandLineParser cmdParser = new CommandLineParser()
                                                 .addArgument(nameArg)
                                                 .putFlag(priorityFlag);
 ```
 
-Now, with the input string, all we need to do is to call:
+Now, with the input string, all you need to do is to call:
 ```java
 cmdParser.parse("\"Learn Task Tracker\" p-4");
 ```
@@ -715,21 +737,74 @@ System.out.println(priorityFlag.getValue()); // Optional[4]
 
 <figure>
 <img src="images/devguide/classdiag-logic-subcommandparser.png">
-<figcaption><div align="center">Figure 2.X: SubcommandParser class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.12: The SubcommandParser</div></figcaption>
 </figure>
+
+This utility class dispatches the command input to the various command subparsers based on
+the first word of the command input. `TaskTrackerParser` is the primary user of this utility class,
+and it installs all of its command subparsers as follows:
+
+```java
+    private final SubcommandParser parser = new SubcommandParser()
+            .putSubcommand("add", new AddTaskParser())
+            .putSubcommand("edit", new EditCommandParser())
+            .putSubcommand("del", new DeleteCommandParser())
+            .putSubcommand("fin", new MarkFinishedCommandParser())
+            .putSubcommand("unfin", new MarkTaskUnfinishedCommandParser())
+            .putSubcommand("clear", new ClearCommandParser())
+            .putSubcommand("exit", new ExitCommandParser())
+            .putSubcommand("help", new HelpCommandParser())
+            .putSubcommand("setdatadir", new SetDataDirectoryParser())
+            .putSubcommand("list", new ListCommandParser())
+            .putSubcommand("undo", new UndoCommandParser())
+            .putSubcommand("redo", new RedoCommandParser())
+            .putSubcommand("find", new FindCommandParser());
+```
+
+Calling `SubcommandParser's` parse method will then dispatch the user input to the correct parser accordingly.
+```java
+parser.parse(input);
+```
 
 #### The `OverloadParser` utility class
 
 <figure>
 <img src="images/devguide/classdiag-logic-overloadparser.png">
-<figcaption><div align="center">Figure 2.X: OverloadParser class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.13: The OverloadParser</div></figcaption>
 </figure>
+
+Certain command syntaxes will have different parsing results depending on the input.
+For example, the `add` command has different arguments and flags for adding a floating task,
+adding a deadline task and adding a event task. While we could make `AddTaskParser` handle
+all of these command formats in the same class, it would be good if we could separate the
+parsing of these three different input formats into different classes so that they
+can be tested individually.
+
+With the help of `OverloadParser`, we can accomplish just that, separating the parsing of the
+`add` command into three classes: `AddEventParser`, `AddDeadlineParser` and `AddFloatingTaskParser`.
+`OverloadParser`, given an input, will try out these three parsers in order until it finds a
+parser which can parse the input. Otherwise, it will format a nice error message describing to
+the user what went wrong for each of them.
+
+So, following the example of the `add` command (`AddTaskParser.java`), you can construct an
+`OverloadParser` as follows:
+```java
+        overloadParser = new OverloadParser<AddTaskCommand>()
+                            .addParser("Add an event", new AddEventParser(referenceDateTime))
+                            .addParser("Add a deadline", new AddDeadlineParser(referenceDateTime))
+                            .addParser("Add a floating task", new AddFloatingTaskParser());
+```
+
+And then you can parse any input with:
+```java
+overloadParser.parse(input);
+```
 
 #### The `Command` interface
 
 <figure>
 <img src="images/devguide/classdiag-logic-commandinterface.png">
-<figcaption><div align="center">Figure 2.X: The command interface</div></figcaption>
+<figcaption><div align="center">Figure 2.14: The command interface</div></figcaption>
 </figure>
 
 Other than parsing, the logic component also executes commands, represented by
@@ -745,25 +820,40 @@ rolling back any changes to the model.
 All commands in the `seedu.address.logic.commands` package implement the
 `Command` interface to allow them to be executed by the `LogicManager`.
 
+#### Asking the user interface to do more
+
+With just a `CommandResult`, commands can only return a message for the user interface
+to display. However, sometimes you may wish for your command to do more. You may wish
+that your command, for example, exits the application, just like what `ExitCommand` does.
+Or, you may want your command to show the help window, just like how `HelpCommand` does it.
+
+`CommandResults` can implement additional interfaces to indicate to the UI
+component that they expect additional things to be done. For example, the `CommandResult`
+returned by the `ExitCommand` implements the `ExitCommandResult` interface, which tells the
+UI component to exit the application, while the `CommandResult` returned by the
+`HelpCommand` implements the `HelpCommandResult` interface, which tells the UI component to
+show the help window.
+
+If you wish to add additional interfaces, make sure you tell teach the UI component how to handle
+that additional interface. The UI component handles additional
+interfaces in the `onCommandResult` method of the `MainWindow`.
+
 ### UI implementation
 
 <figure>
 <img src="images/devguide/comp-ui.png">
-<figcaption><div align="center">Figure 2.6: Ui component class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.15: Ui component class diagram</div></figcaption>
 </figure>
 
-As mentioned in the [UI component architecture overview](#ui-component), the UI
-component is made up of "UI Parts". Each UI Part inherits from the abstract
-class `UiPart` and models a distinct part of the user interface. For example,
-the `MainWindow` class, which implements the main application window, is a UI
-Part.
+The UI component mainly consistes of the `MainWindow` that is made up of parts
+e.g. `CommandBox`, `ResultDisplay`, `EventTaskListPane`, `StatusBarFooter` etc.
+All of these classes, including the `MainWindow`, inherit from the abstract
+`UiPart` class and model a distinct part of the user interface.
 
-UI Parts themselves can contain multiple child UI Parts as well. For example,
-the `MainWindow` UI Part itself contains a few child UI Parts such as the
-`CommandBox`, `ResultDisplay`, `EventTaskListPane` etc.
-
-The use of UI parts aids in encapsulation of the different components of the
-Task Tracker user interface.
+The UI component uses JavaFx UI framework. The layout of these UI parts are
+defined in matching `.fxml` files that are in the `src/main/resources/view`
+folder. For example, the layout of `MainWindow` is specified in
+`src/main/resources/view/MainWindow.fxml`.
 
 #### Implementing a new UI Part
 
@@ -781,8 +871,8 @@ For example, the `ResultDisplay` UI Part has its view defined in
 `src/main/resources/view/ResultDisplay.fxml` and its controller defined in
 `src/main/java/seedu/address/ui/ResultDisplay.java`.
 
-A simple view (`HelloWorldUiPart.fxml`) that contains a single "Hello World!"
-label could be implemented as follows:
+You can implement a simple view (`HelloWorldUiPart.fxml`) that contains a single
+"Hello World!" label with:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -795,7 +885,7 @@ label could be implemented as follows:
 </VBox>
 ```
 
-Its corresponding controller (`HelloWorldUiPart.java`) could be implemented as follows:
+You can then implement the corresponding controller (`HelloWorldUiPart.java`) with:
 ```java
 package seedu.address.ui;
 
@@ -816,8 +906,7 @@ superclass constructor. This tells the `UiPart` which FXML file to load.
 
 #### Initialising a UI Part
 
-UI Parts can be directly constructed. For instance, we could construct a new
-`HelloWorldUiPart` with:
+You can now construct your `HelloWorldUiPart`. `UiParts` can be directly constructed:
 ```java
 HelloWorldUiPart helloWorldUiPart = new HelloWorldUiPart();
 ```
@@ -833,7 +922,7 @@ the JavaFX Scene using multiple UI Parts.
 ## Configuration
 
 By default, the application stores its configuration in the `config.json` file.
-This file can be modified to change the configuration of the application.
+You can modify this file to change the configuration of the application.
 
 * `logLevel`: Sets the minimum required level for log messages to be
   output. See [Logging Levels](#logging-levels) for the list of available
@@ -882,15 +971,26 @@ We have two types of tests:
   directory:
 
     ```
-    ./gradle test
+    gradlew.bat test
     ```
 
 * To only run non-GUI tests, execute the following in the project work
   directory:
 
     ```
-    ./gradle -PguiTests=false test
+    gradlew.bat -PguiTests=false test
     ```
+    
+* To run the GUI tests in headless mode, execute the following in the project work
+  directory:
+
+    ```
+    gradlew.bat -Pheadless=true test
+    ```
+    
+See our [Using Gradle](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/UsingGradle.md) document online for more information.
+    
+> Note: If you are running Linux or MacOS as your operating system, use `./gradlew` instead of `gradlew.bat`.
 
 ### Troubleshooting tests
 
@@ -934,22 +1034,22 @@ Priority | As a ... | I want to ...             | So that I can...
 `* * *`  | User | Add a floating task to the task manager | Keep track of it and remember to do it when I'm free
 `* * *`  | User | View my floating tasks | keep track of them.
 `* * *`  | User | Search specific tasks by keywords |
-`*`  | Power user | Have shortcut keys to launch the app | Launch the app quickly
-`* `  | Power user | Have shortcut keys to minimise the app | Hide the app with only the keyboard
-`* * *`    | User | Mark a deadline as finished before the due time | Remove it from the notification list and archive it.
-`* * *`    | User | Mark a floating task as finished | Remove it from my floating task list.
-`* *`    | User who has events taking place at multiple locations | Add the location of an event | Be reminded of where to go.
-`* *`    | User | Have the app notify me of the error in my command, and suggest the right command when I make a typo/forget the format of the command | Enter in the correct command immediately without having to open up the manual.
-`* *`    | Busy user | View what events or deadlines are scheduled over a range of time | Ensure that the event does not clash with other events or deadlines.
-`* * *`    | User | Revise the due datetime for a certain deadline. | Keep track of it and avoid creating a new deadline when the time has been revised.
-`* * *`    | User | Revise the timeslot for a certain event | Keep track of it and avoid creating a new event when the time has been revised.
-`* *`    | Busy user | Generate a list of all empty time slots in a given period | Choose a free time slot to create new events or tasks.
-`* * *`    | User | Undo an action | Restore tasks deleted by accident.
-`* * *` | User | Redo an action | Reverse an action done by undo. 
-`*`      | User who is unable to remember details of each task | Add a short description under the name of each task in my schedule | Know how to do the task and where, even if I forget these details by any chance.
-`*`      | Busy user | Set priority levels for my tasks | Able to decide which task needs to be completed urgently
-`*`      | Group user | Option to categorize my task as a "Group activity" and automatically send notifications (through mail or other social networking platforms) to all other users who are in my team, whenever I make any changes to our work schedule for the group activity; and send them reminders about upcoming deadlines for the tasks. Every time I add a new task, I should have also an option to either include it to an existing group activity or add it to a new group activity. | Improve my work efficiency, and make sure everyone in my team are aware of the work schedule of our project.
-`* `     | User who needs to be reminded of the task before the deadline date. | Set reminders at customized times before the deadline. | Have enough time to complete the task before deadline, even if I forgot to do it.
+`* * *`  | User | Mark a deadline as finished before the due time | distinguish finished tasks and unfinished tasks in UI.
+`* * *`  | User | Mark a floating task as finished | remove it from my floating task list.
+`* * *`  | User | Mark a finished deadline as unfinished before the due time |
+`* * *`  | User | Mark a finished floating task as unfinished |
+`* *`  | User | Set my database directory | 
+`* *`  | User | Revise the due datetime for a certain deadline. | keep track of it and avoid creating a new deadline when the time has been revised.
+`* *`  | User | Revise the timeslot for a certain event | keep track of it and avoid creating a new event when the time has been revised.
+`* *`  | User | List all the tasks that I have finished | 
+`* *`  | User | List all the tasks that I have not finished | 
+`* *`  | User | Clear all finished tasks at one time | avoid deleting my finished tasks one by one.
+`* *`  | User | Undo an action | restore tasks deleted by accident.
+`* *`  | User | Redo an action | reverse an action done by undo. 
+`* *`    | User | Have the app notify me of the error in my command, and suggest the right command when I make a typo/forget the format of the command | enter in the correct command immediately without having to open up the manual.
+`*`      | Busy user | Set priority levels for my tasks | able to decide which task needs to be completed urgently
+`*`      | Power user | Have shortcut keys to launch the app | launch the app quickly.
+`* `     | Power user | Have shortcut keys to minimise the app | hide the app with only the keyboard.
 
 # Appendix B: Use Cases
 
@@ -981,9 +1081,9 @@ Priority | As a ... | I want to ...             | So that I can...
 1b. The range of time specified by the start datetime and end datetime occurs
     in the past.
 
-> 1b1. TaskTracker warns the user that the event is in the past.
+> 1b1. TaskTracker will add this event task but mark it as finished automatically.
 
-> Use case resumes from step 2.
+> Use case ends.
 
 1c. The name of the event contains invalid characters.
 
@@ -1014,9 +1114,9 @@ Priority | As a ... | I want to ...             | So that I can...
 
 1a. The end datetime occurs in the past.
 
-> 1a1. TaskTracker warns the user that the end datetime is in the past.
+> 1a1. TaskTracker will add this deadline but mark it as overdue.
 
-> Use case resumes from step 2.
+> Use case ends.
 
 1b. The name of the deadline contains invalid characters.
 
@@ -1058,22 +1158,23 @@ Priority | As a ... | I want to ...             | So that I can...
 
 > Use case resumes from step 2.
 
-## Use case: View all floating tasks
+## Use case: View all finished/unfinished tasks
 
 **MSS**
 
-1. User requests to view all floating tasks.
+1. User requests to view all finished/unfinished tasks.
 
-2. TaskTracker displays all floating tasks in the database as a list, ordered
-   from highest to lowest priority. <br>
+2. TaskTracker displays all finished/unfinished tasks in the database as a list;
+   floating tasks will be ordered from highest to lowest priority;
+   deadline tasks will be ordered from earliest due time to latest due time;
+   event tasks will be order from earliest startign time to latest starting time. <br>
    Use case ends.
 
 **Extensions**
 
-1a. There are no floating tasks in the database.
+1a. There are no tasks in the database.
 
-> 1a1. TaskTracker notifies the user that there are no floating tasks in the
->      database.
+> 1a1. TaskTracker will display an empty list.
 
 > Use case ends.
 
@@ -1097,23 +1198,17 @@ Priority | As a ... | I want to ...             | So that I can...
 
 > Use case ends.
 
-1b. The new time is the same as the previous due datetime.
+1b. The new date/time occurs in the past.
 
-> 1b1. TaskTracker informs the user that the datetime remains unchanged.
+> 1b1. TaskTracker will edit the date/time and then mark this task as overdue.
 
 > Use case ends.
-
-1c. The new date/time occurs in the past.
-
-> 1c1. TaskTracker warns the user that the end datetime is in the past.
-
-> Use case resumes from step 2.
 
 ## Use case: Revise the time of an event
 
 **MSS**
 
-1. User requests to revise the the time of a certain deadline with new
+1. User requests to revise the the time of a certain event with new
    date/time information.
 
 2. TaskTracker revises the event to a new time slot, and notifies the user that
@@ -1129,12 +1224,12 @@ Priority | As a ... | I want to ...             | So that I can...
 
 > Use case ends.
 
-1b. The range of time specified by the start datetime and end datetime
-    intersects with the start-end datetime range of other event(s).
+1b. The range of time specified by the start datetime and end datetime occurs
+    in the past.
 
-> 1b1. TaskTracker warns the user that the event clashes with which event(s).
+> 1b1. TaskTracker will edit the date/time and then mark this task as finished.
 
-> Use case resumes from step 2.
+> Use case end.
 
 1c. The start datetime occurs after the end datetime.
 
@@ -1143,166 +1238,24 @@ Priority | As a ... | I want to ...             | So that I can...
 
 > Use case ends.
 
-1d. The range of time specified by the start datetime and end datetime occurs
-    in the past.
-
-> 1e1. TaskTracker warns the user that the event is in the past.
-
-> Use case resumes from step 2.
-
-1e. The new datetime is the same as the existing datetime.
-
-> 1e1. TaskTracker informs the user that the datetime remains unchanged.
-
-> Use case ends.
-
-## Use case: mark a floating task/deadline as finished
+## Use case: Mark a floating task/deadline as finished/unfinished
 
 **MSS**
 
-1. User requests to mark a certain floating task/deadline as finished.
+1. User requests to mark a certain floating task/deadline as finished/unfinished.
 
-2. TaskTracker marks the task as finished and informs the user.
+2. TaskTracker marks the task as finished/unfinished and informs the user.
    Use case ends.
 
 **Extensions**
 
-1a. The floating task does not exist.
+1a. The floating task/deadline does not exist.
 
 > 1a1. TaskTracker informs the user that the floating task does not exist.
 
 > Use case ends.
 
-## Use case: Generate a list of empty time slots
-
-**MSS**
-
-1. User request to generate a list of free time slots in a certain period with
-   certain time duration.
-
-2. TaskTracker lists all possible time slots in that period <br>
-   Use case ends.
-
-**Extensions**
-
-1a. The time period requested is invalid (wrong format or time in the past)
-
-> 1a1. TaskTracker shows an error message.
-
-> Use case ends.
-
-1b. The input duration is in wrong format
-
-> 1b1. TaskTracker shows an error message to inform the error.
-
-> Use case ends.
-
-2a. There is no feasible time slot
-
-> 2a1. TaskTracker shows an empty list and throw a message saying there is no
-> avaliable time slots for the user in the given time period.
-
-> Use case ends.
-
-## Use case: Add priority tags
-
-**MSS**
-
-1. The user requests to add a priority tag for a specified event.
-
-2. TaskTracker prompts the user to select the priority level of the event -
-   "Very Important"/ "Important"/ "Not important".
-
-3. The user selects the appropriate priority level for the event from these
-   options.
-
-4. TaskManager updates the priority of the event with the specified priority, and it is displayed on the user's schedule.
-
-5. The user is notified that the update was successful.
-
-   Use case ends.
-
-**Extensions**
-
-1a. The user places a request to add a priority tag, but does not add it.
-
-> 1a1. User presses "Esc". TaskTracker goes back to the normal view of the
-> schedule. Now even if the user clicks on any event, priority tag options will
-> not be displayed as the TaskTracker switched from Priority Tag view to Normal
-> view.
-
-> Use case ends.
-
-## Use case: Add new event under a specific "group activity"
-
-**MSS**
-
-1. User requests to add a new event to a group activity.
-
-2. If the user wants to create a new group activity, he places a request to add new group activity. 
-
-3. The user then enters the details of the group activity (such as name of the
-   group activity and email addresses of the people in the group).
-
-4. TaskTracker automatically adds the event to this new activity.
-
-5. TaskTracker notifies the user that the event has been added to the schedule.
-
-   User case ends.
-
-**Extensions**
-
-1a. The user enters an invalid email address of a group member, while creating
-a new group activity.
-
-> 1a1. TaskTracker displays the error message - "Invalid email".
-
-> Use case ends.
-
-1b. The user enters a group activity name that already exists, while adding a
-    new group activity.
-
-> 1b1. TaskTracker displays an error message "Name already exists".
-
-> Use case ends.
-
-## Use case: Add event description
-
-**MSS**
-
-1. The user requests to add a new event.
-
-2. The user writes a small description about the event in the "Description"
-   field, present in the "Add new event" window.
-
-3. The event is added and the user is notified about the new event added.
-
-   User case ends.
-
-## Use case: Set reminders
-
-**MSS**
-
-1. When adding a new event, the user adds the time at which he wants to set a
-   reminder, before the event occurs. The time is entered in day/hours/minutes
-   format.
-
-2. The new event is added to the schedule and the user is notified about the
-   addition of the new event.
-
-   User case ends.
-
-**Extensions**
-
-1a. The user enters the time in a wrong format.
-
-> 1a1. TaskTracker shows an error message "Invalid time format"
-
-> User case ends.
-
-## See the manual
-
-**Use case: see the manual**
+## Use case: See the manual
 
 **MSS**
 
@@ -1312,29 +1265,25 @@ a new group activity.
 
    Use case ends.
 
-## Search the manual
-
-**Use case: search the manual**
+## Use case: Auto-complete task names
 
 **MSS**
 
-1. User request to search the manual for a specific command.
+1. User request to auto complete the task name when editing one specific task.
 
-2. TaskTracker shows the specific manual command.
+2. TaskTracker will complete the previous task name automatically.
 
    Use case ends
 
 **Extensions**
 
-1a. The command to be searched does not exist
+1a. The target task does not exist.
 
-> 1a1. TaskTracker informs the user that the command does not exist.
+> 1a1. TaskTracker will show nothing.
 
 > Use case ends
 
-## Undo an action
-
-**User case: Undo an action, such as restoring a deleted a task**
+## Use case: Undo an action
 
 **MSS**
 
@@ -1350,6 +1299,25 @@ a new group activity.
 1a. There is no action to undo
 
 > 1a1. TaskTracker shows an error message "no action to undo"
+
+> User Case ends.
+
+## Use case: Redo an action
+
+**MSS**
+
+1. The user wants to redo an action that is undone previously.
+
+2. The previous undone action is redone. Task manager is restored to state after the
+   completed action.
+
+   User case ends.
+
+**Extensions**
+
+1a. There is no action to redo
+
+> 1a1. TaskTracker shows an error message "no action to redo"
 
 > User Case ends.
 
@@ -1379,10 +1347,10 @@ a new group activity.
   <dt>Task</dt>
   <dd>A unit of information in the task book database. Each task has a name.</dd>
 
-  <dt>Event</dt>
+  <dt>Event task</dt>
   <dd>Task that has a start datetime and end datetime</dd>
 
-  <dt>Deadline</dt>
+  <dt>Deadline task</dt>
   <dd>Task that has an end datetime only.</dd>
 
   <dt>Floating task</dt>
@@ -1390,6 +1358,9 @@ a new group activity.
 
   <dt>Time slot</dt>
   <dd>A time slot is referring to a period of time</dd>
+  
+  <dt>Priority</dt>
+  <dd>Represents how important a floating task is. It is a number from 0 to 5 inclusive, where 0 means lowest priority and 5 means highest priority.</dd>
 </dl>
 
 <!-- BEGIN LATEX
@@ -1405,17 +1376,20 @@ a new group activity.
 \item[Task] \hfill \\
     A unit of information in the task book database. Each task has a name.
 
-\item[Event] \hfill \\
+\item[Event task] \hfill \\
     Task that has a start datetime and end datetime.
 
-\item[Deadline] \hfill \\
+\item[Deadline task] \hfill \\
     Task that has an end datetime only.
 
 \item[Floating task] \hfill \\
-    A task that has neither a start datetime nor end datetime.
+    A task that has neither a start datetime nor end datetime. It also has a priority.
 
 \item[Time slot] \hfill \\
     A time slot is referring to a period of time.
+    
+\item[Priority] \hfill \\
+    Represents how important a floating task is. It is a number from 0 to 5 inclusive, where 0 means lowest priority and 5 means highest priority.
 
 \end{description}
 
@@ -1425,11 +1399,7 @@ END LATEX -->
 
 ## Todo.txt
 
-<!-- BEGIN GITHUB -->
-
-Full product survey [here](productsurveys/todo.txt.md)
-
-<!-- END GITHUB -->
+Full product survey is available online [here](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/productsurveys/todo.txt.md)
 
 Jim's Requirement                                        | Todo.txt Support
 :------------------------------------------------------- | ---------------
@@ -1474,11 +1444,7 @@ operations are done without user confirmation.
 
 ## Todoist
 
-<!-- BEGIN GITHUB -->
-
-Full product survey [here](productsurveys/Todoist.md)
-
-<!-- END GITHUB -->
+Full product survey is available online [here](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/productsurveys/Todoist.md)
 
 Jim’s Requirement                                        | Todoist support
 :------------------------------------------------------- | ---------------
@@ -1527,11 +1493,7 @@ perform wrongly.
 
 ## Wunderlist
 
-<!-- BEGIN GITHUB -->
-
-Full product survey [here](productsurveys/Wunderlist.md)
-
-<!-- END GITHUB -->
+Full product survey is available online [here](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/productsurveys/Wunderlist.md)
 
 Wunderlist in brief: Written in Javascript and PHP, Wunderlist is a task
 manager application with a simple, intuitive,and beautiful User Interface that
@@ -1559,11 +1521,7 @@ So, how well does Wunderlist satisfy Jim's requirements?
 
 ## Google Calendar
 
-<!-- BEGIN GITHUB -->
-
-Full product survey [here](https://docs.google.com/document/d/1ELun1gQUiVAxC6it-16jikFRwAePTXS5Xri7GdhUnL8/edit?usp=sharing)
-
-<!-- END GITHUB -->
+Full product survey is available online [here](https://docs.google.com/document/d/1ELun1gQUiVAxC6it-16jikFRwAePTXS5Xri7GdhUnL8/edit?usp=sharing)
 
 Jim's Requirement                                                | Google Calendar
 :--------------------------------------------------------------- | ---------------
