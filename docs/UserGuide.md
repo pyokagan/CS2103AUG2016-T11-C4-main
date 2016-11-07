@@ -57,13 +57,14 @@ TaskTracker makes time-management smart and simple for you!
 
 ###Launch
 Double-click the file to start the app. The GUI should appear in a few seconds.
-
+![alt text](./images/userguide/0.png "")
 ###Using the Interface
 You're good to go! Type your command in the command box and press `ENTER` to launch it.
 
 Get a feel of the interface by trying these sample commands:
   * `add "get started"` : adds a new floating task get started
   * `fin f1` : marks the floating task with index f1 as finished
+  * `del f1` : delete floating task with index f1
   * Ctrl + SPACE to hide Task Tracker
   * Ctrl + SPACE again to bring Task Tracker back to the foreground
   * `exit` : exits the application  
@@ -165,7 +166,9 @@ You're at work and you crave baked potatoes. Let's do another one:
     
     
  ![alt text](./images/userguide/2.png "")
- 
+
+* Most recently added Task will be highlighted yellow. 
+
 * Tell Task Tracker the priority of your Task, by typing p-PRIORITY, where PRIORITY is a number from 0 to 5.
 
 * Notice how `bake potatoes` is above `Learn Task Tracker`. That's because
@@ -280,9 +283,9 @@ As with editing any type of Task, add on, in any order after `edit INDEX`, the f
 * Quotation marks are not required for `NEW_NAME`.
 
 ###Edit an Event
-You recieve an email saying that the VIP meeting's start time has been brought forward to 10am. You take note of that by edting the start time of VIP meeting in Task Tracker
+You recieve an email saying that the VIP meeting's start time has been brought forward to 10am. You take note of that by editing the start time of VIP meeting in Task Tracker
 
-	edit e1 st-e2
+	edit e2 st-10am
 
 [pic]
 
@@ -409,7 +412,7 @@ Edit Floating Tasks | `edit INDEX [n-NEW_NAME] [p-PRIORITY]`
 Edit Deadline | `edit INDEX [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]`
 Mark task as finished | `fin INDEX`
 Mark a task as unfinished | `unfin INDEX`
-Search for keywords | `search KEYWORD`
+Find keyword | `find KEYWORD`
 Undo | `undo`
 Redo | `redo`
 Clear | `clear`
