@@ -344,9 +344,7 @@ Sometimes Task Tracker gets cluttered with fisnished Task and Task you no longer
 We, as humans, tend to make mistakes. We might have cleared Task Tracker and remember later that we still have unfinished important task! Thankfully, Task Tracker has that covered. With one single word `undo`, the operation gets reversed and all of the deleted tasks appear back on screen. Crisis averted.
 
 	undo
-    
-[pic]
-
+   
 ###Redo
 Task Tracker also provides the “redo” command in case you realise that you did not need to undo that command after all.
 
@@ -380,6 +378,13 @@ Task Tracker has an extremely useful tab-completion feature.  Let's say you love
 
 Tab-completion can also help you to auto-complete things like the command names. Let’s say you forgot the name of a command. Well, just press tab on the command box, immediately a list of all available commands will appear, letting you select them(tab through the autocomplete list).
 
+###Set data storage directory
+To change the file path which holds Task Tracker's storage data, type
+
+	setdatadir FILE_PATH
+	
+Where FILE_PATH is the file path to the directory, eg. C:\Users\Potato\Desktop
+
 ###Congratulations! You have officially finished learning task tracker. Take on this challenge: Mark learn task tracker as finished.  	
 	fin learn task tracker
 
@@ -403,12 +408,14 @@ Add Events | `add EVENT_NAME <STARTING_DATE> <STARTING_TIME> to <ENDING_DATE> <E
 Delete | `del INDEX`
 Edit Floating Tasks | `edit INDEX [n-NEW_NAME] [p-PRIORITY]`
 Edit Deadline | `edit INDEX [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]`
+Edit Events | `edit INDEX [n-NEW_NAME] [st-START_TIME] [sd-START_DATE] [et-END_TIME] [ed-END_DATE]` 
 Mark task as finished | `fin INDEX`
 Mark a task as unfinished | `unfin INDEX`
-Find keyword | `find KEYWORD`
+Clear | `clear`
 Undo | `undo`
 Redo | `redo`
-Clear | `clear`
-Exit | `exit`
+Find keyword | `find KEYWORD`
 Hide and show Task Tracker | <kbd>Ctrl</kbd> + <kbd>SPACE</kbd>
+Auto Complete | <kbd>TAB</kbd>
 setdatadir |`setdatadir FILE_PATH`
+Exit | `exit`
