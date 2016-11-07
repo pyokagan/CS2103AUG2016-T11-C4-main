@@ -1,7 +1,3 @@
-@import "fonts/OpenSans.css";
-@import 'fonts/Roboto.css';
-@import "fonts/RobotoMono.css"
-
 .root {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -230,6 +226,6 @@
     -fx-padding: 1em;
 }
 
-.helpBox {
+.helpBox .label {
 	-fx-font-family: 'Roboto Mono';
 }

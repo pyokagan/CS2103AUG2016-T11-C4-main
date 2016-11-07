@@ -60,11 +60,10 @@ public class HelpWindow extends UiPart<Stage> {
         stage.setAlwaysOnTop(true);
         helpBox.initModality(Modality.NONE);
         helpBox.setResizable(true);
-        helpBox.getDialogPane().setPrefWidth(800.0);
-        helpBox.getDialogPane().setPrefHeight(330.0);
-        //helpBox.getDialogPane().getStylesheets().add("src/main/resources/view/DarkTheme.css");
-        //helpBox.getDialogPane().getStyleClass().add("helpBox");
-        helpBox.getDialogPane().setStyle("-fx-font-family: \"Courier New\";" + "-fx-font-weight: 700;" + "font-style: normal;" + "-fx-background-color: white;" + "-fx-color: black;");
+        helpBox.getDialogPane().setPrefWidth(900.0);
+        helpBox.getDialogPane().setPrefHeight(530.0);
+        helpBox.getDialogPane().getStylesheets().add("/view/DarkTheme.css");
+        helpBox.getDialogPane().getStyleClass().add("helpBox");
 
         //set contents
         helpBox.setTitle("HELP");
