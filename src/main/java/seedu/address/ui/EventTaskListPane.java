@@ -108,6 +108,7 @@ public class EventTaskListPane extends UiPart<Pane> {
             final EventTaskListCard card;
             card = new EventTaskListCard(eventTask != null ? eventTask.getItem() : null,
                                          eventTask != null ? eventTask.getWorkingIndex() : 0);
+            setPrefWidth(10); // This will stop the cards from extending beyond the horizontal listview width
             setGraphic(card.getRoot());
         }
     }

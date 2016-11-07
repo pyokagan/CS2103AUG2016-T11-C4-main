@@ -187,7 +187,7 @@
 }
 
 .card {
-    -fx-padding: 5px 5px 5px 15px;
+    -fx-padding: 0.8em 1em 0.8em 1em;
     -fx-border-color: #d6d6d6;
     -fx-border-width: 1px 1px 1px 10px;
 }

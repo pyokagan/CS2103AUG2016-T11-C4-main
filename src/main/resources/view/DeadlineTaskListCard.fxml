@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 
 <HBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT" spacing="10"
-        prefHeight="45.0" maxHeight="400" stylesheets="@DarkTheme.css" styleClass="card">
-    <HBox spacing="5" alignment="CENTER_LEFT" HBox.Hgrow="ALWAYS">
-        <Label fx:id="indexLabel" styleClass="cell_big_label"></Label>
-        <Label fx:id="nameLabel" styleClass="cell_big_label" WrapText="true"></Label>
+        stylesheets="@DarkTheme.css" styleClass="card">
+    <HBox spacing="5" alignment="TOP_LEFT" HBox.Hgrow="ALWAYS">
+        <Label fx:id="indexLabel" styleClass="cell_big_label" minWidth="-Infinity" />
+        <Label fx:id="nameLabel" styleClass="cell_big_label" WrapText="true" />
     </HBox>
-    <HBox spacing="5" alignment="CENTER_RIGHT" HBox.Hgrow="ALWAYS">
+    <HBox spacing="5" alignment="TOP_RIGHT" HBox.Hgrow="ALWAYS" minWidth="-Infinity">
         <Label alignment="CENTER_RIGHT">Due:</Label>
         <Label fx:id="dueLabel">$due</Label>
     </HBox>

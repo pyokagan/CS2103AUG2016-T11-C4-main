@@ -114,6 +114,7 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
             final DeadlineTaskListCard card;
             card = new DeadlineTaskListCard(deadlineTask != null ? deadlineTask.getItem() : null,
                                             deadlineTask != null ? deadlineTask.getWorkingIndex() : 0);
+            setPrefWidth(10); // This will stop the cards from extending beyond the horizontal width
             setGraphic(card.getRoot());
         }
     }
