@@ -240,7 +240,7 @@ used to manage the logging levels and logging destinations.
 
 <figure>
 <img src="images/devguide/comp-model.png">
-<figcaption><div align="center">Figure 2.2: Model component class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.2: The model component</div></figcaption>
 </figure>
 
 The model component internally uses various classes to model the data of the
@@ -250,7 +250,7 @@ application.
 
 <figure>
 <img src="images/devguide/classdiag-model-task.png">
-<figcaption><div align="center">Figure 2.X: Task classes</div></figcaption>
+<figcaption><div align="center">Figure 2.3: The model task classes</div></figcaption>
 </figure>
 
 Task Tracker is able to store floating tasks, deadline tasks and event tasks.
@@ -269,7 +269,7 @@ The task classes are all guranteed to be immutable POJOs.
 
 <figure>
 <img src="images/devguide/classdiag-model-taskbook.png">
-<figcaption><div align="center">Figure 2.X: Taskbook classes</div></figcaption>
+<figcaption><div align="center">Figure 2.4: The Taskbook classes</div></figcaption>
 </figure>
 
 The `TaskBook` class stores the lists of floating tasks, deadline tasks and
@@ -286,7 +286,7 @@ provides a read-only view of its data.
 
 <figure>
 <img src="images/devguide/classdiag-model-workingtaskbook.png">
-<figcaption><div align="center">Figure 2.X: WorkingTaskBook</div></figcaption>
+<figcaption><div align="center">Figure 2.5: The WorkingTaskBook</div></figcaption>
 </figure>
 
 The `TaskBook` class only stores the raw task data. However, the application
@@ -333,11 +333,16 @@ of the internal `TaskBook`. By decoupling the source item index from the
 working index, we can ensure that the working index remains the same even if
 other tasks in the task book are deleted.
 
+As shown in the model component class diagram (Figure 2.2), the `ModelManager`
+can only access the task book data through the `WorkingTaskBook`, ensuring that
+the `IndexedItems` are
+kept in sync with the `TaskBook` contents.
+
 #### The `Config` class and `ReadOnlyConfig` interface
 
 <figure>
 <img src="images/devguide/classdiag-model-config.png">
-<figcaption><div align="center">Figure 2.X: Config</div></figcaption>
+<figcaption><div align="center">Figure 2.6: Config and ReadOnlyConfig</div></figcaption>
 </figure>
 
 The `Config` class stores the various configuration settings as listed in the
@@ -354,7 +359,7 @@ All external components can only interact with the model data via this class.
 
 <figure>
 <img src="images/devguide/comp-storage.png">
-<figcaption><div align="center">Figure 2.3: Storage component class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.7: The Storage component</div></figcaption>
 </figure>
 
 The storage component uses [Jackson](https://github.com/FasterXML/jackson) to
@@ -436,7 +441,7 @@ provides a single unified interface to them.
 
 <figure>
 <img src="images/devguide/comp-logic.png">
-<figcaption><div align="center">Figure 2.4: Logic component class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.8: The Logic component</div></figcaption>
 </figure>
 
 The `Logic` component accomplishes its parsing and execution of user commands in a few steps:
@@ -470,7 +475,7 @@ Given in Figure 2.5 below is the sequence diagram for interactions within the
 
 <figure>
 <img src="images/devguide/classdiag-logic-parser.png">
-<figcaption><div align="center">Figure 2.X:</div></figcaption>
+<figcaption><div align="center">Figure 2.9: Some of the parser classes and how they relate to each other in the hierarchy</div></figcaption>
 </figure>
 
 As shown in Figure 2.X, from the perspective of the top level `LogicManager`
@@ -555,7 +560,7 @@ the task predicate name.
 
 <figure>
 <img src="images/devguide/classdiag-model-parser-interface.png">
-<figcaption><div align="center">Figure 2.X:</div></figcaption>
+<figcaption><div align="center">Figure 2.10: The Parser interface and some of the implementing classes</div></figcaption>
 </figure>
 
 The whole parsing architecture makes use of the command pattern. All parsers
@@ -621,7 +626,7 @@ your own `Parser` with minimal effort.
 
 <figure>
 <img src="images/devguide/classdiag-logic-commandlineparser.png">
-<figcaption><div align="center">Figure 2.X:</div></figcaption>
+<figcaption><div align="center">Figure 2.11: The CommandLineParser and its associated classes</div></figcaption>
 </figure>
 
 The `CommandLineParser` class helps to piece together individual `Parser<T>`
@@ -715,7 +720,7 @@ System.out.println(priorityFlag.getValue()); // Optional[4]
 
 <figure>
 <img src="images/devguide/classdiag-logic-subcommandparser.png">
-<figcaption><div align="center">Figure 2.X: SubcommandParser class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.12: The SubcommandParser</div></figcaption>
 </figure>
 
 This utility class dispatches the command input to the various command subparsers based on
@@ -748,7 +753,7 @@ parser.parse(input);
 
 <figure>
 <img src="images/devguide/classdiag-logic-overloadparser.png">
-<figcaption><div align="center">Figure 2.X: OverloadParser class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.13: The OverloadParser</div></figcaption>
 </figure>
 
 Certain command syntaxes will have different parsing results depending on the input.
@@ -781,7 +786,7 @@ overloadParser.parse(input);
 
 <figure>
 <img src="images/devguide/classdiag-logic-commandinterface.png">
-<figcaption><div align="center">Figure 2.X: The command interface</div></figcaption>
+<figcaption><div align="center">Figure 2.14: The command interface</div></figcaption>
 </figure>
 
 Other than parsing, the logic component also executes commands, represented by
@@ -801,7 +806,7 @@ All commands in the `seedu.address.logic.commands` package implement the
 
 <figure>
 <img src="images/devguide/comp-ui.png">
-<figcaption><div align="center">Figure 2.6: Ui component class diagram</div></figcaption>
+<figcaption><div align="center">Figure 2.15: Ui component class diagram</div></figcaption>
 </figure>
 
 As mentioned in the [UI component architecture overview](#ui-component), the UI
