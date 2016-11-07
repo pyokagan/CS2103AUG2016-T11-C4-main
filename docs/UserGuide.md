@@ -26,7 +26,7 @@
 		- [Mark Task as Finished](#)
 		- [Mark Tasks as Unfinished](#)
 		- [Help](#)
-	- [Special Features](#)
+	- [Special Features](#Special Features)
 		- [Clear](#)
 		- [Undo](#)
 		- [Redo](#)
