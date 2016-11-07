@@ -113,6 +113,8 @@ You're at work and you crave baked potatoes. Let's do another one:
 * Notice how `bake potatoes` is above `Learn Task Tracker`. That's because
 `bake potatoes` is of number 2 priority, while `Learn Task Tracker` with an
 undefined priority takes the default lowest priority number of 0.
+
+* If you create two floating tasks with the same PRIORITY, they will be shown in order of the time they were created.
     
 * Task Tracker supports your love for all things short and sweet. For one worded task names, quotation marks need not be used.
 
@@ -167,51 +169,79 @@ Given the amount of work you have to do, you decide not to go to the Avengers me
     
  ![alttext](./images/userguide/5.png "")
 
-* Can you guess the pattern? Same thing applies for deleting Deadline and Floating Task! It is always `del` followed by the index of the Task, which can be seen situated to the left of the Task. Index for Events, Floating task and Deadline tasks have prefix `e`, `f`, and `d` respectively.  
+* Can you guess the pattern? Same thing applies for deleting Deadline and Floating Task! It is always `del` followed by the index of the Task, which can be seen situated to the left of the Task. Index for Events, Floating task and Deadline tasks have prefix `e`, `f`, and `d` respectively.
 
-##Edit a Deadline
-To edit a deadline, try:
+### Edit a Floating Task
+Since you're almost done learning Task Tracker, why not aim to finish it soon. Let's increase it's priorty to 5.  
 
-	* `edit-deadline 1 dd-29/12 dt-2pm`
+	edit f1 p-5
 
-        The following properties of task are modified: 'due date' and 'due time'. (`dd` refers to due date, `dt` refers to due time)
+* The format is Field_reference-New_Field. In this example p- is the field refernece and 5 is the new field. 
+![alttext](./images/userguide/9.png "")
 
-	* `edit-deadline 1 dt-3pm`
+|Field reference | Definition                    |
+|:----------------|:-----------------------------|
+| n- | name |
+| p- | priority |
 
-        Only the due time of `bake cookies` is modified.
+As with editing any type of Task, you may add on, in any order after `edit INDEX`, multiple fields which you want to edit. Seperate the fields with a SPACE. Prefix your changes with the Field refernce provided in the table above for the respective fields you want to edit.
+
+* `edit INDEX n-NEW_NAME p-NEW_PRIORITY` 
+
+* Quotation marks are not required for `NEW_NAME`.
+
+* `PRIORITY` is an integer ranges that from `0` to `5`.
+
+
+### Edit a Deadline
+You decide to give your project milestone a specific name. Also, with Task Tracker to improve your efficiency, you estimate that you can finish your first milestone faster and hence you shift forward your deadline.
+
+	edit d1 n-source for supliers dt-2pm
+
+* The following properties of Deadline Task are modified: name and due time. 
 
     ![alttext](./images/userguide/6.png "")
 
+|Field reference | Definition                        |
+|:----------------|:---------------------------------|
+| n- | name |
+| dd- | due date |
+| dt- | due time |
 
-##Edit an Event
-To edit an event, try:
+As with editing any type of Task, add on, in any order after `edit INDEX`, the fields which you want to edit. Seperate the fields with a SPACE. Prefix your changes with the Field refernce provided in the table above for the respective fields you want to edit.
 
-	* `edit-event 2 loc-NUS`
+* `edit INDEX n-NEW_NAME dd-NEW_DUE_DATE dt-NEW_DUE_TIME` 
 
-        Location of `potato peeling` set to NUS.
+* Quotation marks are not required for `NEW_NAME`.
 
-	* `edit-event 3 st-3pm sd-12oct et-5pm ed-13oct loc-Yishun`
+###Edit an Event
+You recieve an email saying that the VIP meeting's start time has been brought forward to 10am. You take note of that by edting the start time of VIP meeting in Task Tracker
 
-        All fields modified. (`st` : `starting time`, `sd` : `starting date`,
-        `et` : `ending time`, `ed` : `ending date`)
+	edit e1 st-e2
 
-        ![alttext](./images/userguide/7.png "")
+[pic]
 
-    * `edit-event 2 st-3pm`
+|Field reference | Definition                  |
+|----------------|:--------------------------- |
+| n- | name |
+| sd- | start date |
+| st- | start time |
+| ed- | end date |
+| et- | end time |
+| loc-| location |
 
-        Start time of `potato peeling` modified.
+As with editing any type of Task, add on, in any order after `edit INDEX`, the fields which you want to edit. Seperate the fields with a SPACE. Prefix your changes with the Field refernce provided in the table above for the respective fields you want to edit.
 
-        ![alttext](./images/userguide/8.png "")
+* `edit INDEX n-NEW_NAME sd-NEW_START_DATE st-NEW_START_TIME ed-NEW_END_DATE et-NEW_END_TIME` 
 
+* Quotation marks are not required for `NEW_NAME`.
 
-## Edit a Floating Task
-To edit a floating task, try:
+###List
+After all the adding, editing and deleting, you may notice that the indexes are out of order. If that irks you, simply enter `list` into the command bar. Your indexes should be reordered.
 
-	* `edit-float 1 p-1`
-
-        Floating Task `Learn Task Tracker` is given a priority of `1`.
-
-        ![alttext](./images/userguide/9.png "")
+	list
+    
+[pic]
 
 13. If you've finished a task. Congrations! Let's mark that task as finshed.
 
@@ -480,7 +510,7 @@ Edit a floating task to revise its name or priority.
 
 Format:
 ```
-edit-float <INDEX> [n-NEW_NAME] [p-PRIORITY]
+edit-float INDEX [n-NEW_NAME] [p-PRIORITY]
 ```
 
 * Quotation marks are not required for `NEW_NAME`.
