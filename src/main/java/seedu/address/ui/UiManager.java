@@ -10,6 +10,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
@@ -28,6 +29,28 @@ import seedu.address.ui.TrayIcon.MessageType;
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String[] FONTS = {
+        "/view/fonts/opensans/OpenSans-Light.ttf",
+        "/view/fonts/opensans/OpenSans-LightItalic.ttf",
+        "/view/fonts/opensans/OpenSans-Bold.ttf",
+        "/view/fonts/opensans/OpenSans-ExtraBold.ttf",
+        "/view/fonts/opensans/OpenSans-SemiboldItalic.ttf",
+        "/view/fonts/opensans/OpenSans-Italic.ttf",
+        "/view/fonts/opensans/OpenSans-BoldItalic.ttf",
+        "/view/fonts/opensans/OpenSans-ExtraBoldItalic.ttf",
+        "/view/fonts/opensans/OpenSans-Regular.ttf",
+        "/view/fonts/opensans/OpenSans-Semibold.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-LightItalic.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-Medium.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-Thin.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-ThinItalic.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-Regular.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-Italic.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-MediumItalic.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-BoldItalic.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-Bold.ttf",
+        "/view/fonts/RobotoMono/RobotoMono-Light.ttf"
+    };
 
     private Logic logic;
     private Config config;
@@ -48,6 +71,7 @@ public class UiManager extends ComponentManager implements Ui {
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
         this.primaryStage = primaryStage;
+        loadFonts();
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
         trayIcon = new TrayIcon(AppUtil.getImage(ICON_APPLICATION), MainApp.NAME);
         trayIcon.setTrayIconAction(this::toggleHide);
@@ -162,6 +186,15 @@ public class UiManager extends ComponentManager implements Ui {
         final Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setX(rect.getX().orElse((bounds.getWidth() - primaryStage.getWidth()) / 2));
         primaryStage.setY(rect.getY().orElse((bounds.getHeight() - primaryStage.getHeight()) / 2));
+    }
+
+    /**
+     * Loads fonts contained within our /view/
+     */
+    private void loadFonts() {
+        for (String font : FONTS) {
+            Font.loadFont(MainApp.class.getResource(font).toExternalForm(), 10);
+        }
     }
 
 }

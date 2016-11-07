@@ -125,7 +125,6 @@ public class CommandLineParserTest {
     @Test
     public void parse_withListArgument_collectsArgumentsIntoList() throws ParseException {
         final Deque<String> expectedArgs = new ArrayDeque<>(Arrays.asList("Apple", "Banana", "Pear"));
-        int i = 0;
         Parser<String> listParser = str -> {
             assertEquals(expectedArgs.poll(), str);
             return str.toUpperCase();
