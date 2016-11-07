@@ -1,6 +1,7 @@
 # Task Tracker
 
-![command bar](docs/images/userguide/command_bar_add.png "command bar")
+[![Build Status](https://travis-ci.org/CS2103AUG2016-T11-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-T11-C4/main)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T11-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-T11-C4/main?branch=master)
 
 #### Site Map
 * [User Guide](docs/UserGuide.md)
