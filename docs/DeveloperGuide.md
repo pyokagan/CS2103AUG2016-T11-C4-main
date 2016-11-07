@@ -16,18 +16,19 @@
 
 ## Introduction
 
-Welcome to the TaskTracker development team!
-
 TaskTracker is a digital assistant that keeps track of your tasks, events and
 deadlines. It allows you to manage them efficiently with a keyboard-oriented
 command line interface.
 
-This development guide aims to quickly familiarise you with the TaskTracker
+Are you a newcomer to our development team? Or just interested to understand
+how our application works under the hood? Well, this guide is just for you! This
+development guide aims to quickly familiarise you with the TaskTracker
 code base. It will give you an overview of the code architecture, as well as
 its various components and how they all interact with each other. This guide
 will also show you how to accomplish common development tasks, so you can fully
-integrate with our development workflow. By the end of this document, you will
-be ready to make your first awesome change to the code.
+integrate with our development workflow. By the end of this document, even if
+you are not part of our development team, you will be ready to make your first
+awesome change to the code.
 
 Ready to dive in? Let's get started!
 
@@ -53,6 +54,18 @@ Ready to dive in? Let's get started!
 6. A [**Git**](https://git-scm.com/) client such as
    [SourceTree](https://www.sourcetreeapp.com/) or
    [Github Desktop](https://desktop.github.com/)
+   
+### Running the application
+
+If all you want to do is to run the application, a simple
+
+```
+gradlew.bat run
+```
+
+will do the trick.
+
+> Note: Linux and MacOS users will have to use `./gradlew` instead of `gradlew.bat`.
 
 ### Importing the project into Eclipse
 
