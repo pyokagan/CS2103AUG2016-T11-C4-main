@@ -40,8 +40,6 @@ Role: Project Advisor
     * [Fix code style violations and use checkstyle plugin](https://github.com/CS2103AUG2016-T11-C4/main/pull/2)
     * [build.gradle cleanups](https://github.com/CS2103AUG2016-T11-C4/main/pull/3)
     * [Simplified the UiPart system](https://github.com/CS2103AUG2016-T11-C4/main/pull/4)
-    * [Rename classes from Addressbook-Level4 (Part 1)](https://github.com/CS2103AUG2016-T11-C4/main/pull/5)
-    * [Rename classes from Addressbook-Level4 (Part 2)](https://github.com/CS2103AUG2016-T11-C4/main/pull/6)
     * [Switch TaskBook storage format from XML to JSON](https://github.com/CS2103AUG2016-T11-C4/main/pull/19)
     * [Simplify the UI component](https://github.com/CS2103AUG2016-T11-C4/main/pull/38)
     * [Setup markdown to pdf conversion for UserGuide/DeveloperGuide](https://github.com/CS2103AUG2016-T11-C4/main/pull/71)
