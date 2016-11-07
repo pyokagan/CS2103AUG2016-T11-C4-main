@@ -8,9 +8,9 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <!-- BEGIN LATEX
 
-\includegraphics[width=10cm,height=10cm,keepaspectratio]{images/team/ChuaKaYiOng.jpg}
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/ChuaKaYiOng.jpg}
 
--->
+END LATEX -->
 
 <!-- BEGIN GITHUB -->
 
@@ -24,9 +24,9 @@ Role: Project Advisor
 
 <!-- BEGIN LATEX
 
-\includegraphics[width=10cm,height=10cm,keepaspectratio]{images/team/PaulTan.jpg}
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/PaulTan.jpg}
 
--->
+END LATEX -->
 
 <!-- BEGIN GITHUB -->
 
@@ -72,9 +72,9 @@ Role: Project Advisor
 
 <!-- BEGIN LATEX
 
-\includegraphics[width=10cm,height=10cm,keepaspectratio]{images/team/SunMingyang.jpg}
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/SunMingyang.jpg}
 
--->
+END LATEX -->
 
 <!-- BEGIN GITHUB -->
 
@@ -111,9 +111,9 @@ Role: Project Advisor
 
 <!-- BEGIN LATEX
 
-\includegraphics[width=10cm,height=10cm,keepaspectratio]{images/team/Sneha.jpg}
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/Sneha.jpg}
 
--->
+END LATEX -->
 
 <!-- BEGIN GITHUB -->
 
@@ -140,9 +140,9 @@ Role: Project Advisor
 
 <!-- BEGIN LATEX
 
-\includegraphics[width=10cm,height=10cm,keepaspectratio]{images/team/Sherry.jpg}
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/Sherry.jpg}
 
--->
+END LATEX -->
 
 <!-- BEGIN GITHUB -->
 
@@ -172,7 +172,7 @@ Role: Project Advisor
     * [User Guide 1](https://github.com/CS2103AUG2016-T11-C4/main/pull/46)
     * [User Guide 2](https://github.com/CS2103AUG2016-T11-C4/main/pull/49)
 
-# Original Authors
+## Original Authors
 
 Task Tracker is based on [code](https://github.com/se-edu/addressbook-level4) by the following authors:
 
