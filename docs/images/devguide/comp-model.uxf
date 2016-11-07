@@ -33,7 +33,7 @@ Model</panel_attributes>
       <w>70</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;..</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
   </element>
   <element>
@@ -42,7 +42,7 @@ Model</panel_attributes>
       <x>520</x>
       <y>630</y>
       <w>130</w>
-      <h>40</h>
+      <h>30</h>
     </coordinates>
     <panel_attributes>TaskBook</panel_attributes>
     <additional_attributes/>
@@ -63,12 +63,12 @@ ReadOnlyTaskBook</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>580</x>
-      <y>660</y>
+      <y>650</y>
       <w>30</w>
-      <h>50</h>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;..</panel_attributes>
-    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -284,5 +284,39 @@ ReadOnlyConfig</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;40.0;70.0;40.0;70.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>610</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ReadOnlyModel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>60</x>
+      <y>620</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>560</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
   </element>
 </diagram>

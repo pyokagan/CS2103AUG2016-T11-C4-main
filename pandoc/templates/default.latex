@@ -9,6 +9,7 @@ $if(linestretch)$
 \setstretch{$linestretch$}
 $endif$
 \usepackage{float}
+\usepackage{xcolor}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{enumitem}
@@ -121,7 +122,12 @@ $if(listings)$
 \lstset{
     language=,
     basicstyle=\ttfamily,
-    breaklines=true
+    breaklines=true,
+    keywordstyle=\color[rgb]{0.13,0.29,0.53}\bfseries,
+    stringstyle=\color[rgb]{0.31,0.60,0.02},
+    commentstyle=\color[rgb]{0.56,0.35,0.01}\itshape,
+    showspaces=false,
+    showstringspaces=false
 }
 \tcolorboxenvironment{lstlisting}{
     standard,
@@ -134,6 +140,18 @@ $if(listings)$
     boxrule=0.4mm
 }
 $endif$
+
+% Fancy Headers
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \chead{[T11-C4][Task Tracker]}
+    \fancyfoot[R]{\thepage}%
+    \renewcommand{\headrulewidth}{0pt}% Line at the header invisible
+    \renewcommand{\footrulewidth}{0pt}% Line at the footer invisible
+}
+\pagestyle{plain}
+
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
 $endif$
@@ -217,25 +235,33 @@ $for(header-includes)$
 $header-includes$
 $endfor$
 
-$if(title)$
-\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
-$endif$
-$if(subtitle)$
-\providecommand{\subtitle}[1]{}
-\subtitle{$subtitle$}
-$endif$
-$if(author)$
-\author{$for(author)$$author$$sep$ \and $endfor$}
-$endif$
-$if(institute)$
-\institute{$for(institute)$$institute$$sep$ \and $endfor$}
-$endif$
-\date{$date$}
-
 \begin{document}
-$if(title)$
-\maketitle
-$endif$
+\begin{titlepage}
+    \thispagestyle{plain}
+	\centering
+    \vspace{4cm}
+	{\huge\bfseries Task Tracker\par}
+	\vspace{1cm}
+	\includegraphics[width=16cm,height=14cm,keepaspectratio]{example-image-1x1}\par
+	\vspace{0.1cm}
+	{\scshape\large Supervisor: Chua Ka Yi Ong\par}
+	\vspace{0.2cm}
+
+    % Authors
+    \begin{tabular}{ | c | c | c | c | }
+    \hline
+        & & & \\
+         \includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/PaulTan.jpg} &
+         \includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/SunMingyang.jpg} &
+         \includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/Sneha.jpg} &
+         \includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/Sherry.jpg} \\
+        Paul Tan &
+        Sun Mingyang &
+        Sneha Santha Prabakar &
+        Sherry Wong Wen Qi \\ \hline
+    \end{tabular}
+\end{titlepage}
+
 $if(abstract)$
 \begin{abstract}
 $abstract$

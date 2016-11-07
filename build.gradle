@@ -135,7 +135,9 @@ class PandocTask extends DefaultTask {
 
 task(pandoc, type: PandocTask) {
     workDir = project.file('docs')
-    inputFiles = [project.file('docs/UserGuide.md'),
+    inputFiles = [  project.file('docs/PDFProperties.md'),
+                    project.file('docs/AboutUs.md'),
+                              project.file('docs/UserGuide.md'),
                                project.file('docs/DeveloperGuide.md')]
     cmdArgs = ['-f', 'markdown_github-hard_line_breaks+definition_lists+yaml_metadata_block+raw_tex',
                '-t', 'latex',

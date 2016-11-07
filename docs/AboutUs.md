@@ -6,13 +6,33 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### [Chua Ka Yi Ong @kychua](https://github.com/kychua)
 
+<!-- BEGIN LATEX
+
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/ChuaKaYiOng.jpg}
+
+END LATEX -->
+
+<!-- BEGIN GITHUB -->
+
 ![Chua Ka Yi Ong](images/team/ChuaKaYiOng.jpg)
+
+<!-- END GITHUB -->
 
 Role: Project Advisor
 
 ### [Paul Tan @pyokagan](https://github.com/pyokagan)
 
+<!-- BEGIN LATEX
+
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/PaulTan.jpg}
+
+END LATEX -->
+
+<!-- BEGIN GITHUB -->
+
 ![Paul Tan](images/team/PaulTan.jpg)
+
+<!-- END GITHUB -->
 
 * Role: Team lead
 
@@ -50,7 +70,17 @@ Role: Project Advisor
 
 ### [Sun Mingyang @nightism](https://github.com/nightism)
 
+<!-- BEGIN LATEX
+
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/SunMingyang.jpg}
+
+END LATEX -->
+
+<!-- BEGIN GITHUB -->
+
 ![Sun Mingyang](images/team/SunMingyang.jpg)
+
+<!-- END GITHUB -->
 
 * Role: Developer
 
@@ -78,7 +108,18 @@ Role: Project Advisor
     * [Command designs and format](https://github.com/CS2103AUG2016-T11-C4/main/pull/39)
 
 ### [Sneha Santha Prabakar @snehasp13](https://github.com/snehasp13)
+
+<!-- BEGIN LATEX
+
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/Sneha.jpg}
+
+END LATEX -->
+
+<!-- BEGIN GITHUB -->
+
 ![Sneha Santha Prabakar](images/team/Sneha.jpg)
+
+<!-- END GITHUB -->
 
 * Role: Developer
 
@@ -97,7 +138,17 @@ Role: Project Advisor
 
 ### [Sherry Wong Wen Qi @potatowagon](https://github.com/potatowagon)
 
+<!-- BEGIN LATEX
+
+\includegraphics[width=4cm,height=4cm,keepaspectratio]{images/team/Sherry.jpg}
+
+END LATEX -->
+
+<!-- BEGIN GITHUB -->
+
 ![Sherry Wong Wen Qi](images/team/Sherry.jpg)
+
+<!-- END GITHUB -->
 
 * Role: Developer
 
@@ -121,7 +172,7 @@ Role: Project Advisor
     * [User Guide 1](https://github.com/CS2103AUG2016-T11-C4/main/pull/46)
     * [User Guide 2](https://github.com/CS2103AUG2016-T11-C4/main/pull/49)
 
-# Original Authors
+## Original Authors
 
 Task Tracker is based on [code](https://github.com/se-edu/addressbook-level4) by the following authors:
 
