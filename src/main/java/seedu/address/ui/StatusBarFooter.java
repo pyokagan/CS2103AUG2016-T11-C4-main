@@ -24,10 +24,10 @@ public class StatusBarFooter extends UiPart<Pane> {
     @FXML
     private StatusBar saveLocationStatus;
 
-    public StatusBarFooter(String saveLocation, ReadOnlyModel model) {
+    public StatusBarFooter(ReadOnlyModel model) {
         super(FXML);
         connectTaskCounter(model);
-        setSaveLocation("./" + saveLocation);
+        connectSaveLocation(model);
     }
 
     private void connectTaskCounter(ReadOnlyModel model) {
@@ -38,8 +38,8 @@ public class StatusBarFooter extends UiPart<Pane> {
         taskCounter.textProperty().bind(totalTasks);
     }
 
-    private void setSaveLocation(String location) {
-        this.saveLocationStatus.setText(location);
+    private void connectSaveLocation(ReadOnlyModel model) {
+        saveLocationStatus.textProperty().bind(model.getConfig().taskBookFilePathProperty());
     }
 
 }
