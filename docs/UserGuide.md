@@ -14,31 +14,7 @@ toc: true
 
 <!-- BEGIN GITHUB -->
 
-* [About] (#about)
-* [Quick Start](#quick-start)
-	* [Quick Start Summary](#qss)
-* [Features](#features)
-	* [Data Models](#dm)
-    * [Command Format](#cf)
-    * [Parameter Keywords](#pk)
-    * [Date Format](#DateFormat)
-    * [Time Format](#TimeFormat)
-    * [Viewing Help](#help)
-    * [Add Floating Task](#addft)
-    * [Add Deadline Task](#adddt)
-    * [Add Event](#adde)
-    * [Delete](#del)
-    * [Edit Floating Task](#editft)
-    * [Edit Deadline Task](#editdt)
-    * [Edit Event](#adde)
-    * [Mark Finish](#fin)
-    * [Show Empty Timeslots](#slot)
-    * [Search](#search)
-    * [Undo](#undo)
-    * [Redo](#redo)
-    * [Clear](#clear)
-    * [Exit](#exit)
-* [Command Summary](#command-summary)
+[TOC]
 
 <!-- END GITHUB -->
 
@@ -89,7 +65,7 @@ Get a feel of the interface by trying these sample commands:
   * `add "get started"` : adds a new floating task get started
   * `fin f1` : marks the floating task with index f1 as finished
   * Ctrl + SPACE to hide Task Tracker
-  * Ctrl + SPACE again to bring Task Tracker beack to the foreground
+  * Ctrl + SPACE again to bring Task Tracker back to the foreground
   * `exit` : exits the application  
 
 ##Basic Features
@@ -370,82 +346,37 @@ Sometimes Task Tracker gets cluttered with fisnished Task and Task you no longer
 [pic]
 
 ###Undo
- we, as humans, tend to make mistakes. Jim may be extremely happy that he has deleted all this finished tasks, but he may suddenly realise that some of the tasks that he marked as finished, was actually not completed yet! However, the clear-finished command already deleted all of them! Thankfully, Task Tracker has that covered. With one single word “undo”, the operation gets reversed and all of the deleted tasks appear back on screen, as if the clear-finished command was not even executed in the first place. Crisis averted.
+We, as humans, tend to make mistakes. We might have cleared Task Tracker and remember later that we still have unfinished important task! Thankfully, Task Tracker has that covered. With one single word `undo`, the operation gets reversed and all of the deleted tasks appear back on screen. Crisis averted.
 
 	undo
     
 [pic]
 
+###Redo
+Task Tracker also provides the “redo” command in case you realise that you did not need to undo that command after all.
+
+	redo
+    
+Together, “undo” and “redo” commands together provide a comprehensive safety net for you, so that you can execute your commands at top speed without any worries, knowing that your data is safe, as no matter what happens you can always revert back if something goes wrong.
+
+* The list of actions queued for undo and redo gets erased upon exiting Task Tracker.
+
+###Quick Pop Up
+Task Tracker is able to run in the background (press Ctrl-Space), hidden from view, and with a simple Ctrl-Space, Task tracker pops up, ready to accept your commands. No matter what time it is, or which application you are using, Task Tracker is always just a keyboard shortcut away.
+
+	Ctrl + SPACE
+
+* Works on Windows only.
 
 
-### <a name="search">Search by keywords: `search`</a>
+### Find by keywords
+Task Tracker getting too cluttered? Need to find Task containing a specific keyword? Use the find command!
 
-Search task that contains specific keywords.
+	find KEYWORD
+    
+To show all Task again, use the `list` command.
 
-Format: 
-```
-search KEY_WORDS
-```
-
-* The `KEY_WORDS` are CASE-SENSITIVE
-
-* Quotations marks are not allowed in `KEY_WORDS`
-
-* The results will be listed according to their `INDEX`
-
-#### Examples
-
-* `search lecture`
-
-    Search for all the tasks that contain keyword `lecture`, TaskTracker will
-    generate a list for view.
-
-* `search training SESSION`
-
-    Search for all the tasks that contain keyword `training SESSION`,
-    TaskTracker will generate a list for view.
-
-### <a name="undo">Undo an action: `undo`</a>
-
-Undo the previous action that modifies data. Undo can be performed many times until the first action since the app was launched has been undone.
-
-Format: 
-```
-undo
-```
-
-View the stack of actions that undo will perform: `undo stack`
-
-Format: 
-```
-undo stack
-```
-
-### <a name="redo">Redo an action: `redo`</a>
-
-Redo the previous action that was undone by undo. The amount of consecutive redos doable is equal to the number of consecutive undos performed right before redo is entered.
-
-Format: 
-```
-redo
-```
-
-View the stack of actions that redo will perform: `redo stack`
-
-Format: 
-```
-redo stack
-```
-
-### <a name="clear">Clearing all entries: `clear`</a>
-
-Clears all entries from TaskTracker.
-
-Format: 
-```
-clear
-```
-
+###Auto Complete
 
 	fin f1
 
