@@ -1,8 +1,13 @@
 package seedu.address.model;
 
+import static seedu.address.commons.time.TypicalLocalDateTimes.UNIX_EPOCH;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.filter.TaskUnfinishedPredicate;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
@@ -19,12 +24,16 @@ public class TaskBookBuilder {
 
     private TaskBook taskBook;
 
+    private final LocalDateTime referenceDateTime;
+
     public TaskBookBuilder() {
         this.taskBook = new TaskBook();
+        this.referenceDateTime = UNIX_EPOCH.plusHours(1);
     }
 
     public TaskBookBuilder(ReadOnlyTaskBook taskBook) {
         this.taskBook = new TaskBook(taskBook);
+        this.referenceDateTime = UNIX_EPOCH.plusHours(1);
     }
 
     /**
@@ -64,6 +73,22 @@ public class TaskBookBuilder {
     public TaskBookBuilder addTypicalFloatingTasks() {
         final TypicalFloatingTasks tft = new TypicalFloatingTasks();
         return addFloatingTasks(tft.getFloatingTasks());
+    }
+
+    /**
+     * Adds a list of unfinished floating tasks to the task book.
+     * @see TypicalFloatingTasks
+     */
+    public TaskBookBuilder addUnfinishedFloatingTasks() {
+        final List<FloatingTask> taskList = (new TypicalFloatingTasks()).getFloatingTasks();
+        final List<FloatingTask> toAdd = new ArrayList<FloatingTask>();
+        final TaskUnfinishedPredicate predicate = new TaskUnfinishedPredicate(referenceDateTime);
+        for (FloatingTask floatingTask : taskList) {
+            if (predicate.test(floatingTask)) {
+                toAdd.add(floatingTask);
+            }
+        }
+        return addFloatingTasks(toAdd);
     }
 
     /**
@@ -112,6 +137,22 @@ public class TaskBookBuilder {
     }
 
     /**
+     * Adds a list of unfinished deadline tasks to the task book.
+     * @see TypicalDeadlineTasks
+     */
+    public TaskBookBuilder addUnfinishedDeadlineTasks() {
+        final Iterable<DeadlineTask> taskList = (new TypicalDeadlineTasks()).getDeadlineTasks();
+        final List<DeadlineTask> toAdd = new ArrayList<DeadlineTask>();
+        TaskUnfinishedPredicate predicate = new TaskUnfinishedPredicate(referenceDateTime);
+        for (DeadlineTask deadlineTask : taskList) {
+            if (predicate.test(deadlineTask)) {
+                toAdd.add(deadlineTask);
+            }
+        }
+        return addDeadlineTasks(toAdd);
+    }
+
+    /**
      * Adds a {@link EventTask} to the task book.
      */
     public TaskBookBuilder addEventTask(EventTask eventTask) {
@@ -151,12 +192,38 @@ public class TaskBookBuilder {
     }
 
     /**
+     * Adds a list of unfinished event tasks to the task book.
+     * @see TypicalEventTasks
+     */
+    public TaskBookBuilder addUnfinishedEventTasks() {
+        final Iterable<EventTask> taskList = (new TypicalEventTasks()).getEventTasks();
+        final List<EventTask> toAdd = new ArrayList<EventTask>();
+        TaskUnfinishedPredicate predicate = new TaskUnfinishedPredicate(referenceDateTime);
+        for (EventTask eventTask : taskList) {
+            if (predicate.test(eventTask)) {
+                toAdd.add(eventTask);
+            }
+        }
+        return addEventTasks(toAdd);
+    }
+
+    /**
      * Adds a list of typical floating, deadline and event tasks to the task book.
      */
     public TaskBookBuilder addTypicalTasks() {
         addTypicalFloatingTasks();
         addTypicalDeadlineTasks();
         addTypicalEventTasks();
+        return this;
+    }
+
+    /**
+     * Adds a list of unfinished floating, deadline and event tasks to the task book.
+     */
+    public TaskBookBuilder addUnfinishedTasks() {
+        addUnfinishedFloatingTasks();
+        addUnfinishedDeadlineTasks();
+        addUnfinishedEventTasks();
         return this;
     }
 
