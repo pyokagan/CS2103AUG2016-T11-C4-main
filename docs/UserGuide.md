@@ -14,31 +14,7 @@ toc: true
 
 <!-- BEGIN GITHUB -->
 
-* [About] (#about)
-* [Quick Start](#quick-start)
-	* [Quick Start Summary](#qss)
-* [Features](#features)
-	* [Data Models](#dm)
-    * [Command Format](#cf)
-    * [Parameter Keywords](#pk)
-    * [Date Format](#DateFormat)
-    * [Time Format](#TimeFormat)
-    * [Viewing Help](#help)
-    * [Add Floating Task](#addft)
-    * [Add Deadline Task](#adddt)
-    * [Add Event](#adde)
-    * [Delete](#del)
-    * [Edit Floating Task](#editft)
-    * [Edit Deadline Task](#editdt)
-    * [Edit Event](#adde)
-    * [Mark Finish](#fin)
-    * [Show Empty Timeslots](#slot)
-    * [Search](#search)
-    * [Undo](#undo)
-    * [Redo](#redo)
-    * [Clear](#clear)
-    * [Exit](#exit)
-* [Command Summary](#command-summary)
+[TOC]
 
 <!-- END GITHUB -->
 
@@ -66,155 +42,37 @@ TaskTracker makes time-management smart and simple for you!
 
 ## Quick Start
 
+###Installing
+
 1. Ensure you have Java version `1.8.0_60` or later installed in your computer.
 
     > Note: Having any Java 8 version is not enough.
     > This app will not work with earlier versions of Java 8.
 
-2. Download the latest `TaskTracker.jar` from the 'releases' tab.
+2. Download the latest `TaskTracker.jar` from the 'releases' tab of https://github.com/CS2103AUG2016-T11-C4/main
+
+![alt text](./images/userguide/release.PNG "release")
+
+![alt text](./images/userguide/download.PNG "download")
 
 3. Copy the file to the folder you want to use as the home folder for your task database.
 
-4. Double-click the file to start the app. The GUI should appear in a few seconds.
+###Launch
+Double-click the file to start the app. The GUI should appear in a few seconds.
+![alt text](./images/userguide/0.png "")
 
-5. Set up: enter your name and verify the current date and time.
+###Using the Interface
+You're good to go! Type your command in the command box and press `ENTER` to launch it.
 
-6. You're good to go! Try adding your first Task. Press Enter to enter a
-   command. For adding a floating task, try:
+Get a feel of the interface by trying these sample commands:
+  * `add "get started"` : adds a new floating task get started
+  * `fin f1` : marks the floating task with index f1 as finished
+  * `del f1` : delete floating task with index f1
+  * Ctrl + SPACE to hide Task Tracker
+  * Ctrl + SPACE again to bring Task Tracker back to the foreground
+  * `exit` : exits the application
 
-	* `add "Learn Task Tracker"`.
-
-    ![alt text](./images/userguide/1.png "command bar")
-
-    Let's do another one:
-
-	* `add "bake potatoes" p-2`
-
-    ![alt text](./images/userguide/2.png "")
-
-    Notice how `bake potatoes` is below `Learn Task Tracker`. That's because
-    `bake potatoes` is of number 2 priority, while `Learn Task Tracker` with an
-    undefined priority takes the default highest priority number of 0.
-
-7. Let's add deadline tasks with due date and time.
-
-	* `add "bake cookies" 31/12 3pm`
-
-        `bake cookies` by 31 December of this year, 3pm. Undeclared year in date
-        field will be taken as the current year.
-
-	* `add "bake cookies" tdy 3pm`
-
-        `bake cookies` by today, 3pm.
-
-    ![alt text](./images/userguide/3.png "")
-
-8. Next up, events. An event is a task with a start date, start time, end date
-   and end time. Example commands are:
-
-	* `add "CS2103t programming camp" 30/8 1pm to 3/1/2017 6pm`
-
-        Event `CS2103t programming camp` starts from 1pm of the 30th August 2016, and ends at 6pm of the 3rd January 2017.
-
-	* `add "potato peeling" tdy 3pm to 7pm`
-
-        Event `potato peeling` starts from today's 3pm and ends at today's 7pm.
-
-	* `add "cupcake festival" tdy 8pm tmr 12pm`
-
-        Event `cupcake festival` starts from today's 8pm and ends at tomorrow's 12 pm.
-
-	* `add "Trick or treat" 31/10 8pm to 9pm`
-
-        Event `Trick or treat` starts from 8pm of 31st October this year and ends on the same day's 9pm.
-
-    ![alttext](./images/userguide/4.png "")
-
-9. To delete a task, try:
-
-    ```
-    del-float 2
-    ```
-
-    Delete floating task `bake potatoes`.
-
-    ```
-    del-deadline 1
-    ```
-
-    Delete deadline task `bake cookies`.
-
-    ```
-    del-event 4
-    ```
-
-    Delete Event `Trick or treat`.
-
-    ![alttext](./images/userguide/5.png "")
-
-10. To edit a deadline, try:
-
-	* `edit-deadline 1 dd-29/12 dt-2pm`
-
-        The following properties of task are modified: 'due date' and 'due time'. (`dd` refers to due date, `dt` refers to due time)
-
-	* `edit-deadline 1 dt-3pm`
-
-        Only the due time of `bake cookies` is modified.
-
-    ![alttext](./images/userguide/6.png "")
-
-11. To edit an event, try:
-
-	* `edit-event 2 loc-NUS`
-
-        Location of `potato peeling` set to NUS.
-
-	* `edit-event 3 st-3pm sd-12oct et-5pm ed-13oct loc-Yishun`
-
-        All fields modified. (`st` : `starting time`, `sd` : `starting date`,
-        `et` : `ending time`, `ed` : `ending date`)
-
-        ![alttext](./images/userguide/7.png "")
-
-    * `edit-event 2 st-3pm`
-
-        Start time of `potato peeling` modified.
-
-        ![alttext](./images/userguide/8.png "")
-
-12. To edit a floating task, try:
-
-	* `edit-float 1 p-1`
-
-        Floating Task `Learn Task Tracker` is given a priority of `1`.
-
-        ![alttext](./images/userguide/9.png "")
-
-13. If you've finished a task. Congrations! Let's mark that task as finshed.
-
-     * `fin-float 1`
-
-        Floating task `Learn Task Tracker` will be marked as finished.
-
-     * `fin-deadline 1`
-
-        Deadline task `bake cookies` will be marked as finished.
-
-14. To exit the program, please enter:
-
-	 * `exit`
-
-        Close the Task-tracker.
-
-15. For more details of each
-     command.
-please refer to the [Features](#features) section below.
-
-
-## Features
-
-### <a name="dm">Data models</a>
+##Basic Features
 
 All tasks stored in TaskTracker will be automatically categorized into three different types: `floating task`, `deadline task`, and `event`, depending on the types and number of parameters entered when created.
 
@@ -224,26 +82,7 @@ All tasks stored in TaskTracker will be automatically categorized into three dif
 |Deadline task |  end time and date |
 |Event | start time and date,  end time and date|
 
-### <a name="cf">Command Format</a>
-
-* Words in `UPPER_CASE` are parameters to be defined by the user.
-
-* Words in `lower_case` are the reserved keywords. All keywords can not be changed in each command line.
-
-* Items in `[SQUARE_BRACKETS]` are optional parameters. All paramters in square backets can be omitted.
-
-* Items in `<ANGLE_BRACKETS>` are optional parameters. However, a certain number of these kind of parameters will be required in different commands.
-
-* All square brackets and angle brackets should not be included in the real commands.
-
-* Items separated by `|` are in parallel relation, only one of them should be
-  use in each command.
-
-* Items with `...` after them can have multiple instances.
-
-* The parameters have to follow the order in which they are presented, unless otherwise specified.
-
-### <a name="pk">Keywords for Special Time Representation</a>
+Keywords for Special Time Representation</a>
 
 |Keyword | Definition     |
 |----| :------------------|
@@ -314,175 +153,126 @@ Valid input examples:
 
 If the minute field is `00`, it may be ommitted from the command.
 
-### <a name="help">Viewing help: `help`</a>
 
-View the all the command formats of TaskTracker.
+### Add Floating Task
+Try adding your first Task. Press Enter to enter a command. For adding a floating task, try:
+   
+   add "Learn Task Tracker"
 
-```
-help
-```
+![alt text](./images/userguide/1.png "")
+    
+You're at work and you crave baked potatoes. Let's do another one:
 
-* Help is also shown if you enter an incorrect command e.g. `abcd`
+	
+    add "bake potatoes" p-2
+    
+![alt text](./images/userguide/2.png "")
 
-![alt text](./images/userguide/help.png "")
+* Most recently added Task will be highlighted yellow. 
 
-### <a name="addft">Adding a floating task: `add`</a>
+* Tell Task Tracker the priority of your Task, by typing p-PRIORITY, where PRIORITY is a number from 0 to 5.
 
-Adds a floating task to TaskTracker.
+* Notice how `bake potatoes` is above `Learn Task Tracker`. That's because
+`bake potatoes` is of number 2 priority, while `Learn Task Tracker` with an
+undefined priority takes the default lowest priority number of 0.
 
-Format:
-```
-add "FLOATING_TASK_NAME" [p-PRIORITY]
-```
+* If you create two floating tasks with the same PRIORITY, they will be shown in order of the time they were created.
+    
+* Task Tracker supports your love for all things short and sweet. For one worded task names, quotation marks need not be used.
 
-* Task name should be in a pair of quotation marks. However, quotations marks are not allowed in task name.
+### Add Deadline Task
+You receive an email from your boss, requesting for the project proposal to be in by 31 dec of this year, 3pm. Let's add a deadline tasks with due date and time.
+  	
+    add "submit project proposal" 31/12 3pm
 
-* Task name can be a single word or a phrase, white space are allowed.
+* Undeclared year in date field will be taken as the current year.
+         
+You decide to set a deadline for the first milestone of your project to be completed by today, 5pm.
 
-* All floating tasks will be shown according to their `PRIORITY`s.
+ 	add "finish project milestone 1" 5pm
+    
+ While working so hard and staring at the computer screen continuously, your eyes start to feel tried. The eyebreak you took just now was really good. You should take an eye break tommorrow too.
+ 	
+    add "take eye break" tmr
 
-* Two floating tasks with the same `PRIORITY` will be shown according to the order of the time they are created.
-
-* The `PRIORITY` attribute is an integer which ranges from `0` to `5`, with `0` being the lowest pririoty and `5` the higest.
-
-* The default priority of a floating task is `0`.
-
-#### Examples
-
-* `add "EE2020 lab report" p-5`
-
-  To create a floating task called `EE2020 lab report` with `PRIORITY` of 5.
-
-* `add "Progress Reflection"`
-
-  To create a floating task called `Progress Reflection` with default `PRIORITY` of 0.
-
-### <a name="adddt">Adding a deadline task: `add`</a>
-
-Adds a deadline with specific due date and time to TaskTracker.
-
-Format:
-```
-add "DEADLINE_NAME" <DATE> <TIME>
-```
-
-* Deadline name should be in a pair of quotation marks. And quotations marks are not allowed in deadline name.
+![alt text](./images/userguide/3.png "")
 
 * Keywords like `tdy`, `tmr`, `yst`, can be used in the `DATE` field.
 
 * Formats of `DATE` and `TIME` should follow those stated above in this user guide. See [Date Format](#DateFormat) and [Time Format](#TimeFormat)
 
-#### Examples
+* Task Tracker understands the importance of tackling the tasks which are due soon, first. Therefore, deadline task are automatically arranged according to their due dates and times. Those with encroaching deadlines are placed at the top of the list. 
+ 
+* Typing additional words when you don't actually need to can be a chore. Task Tracker cuts your fingers some slack by taking an undeclared date as today, and an undeclared time as the end of the date specified. However, at least either one date or time has to be specified for deadline task, or task tracker will mistake it for a floating task!
+ 
+* In the unfortunate event of an overdued deadline task, Task Tracker will highlight the deadline task with a glaring red.
 
-* `add "CS2103 milestone 1" 16/12/2016 2pm`
 
-    To create a deadline task named `CS2103 milestone 1` with deadline of 16th December 2016, 2 pm.
 
-* `add "spend pizza vouchers" 20/11/2018 2pm`
+### Add Events
+Your phone bleeps. Wow, an invitation to attend the Avengers meetup organised by Dr Strange! It happens tommorow, 10pm to 11 pm.
+   
+    add "avangers meetup" tmr 10pm to 11pm
+  
+* Next up, events. An event is a task with a start date, start time, end date
+and end time. The word `to` is used to seperate the start date and time from the end date and time. It is also how you tell Task Tracker that the task is an event. When you don't inform Task Tracker of the end date, Task Tracker will assume that the event ends on the same day which it starts.
 
-    To create a deadline task named `spend pizza vouchers` with deadline of 20 November 2018, 6 pm.
+You recieved an urgent call from boss! There is a VIP meeting today, 4pm to 6pm.
+   
+    add "VIP meeting" 4pm to 6pm
 
-* `add "event proposal" tdy 6pm`
+![alt text](./images/userguide/4.png "")
 
-    To create a deadline named `event proposal` with due date of today, and due time of 6 pm.
+* As with deadlines, Task tracker will take an unspecified start date to be today.
 
-* `add "EE2024 homework 1" tmr 6am`
+* Task Tracker will keep track of Events that has already passed, strike them out for you, and highlight ongoing events green. 
 
-    To create a deadline named `EE2024 homework 1` with deadline of tommorow, 6 am.
+* Events are automatically arranged in order of start date and time, so that you know which event to zipp to next with a quick glance at the top of the events pane.  
 
-### <a name="adde">Adding an event: `add`</a>
+### Delete Task
+Given the amount of work you have to do, you decide not to go to the Avengers meetup. Let's delete that from Task Tracker.
 
-Adds an event with specific starting date, starting time and ending date, ending time to TaskTracker.
+    
+    del e1
+    
+![alttext](./images/userguide/5.png "")
 
-Format:
-```
-add "EVENT_NAME" <START_DATE> <START_TIME> to <END_DATE> <END_TIME>
-```
+* Can you guess the pattern? Same thing applies for deleting Deadline and Floating Task! It is always `del` followed by the index of the Task, which can be seen situated to the left of the Task. Index for Events, Floating task and Deadline tasks have prefix `e`, `f`, and `d` respectively. 
+	* `del INDEX`
 
-* Event name should be within a pair of quotation marks. Quotations marks are not allowed in event name.
+* You can delete finished Tasks too.
 
-* The four parameters `START_DATE`, `START_TIME`, `END_DATE`, `END_TIME` are not all required for adding an event. Only one of `START_DATE` and `START_TIME` is required and only one of `START_TIME` and `END_DATE` is required.
+### Edit a Floating Task
+Since you're almost done learning Task Tracker, why not aim to finish it soon. Let's increase it's priorty to 5.  
 
-* Formats of `START_DATE`, `START_TIME`, `END_DATE`, `END_TIME` should follow those stated above in this user guide. See [Date Format](#DateFormat) and [Time Format](#TimeFormat).
+	edit f1 p-5
 
-#### Examples
+![alt text](./images/userguide/6.png "")
 
-* <a name="to">`add "CS2103 week8 lecture" 7/10 2pm to 4pm`</a>
-
-    To create an event `CS2103 week8 lecture` with starting date 7 October 2016, starting time 2pm, ending date 7 Oct 2016, ending time 4pm.
-
-* `add "programming workshop" tdy 10am to 5pm`
-
-    To create an event `programming workshop` that starts today, 10am, and last till 5pm.
-
-* `add "sports training camp" 1/12/2016 7pm to 10/1/2017 1pm`
-
-    To create an event `sports training camp` with starting date 1 December 2016, starting time 7pm, ending date 10 January 2017 and ending time 1pm.
-
-### <a name="del">Deleting a floating task/event/deadline: `del`</a>
-
-Delete a useless floating task/event/deadline on TaskTracker.
-
-Format:
-```
-del-float|-deadline|-event <INDEX>
-```
-
-* A task's `INDEX` is the number displayed beside the task name in the user interface.
-
-#### Examples
-
-* `del-event 2`
-
-    Delete the event with the index of `2` in the task list shown in user interface.
-
-### Edit a floating task/deadline/event: `edit`
-
-* Edit command can only edit the parameters of each commands but cannot change
-  the type of task.  For example, `edit` cannot transform a floating task to a
-  event task.
-
-* To edit an task, key in the index of the event followed by the properties to
-  be modified. Label the new properties with their respective field references.
-
-* The `[PARAMETERS]` need not follow the order shown in the command format.
-
-#### <a name="editft">Edit a floating task: `edit`</a>
-
-Edit a floating task to revise its name or priority.
+* The format is Field_reference-New_Field. In this example p- is the field refernece and 5 is the new field. 
 
 |Field reference | Definition                    |
 |:----------------|:-----------------------------|
 | n- | name |
 | p- | priority |
 
-Format:
-```
-edit-float <INDEX> [n-NEW_NAME] [p-PRIORITY]
-```
+As with editing any type of Task, you may add on, in any order after `edit INDEX`, multiple fields which you want to edit. Seperate the fields with a SPACE. Prefix your changes with the Field refernce provided in the table above for the respective fields you want to edit.
+
+* `edit INDEX n-NEW_NAME p-NEW_PRIORITY` 
 
 * Quotation marks are not required for `NEW_NAME`.
 
-* `PRIORITY` should only be the integer ranges from `0` to `5`.
+* `PRIORITY` is an integer ranges that from `0` to `5`.
 
-##### Examples
 
-* `edit-float 2 p-0`
+### Edit a Deadline
+You decide to give your project milestone a specific name. Also, with Task Tracker to improve your efficiency, you estimate that you can finish your first milestone faster and hence you shift forward your deadline.
 
-    Edit floating task with index of `2`'s priority to 0.
+	edit d1 n-source for supliers dt-2pm
 
-* `edit-float 2 n-buy stationary`
+![alt text](./images/userguide/7.png "")
 
-    Edit floating task with index of `2`'s name to `buy stationary`.
-
-* `edit-float 5 n-go to Nanyang Mart p-1`
-
-    Edit floating task with index of `5`'s name to `go to Nanyang
-    Mart` and priority to 1.
-
-#### <a name="editdl">Edit a deadline : `edit`</a>
-
-Edit a deadline to revise its name and due date/time.
+* The following properties of Deadline Task are modified: name and due time. 
 
 |Field reference | Definition                        |
 |:----------------|:---------------------------------|
@@ -490,28 +280,18 @@ Edit a deadline to revise its name and due date/time.
 | dd- | due date |
 | dt- | due time |
 
-Format:
-```
-edit-deadline <INDEX> [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]
-```
+As with editing any type of Task, add on, in any order after `edit INDEX`, the fields which you want to edit. Seperate the fields with a SPACE. Prefix your changes with the Field refernce provided in the table above for the respective fields you want to edit.
+
+* `edit INDEX n-NEW_NAME dd-NEW_DUE_DATE dt-NEW_DUE_TIME` 
 
 * Quotation marks are not required for `NEW_NAME`.
 
-* Formats of `[dd-DUE_DATE]` and `[dt-DUE_TIME]` should follow those stated above in this user guide. See [Date Format](#DateFormat) and [Time Format](#TimeFormat).
+###Edit an Event
+You recieve an email saying that the VIP meeting's start time has been brought forward to 10am. You take note of that by editing the start time of VIP meeting in Task Tracker
 
-##### Examples
+	edit e2 st-10am
 
-* `edit-deadline 1 dt-5pm`
-
-    Edit deadline with index of `1`'s due time to 5 pm.
-
-* `edit-deadline 2 dd-23/11/2016`
-
-    Edit deadline with index of `2`'s due date to 2016 23th November.
-
-#### <a name="edite">Edit an event : `edit`</a>
-
-Edit an event to revise its name, starting/ending date/time and location.
+![alt text](./images/userguide/8.png "")
 
 |Field reference | Definition                  |
 |----------------|:--------------------------- |
@@ -520,202 +300,128 @@ Edit an event to revise its name, starting/ending date/time and location.
 | st- | start time |
 | ed- | end date |
 | et- | end time |
-| loc-| location |
 
-Format: 
-```
-edit-event <INDEX> [ n-NEW_NAME] [sd-NEW_START_TIME] [st-NEW_START_DATE] [ed-NEW_END_DATE] [et-NEW_END_TIME] [n-NEW_NAME]
-```
+As with editing any type of Task, add on, in any order after `edit INDEX`, the fields which you want to edit. Seperate the fields with a SPACE. Prefix your changes with the Field refernce provided in the table above for the respective fields you want to edit.
+
+* `edit INDEX n-NEW_NAME sd-NEW_START_DATE st-NEW_START_TIME ed-NEW_END_DATE et-NEW_END_TIME` 
 
 * Quotation marks are not required for `NEW_NAME`.
 
-* Formates of `[sd-NEW_START_TIME]` `[st-NEW_START_DATE]` `[ed-NEW_END_DATE]` `[ed-NEW_END_DATE]` should follow those stated above in this user guide. See [Date Format](#DateFormat) and [Time Format](#TimeFormat).
+###List
+After all the adding, editing and deleting, you may notice that the indexes are out of order. If that irks you, simply enter `list` into the command bar. Your indexes should be reordered.
 
-##### Examples
+	list
+    
+![alt text](./images/userguide/9.png "")
 
-* `edit-event 2 st-4pm et-6pm`
+### Mark Task as Finished
+You've finished learning Task Tracker. Let's mark it as finished.
 
-    Edit event with index of `2`'s starting time to 4pm and ending time to 6pm.
+     fin f1
 
-* `edit-event 7 n-"proposal meeting" st-7pm`
+![alt text](./images/userguide/10.png "")
+* Mark task as finished with this format: `fin INDEX`
 
-    Edit event with index of `7`'s starting time to 7pm and name to
-    `proposal meeting`.
+### Mark Tasks as Unfinished
+Hang on, you're not done! There's still more to learn about Task Tracker! Mark learn Task Tracker as unfinished.
 
-### <a name="fin">Mark a floating task/deadline as done/finished: `fin`</a>
+	unfin f1
+    
+![alt text](./images/userguide/11.png "")
+* Mark task as unfinished with this format: `unfin INDEX`
 
-Mark a floating task/event/deadline as done on TaskTracker, the marked tasks
-will be archived.
+###Help
+Help goes to those who call for it! 
 
-Format: 
-```
-fin-float|-deadline|-event <INDEX>
-```
+	help
+    
+![alt text](./images/userguide/12.png "")
+A pop up help box with the command summary will appear below the command bar for your reference while you type in commands into the command bar.
 
-* Events that have already passed it `DUE_TIME` will be marked as done automatically.
+With the help box in focus, 
+* press ENTER to launch the full userguide (this guide basically)
+* press ESCAPE to close the help box
+* Help is also shown in the result box if you enter an incorrect command e.g. `abcd`
 
-* Deadlines that have already passed it `DUE_TIME` will not be marked as done, but will be marked as "overdue" automatically.
+## Special Features
 
-#### Examples
+###Clear
+Sometimes Task Tracker gets cluttered with fisnished Task and Task you no longer need. Use clear to wipe clean all Task from Task Tracker.
 
-* `fin-float 1`
+	clear
+    
+![alt text](./images/userguide/13.png "")
 
-    Marked floating task `1` as finished.
+###Undo
+We, as humans, tend to make mistakes. We might have cleared Task Tracker and remember later that we still have unfinished important task! Thankfully, Task Tracker has that covered. With one single word `undo`, the operation gets reversed and all of the deleted tasks appear back on screen. Crisis averted.
 
-### <a name="slot">Show empty time slots: `slot`</a>
+	undo
+    
+[pic]
 
-Show all empty time slots in a given time period with a given duration.
+###Redo
+Task Tracker also provides the “redo” command in case you realise that you did not need to undo that command after all.
 
-Format: 
-```
-slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>
-```
+	redo
+    
+Together, “undo” and “redo” commands together provide a comprehensive safety net for you, so that you can execute your commands at top speed without any worries, knowing that your data is safe, as no matter what happens you can always revert back if something goes wrong.
 
-* At least one of `<STARTING_DATE> <STARTING_TIME>` is required.
+* The list of actions queued for undo and redo gets erased upon exiting Task Tracker.
 
-* At least one of `<ENDING_DATE> <ENDING_TIME>` is required.
+###Quick Pop Up
+Task Tracker is able to run in the background (press Ctrl-Space), hidden from view, and with a simple Ctrl-Space, Task tracker pops up, ready to accept your commands. No matter what time it is, or which application you are using, Task Tracker is always just a keyboard shortcut away.
 
-* At least one of `<h-HOUR> <m-MINUTE>` is required.
+	Ctrl + SPACE
 
-#### Examples
+* Works on Windows only.
 
-* `slot 1/11/2016 3/11/2016 h-4`
 
-    The TaskTracker will generate all empty time slots that are equal or
-    greater than 4 hours between 2016 1st November 12am to 3rd 11:59pm.
+### Find by keywords
+Task Tracker getting too cluttered? Need to find Task containing a specific keyword? Use the find command!
 
-* `slot 5/11/2016 2pm 11pm m-45`
+	find KEYWORD
 
-    The TaskTracker will generate all empty time slots that are equal or
-    greater than 45 minutes between 2016 5st November 2pm to 3rd 11:00pm.
+![alt text](./images/userguide/14.png "")
 
-* `slot 5/11/2016 2pm m-45`
+To show all Task again, use the `list` command.
 
-    The TaskTracker will generate all empty time slots that are equal or
-    greater than 45 minutes between 2016 5st November 12am to 2pm.
+###Auto Complete
 
-### <a name="view">Toggle views: `view`</a>
-
-#### View all events that start on and all deadline tasks due on a specific date.
-
-Format: 
-```
-view [DATE]
-```
-
-* `DATE` will follow the format shown in [Date Format](#DateFormat)
-
-* The deadlines and events will be listed according to the order of the deadline's due time and the event's starting time, with the earlier time displayed at the top of the list.
-
-#### View all time events and deadline task
-
-Format: 
-```
-view
-```
-
-* All the task in the database will be displayed.
-
-#### Examples
-
-* `view 1/12`
-
-  View all the tasks that are of the date of 1st December of the current year.
-
-### <a name="search">Search by keywords: `search`</a>
-
-Search task that contains specific keywords.
-
-Format: 
-```
-search KEY_WORDS
-```
-
-* The `KEY_WORDS` are CASE-SENSITIVE
-
-* Quotations marks are not allowed in `KEY_WORDS`
-
-* The results will be listed according to their `INDEX`
-
-#### Examples
-
-* `search lecture`
-
-    Search for all the tasks that contain keyword `lecture`, TaskTracker will
-    generate a list for view.
-
-* `search training SESSION`
-
-    Search for all the tasks that contain keyword `training SESSION`,
-    TaskTracker will generate a list for view.
-
-### <a name="undo">Undo an action: `undo`</a>
-
-Undo the previous action that modifies data. Undo can be performed many times until the first action since the app was launched has been undone.
-
-Format: 
-```
-undo
-```
-
-View the stack of actions that undo will perform: `undo stack`
-
-Format: 
-```
-undo stack
-```
-
-### <a name="redo">Redo an action: `redo`</a>
-
-Redo the previous action that was undone by undo. The amount of consecutive redos doable is equal to the number of consecutive undos performed right before redo is entered.
-
-Format: 
-```
-redo
-```
-
-View the stack of actions that redo will perform: `redo stack`
-
-Format: 
-```
-redo stack
-```
-
-### <a name="clear">Clearing all entries: `clear`</a>
-
-Clears all entries from TaskTracker.
-
-Format: 
-```
-clear
-```
-
-### <a name="exit">Exiting the program: `exit`</a>
-
-Exits the program.
-
-Format: 
-```
-exit
-```
+	fin f1
 
 ## Command Summary
 
+* Words in `UPPER_CASE` are parameters to be defined by the user.
+
+* Words in `lower_case` are the reserved keywords. All keywords can not be changed in each command line.
+
+* Items in `[SQUARE_BRACKETS]` are optional parameters. All paramters in square backets can be omitted.
+
+* Items in `<ANGLE_BRACKETS>` are optional parameters. However, a certain number of these kind of parameters will be required in different commands.
+
+* All square brackets and angle brackets should not be included in the real commands.
+
+* Items separated by `|` are in parallel relation, only one of them should be
+  use in each command.
+
+* Items with `...` after them can have multiple instances.
+
+* The parameters have to follow the order in which they are presented, unless otherwise specified.
+
 Command | Format
 ------------ | :---------------------------------------------------------------
-Add Floating Task | `add "FLOATING_TASK_NAME" [p-PRIORITY]`
-Add Event |`add “EVENT_NAME” <STARTING_DATE> <STARTING_TIME>  to <ENDING_DATE> <ENDING_TIME>`
-Add Deadline |`add “DEADLINE_NAME” <DATE> <TIME>`
-Delete a task | `del-float|-deadline|-event] <INDEX>`
-Edit Floating Tasks | `edit-float <INDEX> [n-NEW_NAME] [p-PRIORITY]`
-Edit Event |`edit-event <INDEX> [sd-NEW_START_DATE] [st-NEW_START_TIME] [ed-NEW_END_DATE] [et-NEW_END_TIME] [n-NEW_NAME]`
-Edit Deadline |`edit-deadline <INDEX> [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]`
-Generate recommended time slots | `slot <STARTING_DATE> <STARTING_TIME> <ENDING_DATE> <ENDING_TIME> <h-HOUR> <m-MINUTE>`
-Mark a task as finished | `fin-float|-deadline|-event <INDEX>`
-View a date in calendar | `view [DATE]`
-Search for keywords | `search KEY_WORDS`
-Help | `help`
+Add Floating Task | `add FLOATING_TASK_NAME  [p-PRIORITY]`
+Add Deadline Task | `add DEADLINE_NAME <DATE> <TIME>`
+Add Events | `add EVENT_NAME <STARTING_DATE> <STARTING_TIME> to <ENDING_DATE> <ENDING_TIME>`
+Delete | `del INDEX`
+Edit Floating Tasks | `edit INDEX [n-NEW_NAME] [p-PRIORITY]`
+Edit Deadline | `edit INDEX [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]`
+Mark task as finished | `fin INDEX`
+Mark a task as unfinished | `unfin INDEX`
+Find keyword | `find KEYWORD`
 Undo | `undo`
 Redo | `redo`
 Clear | `clear`
 Exit | `exit`
+Hide and show Task Tracker | Ctrl + SPACE
+setdatadir |`setdatadir FILE_PATH`
