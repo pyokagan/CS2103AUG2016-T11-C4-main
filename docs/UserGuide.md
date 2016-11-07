@@ -80,6 +80,7 @@ TaskTracker makes time-management smart and simple for you!
 
 ###Launch
 Double-click the file to start the app. The GUI should appear in a few seconds.
+
 ![alt text](./images/userguide/0.png "")
 
 ###Using the Interface
