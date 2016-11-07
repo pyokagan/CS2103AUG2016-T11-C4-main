@@ -1,25 +1,13 @@
 # A0147919N
 
-Unused codes:
+Unused Codes:
 
 ###### src/main/java/seedu/address/logic/parser/FilterByDatePredicateParser.java
-
 ``` java
-package seedu.address.logic.parser;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Optional;
-
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.filter.FilterByDatePredicate;
-import seedu.address.model.filter.TaskPredicate;
-
 public class FilterByDatePredicateParser implements Parser<ListCommand>{
 
 	private final Optional<LocalDateTime> referenceDateTime;
-  private final DateTimeArgument dateTimeArg = new DateTimeArgument("DATE", "TIME");
+    private final DateTimeArgument dateTimeArg = new DateTimeArgument("DATE", "TIME");
 
     public FilterByDatePredicateParser() {
         this(Optional.empty());
@@ -36,7 +24,7 @@ public class FilterByDatePredicateParser implements Parser<ListCommand>{
 	private final CommandLineParser cmdParser = new CommandLineParser().addArgument(dateTimeArg);
 	@Override
 	public ListCommand parse(String str) throws ParseException{
-		cmdParser.parse(str);
+	  cmdParser.parse(str);
     final LocalDateTime now = referenceDateTime.orElse(LocalDateTime.now());
 
 		 final LocalDate startDate = dateTimeArg.getDate().orElse(now.toLocalDate());
@@ -50,17 +38,9 @@ public class FilterByDatePredicateParser implements Parser<ListCommand>{
 
 }
 ```
+
 ###### src/main/java/seedu/address/model/filter/FilterByDatePredicate.java
-
 ``` java
-package seedu.address.model.filter;
-
-import java.time.LocalDateTime;
-import java.util.stream.Stream;
-
-import seedu.address.model.task.DeadlineTask;
-import seedu.address.model.task.EventTask;
-import seedu.address.model.task.FloatingTask;
 /*
  * Filters the events and deadlines based on the time when they are scheduled.
  * The user inputs a start time and end time, and all events and tasks that occur between the time range
@@ -154,10 +134,10 @@ public class FilterByDatePredicate implements TaskPredicate{
 
 
 }
-
 ```
+
 ######  src/main/java/seedu/address/logic/parser/TaskTrackerParser.java
 
-``` java
- .putSubcommand("filter", new FilterByDateCommandParser())
+```java
+.putSubcommand("filter", new FilterByDateCommandParser())
 ```
