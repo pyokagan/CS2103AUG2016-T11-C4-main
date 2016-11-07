@@ -9,6 +9,7 @@ $if(linestretch)$
 \setstretch{$linestretch$}
 $endif$
 \usepackage{float}
+\usepackage{xcolor}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{enumitem}
@@ -121,7 +122,12 @@ $if(listings)$
 \lstset{
     language=,
     basicstyle=\ttfamily,
-    breaklines=true
+    breaklines=true,
+    keywordstyle=\color[rgb]{0.13,0.29,0.53}\bfseries,
+    stringstyle=\color[rgb]{0.31,0.60,0.02},
+    commentstyle=\color[rgb]{0.56,0.35,0.01}\itshape,
+    showspaces=false,
+    showstringspaces=false
 }
 \tcolorboxenvironment{lstlisting}{
     standard,
