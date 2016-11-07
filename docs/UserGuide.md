@@ -34,7 +34,7 @@
 		- [Find by keywords](#)
 		- [Auto Complete](#)
 		- [Set data storage directory](#)
-		- [Congratulations! You have officially finished learning task tracker. Take on this challenge: Mark learn task tracker as finished.](#)
+		- [END](#)
 	- [Command Summary](#)
 
 <!-- END GITHUB -->
