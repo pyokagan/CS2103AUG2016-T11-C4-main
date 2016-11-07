@@ -90,8 +90,8 @@ Get a feel of the interface by trying these sample commands:
   * `add "get started"` : adds a new floating task get started
   * `fin f1` : marks the floating task with index f1 as finished
   * `del f1` : delete floating task with index f1
-  * <kbd>Ctrl</kbd> + <kbd>SPACE</kbd> to hide Task Tracker
-  * <kbd>Ctrl</kbd> + <kbd>SPACE</kbd> again to bring Task Tracker back to the foreground
+  * Ctrl + SPACE to hide Task Tracker
+  * Ctrl + SPACE again to bring Task Tracker back to the foreground
   * `exit` : exits the application
 
 ##Some points to note
@@ -392,9 +392,9 @@ Together, “undo” and “redo” commands together provide a comprehensive sa
 * The list of actions queued for undo and redo gets erased upon exiting Task Tracker.
 
 ###Quick Pop Up
-Task Tracker is able to run in the background (press Ctrl-Space), hidden from view, and with a simple Ctrl-Space, Task tracker pops up, ready to accept your commands. No matter what time it is, or which application you are using, Task Tracker is always just a keyboard shortcut away.
+Task Tracker is able to run in the background (press Ctrl+Space), hidden from view, and with a simple Ctrl-Space, Task tracker pops up, ready to accept your commands. No matter what time it is, or which application you are using, Task Tracker is always just a keyboard shortcut away.
 
-<kbd>Ctrl</kbd> + <kbd>SPACE</kbd>
+	Ctrl + SPACE
 
 * Works on Windows only.
 
@@ -411,7 +411,7 @@ To show all Task again, use the `list` command.
 ###Auto Complete
 Task Tracker has an extremely useful tab-completion feature.  Let's say you love to unicycle in your spare time, and on the 31st of december, you decide to have some unicycling practice by riding a unicycle, juggling 3 balls while balancing a bat on your nose. You enter a very long event name into Task Tracker: "unicycling practice, juggle 3 balls while balancing a bat on my nose". Now, one day, you look at this event and thinks that, hmm, maybe I should increase the difficulty and juggle 10 balls instead. Well, if you used one of the conventional command-line task management applications, you would have to type out the entire name of the event just to change one single number. Extremely annoying, and a huge productivity drainer. This is where our tab-completion feature comes in to save the day. 
 
-`edit INDEX n-`<kbd>TAB</kbd>
+	edit INDEX n-<TAB>
 
 Tab-completion can also help you to auto-complete things like the command names. Let’s say you forgot the name of a command. Well, just press tab on the command box, immediately a list of all available commands will appear, letting you select them(tab through the autocomplete list).
 
@@ -452,7 +452,7 @@ Clear | `clear`
 Undo | `undo`
 Redo | `redo`
 Find keyword | `find KEYWORD`
-Hide and show Task Tracker | <kbd>Ctrl</kbd> + <kbd>SPACE</kbd>
-Auto Complete | <kbd>TAB</kbd>
+Hide and show Task Tracker | Ctrl + SPACE
+Auto Complete | TAB
 setdatadir |`setdatadir FILE_PATH`
 Exit | `exit`
