@@ -1404,11 +1404,7 @@ END LATEX -->
 
 ## Todo.txt
 
-<!-- BEGIN GITHUB -->
-
-Full product survey [here](productsurveys/todo.txt.md)
-
-<!-- END GITHUB -->
+Full product survey is available online [here](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/productsurveys/todo.txt.md)
 
 Jim's Requirement                                        | Todo.txt Support
 :------------------------------------------------------- | ---------------
@@ -1453,11 +1449,7 @@ operations are done without user confirmation.
 
 ## Todoist
 
-<!-- BEGIN GITHUB -->
-
-Full product survey [here](productsurveys/Todoist.md)
-
-<!-- END GITHUB -->
+Full product survey is available online [here](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/productsurveys/Todoist.md)
 
 Jim’s Requirement                                        | Todoist support
 :------------------------------------------------------- | ---------------
@@ -1506,11 +1498,7 @@ perform wrongly.
 
 ## Wunderlist
 
-<!-- BEGIN GITHUB -->
-
-Full product survey [here](productsurveys/Wunderlist.md)
-
-<!-- END GITHUB -->
+Full product survey is available online [here](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/productsurveys/Wunderlist.md)
 
 Wunderlist in brief: Written in Javascript and PHP, Wunderlist is a task
 manager application with a simple, intuitive,and beautiful User Interface that
@@ -1538,11 +1526,7 @@ So, how well does Wunderlist satisfy Jim's requirements?
 
 ## Google Calendar
 
-<!-- BEGIN GITHUB -->
-
-Full product survey [here](https://docs.google.com/document/d/1ELun1gQUiVAxC6it-16jikFRwAePTXS5Xri7GdhUnL8/edit?usp=sharing)
-
-<!-- END GITHUB -->
+Full product survey is available online [here](https://docs.google.com/document/d/1ELun1gQUiVAxC6it-16jikFRwAePTXS5Xri7GdhUnL8/edit?usp=sharing)
 
 Jim's Requirement                                                | Google Calendar
 :--------------------------------------------------------------- | ---------------
