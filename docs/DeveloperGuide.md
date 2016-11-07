@@ -978,6 +978,15 @@ We have two types of tests:
     gradlew.bat -PguiTests=false test
     ```
     
+* To run the GUI tests in headless mode, execute the following in the project work
+  directory:
+
+    ```
+    gradlew.bat -Pheadless=true test
+    ```
+    
+See our [Using Gradle](https://github.com/CS2103AUG2016-T11-C4/main/blob/master/docs/UsingGradle.md) document online for more information.
+    
 > Note: If you are running Linux or MacOS as your operating system, use `./gradlew` instead of `gradlew.bat`.
 
 ### Troubleshooting tests
