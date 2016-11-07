@@ -419,7 +419,7 @@ To change the file path which holds Task Tracker's storage data, type
 
 	setdatadir FILE_PATH
 	
-Where FILE_PATH is the file path to the directory, eg. C:\Users\Potato\Desktop
+Where `FILE_PATH` is the file path to the directory, eg. `C:\Users\Potato\Desktop`
 
 ###Congratulations! You have officially finished learning task tracker. Take on this challenge: Mark learn task tracker as finished.  	
 	fin learn task tracker
