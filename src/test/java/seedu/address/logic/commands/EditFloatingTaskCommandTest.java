@@ -36,4 +36,22 @@ public class EditFloatingTaskCommandTest {
         Mockito.verify(model).setFloatingTask(1, expected);
     }
 
+    @Test
+    public void execute_withNewName_replacesName() throws Exception {
+        final FloatingTask expected = new FloatingTask(new Name("Finish community project"), new Priority("5"), true);
+        final EditFloatingTaskCommand cmd = new EditFloatingTaskCommand(1, Optional.of(new Name("Finish community project")),
+                                                                        Optional.empty());
+        final CommandResult result = cmd.execute(model);
+        assertEquals("Edited floating task f1.", result.feedbackToUser);
+        Mockito.verify(model).setFloatingTask(1, expected);
+    }
+
+    @Test
+    public void execute_withNewPriority_replacesPriority() throws Exception {
+        final FloatingTask expected = new FloatingTask(new Name("Finish project"), new Priority("3"), true);
+        final EditFloatingTaskCommand cmd = new EditFloatingTaskCommand(1, Optional.empty(), Optional.of(new Priority("3")));
+        final CommandResult result = cmd.execute(model);
+        assertEquals("Edited floating task f1.", result.feedbackToUser);
+        Mockito.verify(model).setFloatingTask(1, expected);
+    }
 }
