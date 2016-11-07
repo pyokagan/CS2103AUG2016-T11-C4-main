@@ -200,15 +200,6 @@ The `Ui` component,
 * Responds to events raised from various parts of the App and updates the UI
   accordingly.
 
-The Ui consists of a `MainWindow` that is made up of parts e.g.`CommandBox`,
-`ResultDisplay`, `EventTaskListPane`, `StatusBarFooter` etc. All these,
-including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-The `Ui` component uses JavaFx UI framework. The layout of these UI parts are
-defined in matching `.fxml` files that are in the `src/main/resources/view`
-folder. For example, the layout of `MainWindow` is specified in
-`src/main/resources/view/MainWindow.fxml`.
-
 ## Implementation
 
 ### Logging
@@ -809,18 +800,15 @@ All commands in the `seedu.address.logic.commands` package implement the
 <figcaption><div align="center">Figure 2.15: Ui component class diagram</div></figcaption>
 </figure>
 
-As mentioned in the [UI component architecture overview](#ui-component), the UI
-component is made up of "UI Parts". Each UI Part inherits from the abstract
-class `UiPart` and models a distinct part of the user interface. For example,
-the `MainWindow` class, which implements the main application window, is a UI
-Part.
+The UI component mainly consistes of the `MainWindow` that is made up of parts
+e.g. `CommandBox`, `ResultDisplay`, `EventTaskListPane`, `StatusBarFooter` etc.
+All of these classes, including the `MainWindow`, inherit from the abstract
+`UiPart` class and model a distinct part of the user interface.
 
-UI Parts themselves can contain multiple child UI Parts as well. For example,
-the `MainWindow` UI Part itself contains a few child UI Parts such as the
-`CommandBox`, `ResultDisplay`, `EventTaskListPane` etc.
-
-The use of UI parts aids in encapsulation of the different components of the
-Task Tracker user interface.
+The UI component uses JavaFx UI framework. The layout of these UI parts are
+defined in matching `.fxml` files that are in the `src/main/resources/view`
+folder. For example, the layout of `MainWindow` is specified in
+`src/main/resources/view/MainWindow.fxml`.
 
 #### Implementing a new UI Part
 
