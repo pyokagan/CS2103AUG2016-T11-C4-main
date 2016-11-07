@@ -58,6 +58,7 @@ TaskTracker makes time-management smart and simple for you!
 ###Launch
 Double-click the file to start the app. The GUI should appear in a few seconds.
 ![alt text](./images/userguide/0.png "")
+
 ###Using the Interface
 You're good to go! Type your command in the command box and press `ENTER` to launch it.
 
@@ -67,7 +68,7 @@ Get a feel of the interface by trying these sample commands:
   * `del f1` : delete floating task with index f1
   * Ctrl + SPACE to hide Task Tracker
   * Ctrl + SPACE again to bring Task Tracker back to the foreground
-  * `exit` : exits the application  
+  * `exit` : exits the application
 
 ##Basic Features
 
@@ -154,18 +155,16 @@ If the minute field is `00`, it may be ommitted from the command.
 ### Add Floating Task
 Try adding your first Task. Press Enter to enter a command. For adding a floating task, try:
    
-   ```
    add "Learn Task Tracker"
-   ```
-[alt text](./images/userguide/1.png "command bar")
+
+![alt text](./images/userguide/1.png "")
     
 You're at work and you crave baked potatoes. Let's do another one:
 
 	
     add "bake potatoes" p-2
     
-    
- ![alt text](./images/userguide/2.png "")
+![alt text](./images/userguide/2.png "")
 
 * Most recently added Task will be highlighted yellow. 
 
@@ -194,6 +193,8 @@ You decide to set a deadline for the first milestone of your project to be compl
  	
     add "take eye break" tmr
 
+![alt text](./images/userguide/3.png "")
+
 * Keywords like `tdy`, `tmr`, `yst`, can be used in the `DATE` field.
 
 * Formats of `DATE` and `TIME` should follow those stated above in this user guide. See [Date Format](#DateFormat) and [Time Format](#TimeFormat)
@@ -204,7 +205,7 @@ You decide to set a deadline for the first milestone of your project to be compl
  
 * In the unfortunate event of an overdued deadline task, Task Tracker will highlight the deadline task with a glaring red.
 
-    ![alt text](./images/userguide/3.png "")
+
 
 ### Add Events
 Your phone bleeps. Wow, an invitation to attend the Avengers meetup organised by Dr Strange! It happens tommorow, 10pm to 11 pm.
@@ -218,13 +219,13 @@ You recieved an urgent call from boss! There is a VIP meeting today, 4pm to 6pm.
    
     add "VIP meeting" 4pm to 6pm
 
+![alt text](./images/userguide/4.png "")
+
 * As with deadlines, Task tracker will take an unspecified start date to be today.
 
 * Task Tracker will keep track of Events that has already passed, strike them out for you, and highlight ongoing events green. 
 
 * Events are automatically arranged in order of start date and time, so that you know which event to zipp to next with a quick glance at the top of the events pane.  
-
-    ![alttext](./images/userguide/4.png "")
 
 ### Delete Task
 Given the amount of work you have to do, you decide not to go to the Avengers meetup. Let's delete that from Task Tracker.
@@ -232,7 +233,7 @@ Given the amount of work you have to do, you decide not to go to the Avengers me
     
     del e1
     
- ![alttext](./images/userguide/5.png "")
+![alttext](./images/userguide/5.png "")
 
 * Can you guess the pattern? Same thing applies for deleting Deadline and Floating Task! It is always `del` followed by the index of the Task, which can be seen situated to the left of the Task. Index for Events, Floating task and Deadline tasks have prefix `e`, `f`, and `d` respectively. 
 	* `del INDEX`
@@ -244,8 +245,9 @@ Since you're almost done learning Task Tracker, why not aim to finish it soon. L
 
 	edit f1 p-5
 
+![alt text](./images/userguide/6.png "")
+
 * The format is Field_reference-New_Field. In this example p- is the field refernece and 5 is the new field. 
-![alttext](./images/userguide/9.png "")
 
 |Field reference | Definition                    |
 |:----------------|:-----------------------------|
@@ -266,9 +268,9 @@ You decide to give your project milestone a specific name. Also, with Task Track
 
 	edit d1 n-source for supliers dt-2pm
 
-* The following properties of Deadline Task are modified: name and due time. 
+![alt text](./images/userguide/7.png "")
 
-    ![alttext](./images/userguide/6.png "")
+* The following properties of Deadline Task are modified: name and due time. 
 
 |Field reference | Definition                        |
 |:----------------|:---------------------------------|
@@ -287,7 +289,7 @@ You recieve an email saying that the VIP meeting's start time has been brought f
 
 	edit e2 st-10am
 
-[pic]
+![alt text](./images/userguide/8.png "")
 
 |Field reference | Definition                  |
 |----------------|:--------------------------- |
@@ -308,14 +310,14 @@ After all the adding, editing and deleting, you may notice that the indexes are 
 
 	list
     
-[pic]
+![alt text](./images/userguide/9.png "")
 
 ### Mark Task as Finished
 You've finished learning Task Tracker. Let's mark it as finished.
 
      fin f1
 
-[pic]
+![alt text](./images/userguide/10.png "")
 * Mark task as finished with this format: `fin INDEX`
 
 ### Mark Tasks as Unfinished
@@ -323,7 +325,7 @@ Hang on, you're not done! There's still more to learn about Task Tracker! Mark l
 
 	unfin f1
     
-[pic]
+![alt text](./images/userguide/11.png "")
 * Mark task as unfinished with this format: `unfin INDEX`
 
 ###Help
@@ -331,7 +333,7 @@ Help goes to those who call for it!
 
 	help
     
-[pic]
+![alt text](./images/userguide/12.png "")
 A pop up help box with the command summary will appear below the command bar for your reference while you type in commands into the command bar.
 
 With the help box in focus, 
@@ -346,7 +348,7 @@ Sometimes Task Tracker gets cluttered with fisnished Task and Task you no longer
 
 	clear
     
-[pic]
+![alt text](./images/userguide/13.png "")
 
 ###Undo
 We, as humans, tend to make mistakes. We might have cleared Task Tracker and remember later that we still have unfinished important task! Thankfully, Task Tracker has that covered. With one single word `undo`, the operation gets reversed and all of the deleted tasks appear back on screen. Crisis averted.
@@ -376,7 +378,9 @@ Task Tracker is able to run in the background (press Ctrl-Space), hidden from vi
 Task Tracker getting too cluttered? Need to find Task containing a specific keyword? Use the find command!
 
 	find KEYWORD
-    
+
+![alt text](./images/userguide/14.png "")
+
 To show all Task again, use the `list` command.
 
 ###Auto Complete
