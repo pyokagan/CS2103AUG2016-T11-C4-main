@@ -53,7 +53,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing TaskBook ]===========================");
+        logger.info("=============================[ Initializing " + NAME + " ]===========================");
         super.init();
 
         final ConfigStorage configStorage = initConfigStorage(configPath);
@@ -134,13 +134,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting TaskBook " + MainApp.VERSION);
+        logger.info("Starting " + NAME + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping " + NAME + " ] =============================");
         ui.stop();
     }
 
