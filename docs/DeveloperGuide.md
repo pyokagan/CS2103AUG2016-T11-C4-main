@@ -225,13 +225,17 @@ The `Ui` component,
 We are using `java.util.logging` package for logging. The `LogsCenter` class is
 used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the
-  configuration file (See [Configuration](#configuration))
+It is highly recommended that you use logging in the code you write because it will
+make debugging easier. If you have a class `MyClass`, you can retrieve a `Logger`
+for the class by using:
+```java
+private static final Logger logger = LogsCenter.getLogger(MyClass.class);
+```
 
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)`
-  which will log messages according to the specified logging level.
+You can then print log messages by using `logger.fine()`, `logger.info()`, `logger.warning()` etc. See the [Logger API](https://docs.oracle.com/javase/8/docs/api/java/util/logging/Logger.html) for more details.
 
-* Currently log messages are output through: `Console` and to a `.log` file.
+Currently log messages are output through the console and to a `.log` file in the current directory.
+The logging level can be controlled using the `logLevel` setting in the configuration file. See the section on [Configuration](#configuration) for more details.
 
 **Logging Levels**
 
