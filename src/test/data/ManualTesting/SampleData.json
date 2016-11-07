@@ -1,0 +1,209 @@
+{
+  "floatingTasks" : [ {
+    "name" : "Resign from company",
+    "priority" : "0",
+    "finished" : false
+  }, {
+    "name" : "Resign from life",
+    "priority" : "0",
+    "finished" : false
+  }, {
+    "name" : "learn task tracker",
+    "priority" : "0",
+    "finished" : true
+  }, {
+    "name" : "read book 1",
+    "priority" : "5",
+    "finished" : true
+  }, {
+    "name" : "read book 2",
+    "priority" : "4",
+    "finished" : false
+  }, {
+    "name" : "read book 3",
+    "priority" : "3",
+    "finished" : true
+  }, {
+    "name" : "read book 4",
+    "priority" : "2",
+    "finished" : false
+  }, {
+    "name" : "read book 5",
+    "priority" : "1",
+    "finished" : true
+  }, {
+    "name" : "read book 6",
+    "priority" : "0",
+    "finished" : false
+  }, {
+    "name" : "cut pototos",
+    "priority" : "3",
+    "finished" : false
+  }, {
+    "name" : "watch movie 1",
+    "priority" : "5",
+    "finished" : false
+  }, {
+    "name" : "watch movie 2",
+    "priority" : "3",
+    "finished" : false
+  }, {
+    "name" : "watch movie 3",
+    "priority" : "1",
+    "finished" : false
+  }, {
+    "name" : "watch movie 4",
+    "priority" : "4",
+    "finished" : true
+  }, {
+    "name" : "clean the window",
+    "priority" : "5",
+    "finished" : false
+  } ],
+  "deadlineTasks" : [ {
+    "name" : "deadline",
+    "due" : [ 2016, 11, 4, 10, 0 ],
+    "finished" : false
+  }, {
+    "name" : "bake cookies",
+    "due" : [ 2016, 12, 31, 15, 0 ],
+    "finished" : true
+  }, {
+    "name" : "email to Prof A",
+    "due" : [ 2016, 12, 12, 4, 0 ],
+    "finished" : true
+  }, {
+    "name" : "email to Prof B",
+    "due" : [ 2016, 12, 13, 4, 0 ],
+    "finished" : false
+  }, {
+    "name" : "email to Prof C",
+    "due" : [ 2017, 1, 12, 4, 0 ],
+    "finished" : false
+  }, {
+    "name" : "sep application",
+    "due" : [ 2017, 3, 12, 23, 0 ],
+    "finished" : false
+  }, {
+    "name" : "internship application",
+    "due" : [ 2017, 4, 12, 23, 0 ],
+    "finished" : false
+  }, {
+    "name" : "cca application",
+    "due" : [ 2016, 9, 12, 23, 0 ],
+    "finished" : false
+  }, {
+    "name" : "prepare Christmas gifts",
+    "due" : [ 2016, 12, 13, 23, 0 ],
+    "finished" : false
+  }, {
+    "name" : "prepare new year gifts",
+    "due" : [ 2016, 12, 29, 23, 0 ],
+    "finished" : false
+  }, {
+    "name" : "Assignment 1",
+    "due" : [ 2016, 11, 20, 23, 59 ],
+    "finished" : true
+  }, {
+    "name" : "Assignment 2",
+    "due" : [ 2016, 11, 21, 23, 59 ],
+    "finished" : false
+  }, {
+    "name" : "Assignment 3",
+    "due" : [ 2016, 12, 20, 23, 59 ],
+    "finished" : false
+  }, {
+    "name" : "Assignment 4",
+    "due" : [ 2016, 12, 28, 23, 59 ],
+    "finished" : false
+  }, {
+    "name" : "prepare mom's birthday",
+    "due" : [ 2016, 12, 15, 18, 0 ],
+    "finished" : true
+  }, {
+    "name" : "prepare dad's birthday",
+    "due" : [ 2016, 12, 17, 16, 0 ],
+    "finished" : false
+  }, {
+    "name" : "cs 2103 due",
+    "due" : [ 2016, 11, 8, 23, 59 ],
+    "finished" : false
+  } ],
+  "eventTasks" : [ {
+    "name" : "Lunch with Obama",
+    "start" : [ 2016, 11, 25, 12, 0 ],
+    "end" : [ 2016, 11, 25, 14, 0 ]
+  }, {
+    "name" : "Lunch with Bill Gates",
+    "start" : [ 2016, 11, 27, 12, 0 ],
+    "end" : [ 2016, 11, 27, 14, 0 ]
+  }, {
+    "name" : "Lunch with myself",
+    "start" : [ 2016, 11, 28, 12, 0 ],
+    "end" : [ 2016, 11, 28, 14, 0 ]
+  }, {
+    "name" : "Unicycling practice: Ride a unicycle while juggling 3 balls and balancing a bat on my nose",
+    "start" : [ 2016, 12, 31, 8, 0 ],
+    "end" : [ 2016, 12, 31, 9, 0 ]
+  }, {
+    "name" : "Unicycling practice: Ride a unicycle while juggling 2 balls",
+    "start" : [ 2016, 11, 10, 8, 0 ],
+    "end" : [ 2016, 11, 10, 9, 0 ]
+  }, {
+    "name" : "Unicycling practice: Ride a unicycle while juggling 3 balls",
+    "start" : [ 2016, 11, 26, 8, 0 ],
+    "end" : [ 2016, 11, 26, 9, 0 ]
+  }, {
+    "name" : "Presentation for boss",
+    "start" : [ 2016, 11, 4, 10, 0 ],
+    "end" : [ 2016, 11, 4, 12, 0 ]
+  }, {
+    "name" : "Team brainstorming meeting",
+    "start" : [ 2016, 11, 20, 14, 0 ],
+    "end" : [ 2016, 11, 20, 16, 0 ]
+  }, {
+    "name" : "Roots and Wings face to face meeting",
+    "start" : [ 2016, 11, 11, 10, 0 ],
+    "end" : [ 2016, 11, 11, 12, 0 ]
+  }, {
+    "name" : "Team bonding fun and games",
+    "start" : [ 2016, 11, 12, 20, 0 ],
+    "end" : [ 2016, 11, 12, 22, 0 ]
+  }, {
+    "name" : "Unicycling practice: Ride a unicycle while juggling 2! balls",
+    "start" : [ 2016, 11, 22, 16, 0 ],
+    "end" : [ 2016, 11, 22, 18, 0 ]
+  }, {
+    "name" : "meeting with VIP",
+    "start" : [ 2016, 11, 5, 10, 0 ],
+    "end" : [ 2016, 11, 5, 15, 0 ]
+  }, {
+    "name" : "cs2103 tutorial 1",
+    "start" : [ 2016, 10, 7, 11, 0 ],
+    "end" : [ 2016, 10, 7, 12, 0 ]
+  }, {
+    "name" : "cs2103 tutorial 2",
+    "start" : [ 2016, 10, 14, 11, 0 ],
+    "end" : [ 2016, 10, 14, 12, 0 ]
+  }, {
+    "name" : "cs2103 tutorial 3",
+    "start" : [ 2016, 10, 21, 11, 0 ],
+    "end" : [ 2016, 10, 21, 12, 0 ]
+  }, {
+    "name" : "cs8888 lecture 1",
+    "start" : [ 2017, 1, 8, 10, 0 ],
+    "end" : [ 2017, 1, 9, 12, 0 ]
+  }, {
+    "name" : "cs8888 lecture 0",
+    "start" : [ 2016, 10, 21, 10, 0 ],
+    "end" : [ 2016, 10, 22, 12, 0 ]
+  }, {
+    "name" : "Roots and Wings camp",
+    "start" : [ 2016, 12, 19, 0, 0 ],
+    "end" : [ 2016, 12, 20, 23, 59 ]
+  }, {
+    "name" : "cs8888 lecture 1",
+    "start" : [ 2016, 12, 31, 10, 0 ],
+    "end" : [ 2017, 1, 1, 12, 0 ]
+  } ]
+}
