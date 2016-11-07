@@ -718,6 +718,32 @@ System.out.println(priorityFlag.getValue()); // Optional[4]
 <figcaption><div align="center">Figure 2.X: SubcommandParser class diagram</div></figcaption>
 </figure>
 
+This utility class dispatches the command input to the various command subparsers based on
+the first word of the command input. `TaskTrackerParser` is the primary user of this utility class,
+and it installs all of its command subparsers as follows:
+
+```java
+    private final SubcommandParser parser = new SubcommandParser()
+            .putSubcommand("add", new AddTaskParser())
+            .putSubcommand("edit", new EditCommandParser())
+            .putSubcommand("del", new DeleteCommandParser())
+            .putSubcommand("fin", new MarkFinishedCommandParser())
+            .putSubcommand("unfin", new MarkTaskUnfinishedCommandParser())
+            .putSubcommand("clear", new ClearCommandParser())
+            .putSubcommand("exit", new ExitCommandParser())
+            .putSubcommand("help", new HelpCommandParser())
+            .putSubcommand("setdatadir", new SetDataDirectoryParser())
+            .putSubcommand("list", new ListCommandParser())
+            .putSubcommand("undo", new UndoCommandParser())
+            .putSubcommand("redo", new RedoCommandParser())
+            .putSubcommand("find", new FindCommandParser());
+```
+
+Calling `SubcommandParser's` parse method will then dispatch the user input to the correct parser accordingly.
+```java
+parser.parse(input);
+```
+
 #### The `OverloadParser` utility class
 
 <figure>
