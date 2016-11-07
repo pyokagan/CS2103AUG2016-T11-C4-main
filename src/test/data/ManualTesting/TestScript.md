@@ -47,13 +47,13 @@ Steps no. | Steps | Test Data |  ExpectedResult
 
 TestCase ID: TC003 <br>
 Title : The Flexibility of adding a task,event ,deadline <br>
-Description : Tester should be able to add a task without following a rigid format and natural date language <br>
+Description : Tester should be able to add a task without following a rigid format <br>
 Assumption : TC002 has been tested and Tester are familiar with the format of adding atask <br>
 
 Steps no. | Steps | Test Data | ExpectedResult
 --- | :---------------- | :---------------- | :----------------
 1 | Add a floating task using the test data | add "very flexible" | the task should be added and highlighted under 'Floating Task' given a default priority of 0.
-2 | Add a deadline | add cs2103Report 10pm | the dealdine should be added and highlighted under 'Deadline'
+2 | Add a deadline | add cs2103Report 10pm | the deadline should be added and highlighted under 'Deadline'
 3 | Add a event | add "picnic with professor" tdy 11pm to tmr | the event should be added and highlighted under 'Event'.
 
 TestCase ID : TC004 <br>
