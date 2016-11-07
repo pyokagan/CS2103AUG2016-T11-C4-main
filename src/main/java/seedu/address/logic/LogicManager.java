@@ -67,14 +67,20 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private void updateConfigStorage(Config oldConfig) throws IOException {
         final ReadOnlyConfig newConfig = model.getConfig();
+        if (!oldConfig.getTaskBookFilePath().equals(newConfig.getTaskBookFilePath())) {
+            logger.info("Task book file path changed, moving task book");
+            try {
+                storage.moveTaskBook(newConfig.getTaskBookFilePath());
+            } catch (IOException e) {
+                // Recover by reverting the task book path
+                model.setTaskBookFilePath(oldConfig.getTaskBookFilePath());
+                throw e;
+            }
+        }
+
         if (!oldConfig.equals(newConfig)) {
             logger.info("Config changed, saving to file");
             storage.saveConfig(newConfig);
-        }
-
-        if (!oldConfig.getTaskBookFilePath().equals(newConfig.getTaskBookFilePath())) {
-            logger.info("Task book file path changed, moving task book");
-            storage.moveTaskBook(newConfig.getTaskBookFilePath());
         }
     }
 

@@ -28,7 +28,7 @@ public class StatusBarFooterTest extends GuiTest {
 
     @Override
     protected Parent getRootNode() {
-        statusBarFooter = new StatusBarFooter("save/location", model);
+        statusBarFooter = new StatusBarFooter(model);
         return statusBarFooter.getRoot();
     }
 
@@ -43,7 +43,7 @@ public class StatusBarFooterTest extends GuiTest {
     public void constructor() {
         assertEquals("Total number of tasks in Task Tracker: 0", taskCounter.getText());
         assertEquals("Not updated yet in this session", syncStatus.getText());
-        assertEquals("./save/location", saveLocationStatus.getText());
+        assertEquals("data/taskbook.json", saveLocationStatus.getText());
     }
 
 }

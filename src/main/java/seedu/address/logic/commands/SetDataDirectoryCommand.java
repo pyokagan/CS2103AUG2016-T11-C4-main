@@ -22,7 +22,7 @@ public class SetDataDirectoryCommand implements Command {
     @Override
     public CommandResult execute(Model model) {
         final File newTaskBookFile = new File(newDir, "taskbook.json");
-        model.setTaskBookFilePath(newTaskBookFile.getAbsolutePath());
+        model.setTaskBookFilePath(newTaskBookFile.getPath());
         model.setTaskSelect(Optional.empty());
         return new CommandResult(String.format(MESSAGE_CHANGE, newDir.getAbsolutePath()));
     }
