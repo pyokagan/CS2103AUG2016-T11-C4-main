@@ -278,7 +278,7 @@ starting datetime and ending datetime respectively.
 These classes inherit from a common `Task` abstract base class, which contains
 their common fields.
 
-The task classes are all guranteed to be immutable POJOs.
+The task classes are all guranteed to be immutable POJOs (Plain Old Java Objects).
 
 #### The `TaskBook` class and `ReadOnlyTaskBook` interface
 
@@ -1343,10 +1343,10 @@ Priority | As a ... | I want to ...             | So that I can...
   <dt>Task</dt>
   <dd>A unit of information in the task book database. Each task has a name.</dd>
 
-  <dt>Event</dt>
+  <dt>Event task</dt>
   <dd>Task that has a start datetime and end datetime</dd>
 
-  <dt>Deadline</dt>
+  <dt>Deadline task</dt>
   <dd>Task that has an end datetime only.</dd>
 
   <dt>Floating task</dt>
@@ -1354,6 +1354,9 @@ Priority | As a ... | I want to ...             | So that I can...
 
   <dt>Time slot</dt>
   <dd>A time slot is referring to a period of time</dd>
+  
+  <dt>Priority</dt>
+  <dd>Represents how important a floating task is. It is a number from 0 to 5 inclusive, where 0 means lowest priority and 5 means highest priority.</dd>
 </dl>
 
 <!-- BEGIN LATEX
@@ -1369,17 +1372,20 @@ Priority | As a ... | I want to ...             | So that I can...
 \item[Task] \hfill \\
     A unit of information in the task book database. Each task has a name.
 
-\item[Event] \hfill \\
+\item[Event task] \hfill \\
     Task that has a start datetime and end datetime.
 
-\item[Deadline] \hfill \\
+\item[Deadline task] \hfill \\
     Task that has an end datetime only.
 
 \item[Floating task] \hfill \\
-    A task that has neither a start datetime nor end datetime.
+    A task that has neither a start datetime nor end datetime. It also has a priority.
 
 \item[Time slot] \hfill \\
     A time slot is referring to a period of time.
+    
+\item[Priority] \hfill \\
+    Represents how important a floating task is. It is a number from 0 to 5 inclusive, where 0 means lowest priority and 5 means highest priority.
 
 \end{description}
 
