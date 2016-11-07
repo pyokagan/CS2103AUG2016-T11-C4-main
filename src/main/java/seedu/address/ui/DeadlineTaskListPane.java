@@ -119,7 +119,9 @@ public class DeadlineTaskListPane extends UiPart<Pane> {
         @Override
         protected void updateItem(IndexedItem<DeadlineTask> deadlineTask, boolean empty) {
             super.updateItem(deadlineTask, empty);
-            final DeadlineTaskListCard card = new DeadlineTaskListCard(deadlineTask != null ? deadlineTask.getItem() : null, deadlineTask != null ? deadlineTask.getWorkingIndex() : 0);
+            final DeadlineTaskListCard card;
+            card = new DeadlineTaskListCard(deadlineTask != null ? deadlineTask.getItem() : null,
+                                            deadlineTask != null ? deadlineTask.getWorkingIndex() : 0);
             setGraphic(card.getRoot());
         }
     }

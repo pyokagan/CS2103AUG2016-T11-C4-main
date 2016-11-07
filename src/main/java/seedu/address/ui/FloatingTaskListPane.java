@@ -74,7 +74,9 @@ public class FloatingTaskListPane extends UiPart<Pane> {
         @Override
         protected void updateItem(IndexedItem<FloatingTask> floatingTask, boolean empty) {
             super.updateItem(floatingTask, empty);
-            final FloatingTaskListCard card = new FloatingTaskListCard(floatingTask != null ? floatingTask.getItem() : null, floatingTask != null ? floatingTask.getWorkingIndex() : 0);
+            final FloatingTaskListCard card;
+            card = new FloatingTaskListCard(floatingTask != null ? floatingTask.getItem() : null,
+                                            floatingTask != null ? floatingTask.getWorkingIndex() : 0);
             setGraphic(card.getRoot());
         }
     }

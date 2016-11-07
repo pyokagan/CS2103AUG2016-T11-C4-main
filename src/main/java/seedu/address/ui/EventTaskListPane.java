@@ -111,7 +111,9 @@ public class EventTaskListPane extends UiPart<Pane> {
         @Override
         protected void updateItem(IndexedItem<EventTask> eventTask, boolean empty) {
             super.updateItem(eventTask, empty);
-            final EventTaskListCard card = new EventTaskListCard(eventTask != null ? eventTask.getItem() : null, eventTask != null ? eventTask.getWorkingIndex() : 0);
+            final EventTaskListCard card;
+            card = new EventTaskListCard(eventTask != null ? eventTask.getItem() : null,
+                                         eventTask != null ? eventTask.getWorkingIndex() : 0);
             setGraphic(card.getRoot());
         }
     }
