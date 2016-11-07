@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>192</x>
-      <y>368</y>
+      <y>360</y>
       <w>112</w>
       <h>32</h>
     </coordinates>
@@ -17,7 +17,7 @@ Storage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>344</x>
-      <y>368</y>
+      <y>360</y>
       <w>112</w>
       <h>32</h>
     </coordinates>
@@ -28,7 +28,7 @@ Storage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>496</x>
-      <y>320</y>
+      <y>312</y>
       <w>112</w>
       <h>32</h>
     </coordinates>
@@ -40,7 +40,7 @@ ConfigStorage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>496</x>
-      <y>392</y>
+      <y>384</y>
       <w>112</w>
       <h>32</h>
     </coordinates>
@@ -52,7 +52,7 @@ TaskBookStorage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>648</x>
-      <y>320</y>
+      <y>312</y>
       <w>120</w>
       <h>32</h>
     </coordinates>
@@ -63,7 +63,7 @@ TaskBookStorage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>648</x>
-      <y>392</y>
+      <y>384</y>
       <w>120</w>
       <h>32</h>
     </coordinates>
@@ -74,29 +74,29 @@ TaskBookStorage</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>600</x>
-      <y>328</y>
+      <y>320</y>
       <w>64</w>
       <h>24</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;..</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>600</x>
-      <y>400</y>
+      <y>392</y>
       <w>64</w>
       <h>24</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;..</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>448</x>
-      <y>328</y>
+      <y>320</y>
       <w>64</w>
       <h>72</h>
     </coordinates>
@@ -107,7 +107,7 @@ TaskBookStorage</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>448</x>
-      <y>376</y>
+      <y>368</y>
       <w>64</w>
       <h>48</h>
     </coordinates>
@@ -118,18 +118,18 @@ TaskBookStorage</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>296</x>
-      <y>376</y>
+      <y>368</y>
       <w>64</w>
       <h>24</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;..</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>648</x>
-      <y>448</y>
+      <y>440</y>
       <w>120</w>
       <h>32</h>
     </coordinates>
@@ -140,7 +140,7 @@ TaskBookStorage</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>696</x>
-      <y>416</y>
+      <y>408</y>
       <w>24</w>
       <h>48</h>
     </coordinates>
@@ -151,7 +151,7 @@ TaskBookStorage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>816</x>
-      <y>392</y>
+      <y>384</y>
       <w>128</w>
       <h>24</h>
     </coordinates>
@@ -162,7 +162,7 @@ TaskBookStorage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>816</x>
-      <y>424</y>
+      <y>416</y>
       <w>128</w>
       <h>24</h>
     </coordinates>
@@ -173,7 +173,7 @@ TaskBookStorage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>816</x>
-      <y>456</y>
+      <y>448</y>
       <w>128</w>
       <h>24</h>
     </coordinates>
@@ -184,7 +184,7 @@ TaskBookStorage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>816</x>
-      <y>488</y>
+      <y>480</y>
       <w>128</w>
       <h>24</h>
     </coordinates>
@@ -195,7 +195,7 @@ TaskBookStorage</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>760</x>
-      <y>392</y>
+      <y>384</y>
       <w>72</w>
       <h>88</h>
     </coordinates>
@@ -206,7 +206,7 @@ TaskBookStorage</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>760</x>
-      <y>424</y>
+      <y>416</y>
       <w>72</w>
       <h>56</h>
     </coordinates>
@@ -217,7 +217,7 @@ TaskBookStorage</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>760</x>
-      <y>456</y>
+      <y>448</y>
       <w>72</w>
       <h>24</h>
     </coordinates>
@@ -228,7 +228,7 @@ TaskBookStorage</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>760</x>
-      <y>456</y>
+      <y>448</y>
       <w>72</w>
       <h>56</h>
     </coordinates>
@@ -239,7 +239,7 @@ TaskBookStorage</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>176</x>
-      <y>240</y>
+      <y>232</y>
       <w>776</w>
       <h>280</h>
     </coordinates>
@@ -253,7 +253,7 @@ fg=gray</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>144</x>
-      <y>376</y>
+      <y>368</y>
       <w>64</w>
       <h>24</h>
     </coordinates>
@@ -264,7 +264,7 @@ fg=gray</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>648</x>
-      <y>264</y>
+      <y>256</y>
       <w>120</w>
       <h>32</h>
     </coordinates>
@@ -275,7 +275,7 @@ fg=gray</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>696</x>
-      <y>288</y>
+      <y>280</y>
       <w>24</w>
       <h>48</h>
     </coordinates>
@@ -286,7 +286,7 @@ fg=gray</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>760</x>
-      <y>264</y>
+      <y>256</y>
       <w>72</w>
       <h>40</h>
     </coordinates>
@@ -297,7 +297,7 @@ fg=gray</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>816</x>
-      <y>264</y>
+      <y>256</y>
       <w>128</w>
       <h>24</h>
     </coordinates>
@@ -308,7 +308,7 @@ fg=gray</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>816</x>
-      <y>296</y>
+      <y>288</y>
       <w>128</w>
       <h>24</h>
     </coordinates>
@@ -319,7 +319,7 @@ fg=gray</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>760</x>
-      <y>280</y>
+      <y>272</y>
       <w>72</w>
       <h>40</h>
     </coordinates>

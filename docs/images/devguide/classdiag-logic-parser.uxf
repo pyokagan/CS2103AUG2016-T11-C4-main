@@ -363,8 +363,7 @@
       <w>128</w>
       <h>24</h>
     </coordinates>
-    <panel_attributes>fg=blue
-IndexParser</panel_attributes>
+    <panel_attributes>IndexParser</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -414,8 +413,7 @@ Level 3: Individual argument type parsers</panel_attributes>
       <w>128</w>
       <h>24</h>
     </coordinates>
-    <panel_attributes>fg=#386d28
-TaskPredicateParser</panel_attributes>
+    <panel_attributes>TaskPredicateParser</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -426,8 +424,7 @@ TaskPredicateParser</panel_attributes>
       <w>320</w>
       <h>88</h>
     </coordinates>
-    <panel_attributes>fg=#386d28
-lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;90.0;310.0;90.0;330.0;10.0;380.0;10.0</additional_attributes>
   </element>
   <element>
@@ -471,8 +468,7 @@ lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
       <w>96</w>
       <h>64</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-fg=blue</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;60.0;60.0;60.0;80.0;10.0;100.0;10.0</additional_attributes>
   </element>
   <element>
@@ -483,8 +479,7 @@ fg=blue</panel_attributes>
       <w>96</w>
       <h>104</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-fg=blue</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;110.0;60.0;110.0;80.0;10.0;100.0;10.0</additional_attributes>
   </element>
   <element>
@@ -495,8 +490,7 @@ fg=blue</panel_attributes>
       <w>96</w>
       <h>136</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-fg=blue</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;150.0;60.0;150.0;80.0;10.0;100.0;10.0</additional_attributes>
   </element>
   <element>
@@ -507,8 +501,7 @@ fg=blue</panel_attributes>
       <w>96</w>
       <h>168</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-fg=blue</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;190.0;60.0;190.0;80.0;10.0;100.0;10.0</additional_attributes>
   </element>
   <element>
@@ -519,8 +512,7 @@ fg=blue</panel_attributes>
       <w>96</w>
       <h>192</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-fg=blue</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;220.0;60.0;220.0;80.0;10.0;100.0;10.0</additional_attributes>
   </element>
   <element>
@@ -531,8 +523,7 @@ fg=blue</panel_attributes>
       <w>96</w>
       <h>224</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-fg=blue</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;</panel_attributes>
     <additional_attributes>10.0;260.0;60.0;260.0;80.0;10.0;100.0;10.0</additional_attributes>
   </element>
 </diagram>
