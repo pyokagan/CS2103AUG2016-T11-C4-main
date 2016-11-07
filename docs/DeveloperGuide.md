@@ -34,7 +34,7 @@ Ready to dive in? Let's get started!
 
 ## Setting up
 
-The first thing to do is to set up a copy of our code on your computer.
+The first thing to do is to set up a copy of our code on your development machine.
 
 ### Prerequisites
 
