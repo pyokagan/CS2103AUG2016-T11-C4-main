@@ -1,10 +1,9 @@
 package seedu.address.ui;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -34,7 +33,6 @@ public class HelpWindowTest extends FxRobot {
             return helpWindow.getStage();
         });
         FxToolkit.showStage();
-        //webView = lookup("#webView").query();
     }
 
     @After
