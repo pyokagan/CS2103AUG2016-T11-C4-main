@@ -36,7 +36,7 @@ public class FloatingTaskListPaneTest extends FxRobot {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupSceneRoot(() -> {
-            pane = new FloatingTaskListPane(model.getFloatingTaskList());
+            pane = new FloatingTaskListPane(model);
             return pane.getRoot();
         });
         FxToolkit.showStage();

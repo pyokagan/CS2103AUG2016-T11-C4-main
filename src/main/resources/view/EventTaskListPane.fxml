@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
 <?import de.jensd.fx.glyphs.fontawesome.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css" minHeight="0">
-    <Label styleClass="header">
-        <graphic><FontAwesomeIconView glyphName="CALENDAR" /></graphic>
-        <text>Events</text>
-    </Label>
+	<HBox>
+	    <Label styleClass="header">
+	        <graphic><FontAwesomeIconView glyphName="CALENDAR" /></graphic>
+	        <text>Events</text>
+	    </Label>
+    	<Label styleClass="headerLabel" fx:id="listedEventCounter" wrapText="true" />
+    </HBox>
+    <HBox spacing="30" alignment="CENTER_LEFT">
+    	<Label styleClass="label" fx:id="todayUnfinishedEventCounter" wrapText="true" />
+    	<Label fx:id="unfinishedEventCounter" wrapText="true" />
+   	</HBox>
     <ListView fx:id="eventTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>
 

@@ -36,7 +36,7 @@ public class DeadlineTaskListPaneTest extends FxRobot {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupSceneRoot(() -> {
-            pane = new DeadlineTaskListPane(model.getDeadlineTaskList());
+            pane = new DeadlineTaskListPane(model);
             return pane.getRoot();
         });
         FxToolkit.showStage();

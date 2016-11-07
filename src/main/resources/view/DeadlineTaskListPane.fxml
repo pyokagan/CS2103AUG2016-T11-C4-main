@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
 <?import de.jensd.fx.glyphs.fontawesome.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
-    <Label styleClass="header">
-        <graphic><FontAwesomeIconView glyphName="CLOCK_ALT" /></graphic>
-        <text>Deadlines</text>
-    </Label>
+	<HBox>
+	    <Label styleClass="header">
+	        <graphic><FontAwesomeIconView glyphName="CLOCK_ALT" /></graphic>
+	        <text>Deadlines</text>
+	    </Label>
+   	 	<Label styleClass="headerLabel" fx:id="listedDeadlineCounter" wrapText="true" />
+    </HBox>
+    <HBox spacing="30" alignment="CENTER_LEFT">
+  		<Label fx:id="todayUnfinishedDeadlineCounter" wrapText="true" />
+   	 	<Label fx:id="overdueDeadlineCounter" wrapText="true" />
+   	 	<Label fx:id="unfinishedDeadlineCounter" wrapText="true" />
+    </HBox>
     <ListView fx:id="deadlineTaskListView" VBox.vgrow="ALWAYS" minHeight="0" />
 </VBox>
