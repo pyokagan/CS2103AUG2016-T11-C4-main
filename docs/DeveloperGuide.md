@@ -22,7 +22,7 @@ command line interface.
 
 Are you a newcomer to our development team? Or just interested in understanding
 how our application works under the hood? Well, this guide is just for you! This
-development guide aims to quickly familiarise you with the TaskTracker
+development guide aims to quickly familiarize you with the TaskTracker
 code base. It will give you an overview of the code architecture, as well as
 its various components and how they all interact with each other. This guide
 will also show you how to accomplish common development tasks, so you can fully
