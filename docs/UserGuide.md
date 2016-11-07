@@ -2,7 +2,40 @@
 
 <!-- BEGIN GITHUB -->
 
-[TOC]
+**Table of Contents**  
+- [User Guide](#)
+	- [About](#)
+	- [Quick Start](#)
+		- [Installing](#)
+		- [Launch](#)
+		- [Using the Interface](#)
+	- [Some points to note](#)
+		- [Special Time Representation](#)
+		- [Date Format](#)
+		- [Time Format](#)
+- [How to...](#)
+	- [Basic Features](#)
+		- [Add Floating Task](#)
+		- [Add Deadline Task](#)
+		- [Add Events](#)
+		- [Delete Task](#)
+		- [Edit a Floating Task](#)
+		- [Edit a Deadline](#)
+		- [Edit an Event](#)
+		- [List](#)
+		- [Mark Task as Finished](#)
+		- [Mark Tasks as Unfinished](#)
+		- [Help](#)
+	- [Special Features](#)
+		- [Clear](#)
+		- [Undo](#)
+		- [Redo](#)
+		- [Quick Pop Up](#)
+		- [Find by keywords](#)
+		- [Auto Complete](#)
+		- [Set data storage directory](#)
+		- [Congratulations! You have officially finished learning task tracker. Take on this challenge: Mark learn task tracker as finished.](#)
+	- [Command Summary](#)
 
 <!-- END GITHUB -->
 
