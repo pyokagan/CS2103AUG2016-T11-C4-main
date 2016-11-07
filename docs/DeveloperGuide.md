@@ -173,7 +173,7 @@ Each of the four components:
 For example, the `Logic` component defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.
 
-The sections below give more details of each component.
+In the next few sections, we will take a look at each component.
 
 ### Model component
 
@@ -561,7 +561,7 @@ The application of the Single Responsibility Principle in the parsing component
 brings several benefits. Firstly, it is extremely easy to unit test each
 individual parser. Secondly, this approach is also very DRY (Don't repeat
 yourself) -- each piece of parsing logic has a single definitive source. For
-example, if we wanted to add a new kind of `TaskPredicate`, all we need to do
+example, if you wanted to add a new kind of `TaskPredicate`, all you need to do
 is to modify `TaskPredicateParser` and all parsers will immediately recognize
 the task predicate name.
 
@@ -612,8 +612,7 @@ public class HelloWorldParser implements Parser<Command> {
 }
 ```
 
-This parser can now actually be used with `LogicManager` by constructing it
-with:
+You can now actually use this parser with `LogicManager` by constructing it with:
 ```java
 new LogicManager(model, storage, new HelloWorldParser());
 ```
@@ -677,7 +676,7 @@ Note that these classes all take a `Parser<? extends T>` in their constructors
 -- these classes will call the specified parser to parse the argument/flag into
 the type of object that you want.
 
-For instance, let's say we want to parse the input format of the form:
+For instance, let's say you want to parse the input format of the form:
 ```
 NAME_ARG [p-PRIORITY]
 ```
@@ -696,7 +695,7 @@ We first break down the arguments and flags into their individual types:
   priority. We can parse that with `PriorityParser` which will return a
   `Priority`.
 
-We can thus piece together the `CommandLineParser.Argument<T>` and
+You can thus piece together the `CommandLineParser.Argument<T>` and
 `CommandLineParser.OptionalFlag<T>` like this:
 
 ```java
@@ -706,14 +705,14 @@ private final CommandLineParser.OptionalFlag<Priority> priorityFlag =
         new CommandLineParser.OptionalFlag<>("p-", "PRIORITY", new PriorityParser());
 ```
 
-And then we can build our `CommandLineParser` like this:
+And then build your `CommandLineParser` like this:
 ```java
 private final CommandLineParser cmdParser = new CommandLineParser()
                                                 .addArgument(nameArg)
                                                 .putFlag(priorityFlag);
 ```
 
-Now, with the input string, all we need to do is to call:
+Now, with the input string, all you need to do is to call:
 ```java
 cmdParser.parse("\"Learn Task Tracker\" p-4");
 ```
@@ -778,7 +777,8 @@ With the help of `OverloadParser`, we can accomplish just that, separating the p
 parser which can parse the input. Otherwise, it will format a nice error message describing to
 the user what went wrong for each of them.
 
-In `AddTaskParser.java`, we construct the `OverloadParser` as follows:
+So, following the example of the `add` command (`AddTaskParser.java`), you can construct an
+`OverloadParser` as follows:
 ```java
         overloadParser = new OverloadParser<AddTaskCommand>()
                             .addParser("Add an event", new AddEventParser(referenceDateTime))
@@ -786,7 +786,7 @@ In `AddTaskParser.java`, we construct the `OverloadParser` as follows:
                             .addParser("Add a floating task", new AddFloatingTaskParser());
 ```
 
-And then we can parse the input as:
+And then you can parse any input with:
 ```java
 overloadParser.parse(input);
 ```
@@ -862,8 +862,8 @@ For example, the `ResultDisplay` UI Part has its view defined in
 `src/main/resources/view/ResultDisplay.fxml` and its controller defined in
 `src/main/java/seedu/address/ui/ResultDisplay.java`.
 
-A simple view (`HelloWorldUiPart.fxml`) that contains a single "Hello World!"
-label could be implemented as follows:
+You can implement a simple view (`HelloWorldUiPart.fxml`) that contains a single
+"Hello World!" label with:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -876,7 +876,7 @@ label could be implemented as follows:
 </VBox>
 ```
 
-Its corresponding controller (`HelloWorldUiPart.java`) could be implemented as follows:
+You can then implement the corresponding controller (`HelloWorldUiPart.java`) with:
 ```java
 package seedu.address.ui;
 
@@ -897,8 +897,7 @@ superclass constructor. This tells the `UiPart` which FXML file to load.
 
 #### Initialising a UI Part
 
-UI Parts can be directly constructed. For instance, we could construct a new
-`HelloWorldUiPart` with:
+You can now construct your `HelloWorldUiPart`. `UiParts` can be directly constructed:
 ```java
 HelloWorldUiPart helloWorldUiPart = new HelloWorldUiPart();
 ```
@@ -914,7 +913,7 @@ the JavaFX Scene using multiple UI Parts.
 ## Configuration
 
 By default, the application stores its configuration in the `config.json` file.
-This file can be modified to change the configuration of the application.
+You can modify this file to change the configuration of the application.
 
 * `logLevel`: Sets the minimum required level for log messages to be
   output. See [Logging Levels](#logging-levels) for the list of available
