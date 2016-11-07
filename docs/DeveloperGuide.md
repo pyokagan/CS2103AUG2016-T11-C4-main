@@ -751,6 +751,32 @@ parser.parse(input);
 <figcaption><div align="center">Figure 2.X: OverloadParser class diagram</div></figcaption>
 </figure>
 
+Certain command syntaxes will have different parsing results depending on the input.
+For example, the `add` command has different arguments and flags for adding a floating task,
+adding a deadline task and adding a event task. While we could make `AddTaskParser` handle
+all of these command formats in the same class, it would be good if we could separate the
+parsing of these three different input formats into different classes so that they
+can be tested individually.
+
+With the help of `OverloadParser`, we can accomplish just that, separating the parsing of the
+`add` command into three classes: `AddEventParser`, `AddDeadlineParser` and `AddFloatingTaskParser`.
+`OverloadParser`, given an input, will try out these three parsers in order until it finds a
+parser which can parse the input. Otherwise, it will format a nice error message describing to
+the user what went wrong for each of them.
+
+In `AddTaskParser.java`, we construct the `OverloadParser` as follows:
+```java
+        overloadParser = new OverloadParser<AddTaskCommand>()
+                            .addParser("Add an event", new AddEventParser(referenceDateTime))
+                            .addParser("Add a deadline", new AddDeadlineParser(referenceDateTime))
+                            .addParser("Add a floating task", new AddFloatingTaskParser());
+```
+
+And then we can parse the input as:
+```java
+overloadParser.parse(input);
+```
+
 #### The `Command` interface
 
 <figure>
